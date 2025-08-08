@@ -1,105 +1,114 @@
 using System.Text;
 using System.Text.Json;
+using NexAI.Config;
+using Qdrant.Client;
+using Qdrant.Client.Grpc;
+using Spectre.Console;
 
 namespace NexAI.Zendesk;
 
-public class ZendeskIssueStore()
+public class ZendeskIssueStore(Options options)
 {
-    private readonly List<ZendeskIssue> _issues = [];
+    private const string CollectionName = "nexai.zendesk_issues";
+    private readonly AI _ai = new(options);
+    private readonly QdrantOptions _qdrantOptions = options.Get<QdrantOptions>();
     private bool _initialized;
 
-    public ZendeskIssue? GetIssueByIdAsync(string id)
+    public async Task<ZendeskIssue?> GetIssueByNumber(string number)
     {
-        Initialize();
-        return _issues.FirstOrDefault(i => i.Id == id);
+        using var client = new QdrantClient(_qdrantOptions.Host, _qdrantOptions.Port);
+        var response = await client.ScrollAsync(CollectionName, filter: new()
+        {
+            Must =
+            {
+                new Condition
+                {
+                    Field = new()
+                    {
+                        Key = "number",
+                        Match = new() { Text = number }
+                    }
+                }
+            }
+        }, limit: 1);
+        
+        if (response.Result.Count == 0)
+            return null;
+
+        var point = response.Result.First();
+        return new(
+            point.Payload["number"].StringValue,
+            point.Payload["title"].StringValue,
+            point.Payload["description"].StringValue,
+            JsonSerializer.Deserialize<ZendeskIssue.ZendeskIssueMessage[]>(point.Payload["messages"].StringValue) ?? []
+        );
     }
 
-    public List<SimilarIssue>? FindSimilarIssuesById(string issueId)
+    public async Task<List<SimilarIssue>> FindSimilarIssuesByNumber(string issueId)
     {
-        Initialize();
-        var targetIssue = GetIssueByIdAsync(issueId)!;
+        var targetIssue = await GetIssueByNumber(issueId);
+        if (targetIssue == null)
+            return [];
+
         var targetText = BuildIssueText(targetIssue);
-        var similarIssues = new List<SimilarIssue>();
-
-        foreach (var issue in _issues.Where(i => i.Id != issueId))
-        {
-            var issueText = BuildIssueText(issue);
-            var similarity = CalculateSimilarity(targetText, issueText);
-            similarIssues.Add(new(
-                issue.Id,
-                issue.Title,
-                similarity
-            ));
-        }
-
-        return similarIssues
-            .OrderByDescending(similarIssue => similarIssue.Similarity)
-            .Take(10)
-            .ToList();
+        return (await FindSimilarIssuesByPhrase(targetText, 11))
+            .Where(issue => issue.Number != issueId)
+            .ToList();;
     }
-    
-    public List<SimilarIssue>? FindSimilarIssuesByPhrase(string phrase)
+
+    public async Task<List<SimilarIssue>> FindSimilarIssuesByPhrase(string text, ulong limit)
     {
-        Initialize();
-        var similarIssues = new List<SimilarIssue>();
+        using var client = new QdrantClient(_qdrantOptions.Host, _qdrantOptions.Port);
+        var embedding = await _ai.GenerateEmbedding(text);
+        var response = await client.SearchAsync(CollectionName, embedding, limit: limit);
 
-        foreach (var issue in _issues)
-        {
-            var issueText = BuildIssueText(issue);
-            var similarity = CalculateSimilarity(phrase, issueText);
-            similarIssues.Add(new(
-                issue.Id,
-                issue.Title,
-                similarity
-            ));
-        }
-
-        return similarIssues
-            .OrderByDescending(similarIssue => similarIssue.Similarity)
-            .Take(10)
+        return response
+            .Select(point => new SimilarIssue(
+                point.Payload["number"].StringValue,
+                point.Payload["title"].StringValue,
+                point.Score)
+            )
             .ToList();
     }
 
     private static string BuildIssueText(ZendeskIssue issue)
     {
         var textBuilder = new StringBuilder();
-
-        // Add title
         textBuilder.AppendLine(issue.Title ?? "");
         textBuilder.AppendLine(issue.Description ?? "");
-
-        // Add messages in chronological order
-        if (issue.Messages != null)
+        foreach (var message in issue.Messages.OrderBy(m => m.CreatedAt))
         {
-            foreach (var message in issue.Messages.OrderBy(m => m.CreatedAt))
-            {
-                textBuilder.AppendLine(message.Content ?? "");
-            }
+            textBuilder.AppendLine(message.Content ?? "");
         }
 
-        return textBuilder.ToString().ToLowerInvariant();
+        return textBuilder.ToString();
     }
 
-    private static double CalculateSimilarity(string text1, string text2)
+    public async Task Initialize()
     {
-        var words1 = text1.Split([' ', '\n', '\r', '\t'], StringSplitOptions.RemoveEmptyEntries).ToHashSet();
-        var words2 = text2.Split([' ', '\n', '\r', '\t'], StringSplitOptions.RemoveEmptyEntries).ToHashSet();
-
-        var intersection = words1.Intersect(words2).Count();
-        var union = words1.Union(words2).Count();
-
-        return union > 0 ? (double)intersection / union : 0;
+        if (!_initialized)
+        {
+            AnsiConsole.MarkupLine("[yellow]Initializing Zendesk issue store...[/]");
+            using var client = new QdrantClient(_qdrantOptions.Host, _qdrantOptions.Port);
+            if (!await client.CollectionExistsAsync(CollectionName))
+            {
+                await client.CreateCollectionAsync(CollectionName, new VectorParams { Size = 1536, Distance = Distance.Dot });
+                await PopulateSampleData();
+                AnsiConsole.MarkupLine("[green]Zendesk issue store initialized with sample data.[/]");
+            }
+            else
+            {
+                AnsiConsole.MarkupLine("[green]Zendesk issue store already initialized.[/]");
+            }
+            _initialized = true;
+        }
+        else
+        {
+            AnsiConsole.MarkupLine("[yellow]Zendesk issue store is already initialized.[/]");
+        }
     }
 
-    private void Initialize()
-    {
-        if (_initialized)
-            return;
-        PopulateSampleData();
-        _initialized = true;
-    }
-
-    private void PopulateSampleData()
+    private async Task PopulateSampleData()
     {
         var jsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Zendesk", "sample-issues.json");
         if (!File.Exists(jsonPath))
@@ -107,7 +116,7 @@ public class ZendeskIssueStore()
             throw new SomethingIsNotYesException($"Sample issues file not found at: {jsonPath}");
         }
 
-        var jsonContent = File.ReadAllText(jsonPath);
+        var jsonContent = await File.ReadAllTextAsync(jsonPath);
         var issues = JsonSerializer.Deserialize<ZendeskIssue[]>(jsonContent, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
@@ -117,6 +126,28 @@ public class ZendeskIssueStore()
             throw new SomethingIsNotYesException("Failed to deserialize sample issues from JSON");
         }
 
-        _issues.AddRange(issues);
+        using var client = new QdrantClient(_qdrantOptions.Host, _qdrantOptions.Port);
+        var points = new List<PointStruct>();
+
+        foreach (var issue in issues)
+        {
+            var issueText = BuildIssueText(issue);
+            var embedding = await _ai.GenerateEmbedding(issueText);
+            var point = new PointStruct
+            {
+                Id = Guid.NewGuid(),
+                Vectors = new() { Vector = embedding },
+                Payload =
+                {
+                    ["number"] = issue.Number,
+                    ["title"] = issue.Title,
+                    ["description"] = issue.Description,
+                    ["messages"] = JsonSerializer.Serialize(issue.Messages),
+                }
+            };
+            points.Add(point);
+        }
+
+        await client.UpsertAsync(CollectionName, points);
     }
 }

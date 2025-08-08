@@ -1,3 +1,3 @@
 namespace NexAI.Zendesk;
 
-public record SimilarIssue(string Id, string Title, double Similarity);
+public record SimilarIssue(string Number, string Title, double Similarity);

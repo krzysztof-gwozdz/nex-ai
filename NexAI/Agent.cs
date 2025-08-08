@@ -14,7 +14,7 @@ public class Agent
     private readonly OpenAIPromptExecutionSettings _openAIPromptExecutionSettings;
     private readonly ZendeskIssueStore _zendeskIssueStore;
 
-    public Agent(Options options)
+    public Agent(Options options, ZendeskIssueStore zendeskIssueStore)
     {
         var openAIOptions = options.Get<OpenAIOptions>();
         var builder = Kernel.CreateBuilder().AddOpenAIChatCompletion(openAIOptions.Model, openAIOptions.ApiKey);
@@ -24,7 +24,7 @@ public class Agent
         {
             FunctionChoiceBehavior = FunctionChoiceBehavior.Auto()
         };
-        _zendeskIssueStore = new();
+        _zendeskIssueStore = zendeskIssueStore;
     }
 
     public async Task StartConversation()
@@ -55,27 +55,27 @@ public class Agent
     {
         while (true)
         {
-            PrintAIMessage("Welcome to Similar Issues Search! Enter an issue ID to find similar issues. Type [bold]STOP[/] to exit.");
-            var userMessage = AnsiConsole.Prompt(new TextPrompt<string>("Issue ID > "));
+            PrintAIMessage("Welcome to Similar Issues Search! Enter an issue number to find similar issues. Type [bold]STOP[/] to exit.");
+            var userMessage = AnsiConsole.Prompt(new TextPrompt<string>("Issue number > "));
 
             if (userMessage.ToUpper() == "STOP")
                 return;
 
             if (string.IsNullOrWhiteSpace(userMessage))
             {
-                PrintAIMessage("Please enter a valid issue ID.");
+                PrintAIMessage("Please enter a valid issue number.");
                 continue;
             }
 
             try
             {
-                var targetIssue = _zendeskIssueStore.GetIssueByIdAsync(userMessage);
+                var targetIssue = await _zendeskIssueStore.GetIssueByNumber(userMessage);
                 if (targetIssue is null)
                 {
-                    PrintAIMessage($"[red]Issue with ID '{userMessage}' not found.[/]");
+                    PrintAIMessage($"[red]Issue with number '{userMessage}' not found.[/]");
                     continue;
                 }
-                var similarIssues = _zendeskIssueStore.FindSimilarIssuesById(userMessage);
+                var similarIssues = await _zendeskIssueStore.FindSimilarIssuesByNumber(userMessage);
                 PrintAIMessage($"[green]Found issue: {targetIssue.Title}[/]");
                 DisplaySimilarIssues(similarIssues);
             }
@@ -100,7 +100,7 @@ public class Agent
 
             try
             {
-                var similarIssues = _zendeskIssueStore.FindSimilarIssuesByPhrase(userMessage);
+                var similarIssues = await _zendeskIssueStore.FindSimilarIssuesByPhrase(userMessage, 10);
                 DisplaySimilarIssues(similarIssues);
             }catch (Exception ex)
             {
@@ -121,13 +121,13 @@ public class Agent
         {
             PrintAIMessage($"[bold]Found {similarIssues.Count} similar issues:[/]");
             var table = new Table()
-                .AddColumn("ID")
+                .AddColumn("Number")
                 .AddColumn("Title")
                 .AddColumn("Similarity Score");
             foreach (var issue in similarIssues)
             {
                 table.AddRow(
-                    issue.Id,
+                    issue.Number,
                     issue.Title,
                     $"{issue.Similarity:P1}"
                 );

@@ -1,6 +1,6 @@
 [
   {
-    "id": "1",
+    "number": "1",
     "title": "Riverty unavailable in selected shop",
     "description": "Issue reported in SV related to Klarna",
     "messages": [
@@ -57,7 +57,7 @@
     ]
   },
   {
-    "id": "2",
+    "number": "2",
     "title": "Shop integration error when using Google Pay",
     "description": "Issue reported in DA related to Credit card",
     "messages": [
@@ -139,7 +139,7 @@
     ]
   },
   {
-    "id": "3",
+    "number": "3",
     "title": "Refund stuck for over a week",
     "description": "Issue reported in DA related to Riverty",
     "messages": [
@@ -151,7 +151,7 @@
     ]
   },
   {
-    "id": "4",
+    "number": "4",
     "title": "Google Pay payment not showing in account",
     "description": "Issue reported in DA related to PayPal",
     "messages": [
@@ -188,7 +188,7 @@
     ]
   },
   {
-    "id": "5",
+    "number": "5",
     "title": "Refund stuck for over a week",
     "description": "Issue reported in SV related to Apple Pay",
     "messages": [
@@ -220,7 +220,7 @@
     ]
   },
   {
-    "id": "6",
+    "number": "6",
     "title": "Payment processed but shop did not confirm",
     "description": "Issue reported in EN related to Credit card",
     "messages": [
@@ -267,7 +267,7 @@
     ]
   },
   {
-    "id": "7",
+    "number": "7",
     "title": "Google Pay payment not showing in account",
     "description": "Issue reported in SV related to Google Pay",
     "messages": [
@@ -344,7 +344,7 @@
     ]
   },
   {
-    "id": "8",
+    "number": "8",
     "title": "Technical issue with Credit card payment gateway",
     "description": "Issue reported in EN related to Riverty",
     "messages": [
@@ -356,7 +356,7 @@
     ]
   },
   {
-    "id": "9",
+    "number": "9",
     "title": "PayPal payment not showing in account",
     "description": "Issue reported in SV related to Klarna",
     "messages": [
@@ -383,7 +383,7 @@
     ]
   },
   {
-    "id": "10",
+    "number": "10",
     "title": "Google Pay declined at checkout",
     "description": "Issue reported in DA related to PayPal",
     "messages": [
@@ -460,7 +460,7 @@
     ]
   },
   {
-    "id": "11",
+    "number": "11",
     "title": "Shop integration error when using Riverty",
     "description": "Issue reported in DA related to Klarna",
     "messages": [
@@ -497,7 +497,7 @@
     ]
   },
   {
-    "id": "12",
+    "number": "12",
     "title": "Delayed refund from shop using PayPal",
     "description": "Issue reported in EN related to Apple Pay",
     "messages": [
@@ -537,7 +537,7 @@
         "createdAt": "2024-01-13T21:00:00Z"
       },
       {
-        "content": "I was charged twice for the same order.",
+        "content": "I was charged twice for the same order. Pikachu.",
         "author": "support",
         "createdAt": "2024-01-13T23:00:00Z"
       },
@@ -567,14 +567,14 @@
         "createdAt": "2024-01-14T09:00:00Z"
       },
       {
-        "content": "Your payment has been processed successfully.",
+        "content": "Your payment has been processed successfully. Pikachu.",
         "author": "support",
         "createdAt": "2024-01-14T11:00:00Z"
       }
     ]
   },
   {
-    "id": "13",
+    "number": "13",
     "title": "Shop payment not working for PayPal",
     "description": "Issue reported in DA related to Credit card",
     "messages": [
@@ -616,7 +616,7 @@
     ]
   },
   {
-    "id": "14",
+    "number": "14",
     "title": "Refund stuck for over a week",
     "description": "Issue reported in SV related to Credit card",
     "messages": [
@@ -638,7 +638,7 @@
     ]
   },
   {
-    "id": "15",
+    "number": "15",
     "title": "Pending transaction not clearing",
     "description": "Issue reported in EN related to Apple Pay",
     "messages": [
@@ -685,7 +685,7 @@
     ]
   },
   {
-    "id": "16",
+    "number": "16",
     "title": "Apple Pay payment not showing in account",
     "description": "Issue reported in EN related to Riverty",
     "messages": [
@@ -732,7 +732,7 @@
     ]
   },
   {
-    "id": "17",
+    "number": "17",
     "title": "Problem completing transaction with Klarna",
     "description": "Issue reported in EN related to Klarna",
     "messages": [
@@ -809,7 +809,7 @@
     ]
   },
   {
-    "id": "18",
+    "number": "18",
     "title": "Order cancelled but payment still taken",
     "description": "Issue reported in DA related to Google Pay",
     "messages": [
@@ -866,7 +866,7 @@
     ]
   },
   {
-    "id": "19",
+    "number": "19",
     "title": "Unable to complete purchase via Klarna",
     "description": "Issue reported in DA related to PayPal",
     "messages": [
@@ -898,7 +898,7 @@
     ]
   },
   {
-    "id": "20",
+    "number": "20",
     "title": "Apple Pay payment not showing in account",
     "description": "Issue reported in DA related to Google Pay",
     "messages": [
@@ -980,7 +980,7 @@
     ]
   },
   {
-    "id": "21",
+    "number": "21",
     "title": "Overcharged when paying with Google Pay",
     "description": "Issue reported in SV related to PayPal",
     "messages": [
@@ -997,7 +997,7 @@
     ]
   },
   {
-    "id": "22",
+    "number": "22",
     "title": "Payment failed during checkout",
     "description": "Issue reported in EN related to PayPal",
     "messages": [
@@ -1079,7 +1079,7 @@
     ]
   },
   {
-    "id": "23",
+    "number": "23",
     "title": "Order cancelled but payment still taken",
     "description": "Issue reported in DA related to PayPal",
     "messages": [
@@ -1106,7 +1106,7 @@
     ]
   },
   {
-    "id": "24",
+    "number": "24",
     "title": "Shop integration error when using Klarna",
     "description": "Issue reported in DA related to Google Pay",
     "messages": [
@@ -1148,7 +1148,7 @@
     ]
   },
   {
-    "id": "25",
+    "number": "25",
     "title": "Delayed refund from shop using Google Pay",
     "description": "Issue reported in EN related to Riverty",
     "messages": [
@@ -1230,7 +1230,7 @@
     ]
   },
   {
-    "id": "26",
+    "number": "26",
     "title": "Double charge on Riverty",
     "description": "Issue reported in SV related to Apple Pay",
     "messages": [
@@ -1247,7 +1247,7 @@
     ]
   },
   {
-    "id": "27",
+    "number": "27",
     "title": "Payment processed but shop did not confirm",
     "description": "Issue reported in DA related to PayPal",
     "messages": [
@@ -1279,7 +1279,7 @@
     ]
   },
   {
-    "id": "28",
+    "number": "28",
     "title": "Chargeback request for unauthorized payment",
     "description": "Issue reported in EN related to Riverty",
     "messages": [
@@ -1301,8 +1301,8 @@
     ]
   },
   {
-    "id": "29",
-    "title": "Refund request not processed",
+    "number": "29",
+    "title": "Refund request not processed Pikachu.",
     "description": "Issue reported in EN related to Google Pay",
     "messages": [
       {
@@ -1321,12 +1321,12 @@
         "createdAt": "2024-06-27T13:00:00Z"
       },
       {
-        "content": "Why is Riverty not available in your app anymore?",
+        "content": "Why is Riverty not available in your app anymore? Pikachu.",
         "author": "support",
         "createdAt": "2024-06-27T15:00:00Z"
       },
       {
-        "content": "I tried 3 times and still can't pay with PayPal.",
+        "content": "I tried 3 times and still can't pay with PayPal. Pikachu.",
         "author": "customer",
         "createdAt": "2024-06-27T17:00:00Z"
       },
@@ -1336,7 +1336,7 @@
         "createdAt": "2024-06-27T19:00:00Z"
       },
       {
-        "content": "Can I change my payment method to Riverty?",
+        "content": "Can I change my payment method to Riverty? Pikachu.",
         "author": "customer",
         "createdAt": "2024-06-27T21:00:00Z"
       },
@@ -1383,7 +1383,7 @@
     ]
   },
   {
-    "id": "30",
+    "number": "30",
     "title": "Shop integration error when using Riverty",
     "description": "Issue reported in SV related to Klarna",
     "messages": [
@@ -1440,7 +1440,7 @@
     ]
   },
   {
-    "id": "31",
+    "number": "31",
     "title": "Payment processed but shop did not confirm",
     "description": "Issue reported in DA related to Apple Pay",
     "messages": [
@@ -1477,7 +1477,7 @@
     ]
   },
   {
-    "id": "32",
+    "number": "32",
     "title": "Unable to complete purchase via Riverty",
     "description": "Issue reported in EN related to Apple Pay",
     "messages": [
@@ -1524,7 +1524,7 @@
     ]
   },
   {
-    "id": "33",
+    "number": "33",
     "title": "Google Pay payment not showing in account",
     "description": "Issue reported in DA related to Mobile Pay",
     "messages": [
@@ -1546,7 +1546,7 @@
     ]
   },
   {
-    "id": "34",
+    "number": "34",
     "title": "Payment failed during checkout",
     "description": "Issue reported in EN related to Apple Pay",
     "messages": [
@@ -1558,7 +1558,7 @@
     ]
   },
   {
-    "id": "35",
+    "number": "35",
     "title": "PayPal unavailable in selected shop",
     "description": "Issue reported in DA related to Riverty",
     "messages": [
@@ -1570,7 +1570,7 @@
     ]
   },
   {
-    "id": "36",
+    "number": "36",
     "title": "Payment failed during checkout",
     "description": "Issue reported in SV related to Klarna",
     "messages": [
@@ -1582,7 +1582,7 @@
     ]
   },
   {
-    "id": "37",
+    "number": "37",
     "title": "Overcharged when paying with Credit card",
     "description": "Issue reported in EN related to Credit card",
     "messages": [
@@ -1629,7 +1629,7 @@
     ]
   },
   {
-    "id": "38",
+    "number": "38",
     "title": "Pending transaction not clearing",
     "description": "Issue reported in EN related to Credit card",
     "messages": [
@@ -1711,7 +1711,7 @@
     ]
   },
   {
-    "id": "39",
+    "number": "39",
     "title": "Chargeback request for unauthorized payment",
     "description": "Issue reported in SV related to Credit card",
     "messages": [
@@ -1793,7 +1793,7 @@
     ]
   },
   {
-    "id": "40",
+    "number": "40",
     "title": "Unable to complete purchase via Apple Pay",
     "description": "Issue reported in EN related to Credit card",
     "messages": [
@@ -1825,7 +1825,7 @@
     ]
   },
   {
-    "id": "41",
+    "number": "41",
     "title": "Problem completing transaction with Google Pay",
     "description": "Issue reported in SV related to Google Pay",
     "messages": [
@@ -1882,8 +1882,8 @@
     ]
   },
   {
-    "id": "42",
-    "title": "Delayed refund from shop using PayPal",
+    "number": "42",
+    "title": "Delayed refund from shop using PayPal Pikachu.",
     "description": "Issue reported in EN related to Klarna",
     "messages": [
       {
@@ -1934,7 +1934,7 @@
     ]
   },
   {
-    "id": "43",
+    "number": "43",
     "title": "Pending transaction not clearing",
     "description": "Issue reported in EN related to Riverty",
     "messages": [
@@ -2011,7 +2011,7 @@
     ]
   },
   {
-    "id": "44",
+    "number": "44",
     "title": "PayPal payment not showing in account",
     "description": "Issue reported in SV related to Klarna",
     "messages": [
@@ -2048,7 +2048,7 @@
     ]
   },
   {
-    "id": "45",
+    "number": "45",
     "title": "Mobile Pay unavailable in selected shop",
     "description": "Issue reported in EN related to Riverty",
     "messages": [
@@ -2110,7 +2110,7 @@
     ]
   },
   {
-    "id": "46",
+    "number": "46",
     "title": "Chargeback request for unauthorized payment",
     "description": "Issue reported in SV related to Klarna",
     "messages": [
@@ -2127,7 +2127,7 @@
     ]
   },
   {
-    "id": "47",
+    "number": "47",
     "title": "Overcharged when paying with Klarna",
     "description": "Issue reported in EN related to Google Pay",
     "messages": [
@@ -2149,7 +2149,7 @@
     ]
   },
   {
-    "id": "48",
+    "number": "48",
     "title": "Overcharged when paying with Google Pay",
     "description": "Issue reported in DA related to Credit card",
     "messages": [
@@ -2171,7 +2171,7 @@
     ]
   },
   {
-    "id": "49",
+    "number": "49",
     "title": "Shop payment not working for Apple Pay",
     "description": "Issue reported in SV related to Mobile Pay",
     "messages": [
@@ -2253,7 +2253,7 @@
     ]
   },
   {
-    "id": "50",
+    "number": "50",
     "title": "Apple Pay payment not showing in account",
     "description": "Issue reported in DA related to Credit card",
     "messages": [
@@ -2325,7 +2325,7 @@
     ]
   },
   {
-    "id": "51",
+    "number": "51",
     "title": "Chargeback request for unauthorized payment",
     "description": "Issue reported in DA related to Google Pay",
     "messages": [
@@ -2377,7 +2377,7 @@
     ]
   },
   {
-    "id": "52",
+    "number": "52",
     "title": "Technical issue with Apple Pay payment gateway",
     "description": "Issue reported in DA related to Mobile Pay",
     "messages": [
@@ -2414,7 +2414,7 @@
     ]
   },
   {
-    "id": "53",
+    "number": "53",
     "title": "Shop integration error when using Riverty",
     "description": "Issue reported in DA related to Mobile Pay",
     "messages": [
@@ -2436,7 +2436,7 @@
     ]
   },
   {
-    "id": "54",
+    "number": "54",
     "title": "Shop integration error when using Mobile Pay",
     "description": "Issue reported in DA related to Credit card",
     "messages": [
@@ -2498,7 +2498,7 @@
     ]
   },
   {
-    "id": "55",
+    "number": "55",
     "title": "Refund request not processed",
     "description": "Issue reported in EN related to Riverty",
     "messages": [
@@ -2560,7 +2560,7 @@
     ]
   },
   {
-    "id": "56",
+    "number": "56",
     "title": "Credit card declined at checkout",
     "description": "Issue reported in DA related to Google Pay",
     "messages": [
@@ -2637,7 +2637,7 @@
     ]
   },
   {
-    "id": "57",
+    "number": "57",
     "title": "Refund request not processed",
     "description": "Issue reported in EN related to Credit card",
     "messages": [
@@ -2664,7 +2664,7 @@
     ]
   },
   {
-    "id": "58",
+    "number": "58",
     "title": "Refund request not processed",
     "description": "Issue reported in DA related to Apple Pay",
     "messages": [
@@ -2706,7 +2706,7 @@
     ]
   },
   {
-    "id": "59",
+    "number": "59",
     "title": "Shop payment not working for Mobile Pay",
     "description": "Issue reported in SV related to Klarna",
     "messages": [
@@ -2733,7 +2733,7 @@
     ]
   },
   {
-    "id": "60",
+    "number": "60",
     "title": "Double charge on Mobile Pay",
     "description": "Issue reported in DA related to Klarna",
     "messages": [
@@ -2785,7 +2785,7 @@
     ]
   },
   {
-    "id": "61",
+    "number": "61",
     "title": "Payment failed during checkout",
     "description": "Issue reported in SV related to Google Pay",
     "messages": [
@@ -2815,7 +2815,7 @@
         "createdAt": "2024-06-09T17:00:00Z"
       },
       {
-        "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
+        "content": "Jag begärde återbetalning förra veckan men har inte fått den än. Pikachu.",
         "author": "support",
         "createdAt": "2024-06-09T19:00:00Z"
       },
@@ -2837,7 +2837,7 @@
     ]
   },
   {
-    "id": "62",
+    "number": "62",
     "title": "Unable to complete purchase via Mobile Pay",
     "description": "Issue reported in SV related to Google Pay",
     "messages": [
@@ -2894,7 +2894,7 @@
     ]
   },
   {
-    "id": "63",
+    "number": "63",
     "title": "Double charge on Mobile Pay",
     "description": "Issue reported in SV related to Credit card",
     "messages": [
@@ -2941,7 +2941,7 @@
     ]
   },
   {
-    "id": "64",
+    "number": "64",
     "title": "Refund request not processed",
     "description": "Issue reported in DA related to Riverty",
     "messages": [
@@ -3013,7 +3013,7 @@
     ]
   },
   {
-    "id": "65",
+    "number": "65",
     "title": "Chargeback request for unauthorized payment",
     "description": "Issue reported in DA related to Riverty",
     "messages": [
@@ -3075,7 +3075,7 @@
     ]
   },
   {
-    "id": "66",
+    "number": "66",
     "title": "Payment failed during checkout",
     "description": "Issue reported in SV related to Google Pay",
     "messages": [
@@ -3092,7 +3092,7 @@
     ]
   },
   {
-    "id": "67",
+    "number": "67",
     "title": "Payment failed during checkout",
     "description": "Issue reported in EN related to Riverty",
     "messages": [
@@ -3134,7 +3134,7 @@
     ]
   },
   {
-    "id": "68",
+    "number": "68",
     "title": "Chargeback request for unauthorized payment",
     "description": "Issue reported in SV related to Credit card",
     "messages": [
@@ -3161,7 +3161,7 @@
     ]
   },
   {
-    "id": "69",
+    "number": "69",
     "title": "Payment failed during checkout",
     "description": "Issue reported in EN related to Riverty",
     "messages": [
@@ -3223,7 +3223,7 @@
     ]
   },
   {
-    "id": "70",
+    "number": "70",
     "title": "Klarna payment not showing in account",
     "description": "Issue reported in EN related to Klarna",
     "messages": [
@@ -3245,7 +3245,7 @@
     ]
   },
   {
-    "id": "71",
+    "number": "71",
     "title": "Double charge on Credit card",
     "description": "Issue reported in SV related to Credit card",
     "messages": [
@@ -3267,7 +3267,7 @@
     ]
   },
   {
-    "id": "72",
+    "number": "72",
     "title": "Mobile Pay declined at checkout",
     "description": "Issue reported in SV related to Klarna",
     "messages": [
@@ -3324,7 +3324,7 @@
     ]
   },
   {
-    "id": "73",
+    "number": "73",
     "title": "Klarna payment not showing in account",
     "description": "Issue reported in EN related to Riverty",
     "messages": [
@@ -3391,7 +3391,7 @@
     ]
   },
   {
-    "id": "74",
+    "number": "74",
     "title": "Delayed refund from shop using PayPal",
     "description": "Issue reported in SV related to Klarna",
     "messages": [
@@ -3468,7 +3468,7 @@
     ]
   },
   {
-    "id": "75",
+    "number": "75",
     "title": "Refund request not processed",
     "description": "Issue reported in DA related to Google Pay",
     "messages": [
@@ -3495,7 +3495,7 @@
     ]
   },
   {
-    "id": "76",
+    "number": "76",
     "title": "Technical issue with PayPal payment gateway",
     "description": "Issue reported in SV related to Google Pay",
     "messages": [
@@ -3572,7 +3572,7 @@
     ]
   },
   {
-    "id": "77",
+    "number": "77",
     "title": "Chargeback request for unauthorized payment",
     "description": "Issue reported in EN related to Mobile Pay",
     "messages": [
@@ -3619,7 +3619,7 @@
     ]
   },
   {
-    "id": "78",
+    "number": "78",
     "title": "Unable to complete purchase via Riverty",
     "description": "Issue reported in DA related to Riverty",
     "messages": [
@@ -3691,7 +3691,7 @@
     ]
   },
   {
-    "id": "79",
+    "number": "79",
     "title": "Payment failed during checkout",
     "description": "Issue reported in DA related to Google Pay",
     "messages": [
@@ -3763,7 +3763,7 @@
     ]
   },
   {
-    "id": "80",
+    "number": "80",
     "title": "Chargeback request for unauthorized payment",
     "description": "Issue reported in SV related to Google Pay",
     "messages": [
@@ -3810,7 +3810,7 @@
     ]
   },
   {
-    "id": "81",
+    "number": "81",
     "title": "Overcharged when paying with Riverty",
     "description": "Issue reported in SV related to Mobile Pay",
     "messages": [
@@ -3857,7 +3857,7 @@
     ]
   },
   {
-    "id": "82",
+    "number": "82",
     "title": "Refund request not processed",
     "description": "Issue reported in SV related to Klarna",
     "messages": [
@@ -3874,7 +3874,7 @@
     ]
   },
   {
-    "id": "83",
+    "number": "83",
     "title": "Google Pay unavailable in selected shop",
     "description": "Issue reported in SV related to PayPal",
     "messages": [
@@ -3891,7 +3891,7 @@
     ]
   },
   {
-    "id": "84",
+    "number": "84",
     "title": "Google Pay declined at checkout",
     "description": "Issue reported in DA related to Apple Pay",
     "messages": [
@@ -3918,7 +3918,7 @@
     ]
   },
   {
-    "id": "85",
+    "number": "85",
     "title": "PayPal payment not showing in account",
     "description": "Issue reported in EN related to Riverty",
     "messages": [
@@ -3975,7 +3975,7 @@
     ]
   },
   {
-    "id": "86",
+    "number": "86",
     "title": "Google Pay unavailable in selected shop",
     "description": "Issue reported in SV related to Google Pay",
     "messages": [
@@ -4057,7 +4057,7 @@
     ]
   },
   {
-    "id": "87",
+    "number": "87",
     "title": "Refund request not processed",
     "description": "Issue reported in DA related to Riverty",
     "messages": [
@@ -4139,7 +4139,7 @@
     ]
   },
   {
-    "id": "88",
+    "number": "88",
     "title": "Chargeback request for unauthorized payment",
     "description": "Issue reported in SV related to Riverty",
     "messages": [
@@ -4191,7 +4191,7 @@
     ]
   },
   {
-    "id": "89",
+    "number": "89",
     "title": "Klarna declined at checkout",
     "description": "Issue reported in SV related to Riverty",
     "messages": [
@@ -4253,7 +4253,7 @@
     ]
   },
   {
-    "id": "90",
+    "number": "90",
     "title": "Problem completing transaction with Apple Pay",
     "description": "Issue reported in DA related to Google Pay",
     "messages": [
@@ -4290,7 +4290,7 @@
     ]
   },
   {
-    "id": "91",
+    "number": "91",
     "title": "Delayed refund from shop using Credit card",
     "description": "Issue reported in EN related to PayPal",
     "messages": [
@@ -4327,7 +4327,7 @@
     ]
   },
   {
-    "id": "92",
+    "number": "92",
     "title": "Chargeback request for unauthorized payment",
     "description": "Issue reported in SV related to Credit card",
     "messages": [
@@ -4399,7 +4399,7 @@
     ]
   },
   {
-    "id": "93",
+    "number": "93",
     "title": "Double charge on Credit card",
     "description": "Issue reported in EN related to Credit card",
     "messages": [
@@ -4476,7 +4476,7 @@
     ]
   },
   {
-    "id": "94",
+    "number": "94",
     "title": "Refund stuck for over a week",
     "description": "Issue reported in SV related to Riverty",
     "messages": [
@@ -4488,7 +4488,7 @@
     ]
   },
   {
-    "id": "95",
+    "number": "95",
     "title": "Unable to complete purchase via Credit card",
     "description": "Issue reported in SV related to Riverty",
     "messages": [
@@ -4520,7 +4520,7 @@
     ]
   },
   {
-    "id": "96",
+    "number": "96",
     "title": "Problem completing transaction with Mobile Pay",
     "description": "Issue reported in EN related to Credit card",
     "messages": [
@@ -4597,7 +4597,7 @@
     ]
   },
   {
-    "id": "97",
+    "number": "97",
     "title": "Double charge on PayPal",
     "description": "Issue reported in SV related to Mobile Pay",
     "messages": [
@@ -4644,7 +4644,7 @@
     ]
   },
   {
-    "id": "98",
+    "number": "98",
     "title": "Refund request not processed",
     "description": "Issue reported in EN related to Credit card",
     "messages": [
@@ -4721,7 +4721,7 @@
     ]
   },
   {
-    "id": "99",
+    "number": "99",
     "title": "Refund request not processed",
     "description": "Issue reported in DA related to Mobile Pay",
     "messages": [
@@ -4763,7 +4763,7 @@
     ]
   },
   {
-    "id": "100",
+    "number": "100",
     "title": "Credit card declined at checkout",
     "description": "Issue reported in SV related to Apple Pay",
     "messages": [
