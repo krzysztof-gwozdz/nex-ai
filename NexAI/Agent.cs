@@ -1,4 +1,5 @@
-﻿using Microsoft.SemanticKernel;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using NexAI.Config;
@@ -18,11 +19,13 @@ public class Agent
     {
         var openAIOptions = options.Get<OpenAIOptions>();
         var builder = Kernel.CreateBuilder().AddOpenAIChatCompletion(openAIOptions.Model, openAIOptions.ApiKey);
+        builder.Services.AddSingleton(zendeskIssueStore);
         _kernel = builder.Build();
+        _kernel.Plugins.AddFromType<ZendeskPlugin>("ZendeskIssues", _kernel.Services);
         _chatCompletionService = _kernel.GetRequiredService<IChatCompletionService>();
         _openAIPromptExecutionSettings = new()
         {
-            FunctionChoiceBehavior = FunctionChoiceBehavior.Auto()
+            FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
         };
         _zendeskIssueStore = zendeskIssueStore;
     }
@@ -32,9 +35,9 @@ public class Agent
         while (true)
         {
             var chatHistory = new ChatHistory();
+            AnsiConsole.MarkupLine("[Aquamarine1]Welcome to Nex AI! Type your message below. Type [bold]RESET[/] to reset the conversation or [bold]STOP[/] to exit.[/]");
             while (true)
             {
-                PrintAIMessage("Welcome to Nex AI! Type your message below. Type [bold]RESET[/] to reset the conversation or [bold]STOP[/] to exit.");
                 var userMessage = AnsiConsole.Prompt(new TextPrompt<string>(">"));
                 if (userMessage == "RESET")
                     break;
@@ -43,7 +46,7 @@ public class Agent
                 chatHistory.AddUserMessage(userMessage);
                 var result = await GetAIResponse(chatHistory);
                 var assistantResponse = result.Content ?? string.Empty;
-                PrintAIMessage(assistantResponse);
+                AnsiConsole.MarkupLine($"[Aquamarine1]{assistantResponse.EscapeMarkup()}[/]");
                 chatHistory.AddMessage(result.Role, assistantResponse);
             }
 
@@ -55,7 +58,7 @@ public class Agent
     {
         while (true)
         {
-            PrintAIMessage("Welcome to Similar Issues Search! Enter an issue number to find similar issues. Type [bold]STOP[/] to exit.");
+            AnsiConsole.MarkupLine("[Aquamarine1]Welcome to Similar Issues Search! Enter an issue number to find similar issues. Type [bold]STOP[/] to exit.[/]");
             var userMessage = AnsiConsole.Prompt(new TextPrompt<string>("Issue number > "));
 
             if (userMessage.ToUpper() == "STOP")
@@ -63,7 +66,7 @@ public class Agent
 
             if (string.IsNullOrWhiteSpace(userMessage))
             {
-                PrintAIMessage("Please enter a valid issue number.");
+                AnsiConsole.MarkupLine("[Aquamarine1]Please enter a valid issue number.[/]");
                 continue;
             }
 
@@ -72,16 +75,17 @@ public class Agent
                 var targetIssue = await _zendeskIssueStore.GetIssueByNumber(userMessage);
                 if (targetIssue is null)
                 {
-                    PrintAIMessage($"[red]Issue with number '{userMessage}' not found.[/]");
+                    AnsiConsole.MarkupLine($"[red]Issue with number '{userMessage.EscapeMarkup()}' not found.[/]");
                     continue;
                 }
-                var similarIssues = await _zendeskIssueStore.FindSimilarIssuesByNumber(userMessage);
-                PrintAIMessage($"[green]Found issue: {targetIssue.Title}[/]");
+
+                var similarIssues = await _zendeskIssueStore.FindSimilarIssuesByNumber(userMessage, 10);
+                AnsiConsole.MarkupLine($"[green]Found issue: {targetIssue.Title.EscapeMarkup()}[/]");
                 DisplaySimilarIssues(similarIssues);
             }
             catch (Exception ex)
             {
-                PrintAIMessage($"[red]Error: {ex.Message}[/]");
+                AnsiConsole.MarkupLine($"[red]Error: {ex.Message.EscapeMarkup()}[/]");
             }
 
             AnsiConsole.Write(new Rule());
@@ -92,7 +96,7 @@ public class Agent
     {
         while (true)
         {
-            PrintAIMessage("Welcome to Issues Search! Enter search phrase. Type [bold]STOP[/] to exit.");
+            AnsiConsole.MarkupLine("[Aquamarine1]Welcome to Issues Search! Enter search phrase. Type [bold]STOP[/] to exit.[/]");
             var userMessage = AnsiConsole.Prompt(new TextPrompt<string>("> "));
 
             if (userMessage.ToUpper() == "STOP")
@@ -102,9 +106,10 @@ public class Agent
             {
                 var similarIssues = await _zendeskIssueStore.FindSimilarIssuesByPhrase(userMessage, 10);
                 DisplaySimilarIssues(similarIssues);
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
-                PrintAIMessage($"[red]Error: {ex.Message}[/]");
+                AnsiConsole.MarkupLine($"[red]Error: {ex.Message.EscapeMarkup()}[/]");
             }
 
             AnsiConsole.Write(new Rule());
@@ -115,11 +120,11 @@ public class Agent
     {
         if (similarIssues is null || similarIssues.Count == 0)
         {
-            PrintAIMessage("[yellow]No similar issues found.[/]");
+            AnsiConsole.MarkupLine("[yellow]No similar issues found.[/]");
         }
         else
         {
-            PrintAIMessage($"[bold]Found {similarIssues.Count} similar issues:[/]");
+            AnsiConsole.MarkupLine($"[bold]Found {similarIssues.Count} similar issues:[/]");
             var table = new Table()
                 .AddColumn("Number")
                 .AddColumn("Title")
@@ -132,11 +137,10 @@ public class Agent
                     $"{issue.Similarity:P1}"
                 );
             }
+
             AnsiConsole.Write(table);
         }
     }
-
-    private static void PrintAIMessage(string message) => AnsiConsole.MarkupLine($"[Aquamarine1]{message.EscapeMarkup()}[/]");
 
     private async Task<ChatMessageContent> GetAIResponse(ChatHistory chatHistory) =>
         await _chatCompletionService.GetChatMessageContentAsync(

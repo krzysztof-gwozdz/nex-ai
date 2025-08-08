@@ -12,6 +12,7 @@ public class ZendeskIssueStore(Options options)
     private const string CollectionName = "nexai.zendesk_issues";
     private readonly AI _ai = new(options);
     private readonly QdrantOptions _qdrantOptions = options.Get<QdrantOptions>();
+    
     private bool _initialized;
 
     public async Task<ZendeskIssue?> GetIssueByNumber(string number)
@@ -44,16 +45,16 @@ public class ZendeskIssueStore(Options options)
         );
     }
 
-    public async Task<List<SimilarIssue>> FindSimilarIssuesByNumber(string issueId)
+    public async Task<List<SimilarIssue>> FindSimilarIssuesByNumber(string issueId, ulong limit)
     {
         var targetIssue = await GetIssueByNumber(issueId);
         if (targetIssue == null)
             return [];
 
         var targetText = BuildIssueText(targetIssue);
-        return (await FindSimilarIssuesByPhrase(targetText, 11))
+        return (await FindSimilarIssuesByPhrase(targetText, limit + 1))
             .Where(issue => issue.Number != issueId)
-            .ToList();;
+            .ToList();
     }
 
     public async Task<List<SimilarIssue>> FindSimilarIssuesByPhrase(string text, ulong limit)
