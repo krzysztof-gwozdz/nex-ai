@@ -8,7 +8,9 @@ try
     AnsiConsole.Write(new FigletText("Nex AI").Color(Color.Aquamarine1));
     var options = new Options(Configuration.Get());
     var agent = new Agent(options);
-    await agent.StartConversation();
+    // await agent.StartConversation();
+    // await agent.SearchForSimilarIssues();
+    await agent.SearchForIssues();
 }
 catch (Exception e)
 {

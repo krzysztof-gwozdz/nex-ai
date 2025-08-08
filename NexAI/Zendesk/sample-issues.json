@@ -1,0 +1,4817 @@
+[
+  {
+    "id": "1",
+    "title": "Riverty unavailable in selected shop",
+    "description": "Issue reported in SV related to Klarna",
+    "messages": [
+      {
+        "content": "Kan jag ändra min betalningsmetod till Apple Pay?",
+        "author": "customer",
+        "createdAt": "2024-02-11T09:00:00Z"
+      },
+      {
+        "content": "Kan jag ändra min betalningsmetod till Google Pay?",
+        "author": "support",
+        "createdAt": "2024-02-11T11:00:00Z"
+      },
+      {
+        "content": "Butiken säger att de inte accepterar Credit card just nu.",
+        "author": "customer",
+        "createdAt": "2024-02-11T13:00:00Z"
+      },
+      {
+        "content": "Jag försöker betala min beställning men det misslyckas.",
+        "author": "support",
+        "createdAt": "2024-02-11T15:00:00Z"
+      },
+      {
+        "content": "Kontrollera om du har tillräckligt med pengar på kontot.",
+        "author": "customer",
+        "createdAt": "2024-02-11T17:00:00Z"
+      },
+      {
+        "content": "Kan jag ändra min betalningsmetod till Mobile Pay?",
+        "author": "support",
+        "createdAt": "2024-02-11T19:00:00Z"
+      },
+      {
+        "content": "Betalningen gick igenom men beställningen är fortfarande obetald.",
+        "author": "customer",
+        "createdAt": "2024-02-11T21:00:00Z"
+      },
+      {
+        "content": "Transaktionen visas som väntande i min bank.",
+        "author": "support",
+        "createdAt": "2024-02-11T23:00:00Z"
+      },
+      {
+        "content": "Transaktionen visas som väntande i min bank.",
+        "author": "customer",
+        "createdAt": "2024-02-12T01:00:00Z"
+      },
+      {
+        "content": "Vilket felmeddelande får du?",
+        "author": "support",
+        "createdAt": "2024-02-12T03:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "title": "Shop integration error when using Google Pay",
+    "description": "Issue reported in DA related to Credit card",
+    "messages": [
+      {
+        "content": "Der ser ud til at være et problem med Riverty.",
+        "author": "customer",
+        "createdAt": "2024-05-20T09:00:00Z"
+      },
+      {
+        "content": "Tjek venligst om din konto har nok penge.",
+        "author": "support",
+        "createdAt": "2024-05-20T11:00:00Z"
+      },
+      {
+        "content": "Betalingen gik igennem, men ordren står stadig som ubetalt.",
+        "author": "customer",
+        "createdAt": "2024-05-20T13:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at betalingen er gennemført, men jeg kan ikke se noget i banken.",
+        "author": "support",
+        "createdAt": "2024-05-20T15:00:00Z"
+      },
+      {
+        "content": "Transaktionen står som afventende i min bank.",
+        "author": "customer",
+        "createdAt": "2024-05-20T17:00:00Z"
+      },
+      {
+        "content": "Der ser ud til at være et problem med Riverty.",
+        "author": "support",
+        "createdAt": "2024-05-20T19:00:00Z"
+      },
+      {
+        "content": "Min betaling via Mobile Pay blev afvist.",
+        "author": "customer",
+        "createdAt": "2024-05-20T21:00:00Z"
+      },
+      {
+        "content": "Der ser ud til at være et problem med Mobile Pay.",
+        "author": "support",
+        "createdAt": "2024-05-20T23:00:00Z"
+      },
+      {
+        "content": "Jeg blev opkrævet to gange for den samme ordre.",
+        "author": "customer",
+        "createdAt": "2024-05-21T01:00:00Z"
+      },
+      {
+        "content": "Kan du bekræfte, om betalingen gik igennem?",
+        "author": "support",
+        "createdAt": "2024-05-21T03:00:00Z"
+      },
+      {
+        "content": "Din betaling er blevet behandlet.",
+        "author": "customer",
+        "createdAt": "2024-05-21T05:00:00Z"
+      },
+      {
+        "content": "Transaktionen står som afventende i min bank.",
+        "author": "support",
+        "createdAt": "2024-05-21T07:00:00Z"
+      },
+      {
+        "content": "Jeg prøver at betale for min ordre, men det mislykkes.",
+        "author": "customer",
+        "createdAt": "2024-05-21T09:00:00Z"
+      },
+      {
+        "content": "Kan jeg ændre min betalingsmetode til Google Pay?",
+        "author": "support",
+        "createdAt": "2024-05-21T11:00:00Z"
+      },
+      {
+        "content": "Jeg anmodede om en refundering i sidste uge, men har stadig ikke fået den.",
+        "author": "customer",
+        "createdAt": "2024-05-21T13:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "title": "Refund stuck for over a week",
+    "description": "Issue reported in DA related to Riverty",
+    "messages": [
+      {
+        "content": "Hvorfor er Credit card ikke længere tilgængelig i appen?",
+        "author": "customer",
+        "createdAt": "2024-04-21T09:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "title": "Google Pay payment not showing in account",
+    "description": "Issue reported in DA related to PayPal",
+    "messages": [
+      {
+        "content": "Jeg blev opkrævet to gange for den samme ordre.",
+        "author": "customer",
+        "createdAt": "2024-07-07T09:00:00Z"
+      },
+      {
+        "content": "Tjek venligst om din konto har nok penge.",
+        "author": "support",
+        "createdAt": "2024-07-07T11:00:00Z"
+      },
+      {
+        "content": "Jeg er blevet opkrævet to gange for mit køb.",
+        "author": "customer",
+        "createdAt": "2024-07-07T13:00:00Z"
+      },
+      {
+        "content": "Betalingen gik igennem, men ordren står stadig som ubetalt.",
+        "author": "support",
+        "createdAt": "2024-07-07T15:00:00Z"
+      },
+      {
+        "content": "Butikkens checkout-side fryser, når jeg vælger PayPal.",
+        "author": "customer",
+        "createdAt": "2024-07-07T17:00:00Z"
+      },
+      {
+        "content": "Kan du bekræfte, om betalingen gik igennem?",
+        "author": "support",
+        "createdAt": "2024-07-07T19:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "title": "Refund stuck for over a week",
+    "description": "Issue reported in SV related to Apple Pay",
+    "messages": [
+      {
+        "content": "Butikens kassasida fryser när jag väljer Mobile Pay.",
+        "author": "customer",
+        "createdAt": "2024-05-27T09:00:00Z"
+      },
+      {
+        "content": "Min betalning via Apple Pay nekades.",
+        "author": "support",
+        "createdAt": "2024-05-27T11:00:00Z"
+      },
+      {
+        "content": "Min återbetalning har varit väntande i 10 dagar nu.",
+        "author": "customer",
+        "createdAt": "2024-05-27T13:00:00Z"
+      },
+      {
+        "content": "Butiken säger att de inte accepterar Riverty just nu.",
+        "author": "support",
+        "createdAt": "2024-05-27T15:00:00Z"
+      },
+      {
+        "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
+        "author": "customer",
+        "createdAt": "2024-05-27T17:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "title": "Payment processed but shop did not confirm",
+    "description": "Issue reported in EN related to Credit card",
+    "messages": [
+      {
+        "content": "It seems there is an issue with Google Pay.",
+        "author": "customer",
+        "createdAt": "2024-03-26T09:00:00Z"
+      },
+      {
+        "content": "I have been charged twice for my purchase.",
+        "author": "support",
+        "createdAt": "2024-03-26T11:00:00Z"
+      },
+      {
+        "content": "Order was cancelled, but money was taken.",
+        "author": "customer",
+        "createdAt": "2024-03-26T13:00:00Z"
+      },
+      {
+        "content": "I tried 3 times and still can't pay with Klarna.",
+        "author": "support",
+        "createdAt": "2024-03-26T15:00:00Z"
+      },
+      {
+        "content": "The transaction shows pending in my bank.",
+        "author": "customer",
+        "createdAt": "2024-03-26T17:00:00Z"
+      },
+      {
+        "content": "I was charged twice for the same order.",
+        "author": "support",
+        "createdAt": "2024-03-26T19:00:00Z"
+      },
+      {
+        "content": "I have been charged twice for my purchase.",
+        "author": "customer",
+        "createdAt": "2024-03-26T21:00:00Z"
+      },
+      {
+        "content": "Order was cancelled, but money was taken.",
+        "author": "support",
+        "createdAt": "2024-03-26T23:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "title": "Google Pay payment not showing in account",
+    "description": "Issue reported in SV related to Google Pay",
+    "messages": [
+      {
+        "content": "Betalningen gick igenom men beställningen är fortfarande obetald.",
+        "author": "customer",
+        "createdAt": "2024-03-22T09:00:00Z"
+      },
+      {
+        "content": "Jag försöker betala min beställning men det misslyckas.",
+        "author": "support",
+        "createdAt": "2024-03-22T11:00:00Z"
+      },
+      {
+        "content": "Jag blev debiterad två gånger för samma beställning.",
+        "author": "customer",
+        "createdAt": "2024-03-22T13:00:00Z"
+      },
+      {
+        "content": "Jag försökte 3 gånger och kan fortfarande inte betala med Klarna.",
+        "author": "support",
+        "createdAt": "2024-03-22T15:00:00Z"
+      },
+      {
+        "content": "Min betalning via Mobile Pay nekades.",
+        "author": "customer",
+        "createdAt": "2024-03-22T17:00:00Z"
+      },
+      {
+        "content": "Jag blev debiterad två gånger för samma beställning.",
+        "author": "support",
+        "createdAt": "2024-03-22T19:00:00Z"
+      },
+      {
+        "content": "Jag har blivit debiterad två gånger för mitt köp.",
+        "author": "customer",
+        "createdAt": "2024-03-22T21:00:00Z"
+      },
+      {
+        "content": "Min betalning via Riverty nekades.",
+        "author": "support",
+        "createdAt": "2024-03-22T23:00:00Z"
+      },
+      {
+        "content": "Butikens kassasida fryser när jag väljer Credit card.",
+        "author": "customer",
+        "createdAt": "2024-03-23T01:00:00Z"
+      },
+      {
+        "content": "Jag blev debiterad två gånger för samma beställning.",
+        "author": "support",
+        "createdAt": "2024-03-23T03:00:00Z"
+      },
+      {
+        "content": "Butiken säger att betalningen är klar men jag ser inget på banken.",
+        "author": "customer",
+        "createdAt": "2024-03-23T05:00:00Z"
+      },
+      {
+        "content": "Transaktionen visas som väntande i min bank.",
+        "author": "support",
+        "createdAt": "2024-03-23T07:00:00Z"
+      },
+      {
+        "content": "Butiken säger att de inte accepterar Apple Pay just nu.",
+        "author": "customer",
+        "createdAt": "2024-03-23T09:00:00Z"
+      },
+      {
+        "content": "Beställningen avbröts men pengarna drogs ändå.",
+        "author": "support",
+        "createdAt": "2024-03-23T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "8",
+    "title": "Technical issue with Credit card payment gateway",
+    "description": "Issue reported in EN related to Riverty",
+    "messages": [
+      {
+        "content": "My payment via Google Pay got declined.",
+        "author": "customer",
+        "createdAt": "2024-05-11T09:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "9",
+    "title": "PayPal payment not showing in account",
+    "description": "Issue reported in SV related to Klarna",
+    "messages": [
+      {
+        "content": "Min återbetalning har varit väntande i 10 dagar nu.",
+        "author": "customer",
+        "createdAt": "2024-07-10T09:00:00Z"
+      },
+      {
+        "content": "Min återbetalning har varit väntande i 10 dagar nu.",
+        "author": "support",
+        "createdAt": "2024-07-10T11:00:00Z"
+      },
+      {
+        "content": "Transaktionen visas som väntande i min bank.",
+        "author": "customer",
+        "createdAt": "2024-07-10T13:00:00Z"
+      },
+      {
+        "content": "Butiken säger att de inte accepterar Apple Pay just nu.",
+        "author": "support",
+        "createdAt": "2024-07-10T15:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "10",
+    "title": "Google Pay declined at checkout",
+    "description": "Issue reported in DA related to PayPal",
+    "messages": [
+      {
+        "content": "Tjek venligst om din konto har nok penge.",
+        "author": "customer",
+        "createdAt": "2024-07-01T09:00:00Z"
+      },
+      {
+        "content": "Min betaling via Mobile Pay blev afvist.",
+        "author": "support",
+        "createdAt": "2024-07-01T11:00:00Z"
+      },
+      {
+        "content": "Din betaling er blevet behandlet.",
+        "author": "customer",
+        "createdAt": "2024-07-01T13:00:00Z"
+      },
+      {
+        "content": "Hvorfor er PayPal ikke længere tilgængelig i appen?",
+        "author": "support",
+        "createdAt": "2024-07-01T15:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at de ikke accepterer Google Pay lige nu.",
+        "author": "customer",
+        "createdAt": "2024-07-01T17:00:00Z"
+      },
+      {
+        "content": "Tjek venligst om din konto har nok penge.",
+        "author": "support",
+        "createdAt": "2024-07-01T19:00:00Z"
+      },
+      {
+        "content": "Betalingen gik igennem, men ordren står stadig som ubetalt.",
+        "author": "customer",
+        "createdAt": "2024-07-01T21:00:00Z"
+      },
+      {
+        "content": "Jeg blev opkrævet to gange for den samme ordre.",
+        "author": "support",
+        "createdAt": "2024-07-01T23:00:00Z"
+      },
+      {
+        "content": "Jeg er blevet opkrævet to gange for mit køb.",
+        "author": "customer",
+        "createdAt": "2024-07-02T01:00:00Z"
+      },
+      {
+        "content": "Min betaling via PayPal blev afvist.",
+        "author": "support",
+        "createdAt": "2024-07-02T03:00:00Z"
+      },
+      {
+        "content": "Min betaling via Riverty blev afvist.",
+        "author": "customer",
+        "createdAt": "2024-07-02T05:00:00Z"
+      },
+      {
+        "content": "Kan jeg ændre min betalingsmetode til Mobile Pay?",
+        "author": "support",
+        "createdAt": "2024-07-02T07:00:00Z"
+      },
+      {
+        "content": "Jeg anmodede om en refundering i sidste uge, men har stadig ikke fået den.",
+        "author": "customer",
+        "createdAt": "2024-07-02T09:00:00Z"
+      },
+      {
+        "content": "Jeg er blevet opkrævet to gange for mit køb.",
+        "author": "support",
+        "createdAt": "2024-07-02T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "11",
+    "title": "Shop integration error when using Riverty",
+    "description": "Issue reported in DA related to Klarna",
+    "messages": [
+      {
+        "content": "Kan jeg ændre min betalingsmetode til Riverty?",
+        "author": "customer",
+        "createdAt": "2024-02-13T09:00:00Z"
+      },
+      {
+        "content": "Min refundering har været afventende i 10 dage nu.",
+        "author": "support",
+        "createdAt": "2024-02-13T11:00:00Z"
+      },
+      {
+        "content": "Jeg anmodede om en refundering i sidste uge, men har stadig ikke fået den.",
+        "author": "customer",
+        "createdAt": "2024-02-13T13:00:00Z"
+      },
+      {
+        "content": "Hvilken fejlmeddelelse ser du?",
+        "author": "support",
+        "createdAt": "2024-02-13T15:00:00Z"
+      },
+      {
+        "content": "Jeg prøver at betale for min ordre, men det mislykkes.",
+        "author": "customer",
+        "createdAt": "2024-02-13T17:00:00Z"
+      },
+      {
+        "content": "Kan du bekræfte, om betalingen gik igennem?",
+        "author": "support",
+        "createdAt": "2024-02-13T19:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "12",
+    "title": "Delayed refund from shop using PayPal",
+    "description": "Issue reported in EN related to Apple Pay",
+    "messages": [
+      {
+        "content": "My refund has been pending for 10 days now.",
+        "author": "customer",
+        "createdAt": "2024-01-13T09:00:00Z"
+      },
+      {
+        "content": "Please check if your account has sufficient funds.",
+        "author": "support",
+        "createdAt": "2024-01-13T11:00:00Z"
+      },
+      {
+        "content": "It seems there is an issue with PayPal.",
+        "author": "customer",
+        "createdAt": "2024-01-13T13:00:00Z"
+      },
+      {
+        "content": "I was charged twice for the same order.",
+        "author": "support",
+        "createdAt": "2024-01-13T15:00:00Z"
+      },
+      {
+        "content": "Shop says payment is completed, but I see nothing in my bank.",
+        "author": "customer",
+        "createdAt": "2024-01-13T17:00:00Z"
+      },
+      {
+        "content": "My refund has been pending for 10 days now.",
+        "author": "support",
+        "createdAt": "2024-01-13T19:00:00Z"
+      },
+      {
+        "content": "Order was cancelled, but money was taken.",
+        "author": "customer",
+        "createdAt": "2024-01-13T21:00:00Z"
+      },
+      {
+        "content": "I was charged twice for the same order.",
+        "author": "support",
+        "createdAt": "2024-01-13T23:00:00Z"
+      },
+      {
+        "content": "I requested a refund last week but haven't received it yet.",
+        "author": "customer",
+        "createdAt": "2024-01-14T01:00:00Z"
+      },
+      {
+        "content": "I was charged twice for the same order.",
+        "author": "support",
+        "createdAt": "2024-01-14T03:00:00Z"
+      },
+      {
+        "content": "Why is Credit card not available in your app anymore?",
+        "author": "customer",
+        "createdAt": "2024-01-14T05:00:00Z"
+      },
+      {
+        "content": "I requested a refund last week but haven't received it yet.",
+        "author": "support",
+        "createdAt": "2024-01-14T07:00:00Z"
+      },
+      {
+        "content": "Shop says payment is completed, but I see nothing in my bank.",
+        "author": "customer",
+        "createdAt": "2024-01-14T09:00:00Z"
+      },
+      {
+        "content": "Your payment has been processed successfully.",
+        "author": "support",
+        "createdAt": "2024-01-14T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "13",
+    "title": "Shop payment not working for PayPal",
+    "description": "Issue reported in DA related to Credit card",
+    "messages": [
+      {
+        "content": "Butikkens checkout-side fryser, når jeg vælger Credit card.",
+        "author": "customer",
+        "createdAt": "2024-05-18T09:00:00Z"
+      },
+      {
+        "content": "Der ser ud til at være et problem med Klarna.",
+        "author": "support",
+        "createdAt": "2024-05-18T11:00:00Z"
+      },
+      {
+        "content": "Kan du bekræfte, om betalingen gik igennem?",
+        "author": "customer",
+        "createdAt": "2024-05-18T13:00:00Z"
+      },
+      {
+        "content": "Jeg er blevet opkrævet to gange for mit køb.",
+        "author": "support",
+        "createdAt": "2024-05-18T15:00:00Z"
+      },
+      {
+        "content": "Jeg blev opkrævet to gange for den samme ordre.",
+        "author": "customer",
+        "createdAt": "2024-05-18T17:00:00Z"
+      },
+      {
+        "content": "Hvilken fejlmeddelelse ser du?",
+        "author": "support",
+        "createdAt": "2024-05-18T19:00:00Z"
+      },
+      {
+        "content": "Kan du bekræfte, om betalingen gik igennem?",
+        "author": "customer",
+        "createdAt": "2024-05-18T21:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "14",
+    "title": "Refund stuck for over a week",
+    "description": "Issue reported in SV related to Credit card",
+    "messages": [
+      {
+        "content": "Varför är Klarna inte längre tillgängligt i appen?",
+        "author": "customer",
+        "createdAt": "2024-07-13T09:00:00Z"
+      },
+      {
+        "content": "Kontrollera om du har tillräckligt med pengar på kontot.",
+        "author": "support",
+        "createdAt": "2024-07-13T11:00:00Z"
+      },
+      {
+        "content": "Kan jag ändra min betalningsmetod till Klarna?",
+        "author": "customer",
+        "createdAt": "2024-07-13T13:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "15",
+    "title": "Pending transaction not clearing",
+    "description": "Issue reported in EN related to Apple Pay",
+    "messages": [
+      {
+        "content": "Why is PayPal not available in your app anymore?",
+        "author": "customer",
+        "createdAt": "2024-04-11T09:00:00Z"
+      },
+      {
+        "content": "It seems there is an issue with Riverty.",
+        "author": "support",
+        "createdAt": "2024-04-11T11:00:00Z"
+      },
+      {
+        "content": "The shop's checkout page freezes when I select Klarna.",
+        "author": "customer",
+        "createdAt": "2024-04-11T13:00:00Z"
+      },
+      {
+        "content": "I have been charged twice for my purchase.",
+        "author": "support",
+        "createdAt": "2024-04-11T15:00:00Z"
+      },
+      {
+        "content": "I was charged twice for the same order.",
+        "author": "customer",
+        "createdAt": "2024-04-11T17:00:00Z"
+      },
+      {
+        "content": "I was charged twice for the same order.",
+        "author": "support",
+        "createdAt": "2024-04-11T19:00:00Z"
+      },
+      {
+        "content": "Order was cancelled, but money was taken.",
+        "author": "customer",
+        "createdAt": "2024-04-11T21:00:00Z"
+      },
+      {
+        "content": "My payment via Apple Pay got declined.",
+        "author": "support",
+        "createdAt": "2024-04-11T23:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "16",
+    "title": "Apple Pay payment not showing in account",
+    "description": "Issue reported in EN related to Riverty",
+    "messages": [
+      {
+        "content": "My payment via Google Pay got declined.",
+        "author": "customer",
+        "createdAt": "2024-01-10T09:00:00Z"
+      },
+      {
+        "content": "Why is Riverty not available in your app anymore?",
+        "author": "support",
+        "createdAt": "2024-01-10T11:00:00Z"
+      },
+      {
+        "content": "What error message are you seeing?",
+        "author": "customer",
+        "createdAt": "2024-01-10T13:00:00Z"
+      },
+      {
+        "content": "Why is Mobile Pay not available in your app anymore?",
+        "author": "support",
+        "createdAt": "2024-01-10T15:00:00Z"
+      },
+      {
+        "content": "Please check if your account has sufficient funds.",
+        "author": "customer",
+        "createdAt": "2024-01-10T17:00:00Z"
+      },
+      {
+        "content": "What error message are you seeing?",
+        "author": "support",
+        "createdAt": "2024-01-10T19:00:00Z"
+      },
+      {
+        "content": "It seems there is an issue with Klarna.",
+        "author": "customer",
+        "createdAt": "2024-01-10T21:00:00Z"
+      },
+      {
+        "content": "It seems there is an issue with Klarna.",
+        "author": "support",
+        "createdAt": "2024-01-10T23:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "17",
+    "title": "Problem completing transaction with Klarna",
+    "description": "Issue reported in EN related to Klarna",
+    "messages": [
+      {
+        "content": "Order was cancelled, but money was taken.",
+        "author": "customer",
+        "createdAt": "2024-04-27T09:00:00Z"
+      },
+      {
+        "content": "It seems there is an issue with Google Pay.",
+        "author": "support",
+        "createdAt": "2024-04-27T11:00:00Z"
+      },
+      {
+        "content": "Please check if your account has sufficient funds.",
+        "author": "customer",
+        "createdAt": "2024-04-27T13:00:00Z"
+      },
+      {
+        "content": "I tried 3 times and still can't pay with Mobile Pay.",
+        "author": "support",
+        "createdAt": "2024-04-27T15:00:00Z"
+      },
+      {
+        "content": "Why is Google Pay not available in your app anymore?",
+        "author": "customer",
+        "createdAt": "2024-04-27T17:00:00Z"
+      },
+      {
+        "content": "The payment went through but the order is still marked as unpaid.",
+        "author": "support",
+        "createdAt": "2024-04-27T19:00:00Z"
+      },
+      {
+        "content": "The shop says they don't accept Klarna right now.",
+        "author": "customer",
+        "createdAt": "2024-04-27T21:00:00Z"
+      },
+      {
+        "content": "The transaction shows pending in my bank.",
+        "author": "support",
+        "createdAt": "2024-04-27T23:00:00Z"
+      },
+      {
+        "content": "My payment via Klarna got declined.",
+        "author": "customer",
+        "createdAt": "2024-04-28T01:00:00Z"
+      },
+      {
+        "content": "I tried 3 times and still can't pay with Mobile Pay.",
+        "author": "support",
+        "createdAt": "2024-04-28T03:00:00Z"
+      },
+      {
+        "content": "Order was cancelled, but money was taken.",
+        "author": "customer",
+        "createdAt": "2024-04-28T05:00:00Z"
+      },
+      {
+        "content": "I requested a refund last week but haven't received it yet.",
+        "author": "support",
+        "createdAt": "2024-04-28T07:00:00Z"
+      },
+      {
+        "content": "Why is PayPal not available in your app anymore?",
+        "author": "customer",
+        "createdAt": "2024-04-28T09:00:00Z"
+      },
+      {
+        "content": "I was charged twice for the same order.",
+        "author": "support",
+        "createdAt": "2024-04-28T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "18",
+    "title": "Order cancelled but payment still taken",
+    "description": "Issue reported in DA related to Google Pay",
+    "messages": [
+      {
+        "content": "Butikkens checkout-side fryser, når jeg vælger Riverty.",
+        "author": "customer",
+        "createdAt": "2024-05-11T09:00:00Z"
+      },
+      {
+        "content": "Jeg blev opkrævet to gange for den samme ordre.",
+        "author": "support",
+        "createdAt": "2024-05-11T11:00:00Z"
+      },
+      {
+        "content": "Ordren blev annulleret, men pengene blev stadig trukket.",
+        "author": "customer",
+        "createdAt": "2024-05-11T13:00:00Z"
+      },
+      {
+        "content": "Jeg prøver at betale for min ordre, men det mislykkes.",
+        "author": "support",
+        "createdAt": "2024-05-11T15:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at betalingen er gennemført, men jeg kan ikke se noget i banken.",
+        "author": "customer",
+        "createdAt": "2024-05-11T17:00:00Z"
+      },
+      {
+        "content": "Kan du bekræfte, om betalingen gik igennem?",
+        "author": "support",
+        "createdAt": "2024-05-11T19:00:00Z"
+      },
+      {
+        "content": "Kan jeg ændre min betalingsmetode til Riverty?",
+        "author": "customer",
+        "createdAt": "2024-05-11T21:00:00Z"
+      },
+      {
+        "content": "Hvilken fejlmeddelelse ser du?",
+        "author": "support",
+        "createdAt": "2024-05-11T23:00:00Z"
+      },
+      {
+        "content": "Kan du bekræfte, om betalingen gik igennem?",
+        "author": "customer",
+        "createdAt": "2024-05-12T01:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at betalingen er gennemført, men jeg kan ikke se noget i banken.",
+        "author": "support",
+        "createdAt": "2024-05-12T03:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "19",
+    "title": "Unable to complete purchase via Klarna",
+    "description": "Issue reported in DA related to PayPal",
+    "messages": [
+      {
+        "content": "Hvilken fejlmeddelelse ser du?",
+        "author": "customer",
+        "createdAt": "2024-02-25T09:00:00Z"
+      },
+      {
+        "content": "Betalingen gik igennem, men ordren står stadig som ubetalt.",
+        "author": "support",
+        "createdAt": "2024-02-25T11:00:00Z"
+      },
+      {
+        "content": "Jeg er blevet opkrævet to gange for mit køb.",
+        "author": "customer",
+        "createdAt": "2024-02-25T13:00:00Z"
+      },
+      {
+        "content": "Hvilken fejlmeddelelse ser du?",
+        "author": "support",
+        "createdAt": "2024-02-25T15:00:00Z"
+      },
+      {
+        "content": "Jeg blev opkrævet to gange for den samme ordre.",
+        "author": "customer",
+        "createdAt": "2024-02-25T17:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "20",
+    "title": "Apple Pay payment not showing in account",
+    "description": "Issue reported in DA related to Google Pay",
+    "messages": [
+      {
+        "content": "Kan jeg ændre min betalingsmetode til Credit card?",
+        "author": "customer",
+        "createdAt": "2024-05-14T09:00:00Z"
+      },
+      {
+        "content": "Jeg prøver at betale for min ordre, men det mislykkes.",
+        "author": "support",
+        "createdAt": "2024-05-14T11:00:00Z"
+      },
+      {
+        "content": "Butikkens checkout-side fryser, når jeg vælger Apple Pay.",
+        "author": "customer",
+        "createdAt": "2024-05-14T13:00:00Z"
+      },
+      {
+        "content": "Tjek venligst om din konto har nok penge.",
+        "author": "support",
+        "createdAt": "2024-05-14T15:00:00Z"
+      },
+      {
+        "content": "Tjek venligst om din konto har nok penge.",
+        "author": "customer",
+        "createdAt": "2024-05-14T17:00:00Z"
+      },
+      {
+        "content": "Der ser ud til at være et problem med Riverty.",
+        "author": "support",
+        "createdAt": "2024-05-14T19:00:00Z"
+      },
+      {
+        "content": "Der ser ud til at være et problem med Apple Pay.",
+        "author": "customer",
+        "createdAt": "2024-05-14T21:00:00Z"
+      },
+      {
+        "content": "Hvilken fejlmeddelelse ser du?",
+        "author": "support",
+        "createdAt": "2024-05-14T23:00:00Z"
+      },
+      {
+        "content": "Din betaling er blevet behandlet.",
+        "author": "customer",
+        "createdAt": "2024-05-15T01:00:00Z"
+      },
+      {
+        "content": "Jeg blev opkrævet to gange for den samme ordre.",
+        "author": "support",
+        "createdAt": "2024-05-15T03:00:00Z"
+      },
+      {
+        "content": "Hvorfor er Riverty ikke længere tilgængelig i appen?",
+        "author": "customer",
+        "createdAt": "2024-05-15T05:00:00Z"
+      },
+      {
+        "content": "Kan du bekræfte, om betalingen gik igennem?",
+        "author": "support",
+        "createdAt": "2024-05-15T07:00:00Z"
+      },
+      {
+        "content": "Min refundering har været afventende i 10 dage nu.",
+        "author": "customer",
+        "createdAt": "2024-05-15T09:00:00Z"
+      },
+      {
+        "content": "Hvilken fejlmeddelelse ser du?",
+        "author": "support",
+        "createdAt": "2024-05-15T11:00:00Z"
+      },
+      {
+        "content": "Min refundering har været afventende i 10 dage nu.",
+        "author": "customer",
+        "createdAt": "2024-05-15T13:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "21",
+    "title": "Overcharged when paying with Google Pay",
+    "description": "Issue reported in SV related to PayPal",
+    "messages": [
+      {
+        "content": "Varför är PayPal inte längre tillgängligt i appen?",
+        "author": "customer",
+        "createdAt": "2024-07-08T09:00:00Z"
+      },
+      {
+        "content": "Transaktionen visas som väntande i min bank.",
+        "author": "support",
+        "createdAt": "2024-07-08T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "22",
+    "title": "Payment failed during checkout",
+    "description": "Issue reported in EN related to PayPal",
+    "messages": [
+      {
+        "content": "Why is Klarna not available in your app anymore?",
+        "author": "customer",
+        "createdAt": "2024-01-12T09:00:00Z"
+      },
+      {
+        "content": "My payment via Apple Pay got declined.",
+        "author": "support",
+        "createdAt": "2024-01-12T11:00:00Z"
+      },
+      {
+        "content": "The shop's checkout page freezes when I select Apple Pay.",
+        "author": "customer",
+        "createdAt": "2024-01-12T13:00:00Z"
+      },
+      {
+        "content": "I was charged twice for the same order.",
+        "author": "support",
+        "createdAt": "2024-01-12T15:00:00Z"
+      },
+      {
+        "content": "The shop says they don't accept Klarna right now.",
+        "author": "customer",
+        "createdAt": "2024-01-12T17:00:00Z"
+      },
+      {
+        "content": "The shop's checkout page freezes when I select Mobile Pay.",
+        "author": "support",
+        "createdAt": "2024-01-12T19:00:00Z"
+      },
+      {
+        "content": "The shop says they don't accept Riverty right now.",
+        "author": "customer",
+        "createdAt": "2024-01-12T21:00:00Z"
+      },
+      {
+        "content": "Can you confirm if the payment went through?",
+        "author": "support",
+        "createdAt": "2024-01-12T23:00:00Z"
+      },
+      {
+        "content": "Please check if your account has sufficient funds.",
+        "author": "customer",
+        "createdAt": "2024-01-13T01:00:00Z"
+      },
+      {
+        "content": "Can you confirm if the payment went through?",
+        "author": "support",
+        "createdAt": "2024-01-13T03:00:00Z"
+      },
+      {
+        "content": "My payment via Mobile Pay got declined.",
+        "author": "customer",
+        "createdAt": "2024-01-13T05:00:00Z"
+      },
+      {
+        "content": "I have been charged twice for my purchase.",
+        "author": "support",
+        "createdAt": "2024-01-13T07:00:00Z"
+      },
+      {
+        "content": "Can I change my payment method to Klarna?",
+        "author": "customer",
+        "createdAt": "2024-01-13T09:00:00Z"
+      },
+      {
+        "content": "My refund has been pending for 10 days now.",
+        "author": "support",
+        "createdAt": "2024-01-13T11:00:00Z"
+      },
+      {
+        "content": "I requested a refund last week but haven't received it yet.",
+        "author": "customer",
+        "createdAt": "2024-01-13T13:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "23",
+    "title": "Order cancelled but payment still taken",
+    "description": "Issue reported in DA related to PayPal",
+    "messages": [
+      {
+        "content": "Transaktionen står som afventende i min bank.",
+        "author": "customer",
+        "createdAt": "2024-03-02T09:00:00Z"
+      },
+      {
+        "content": "Jeg anmodede om en refundering i sidste uge, men har stadig ikke fået den.",
+        "author": "support",
+        "createdAt": "2024-03-02T11:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at betalingen er gennemført, men jeg kan ikke se noget i banken.",
+        "author": "customer",
+        "createdAt": "2024-03-02T13:00:00Z"
+      },
+      {
+        "content": "Betalingen gik igennem, men ordren står stadig som ubetalt.",
+        "author": "support",
+        "createdAt": "2024-03-02T15:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "24",
+    "title": "Shop integration error when using Klarna",
+    "description": "Issue reported in DA related to Google Pay",
+    "messages": [
+      {
+        "content": "Kan du bekræfte, om betalingen gik igennem?",
+        "author": "customer",
+        "createdAt": "2024-03-30T09:00:00Z"
+      },
+      {
+        "content": "Jeg prøver at betale for min ordre, men det mislykkes.",
+        "author": "support",
+        "createdAt": "2024-03-30T11:00:00Z"
+      },
+      {
+        "content": "Din betaling er blevet behandlet.",
+        "author": "customer",
+        "createdAt": "2024-03-30T13:00:00Z"
+      },
+      {
+        "content": "Jeg blev opkrævet to gange for den samme ordre.",
+        "author": "support",
+        "createdAt": "2024-03-30T15:00:00Z"
+      },
+      {
+        "content": "Tjek venligst om din konto har nok penge.",
+        "author": "customer",
+        "createdAt": "2024-03-30T17:00:00Z"
+      },
+      {
+        "content": "Jeg prøvede 3 gange og kan stadig ikke betale med Riverty.",
+        "author": "support",
+        "createdAt": "2024-03-30T19:00:00Z"
+      },
+      {
+        "content": "Min refundering har været afventende i 10 dage nu.",
+        "author": "customer",
+        "createdAt": "2024-03-30T21:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "25",
+    "title": "Delayed refund from shop using Google Pay",
+    "description": "Issue reported in EN related to Riverty",
+    "messages": [
+      {
+        "content": "My refund has been pending for 10 days now.",
+        "author": "customer",
+        "createdAt": "2024-04-13T09:00:00Z"
+      },
+      {
+        "content": "Can you confirm if the payment went through?",
+        "author": "support",
+        "createdAt": "2024-04-13T11:00:00Z"
+      },
+      {
+        "content": "Order was cancelled, but money was taken.",
+        "author": "customer",
+        "createdAt": "2024-04-13T13:00:00Z"
+      },
+      {
+        "content": "Please check if your account has sufficient funds.",
+        "author": "support",
+        "createdAt": "2024-04-13T15:00:00Z"
+      },
+      {
+        "content": "My payment via Credit card got declined.",
+        "author": "customer",
+        "createdAt": "2024-04-13T17:00:00Z"
+      },
+      {
+        "content": "I tried 3 times and still can't pay with Klarna.",
+        "author": "support",
+        "createdAt": "2024-04-13T19:00:00Z"
+      },
+      {
+        "content": "My payment via Mobile Pay got declined.",
+        "author": "customer",
+        "createdAt": "2024-04-13T21:00:00Z"
+      },
+      {
+        "content": "Your payment has been processed successfully.",
+        "author": "support",
+        "createdAt": "2024-04-13T23:00:00Z"
+      },
+      {
+        "content": "The payment went through but the order is still marked as unpaid.",
+        "author": "customer",
+        "createdAt": "2024-04-14T01:00:00Z"
+      },
+      {
+        "content": "I tried 3 times and still can't pay with Klarna.",
+        "author": "support",
+        "createdAt": "2024-04-14T03:00:00Z"
+      },
+      {
+        "content": "My payment via PayPal got declined.",
+        "author": "customer",
+        "createdAt": "2024-04-14T05:00:00Z"
+      },
+      {
+        "content": "Order was cancelled, but money was taken.",
+        "author": "support",
+        "createdAt": "2024-04-14T07:00:00Z"
+      },
+      {
+        "content": "The shop's checkout page freezes when I select PayPal.",
+        "author": "customer",
+        "createdAt": "2024-04-14T09:00:00Z"
+      },
+      {
+        "content": "I'm trying to pay for my order but it keeps failing.",
+        "author": "support",
+        "createdAt": "2024-04-14T11:00:00Z"
+      },
+      {
+        "content": "It seems there is an issue with Credit card.",
+        "author": "customer",
+        "createdAt": "2024-04-14T13:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "26",
+    "title": "Double charge on Riverty",
+    "description": "Issue reported in SV related to Apple Pay",
+    "messages": [
+      {
+        "content": "Varför är Klarna inte längre tillgängligt i appen?",
+        "author": "customer",
+        "createdAt": "2024-07-12T09:00:00Z"
+      },
+      {
+        "content": "Min återbetalning har varit väntande i 10 dagar nu.",
+        "author": "support",
+        "createdAt": "2024-07-12T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "27",
+    "title": "Payment processed but shop did not confirm",
+    "description": "Issue reported in DA related to PayPal",
+    "messages": [
+      {
+        "content": "Butikken siger, at betalingen er gennemført, men jeg kan ikke se noget i banken.",
+        "author": "customer",
+        "createdAt": "2024-03-12T09:00:00Z"
+      },
+      {
+        "content": "Butikkens checkout-side fryser, når jeg vælger Klarna.",
+        "author": "support",
+        "createdAt": "2024-03-12T11:00:00Z"
+      },
+      {
+        "content": "Min refundering har været afventende i 10 dage nu.",
+        "author": "customer",
+        "createdAt": "2024-03-12T13:00:00Z"
+      },
+      {
+        "content": "Hvorfor er PayPal ikke længere tilgængelig i appen?",
+        "author": "support",
+        "createdAt": "2024-03-12T15:00:00Z"
+      },
+      {
+        "content": "Tjek venligst om din konto har nok penge.",
+        "author": "customer",
+        "createdAt": "2024-03-12T17:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "28",
+    "title": "Chargeback request for unauthorized payment",
+    "description": "Issue reported in EN related to Riverty",
+    "messages": [
+      {
+        "content": "I tried 3 times and still can't pay with PayPal.",
+        "author": "customer",
+        "createdAt": "2024-01-11T09:00:00Z"
+      },
+      {
+        "content": "I tried 3 times and still can't pay with Google Pay.",
+        "author": "support",
+        "createdAt": "2024-01-11T11:00:00Z"
+      },
+      {
+        "content": "Can I change my payment method to PayPal?",
+        "author": "customer",
+        "createdAt": "2024-01-11T13:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "29",
+    "title": "Refund request not processed",
+    "description": "Issue reported in EN related to Google Pay",
+    "messages": [
+      {
+        "content": "I'm trying to pay for my order but it keeps failing.",
+        "author": "customer",
+        "createdAt": "2024-06-27T09:00:00Z"
+      },
+      {
+        "content": "Order was cancelled, but money was taken.",
+        "author": "support",
+        "createdAt": "2024-06-27T11:00:00Z"
+      },
+      {
+        "content": "The shop says they don't accept Riverty right now.",
+        "author": "customer",
+        "createdAt": "2024-06-27T13:00:00Z"
+      },
+      {
+        "content": "Why is Riverty not available in your app anymore?",
+        "author": "support",
+        "createdAt": "2024-06-27T15:00:00Z"
+      },
+      {
+        "content": "I tried 3 times and still can't pay with PayPal.",
+        "author": "customer",
+        "createdAt": "2024-06-27T17:00:00Z"
+      },
+      {
+        "content": "The transaction shows pending in my bank.",
+        "author": "support",
+        "createdAt": "2024-06-27T19:00:00Z"
+      },
+      {
+        "content": "Can I change my payment method to Riverty?",
+        "author": "customer",
+        "createdAt": "2024-06-27T21:00:00Z"
+      },
+      {
+        "content": "Why is Mobile Pay not available in your app anymore?",
+        "author": "support",
+        "createdAt": "2024-06-27T23:00:00Z"
+      },
+      {
+        "content": "I tried 3 times and still can't pay with PayPal.",
+        "author": "customer",
+        "createdAt": "2024-06-28T01:00:00Z"
+      },
+      {
+        "content": "I have been charged twice for my purchase.",
+        "author": "support",
+        "createdAt": "2024-06-28T03:00:00Z"
+      },
+      {
+        "content": "I tried 3 times and still can't pay with Google Pay.",
+        "author": "customer",
+        "createdAt": "2024-06-28T05:00:00Z"
+      },
+      {
+        "content": "My payment via Credit card got declined.",
+        "author": "support",
+        "createdAt": "2024-06-28T07:00:00Z"
+      },
+      {
+        "content": "My payment via Google Pay got declined.",
+        "author": "customer",
+        "createdAt": "2024-06-28T09:00:00Z"
+      },
+      {
+        "content": "Can you confirm if the payment went through?",
+        "author": "support",
+        "createdAt": "2024-06-28T11:00:00Z"
+      },
+      {
+        "content": "What error message are you seeing?",
+        "author": "customer",
+        "createdAt": "2024-06-28T13:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "30",
+    "title": "Shop integration error when using Riverty",
+    "description": "Issue reported in SV related to Klarna",
+    "messages": [
+      {
+        "content": "Det verkar vara ett problem med Mobile Pay.",
+        "author": "customer",
+        "createdAt": "2024-05-21T09:00:00Z"
+      },
+      {
+        "content": "Jag blev debiterad två gånger för samma beställning.",
+        "author": "support",
+        "createdAt": "2024-05-21T11:00:00Z"
+      },
+      {
+        "content": "Varför är PayPal inte längre tillgängligt i appen?",
+        "author": "customer",
+        "createdAt": "2024-05-21T13:00:00Z"
+      },
+      {
+        "content": "Varför är Credit card inte längre tillgängligt i appen?",
+        "author": "support",
+        "createdAt": "2024-05-21T15:00:00Z"
+      },
+      {
+        "content": "Kontrollera om du har tillräckligt med pengar på kontot.",
+        "author": "customer",
+        "createdAt": "2024-05-21T17:00:00Z"
+      },
+      {
+        "content": "Jag försöker betala min beställning men det misslyckas.",
+        "author": "support",
+        "createdAt": "2024-05-21T19:00:00Z"
+      },
+      {
+        "content": "Jag försöker betala min beställning men det misslyckas.",
+        "author": "customer",
+        "createdAt": "2024-05-21T21:00:00Z"
+      },
+      {
+        "content": "Jag försökte 3 gånger och kan fortfarande inte betala med Google Pay.",
+        "author": "support",
+        "createdAt": "2024-05-21T23:00:00Z"
+      },
+      {
+        "content": "Butiken säger att betalningen är klar men jag ser inget på banken.",
+        "author": "customer",
+        "createdAt": "2024-05-22T01:00:00Z"
+      },
+      {
+        "content": "Varför är Riverty inte längre tillgängligt i appen?",
+        "author": "support",
+        "createdAt": "2024-05-22T03:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "31",
+    "title": "Payment processed but shop did not confirm",
+    "description": "Issue reported in DA related to Apple Pay",
+    "messages": [
+      {
+        "content": "Jeg prøvede 3 gange og kan stadig ikke betale med Mobile Pay.",
+        "author": "customer",
+        "createdAt": "2024-04-03T09:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at betalingen er gennemført, men jeg kan ikke se noget i banken.",
+        "author": "support",
+        "createdAt": "2024-04-03T11:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at betalingen er gennemført, men jeg kan ikke se noget i banken.",
+        "author": "customer",
+        "createdAt": "2024-04-03T13:00:00Z"
+      },
+      {
+        "content": "Hvilken fejlmeddelelse ser du?",
+        "author": "support",
+        "createdAt": "2024-04-03T15:00:00Z"
+      },
+      {
+        "content": "Jeg er blevet opkrævet to gange for mit køb.",
+        "author": "customer",
+        "createdAt": "2024-04-03T17:00:00Z"
+      },
+      {
+        "content": "Hvorfor er Credit card ikke længere tilgængelig i appen?",
+        "author": "support",
+        "createdAt": "2024-04-03T19:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "32",
+    "title": "Unable to complete purchase via Riverty",
+    "description": "Issue reported in EN related to Apple Pay",
+    "messages": [
+      {
+        "content": "Please check if your account has sufficient funds.",
+        "author": "customer",
+        "createdAt": "2024-05-15T09:00:00Z"
+      },
+      {
+        "content": "Your payment has been processed successfully.",
+        "author": "support",
+        "createdAt": "2024-05-15T11:00:00Z"
+      },
+      {
+        "content": "Why is Credit card not available in your app anymore?",
+        "author": "customer",
+        "createdAt": "2024-05-15T13:00:00Z"
+      },
+      {
+        "content": "I was charged twice for the same order.",
+        "author": "support",
+        "createdAt": "2024-05-15T15:00:00Z"
+      },
+      {
+        "content": "I requested a refund last week but haven't received it yet.",
+        "author": "customer",
+        "createdAt": "2024-05-15T17:00:00Z"
+      },
+      {
+        "content": "I requested a refund last week but haven't received it yet.",
+        "author": "support",
+        "createdAt": "2024-05-15T19:00:00Z"
+      },
+      {
+        "content": "Why is PayPal not available in your app anymore?",
+        "author": "customer",
+        "createdAt": "2024-05-15T21:00:00Z"
+      },
+      {
+        "content": "Can I change my payment method to Credit card?",
+        "author": "support",
+        "createdAt": "2024-05-15T23:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "33",
+    "title": "Google Pay payment not showing in account",
+    "description": "Issue reported in DA related to Mobile Pay",
+    "messages": [
+      {
+        "content": "Tjek venligst om din konto har nok penge.",
+        "author": "customer",
+        "createdAt": "2024-04-06T09:00:00Z"
+      },
+      {
+        "content": "Min betaling via Google Pay blev afvist.",
+        "author": "support",
+        "createdAt": "2024-04-06T11:00:00Z"
+      },
+      {
+        "content": "Jeg er blevet opkrævet to gange for mit køb.",
+        "author": "customer",
+        "createdAt": "2024-04-06T13:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "34",
+    "title": "Payment failed during checkout",
+    "description": "Issue reported in EN related to Apple Pay",
+    "messages": [
+      {
+        "content": "Can I change my payment method to Apple Pay?",
+        "author": "customer",
+        "createdAt": "2024-04-05T09:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "35",
+    "title": "PayPal unavailable in selected shop",
+    "description": "Issue reported in DA related to Riverty",
+    "messages": [
+      {
+        "content": "Jeg er blevet opkrævet to gange for mit køb.",
+        "author": "customer",
+        "createdAt": "2024-03-15T09:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "36",
+    "title": "Payment failed during checkout",
+    "description": "Issue reported in SV related to Klarna",
+    "messages": [
+      {
+        "content": "Beställningen avbröts men pengarna drogs ändå.",
+        "author": "customer",
+        "createdAt": "2024-03-11T09:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "37",
+    "title": "Overcharged when paying with Credit card",
+    "description": "Issue reported in EN related to Credit card",
+    "messages": [
+      {
+        "content": "My refund has been pending for 10 days now.",
+        "author": "customer",
+        "createdAt": "2024-05-01T09:00:00Z"
+      },
+      {
+        "content": "I'm trying to pay for my order but it keeps failing.",
+        "author": "support",
+        "createdAt": "2024-05-01T11:00:00Z"
+      },
+      {
+        "content": "The shop says they don't accept PayPal right now.",
+        "author": "customer",
+        "createdAt": "2024-05-01T13:00:00Z"
+      },
+      {
+        "content": "My payment via Klarna got declined.",
+        "author": "support",
+        "createdAt": "2024-05-01T15:00:00Z"
+      },
+      {
+        "content": "Please check if your account has sufficient funds.",
+        "author": "customer",
+        "createdAt": "2024-05-01T17:00:00Z"
+      },
+      {
+        "content": "The shop's checkout page freezes when I select Klarna.",
+        "author": "support",
+        "createdAt": "2024-05-01T19:00:00Z"
+      },
+      {
+        "content": "Can I change my payment method to Credit card?",
+        "author": "customer",
+        "createdAt": "2024-05-01T21:00:00Z"
+      },
+      {
+        "content": "Please check if your account has sufficient funds.",
+        "author": "support",
+        "createdAt": "2024-05-01T23:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "38",
+    "title": "Pending transaction not clearing",
+    "description": "Issue reported in EN related to Credit card",
+    "messages": [
+      {
+        "content": "Can I change my payment method to Riverty?",
+        "author": "customer",
+        "createdAt": "2024-03-12T09:00:00Z"
+      },
+      {
+        "content": "Please check if your account has sufficient funds.",
+        "author": "support",
+        "createdAt": "2024-03-12T11:00:00Z"
+      },
+      {
+        "content": "The shop says they don't accept PayPal right now.",
+        "author": "customer",
+        "createdAt": "2024-03-12T13:00:00Z"
+      },
+      {
+        "content": "Shop says payment is completed, but I see nothing in my bank.",
+        "author": "support",
+        "createdAt": "2024-03-12T15:00:00Z"
+      },
+      {
+        "content": "I'm trying to pay for my order but it keeps failing.",
+        "author": "customer",
+        "createdAt": "2024-03-12T17:00:00Z"
+      },
+      {
+        "content": "The shop says they don't accept Mobile Pay right now.",
+        "author": "support",
+        "createdAt": "2024-03-12T19:00:00Z"
+      },
+      {
+        "content": "Please check if your account has sufficient funds.",
+        "author": "customer",
+        "createdAt": "2024-03-12T21:00:00Z"
+      },
+      {
+        "content": "My payment via Credit card got declined.",
+        "author": "support",
+        "createdAt": "2024-03-12T23:00:00Z"
+      },
+      {
+        "content": "My refund has been pending for 10 days now.",
+        "author": "customer",
+        "createdAt": "2024-03-13T01:00:00Z"
+      },
+      {
+        "content": "I'm trying to pay for my order but it keeps failing.",
+        "author": "support",
+        "createdAt": "2024-03-13T03:00:00Z"
+      },
+      {
+        "content": "My payment via Riverty got declined.",
+        "author": "customer",
+        "createdAt": "2024-03-13T05:00:00Z"
+      },
+      {
+        "content": "I'm trying to pay for my order but it keeps failing.",
+        "author": "support",
+        "createdAt": "2024-03-13T07:00:00Z"
+      },
+      {
+        "content": "My payment via Google Pay got declined.",
+        "author": "customer",
+        "createdAt": "2024-03-13T09:00:00Z"
+      },
+      {
+        "content": "My refund has been pending for 10 days now.",
+        "author": "support",
+        "createdAt": "2024-03-13T11:00:00Z"
+      },
+      {
+        "content": "The payment went through but the order is still marked as unpaid.",
+        "author": "customer",
+        "createdAt": "2024-03-13T13:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "39",
+    "title": "Chargeback request for unauthorized payment",
+    "description": "Issue reported in SV related to Credit card",
+    "messages": [
+      {
+        "content": "Jag försöker betala min beställning men det misslyckas.",
+        "author": "customer",
+        "createdAt": "2024-02-12T09:00:00Z"
+      },
+      {
+        "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
+        "author": "support",
+        "createdAt": "2024-02-12T11:00:00Z"
+      },
+      {
+        "content": "Butikens kassasida fryser när jag väljer Riverty.",
+        "author": "customer",
+        "createdAt": "2024-02-12T13:00:00Z"
+      },
+      {
+        "content": "Min betalning via Credit card nekades.",
+        "author": "support",
+        "createdAt": "2024-02-12T15:00:00Z"
+      },
+      {
+        "content": "Kan jag ändra min betalningsmetod till Mobile Pay?",
+        "author": "customer",
+        "createdAt": "2024-02-12T17:00:00Z"
+      },
+      {
+        "content": "Min återbetalning har varit väntande i 10 dagar nu.",
+        "author": "support",
+        "createdAt": "2024-02-12T19:00:00Z"
+      },
+      {
+        "content": "Kan jag ändra min betalningsmetod till Riverty?",
+        "author": "customer",
+        "createdAt": "2024-02-12T21:00:00Z"
+      },
+      {
+        "content": "Kan du bekräfta om betalningen gick igenom?",
+        "author": "support",
+        "createdAt": "2024-02-12T23:00:00Z"
+      },
+      {
+        "content": "Beställningen avbröts men pengarna drogs ändå.",
+        "author": "customer",
+        "createdAt": "2024-02-13T01:00:00Z"
+      },
+      {
+        "content": "Jag försöker betala min beställning men det misslyckas.",
+        "author": "support",
+        "createdAt": "2024-02-13T03:00:00Z"
+      },
+      {
+        "content": "Jag har blivit debiterad två gånger för mitt köp.",
+        "author": "customer",
+        "createdAt": "2024-02-13T05:00:00Z"
+      },
+      {
+        "content": "Butiken säger att de inte accepterar Klarna just nu.",
+        "author": "support",
+        "createdAt": "2024-02-13T07:00:00Z"
+      },
+      {
+        "content": "Jag blev debiterad två gånger för samma beställning.",
+        "author": "customer",
+        "createdAt": "2024-02-13T09:00:00Z"
+      },
+      {
+        "content": "Min betalning via PayPal nekades.",
+        "author": "support",
+        "createdAt": "2024-02-13T11:00:00Z"
+      },
+      {
+        "content": "Jag försökte 3 gånger och kan fortfarande inte betala med Mobile Pay.",
+        "author": "customer",
+        "createdAt": "2024-02-13T13:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "40",
+    "title": "Unable to complete purchase via Apple Pay",
+    "description": "Issue reported in EN related to Credit card",
+    "messages": [
+      {
+        "content": "Please check if your account has sufficient funds.",
+        "author": "customer",
+        "createdAt": "2024-03-18T09:00:00Z"
+      },
+      {
+        "content": "Can you confirm if the payment went through?",
+        "author": "support",
+        "createdAt": "2024-03-18T11:00:00Z"
+      },
+      {
+        "content": "Order was cancelled, but money was taken.",
+        "author": "customer",
+        "createdAt": "2024-03-18T13:00:00Z"
+      },
+      {
+        "content": "The payment went through but the order is still marked as unpaid.",
+        "author": "support",
+        "createdAt": "2024-03-18T15:00:00Z"
+      },
+      {
+        "content": "Why is Klarna not available in your app anymore?",
+        "author": "customer",
+        "createdAt": "2024-03-18T17:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "41",
+    "title": "Problem completing transaction with Google Pay",
+    "description": "Issue reported in SV related to Google Pay",
+    "messages": [
+      {
+        "content": "Jag försökte 3 gånger och kan fortfarande inte betala med Riverty.",
+        "author": "customer",
+        "createdAt": "2024-01-10T09:00:00Z"
+      },
+      {
+        "content": "Varför är Klarna inte längre tillgängligt i appen?",
+        "author": "support",
+        "createdAt": "2024-01-10T11:00:00Z"
+      },
+      {
+        "content": "Det verkar vara ett problem med Mobile Pay.",
+        "author": "customer",
+        "createdAt": "2024-01-10T13:00:00Z"
+      },
+      {
+        "content": "Butiken säger att betalningen är klar men jag ser inget på banken.",
+        "author": "support",
+        "createdAt": "2024-01-10T15:00:00Z"
+      },
+      {
+        "content": "Din betalning har behandlats framgångsrikt.",
+        "author": "customer",
+        "createdAt": "2024-01-10T17:00:00Z"
+      },
+      {
+        "content": "Min återbetalning har varit väntande i 10 dagar nu.",
+        "author": "support",
+        "createdAt": "2024-01-10T19:00:00Z"
+      },
+      {
+        "content": "Vilket felmeddelande får du?",
+        "author": "customer",
+        "createdAt": "2024-01-10T21:00:00Z"
+      },
+      {
+        "content": "Kontrollera om du har tillräckligt med pengar på kontot.",
+        "author": "support",
+        "createdAt": "2024-01-10T23:00:00Z"
+      },
+      {
+        "content": "Kan jag ändra min betalningsmetod till Riverty?",
+        "author": "customer",
+        "createdAt": "2024-01-11T01:00:00Z"
+      },
+      {
+        "content": "Jag försökte 3 gånger och kan fortfarande inte betala med Apple Pay.",
+        "author": "support",
+        "createdAt": "2024-01-11T03:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "42",
+    "title": "Delayed refund from shop using PayPal",
+    "description": "Issue reported in EN related to Klarna",
+    "messages": [
+      {
+        "content": "Your payment has been processed successfully.",
+        "author": "customer",
+        "createdAt": "2024-01-14T09:00:00Z"
+      },
+      {
+        "content": "Your payment has been processed successfully.",
+        "author": "support",
+        "createdAt": "2024-01-14T11:00:00Z"
+      },
+      {
+        "content": "Can you confirm if the payment went through?",
+        "author": "customer",
+        "createdAt": "2024-01-14T13:00:00Z"
+      },
+      {
+        "content": "I'm trying to pay for my order but it keeps failing.",
+        "author": "support",
+        "createdAt": "2024-01-14T15:00:00Z"
+      },
+      {
+        "content": "Order was cancelled, but money was taken.",
+        "author": "customer",
+        "createdAt": "2024-01-14T17:00:00Z"
+      },
+      {
+        "content": "The shop says they don't accept Riverty right now.",
+        "author": "support",
+        "createdAt": "2024-01-14T19:00:00Z"
+      },
+      {
+        "content": "I have been charged twice for my purchase.",
+        "author": "customer",
+        "createdAt": "2024-01-14T21:00:00Z"
+      },
+      {
+        "content": "I have been charged twice for my purchase.",
+        "author": "support",
+        "createdAt": "2024-01-14T23:00:00Z"
+      },
+      {
+        "content": "The payment went through but the order is still marked as unpaid.",
+        "author": "customer",
+        "createdAt": "2024-01-15T01:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "43",
+    "title": "Pending transaction not clearing",
+    "description": "Issue reported in EN related to Riverty",
+    "messages": [
+      {
+        "content": "Your payment has been processed successfully.",
+        "author": "customer",
+        "createdAt": "2024-02-07T09:00:00Z"
+      },
+      {
+        "content": "The shop's checkout page freezes when I select Riverty.",
+        "author": "support",
+        "createdAt": "2024-02-07T11:00:00Z"
+      },
+      {
+        "content": "My refund has been pending for 10 days now.",
+        "author": "customer",
+        "createdAt": "2024-02-07T13:00:00Z"
+      },
+      {
+        "content": "Can I change my payment method to Riverty?",
+        "author": "support",
+        "createdAt": "2024-02-07T15:00:00Z"
+      },
+      {
+        "content": "Why is PayPal not available in your app anymore?",
+        "author": "customer",
+        "createdAt": "2024-02-07T17:00:00Z"
+      },
+      {
+        "content": "The transaction shows pending in my bank.",
+        "author": "support",
+        "createdAt": "2024-02-07T19:00:00Z"
+      },
+      {
+        "content": "Order was cancelled, but money was taken.",
+        "author": "customer",
+        "createdAt": "2024-02-07T21:00:00Z"
+      },
+      {
+        "content": "The transaction shows pending in my bank.",
+        "author": "support",
+        "createdAt": "2024-02-07T23:00:00Z"
+      },
+      {
+        "content": "The shop says they don't accept Klarna right now.",
+        "author": "customer",
+        "createdAt": "2024-02-08T01:00:00Z"
+      },
+      {
+        "content": "My payment via Riverty got declined.",
+        "author": "support",
+        "createdAt": "2024-02-08T03:00:00Z"
+      },
+      {
+        "content": "Can I change my payment method to Klarna?",
+        "author": "customer",
+        "createdAt": "2024-02-08T05:00:00Z"
+      },
+      {
+        "content": "My payment via Mobile Pay got declined.",
+        "author": "support",
+        "createdAt": "2024-02-08T07:00:00Z"
+      },
+      {
+        "content": "My refund has been pending for 10 days now.",
+        "author": "customer",
+        "createdAt": "2024-02-08T09:00:00Z"
+      },
+      {
+        "content": "I'm trying to pay for my order but it keeps failing.",
+        "author": "support",
+        "createdAt": "2024-02-08T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "44",
+    "title": "PayPal payment not showing in account",
+    "description": "Issue reported in SV related to Klarna",
+    "messages": [
+      {
+        "content": "Vilket felmeddelande får du?",
+        "author": "customer",
+        "createdAt": "2024-02-28T09:00:00Z"
+      },
+      {
+        "content": "Jag försöker betala min beställning men det misslyckas.",
+        "author": "support",
+        "createdAt": "2024-02-28T11:00:00Z"
+      },
+      {
+        "content": "Min betalning via Mobile Pay nekades.",
+        "author": "customer",
+        "createdAt": "2024-02-28T13:00:00Z"
+      },
+      {
+        "content": "Din betalning har behandlats framgångsrikt.",
+        "author": "support",
+        "createdAt": "2024-02-28T15:00:00Z"
+      },
+      {
+        "content": "Kontrollera om du har tillräckligt med pengar på kontot.",
+        "author": "customer",
+        "createdAt": "2024-02-28T17:00:00Z"
+      },
+      {
+        "content": "Kontrollera om du har tillräckligt med pengar på kontot.",
+        "author": "support",
+        "createdAt": "2024-02-28T19:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "45",
+    "title": "Mobile Pay unavailable in selected shop",
+    "description": "Issue reported in EN related to Riverty",
+    "messages": [
+      {
+        "content": "I have been charged twice for my purchase.",
+        "author": "customer",
+        "createdAt": "2024-07-12T09:00:00Z"
+      },
+      {
+        "content": "Why is Klarna not available in your app anymore?",
+        "author": "support",
+        "createdAt": "2024-07-12T11:00:00Z"
+      },
+      {
+        "content": "I have been charged twice for my purchase.",
+        "author": "customer",
+        "createdAt": "2024-07-12T13:00:00Z"
+      },
+      {
+        "content": "My payment via Google Pay got declined.",
+        "author": "support",
+        "createdAt": "2024-07-12T15:00:00Z"
+      },
+      {
+        "content": "Order was cancelled, but money was taken.",
+        "author": "customer",
+        "createdAt": "2024-07-12T17:00:00Z"
+      },
+      {
+        "content": "Your payment has been processed successfully.",
+        "author": "support",
+        "createdAt": "2024-07-12T19:00:00Z"
+      },
+      {
+        "content": "What error message are you seeing?",
+        "author": "customer",
+        "createdAt": "2024-07-12T21:00:00Z"
+      },
+      {
+        "content": "Can I change my payment method to Google Pay?",
+        "author": "support",
+        "createdAt": "2024-07-12T23:00:00Z"
+      },
+      {
+        "content": "Please check if your account has sufficient funds.",
+        "author": "customer",
+        "createdAt": "2024-07-13T01:00:00Z"
+      },
+      {
+        "content": "I tried 3 times and still can't pay with Apple Pay.",
+        "author": "support",
+        "createdAt": "2024-07-13T03:00:00Z"
+      },
+      {
+        "content": "Why is Apple Pay not available in your app anymore?",
+        "author": "customer",
+        "createdAt": "2024-07-13T05:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "46",
+    "title": "Chargeback request for unauthorized payment",
+    "description": "Issue reported in SV related to Klarna",
+    "messages": [
+      {
+        "content": "Beställningen avbröts men pengarna drogs ändå.",
+        "author": "customer",
+        "createdAt": "2024-03-06T09:00:00Z"
+      },
+      {
+        "content": "Jag blev debiterad två gånger för samma beställning.",
+        "author": "support",
+        "createdAt": "2024-03-06T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "47",
+    "title": "Overcharged when paying with Klarna",
+    "description": "Issue reported in EN related to Google Pay",
+    "messages": [
+      {
+        "content": "Shop says payment is completed, but I see nothing in my bank.",
+        "author": "customer",
+        "createdAt": "2024-04-24T09:00:00Z"
+      },
+      {
+        "content": "Can you confirm if the payment went through?",
+        "author": "support",
+        "createdAt": "2024-04-24T11:00:00Z"
+      },
+      {
+        "content": "Order was cancelled, but money was taken.",
+        "author": "customer",
+        "createdAt": "2024-04-24T13:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "48",
+    "title": "Overcharged when paying with Google Pay",
+    "description": "Issue reported in DA related to Credit card",
+    "messages": [
+      {
+        "content": "Kan jeg ændre min betalingsmetode til PayPal?",
+        "author": "customer",
+        "createdAt": "2024-04-23T09:00:00Z"
+      },
+      {
+        "content": "Jeg prøver at betale for min ordre, men det mislykkes.",
+        "author": "support",
+        "createdAt": "2024-04-23T11:00:00Z"
+      },
+      {
+        "content": "Jeg prøvede 3 gange og kan stadig ikke betale med Credit card.",
+        "author": "customer",
+        "createdAt": "2024-04-23T13:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "49",
+    "title": "Shop payment not working for Apple Pay",
+    "description": "Issue reported in SV related to Mobile Pay",
+    "messages": [
+      {
+        "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
+        "author": "customer",
+        "createdAt": "2024-03-15T09:00:00Z"
+      },
+      {
+        "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
+        "author": "support",
+        "createdAt": "2024-03-15T11:00:00Z"
+      },
+      {
+        "content": "Jag försökte 3 gånger och kan fortfarande inte betala med PayPal.",
+        "author": "customer",
+        "createdAt": "2024-03-15T13:00:00Z"
+      },
+      {
+        "content": "Jag har blivit debiterad två gånger för mitt köp.",
+        "author": "support",
+        "createdAt": "2024-03-15T15:00:00Z"
+      },
+      {
+        "content": "Transaktionen visas som väntande i min bank.",
+        "author": "customer",
+        "createdAt": "2024-03-15T17:00:00Z"
+      },
+      {
+        "content": "Min betalning via Mobile Pay nekades.",
+        "author": "support",
+        "createdAt": "2024-03-15T19:00:00Z"
+      },
+      {
+        "content": "Butiken säger att de inte accepterar Mobile Pay just nu.",
+        "author": "customer",
+        "createdAt": "2024-03-15T21:00:00Z"
+      },
+      {
+        "content": "Det verkar vara ett problem med Riverty.",
+        "author": "support",
+        "createdAt": "2024-03-15T23:00:00Z"
+      },
+      {
+        "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
+        "author": "customer",
+        "createdAt": "2024-03-16T01:00:00Z"
+      },
+      {
+        "content": "Min betalning via Apple Pay nekades.",
+        "author": "support",
+        "createdAt": "2024-03-16T03:00:00Z"
+      },
+      {
+        "content": "Min återbetalning har varit väntande i 10 dagar nu.",
+        "author": "customer",
+        "createdAt": "2024-03-16T05:00:00Z"
+      },
+      {
+        "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
+        "author": "support",
+        "createdAt": "2024-03-16T07:00:00Z"
+      },
+      {
+        "content": "Jag försöker betala min beställning men det misslyckas.",
+        "author": "customer",
+        "createdAt": "2024-03-16T09:00:00Z"
+      },
+      {
+        "content": "Din betalning har behandlats framgångsrikt.",
+        "author": "support",
+        "createdAt": "2024-03-16T11:00:00Z"
+      },
+      {
+        "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
+        "author": "customer",
+        "createdAt": "2024-03-16T13:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "50",
+    "title": "Apple Pay payment not showing in account",
+    "description": "Issue reported in DA related to Credit card",
+    "messages": [
+      {
+        "content": "Min betaling via PayPal blev afvist.",
+        "author": "customer",
+        "createdAt": "2024-03-23T09:00:00Z"
+      },
+      {
+        "content": "Butikkens checkout-side fryser, når jeg vælger Google Pay.",
+        "author": "support",
+        "createdAt": "2024-03-23T11:00:00Z"
+      },
+      {
+        "content": "Betalingen gik igennem, men ordren står stadig som ubetalt.",
+        "author": "customer",
+        "createdAt": "2024-03-23T13:00:00Z"
+      },
+      {
+        "content": "Jeg prøver at betale for min ordre, men det mislykkes.",
+        "author": "support",
+        "createdAt": "2024-03-23T15:00:00Z"
+      },
+      {
+        "content": "Kan du bekræfte, om betalingen gik igennem?",
+        "author": "customer",
+        "createdAt": "2024-03-23T17:00:00Z"
+      },
+      {
+        "content": "Butikkens checkout-side fryser, når jeg vælger Riverty.",
+        "author": "support",
+        "createdAt": "2024-03-23T19:00:00Z"
+      },
+      {
+        "content": "Ordren blev annulleret, men pengene blev stadig trukket.",
+        "author": "customer",
+        "createdAt": "2024-03-23T21:00:00Z"
+      },
+      {
+        "content": "Kan du bekræfte, om betalingen gik igennem?",
+        "author": "support",
+        "createdAt": "2024-03-23T23:00:00Z"
+      },
+      {
+        "content": "Jeg er blevet opkrævet to gange for mit køb.",
+        "author": "customer",
+        "createdAt": "2024-03-24T01:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at de ikke accepterer Klarna lige nu.",
+        "author": "support",
+        "createdAt": "2024-03-24T03:00:00Z"
+      },
+      {
+        "content": "Ordren blev annulleret, men pengene blev stadig trukket.",
+        "author": "customer",
+        "createdAt": "2024-03-24T05:00:00Z"
+      },
+      {
+        "content": "Kan du bekræfte, om betalingen gik igennem?",
+        "author": "support",
+        "createdAt": "2024-03-24T07:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at de ikke accepterer Mobile Pay lige nu.",
+        "author": "customer",
+        "createdAt": "2024-03-24T09:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "51",
+    "title": "Chargeback request for unauthorized payment",
+    "description": "Issue reported in DA related to Google Pay",
+    "messages": [
+      {
+        "content": "Betalingen gik igennem, men ordren står stadig som ubetalt.",
+        "author": "customer",
+        "createdAt": "2024-01-21T09:00:00Z"
+      },
+      {
+        "content": "Tjek venligst om din konto har nok penge.",
+        "author": "support",
+        "createdAt": "2024-01-21T11:00:00Z"
+      },
+      {
+        "content": "Betalingen gik igennem, men ordren står stadig som ubetalt.",
+        "author": "customer",
+        "createdAt": "2024-01-21T13:00:00Z"
+      },
+      {
+        "content": "Tjek venligst om din konto har nok penge.",
+        "author": "support",
+        "createdAt": "2024-01-21T15:00:00Z"
+      },
+      {
+        "content": "Kan jeg ændre min betalingsmetode til Mobile Pay?",
+        "author": "customer",
+        "createdAt": "2024-01-21T17:00:00Z"
+      },
+      {
+        "content": "Jeg anmodede om en refundering i sidste uge, men har stadig ikke fået den.",
+        "author": "support",
+        "createdAt": "2024-01-21T19:00:00Z"
+      },
+      {
+        "content": "Transaktionen står som afventende i min bank.",
+        "author": "customer",
+        "createdAt": "2024-01-21T21:00:00Z"
+      },
+      {
+        "content": "Kan jeg ændre min betalingsmetode til Apple Pay?",
+        "author": "support",
+        "createdAt": "2024-01-21T23:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at de ikke accepterer Credit card lige nu.",
+        "author": "customer",
+        "createdAt": "2024-01-22T01:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "52",
+    "title": "Technical issue with Apple Pay payment gateway",
+    "description": "Issue reported in DA related to Mobile Pay",
+    "messages": [
+      {
+        "content": "Jeg blev opkrævet to gange for den samme ordre.",
+        "author": "customer",
+        "createdAt": "2024-05-23T09:00:00Z"
+      },
+      {
+        "content": "Min betaling via Riverty blev afvist.",
+        "author": "support",
+        "createdAt": "2024-05-23T11:00:00Z"
+      },
+      {
+        "content": "Din betaling er blevet behandlet.",
+        "author": "customer",
+        "createdAt": "2024-05-23T13:00:00Z"
+      },
+      {
+        "content": "Ordren blev annulleret, men pengene blev stadig trukket.",
+        "author": "support",
+        "createdAt": "2024-05-23T15:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at de ikke accepterer Google Pay lige nu.",
+        "author": "customer",
+        "createdAt": "2024-05-23T17:00:00Z"
+      },
+      {
+        "content": "Kan jeg ændre min betalingsmetode til Riverty?",
+        "author": "support",
+        "createdAt": "2024-05-23T19:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "53",
+    "title": "Shop integration error when using Riverty",
+    "description": "Issue reported in DA related to Mobile Pay",
+    "messages": [
+      {
+        "content": "Ordren blev annulleret, men pengene blev stadig trukket.",
+        "author": "customer",
+        "createdAt": "2024-05-04T09:00:00Z"
+      },
+      {
+        "content": "Jeg anmodede om en refundering i sidste uge, men har stadig ikke fået den.",
+        "author": "support",
+        "createdAt": "2024-05-04T11:00:00Z"
+      },
+      {
+        "content": "Hvorfor er Credit card ikke længere tilgængelig i appen?",
+        "author": "customer",
+        "createdAt": "2024-05-04T13:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "54",
+    "title": "Shop integration error when using Mobile Pay",
+    "description": "Issue reported in DA related to Credit card",
+    "messages": [
+      {
+        "content": "Jeg blev opkrævet to gange for den samme ordre.",
+        "author": "customer",
+        "createdAt": "2024-01-08T09:00:00Z"
+      },
+      {
+        "content": "Hvilken fejlmeddelelse ser du?",
+        "author": "support",
+        "createdAt": "2024-01-08T11:00:00Z"
+      },
+      {
+        "content": "Min refundering har været afventende i 10 dage nu.",
+        "author": "customer",
+        "createdAt": "2024-01-08T13:00:00Z"
+      },
+      {
+        "content": "Kan jeg ændre min betalingsmetode til Riverty?",
+        "author": "support",
+        "createdAt": "2024-01-08T15:00:00Z"
+      },
+      {
+        "content": "Butikkens checkout-side fryser, når jeg vælger Mobile Pay.",
+        "author": "customer",
+        "createdAt": "2024-01-08T17:00:00Z"
+      },
+      {
+        "content": "Din betaling er blevet behandlet.",
+        "author": "support",
+        "createdAt": "2024-01-08T19:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at betalingen er gennemført, men jeg kan ikke se noget i banken.",
+        "author": "customer",
+        "createdAt": "2024-01-08T21:00:00Z"
+      },
+      {
+        "content": "Betalingen gik igennem, men ordren står stadig som ubetalt.",
+        "author": "support",
+        "createdAt": "2024-01-08T23:00:00Z"
+      },
+      {
+        "content": "Tjek venligst om din konto har nok penge.",
+        "author": "customer",
+        "createdAt": "2024-01-09T01:00:00Z"
+      },
+      {
+        "content": "Tjek venligst om din konto har nok penge.",
+        "author": "support",
+        "createdAt": "2024-01-09T03:00:00Z"
+      },
+      {
+        "content": "Hvorfor er Apple Pay ikke længere tilgængelig i appen?",
+        "author": "customer",
+        "createdAt": "2024-01-09T05:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "55",
+    "title": "Refund request not processed",
+    "description": "Issue reported in EN related to Riverty",
+    "messages": [
+      {
+        "content": "What error message are you seeing?",
+        "author": "customer",
+        "createdAt": "2024-03-16T09:00:00Z"
+      },
+      {
+        "content": "My refund has been pending for 10 days now.",
+        "author": "support",
+        "createdAt": "2024-03-16T11:00:00Z"
+      },
+      {
+        "content": "I have been charged twice for my purchase.",
+        "author": "customer",
+        "createdAt": "2024-03-16T13:00:00Z"
+      },
+      {
+        "content": "The transaction shows pending in my bank.",
+        "author": "support",
+        "createdAt": "2024-03-16T15:00:00Z"
+      },
+      {
+        "content": "The transaction shows pending in my bank.",
+        "author": "customer",
+        "createdAt": "2024-03-16T17:00:00Z"
+      },
+      {
+        "content": "I have been charged twice for my purchase.",
+        "author": "support",
+        "createdAt": "2024-03-16T19:00:00Z"
+      },
+      {
+        "content": "I tried 3 times and still can't pay with Google Pay.",
+        "author": "customer",
+        "createdAt": "2024-03-16T21:00:00Z"
+      },
+      {
+        "content": "The payment went through but the order is still marked as unpaid.",
+        "author": "support",
+        "createdAt": "2024-03-16T23:00:00Z"
+      },
+      {
+        "content": "Shop says payment is completed, but I see nothing in my bank.",
+        "author": "customer",
+        "createdAt": "2024-03-17T01:00:00Z"
+      },
+      {
+        "content": "The payment went through but the order is still marked as unpaid.",
+        "author": "support",
+        "createdAt": "2024-03-17T03:00:00Z"
+      },
+      {
+        "content": "I tried 3 times and still can't pay with Mobile Pay.",
+        "author": "customer",
+        "createdAt": "2024-03-17T05:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "56",
+    "title": "Credit card declined at checkout",
+    "description": "Issue reported in DA related to Google Pay",
+    "messages": [
+      {
+        "content": "Min refundering har været afventende i 10 dage nu.",
+        "author": "customer",
+        "createdAt": "2024-06-20T09:00:00Z"
+      },
+      {
+        "content": "Hvilken fejlmeddelelse ser du?",
+        "author": "support",
+        "createdAt": "2024-06-20T11:00:00Z"
+      },
+      {
+        "content": "Jeg prøvede 3 gange og kan stadig ikke betale med Klarna.",
+        "author": "customer",
+        "createdAt": "2024-06-20T13:00:00Z"
+      },
+      {
+        "content": "Hvorfor er Riverty ikke længere tilgængelig i appen?",
+        "author": "support",
+        "createdAt": "2024-06-20T15:00:00Z"
+      },
+      {
+        "content": "Betalingen gik igennem, men ordren står stadig som ubetalt.",
+        "author": "customer",
+        "createdAt": "2024-06-20T17:00:00Z"
+      },
+      {
+        "content": "Min betaling via Apple Pay blev afvist.",
+        "author": "support",
+        "createdAt": "2024-06-20T19:00:00Z"
+      },
+      {
+        "content": "Jeg er blevet opkrævet to gange for mit køb.",
+        "author": "customer",
+        "createdAt": "2024-06-20T21:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at de ikke accepterer Credit card lige nu.",
+        "author": "support",
+        "createdAt": "2024-06-20T23:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at betalingen er gennemført, men jeg kan ikke se noget i banken.",
+        "author": "customer",
+        "createdAt": "2024-06-21T01:00:00Z"
+      },
+      {
+        "content": "Jeg prøvede 3 gange og kan stadig ikke betale med Klarna.",
+        "author": "support",
+        "createdAt": "2024-06-21T03:00:00Z"
+      },
+      {
+        "content": "Jeg prøver at betale for min ordre, men det mislykkes.",
+        "author": "customer",
+        "createdAt": "2024-06-21T05:00:00Z"
+      },
+      {
+        "content": "Tjek venligst om din konto har nok penge.",
+        "author": "support",
+        "createdAt": "2024-06-21T07:00:00Z"
+      },
+      {
+        "content": "Min refundering har været afventende i 10 dage nu.",
+        "author": "customer",
+        "createdAt": "2024-06-21T09:00:00Z"
+      },
+      {
+        "content": "Min refundering har været afventende i 10 dage nu.",
+        "author": "support",
+        "createdAt": "2024-06-21T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "57",
+    "title": "Refund request not processed",
+    "description": "Issue reported in EN related to Credit card",
+    "messages": [
+      {
+        "content": "The shop's checkout page freezes when I select Mobile Pay.",
+        "author": "customer",
+        "createdAt": "2024-06-09T09:00:00Z"
+      },
+      {
+        "content": "My refund has been pending for 10 days now.",
+        "author": "support",
+        "createdAt": "2024-06-09T11:00:00Z"
+      },
+      {
+        "content": "The shop says they don't accept Apple Pay right now.",
+        "author": "customer",
+        "createdAt": "2024-06-09T13:00:00Z"
+      },
+      {
+        "content": "Order was cancelled, but money was taken.",
+        "author": "support",
+        "createdAt": "2024-06-09T15:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "58",
+    "title": "Refund request not processed",
+    "description": "Issue reported in DA related to Apple Pay",
+    "messages": [
+      {
+        "content": "Ordren blev annulleret, men pengene blev stadig trukket.",
+        "author": "customer",
+        "createdAt": "2024-06-01T09:00:00Z"
+      },
+      {
+        "content": "Hvorfor er Riverty ikke længere tilgængelig i appen?",
+        "author": "support",
+        "createdAt": "2024-06-01T11:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at betalingen er gennemført, men jeg kan ikke se noget i banken.",
+        "author": "customer",
+        "createdAt": "2024-06-01T13:00:00Z"
+      },
+      {
+        "content": "Hvilken fejlmeddelelse ser du?",
+        "author": "support",
+        "createdAt": "2024-06-01T15:00:00Z"
+      },
+      {
+        "content": "Jeg prøver at betale for min ordre, men det mislykkes.",
+        "author": "customer",
+        "createdAt": "2024-06-01T17:00:00Z"
+      },
+      {
+        "content": "Kan du bekræfte, om betalingen gik igennem?",
+        "author": "support",
+        "createdAt": "2024-06-01T19:00:00Z"
+      },
+      {
+        "content": "Din betaling er blevet behandlet.",
+        "author": "customer",
+        "createdAt": "2024-06-01T21:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "59",
+    "title": "Shop payment not working for Mobile Pay",
+    "description": "Issue reported in SV related to Klarna",
+    "messages": [
+      {
+        "content": "Butiken säger att de inte accepterar Credit card just nu.",
+        "author": "customer",
+        "createdAt": "2024-02-16T09:00:00Z"
+      },
+      {
+        "content": "Butiken säger att betalningen är klar men jag ser inget på banken.",
+        "author": "support",
+        "createdAt": "2024-02-16T11:00:00Z"
+      },
+      {
+        "content": "Jag försöker betala min beställning men det misslyckas.",
+        "author": "customer",
+        "createdAt": "2024-02-16T13:00:00Z"
+      },
+      {
+        "content": "Varför är Mobile Pay inte längre tillgängligt i appen?",
+        "author": "support",
+        "createdAt": "2024-02-16T15:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "60",
+    "title": "Double charge on Mobile Pay",
+    "description": "Issue reported in DA related to Klarna",
+    "messages": [
+      {
+        "content": "Jeg anmodede om en refundering i sidste uge, men har stadig ikke fået den.",
+        "author": "customer",
+        "createdAt": "2024-02-13T09:00:00Z"
+      },
+      {
+        "content": "Ordren blev annulleret, men pengene blev stadig trukket.",
+        "author": "support",
+        "createdAt": "2024-02-13T11:00:00Z"
+      },
+      {
+        "content": "Min betaling via Mobile Pay blev afvist.",
+        "author": "customer",
+        "createdAt": "2024-02-13T13:00:00Z"
+      },
+      {
+        "content": "Jeg anmodede om en refundering i sidste uge, men har stadig ikke fået den.",
+        "author": "support",
+        "createdAt": "2024-02-13T15:00:00Z"
+      },
+      {
+        "content": "Kan jeg ændre min betalingsmetode til Riverty?",
+        "author": "customer",
+        "createdAt": "2024-02-13T17:00:00Z"
+      },
+      {
+        "content": "Tjek venligst om din konto har nok penge.",
+        "author": "support",
+        "createdAt": "2024-02-13T19:00:00Z"
+      },
+      {
+        "content": "Betalingen gik igennem, men ordren står stadig som ubetalt.",
+        "author": "customer",
+        "createdAt": "2024-02-13T21:00:00Z"
+      },
+      {
+        "content": "Jeg prøvede 3 gange og kan stadig ikke betale med Apple Pay.",
+        "author": "support",
+        "createdAt": "2024-02-13T23:00:00Z"
+      },
+      {
+        "content": "Hvorfor er PayPal ikke længere tilgængelig i appen?",
+        "author": "customer",
+        "createdAt": "2024-02-14T01:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "61",
+    "title": "Payment failed during checkout",
+    "description": "Issue reported in SV related to Google Pay",
+    "messages": [
+      {
+        "content": "Butikens kassasida fryser när jag väljer Klarna.",
+        "author": "customer",
+        "createdAt": "2024-06-09T09:00:00Z"
+      },
+      {
+        "content": "Butikens kassasida fryser när jag väljer Google Pay.",
+        "author": "support",
+        "createdAt": "2024-06-09T11:00:00Z"
+      },
+      {
+        "content": "Kan du bekräfta om betalningen gick igenom?",
+        "author": "customer",
+        "createdAt": "2024-06-09T13:00:00Z"
+      },
+      {
+        "content": "Kontrollera om du har tillräckligt med pengar på kontot.",
+        "author": "support",
+        "createdAt": "2024-06-09T15:00:00Z"
+      },
+      {
+        "content": "Butiken säger att betalningen är klar men jag ser inget på banken.",
+        "author": "customer",
+        "createdAt": "2024-06-09T17:00:00Z"
+      },
+      {
+        "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
+        "author": "support",
+        "createdAt": "2024-06-09T19:00:00Z"
+      },
+      {
+        "content": "Butiken säger att betalningen är klar men jag ser inget på banken.",
+        "author": "customer",
+        "createdAt": "2024-06-09T21:00:00Z"
+      },
+      {
+        "content": "Kan du bekräfta om betalningen gick igenom?",
+        "author": "support",
+        "createdAt": "2024-06-09T23:00:00Z"
+      },
+      {
+        "content": "Det verkar vara ett problem med Mobile Pay.",
+        "author": "customer",
+        "createdAt": "2024-06-10T01:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "62",
+    "title": "Unable to complete purchase via Mobile Pay",
+    "description": "Issue reported in SV related to Google Pay",
+    "messages": [
+      {
+        "content": "Din betalning har behandlats framgångsrikt.",
+        "author": "customer",
+        "createdAt": "2024-01-27T09:00:00Z"
+      },
+      {
+        "content": "Kontrollera om du har tillräckligt med pengar på kontot.",
+        "author": "support",
+        "createdAt": "2024-01-27T11:00:00Z"
+      },
+      {
+        "content": "Det verkar vara ett problem med Mobile Pay.",
+        "author": "customer",
+        "createdAt": "2024-01-27T13:00:00Z"
+      },
+      {
+        "content": "Jag blev debiterad två gånger för samma beställning.",
+        "author": "support",
+        "createdAt": "2024-01-27T15:00:00Z"
+      },
+      {
+        "content": "Kontrollera om du har tillräckligt med pengar på kontot.",
+        "author": "customer",
+        "createdAt": "2024-01-27T17:00:00Z"
+      },
+      {
+        "content": "Betalningen gick igenom men beställningen är fortfarande obetald.",
+        "author": "support",
+        "createdAt": "2024-01-27T19:00:00Z"
+      },
+      {
+        "content": "Min återbetalning har varit väntande i 10 dagar nu.",
+        "author": "customer",
+        "createdAt": "2024-01-27T21:00:00Z"
+      },
+      {
+        "content": "Kan jag ändra min betalningsmetod till Google Pay?",
+        "author": "support",
+        "createdAt": "2024-01-27T23:00:00Z"
+      },
+      {
+        "content": "Kan jag ändra min betalningsmetod till Riverty?",
+        "author": "customer",
+        "createdAt": "2024-01-28T01:00:00Z"
+      },
+      {
+        "content": "Jag har blivit debiterad två gånger för mitt köp.",
+        "author": "support",
+        "createdAt": "2024-01-28T03:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "63",
+    "title": "Double charge on Mobile Pay",
+    "description": "Issue reported in SV related to Credit card",
+    "messages": [
+      {
+        "content": "Jag försökte 3 gånger och kan fortfarande inte betala med Credit card.",
+        "author": "customer",
+        "createdAt": "2024-06-18T09:00:00Z"
+      },
+      {
+        "content": "Min betalning via Google Pay nekades.",
+        "author": "support",
+        "createdAt": "2024-06-18T11:00:00Z"
+      },
+      {
+        "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
+        "author": "customer",
+        "createdAt": "2024-06-18T13:00:00Z"
+      },
+      {
+        "content": "Transaktionen visas som väntande i min bank.",
+        "author": "support",
+        "createdAt": "2024-06-18T15:00:00Z"
+      },
+      {
+        "content": "Kan du bekräfta om betalningen gick igenom?",
+        "author": "customer",
+        "createdAt": "2024-06-18T17:00:00Z"
+      },
+      {
+        "content": "Kontrollera om du har tillräckligt med pengar på kontot.",
+        "author": "support",
+        "createdAt": "2024-06-18T19:00:00Z"
+      },
+      {
+        "content": "Jag försöker betala min beställning men det misslyckas.",
+        "author": "customer",
+        "createdAt": "2024-06-18T21:00:00Z"
+      },
+      {
+        "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
+        "author": "support",
+        "createdAt": "2024-06-18T23:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "64",
+    "title": "Refund request not processed",
+    "description": "Issue reported in DA related to Riverty",
+    "messages": [
+      {
+        "content": "Butikkens checkout-side fryser, når jeg vælger Apple Pay.",
+        "author": "customer",
+        "createdAt": "2024-02-02T09:00:00Z"
+      },
+      {
+        "content": "Jeg blev opkrævet to gange for den samme ordre.",
+        "author": "support",
+        "createdAt": "2024-02-02T11:00:00Z"
+      },
+      {
+        "content": "Hvilken fejlmeddelelse ser du?",
+        "author": "customer",
+        "createdAt": "2024-02-02T13:00:00Z"
+      },
+      {
+        "content": "Transaktionen står som afventende i min bank.",
+        "author": "support",
+        "createdAt": "2024-02-02T15:00:00Z"
+      },
+      {
+        "content": "Jeg prøver at betale for min ordre, men det mislykkes.",
+        "author": "customer",
+        "createdAt": "2024-02-02T17:00:00Z"
+      },
+      {
+        "content": "Ordren blev annulleret, men pengene blev stadig trukket.",
+        "author": "support",
+        "createdAt": "2024-02-02T19:00:00Z"
+      },
+      {
+        "content": "Kan du bekræfte, om betalingen gik igennem?",
+        "author": "customer",
+        "createdAt": "2024-02-02T21:00:00Z"
+      },
+      {
+        "content": "Kan du bekræfte, om betalingen gik igennem?",
+        "author": "support",
+        "createdAt": "2024-02-02T23:00:00Z"
+      },
+      {
+        "content": "Transaktionen står som afventende i min bank.",
+        "author": "customer",
+        "createdAt": "2024-02-03T01:00:00Z"
+      },
+      {
+        "content": "Butikkens checkout-side fryser, når jeg vælger Credit card.",
+        "author": "support",
+        "createdAt": "2024-02-03T03:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at de ikke accepterer Google Pay lige nu.",
+        "author": "customer",
+        "createdAt": "2024-02-03T05:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at de ikke accepterer Mobile Pay lige nu.",
+        "author": "support",
+        "createdAt": "2024-02-03T07:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at de ikke accepterer Credit card lige nu.",
+        "author": "customer",
+        "createdAt": "2024-02-03T09:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "65",
+    "title": "Chargeback request for unauthorized payment",
+    "description": "Issue reported in DA related to Riverty",
+    "messages": [
+      {
+        "content": "Jeg prøvede 3 gange og kan stadig ikke betale med Google Pay.",
+        "author": "customer",
+        "createdAt": "2024-03-09T09:00:00Z"
+      },
+      {
+        "content": "Min refundering har været afventende i 10 dage nu.",
+        "author": "support",
+        "createdAt": "2024-03-09T11:00:00Z"
+      },
+      {
+        "content": "Butikkens checkout-side fryser, når jeg vælger Riverty.",
+        "author": "customer",
+        "createdAt": "2024-03-09T13:00:00Z"
+      },
+      {
+        "content": "Transaktionen står som afventende i min bank.",
+        "author": "support",
+        "createdAt": "2024-03-09T15:00:00Z"
+      },
+      {
+        "content": "Butikkens checkout-side fryser, når jeg vælger Credit card.",
+        "author": "customer",
+        "createdAt": "2024-03-09T17:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at de ikke accepterer Mobile Pay lige nu.",
+        "author": "support",
+        "createdAt": "2024-03-09T19:00:00Z"
+      },
+      {
+        "content": "Transaktionen står som afventende i min bank.",
+        "author": "customer",
+        "createdAt": "2024-03-09T21:00:00Z"
+      },
+      {
+        "content": "Betalingen gik igennem, men ordren står stadig som ubetalt.",
+        "author": "support",
+        "createdAt": "2024-03-09T23:00:00Z"
+      },
+      {
+        "content": "Min refundering har været afventende i 10 dage nu.",
+        "author": "customer",
+        "createdAt": "2024-03-10T01:00:00Z"
+      },
+      {
+        "content": "Min betaling via PayPal blev afvist.",
+        "author": "support",
+        "createdAt": "2024-03-10T03:00:00Z"
+      },
+      {
+        "content": "Din betaling er blevet behandlet.",
+        "author": "customer",
+        "createdAt": "2024-03-10T05:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "66",
+    "title": "Payment failed during checkout",
+    "description": "Issue reported in SV related to Google Pay",
+    "messages": [
+      {
+        "content": "Transaktionen visas som väntande i min bank.",
+        "author": "customer",
+        "createdAt": "2024-01-25T09:00:00Z"
+      },
+      {
+        "content": "Jag försöker betala min beställning men det misslyckas.",
+        "author": "support",
+        "createdAt": "2024-01-25T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "67",
+    "title": "Payment failed during checkout",
+    "description": "Issue reported in EN related to Riverty",
+    "messages": [
+      {
+        "content": "My payment via Apple Pay got declined.",
+        "author": "customer",
+        "createdAt": "2024-05-10T09:00:00Z"
+      },
+      {
+        "content": "Can you confirm if the payment went through?",
+        "author": "support",
+        "createdAt": "2024-05-10T11:00:00Z"
+      },
+      {
+        "content": "I was charged twice for the same order.",
+        "author": "customer",
+        "createdAt": "2024-05-10T13:00:00Z"
+      },
+      {
+        "content": "I requested a refund last week but haven't received it yet.",
+        "author": "support",
+        "createdAt": "2024-05-10T15:00:00Z"
+      },
+      {
+        "content": "The shop's checkout page freezes when I select Credit card.",
+        "author": "customer",
+        "createdAt": "2024-05-10T17:00:00Z"
+      },
+      {
+        "content": "It seems there is an issue with PayPal.",
+        "author": "support",
+        "createdAt": "2024-05-10T19:00:00Z"
+      },
+      {
+        "content": "Your payment has been processed successfully.",
+        "author": "customer",
+        "createdAt": "2024-05-10T21:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "68",
+    "title": "Chargeback request for unauthorized payment",
+    "description": "Issue reported in SV related to Credit card",
+    "messages": [
+      {
+        "content": "Varför är Google Pay inte längre tillgängligt i appen?",
+        "author": "customer",
+        "createdAt": "2024-02-22T09:00:00Z"
+      },
+      {
+        "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
+        "author": "support",
+        "createdAt": "2024-02-22T11:00:00Z"
+      },
+      {
+        "content": "Jag försökte 3 gånger och kan fortfarande inte betala med Credit card.",
+        "author": "customer",
+        "createdAt": "2024-02-22T13:00:00Z"
+      },
+      {
+        "content": "Jag försökte 3 gånger och kan fortfarande inte betala med PayPal.",
+        "author": "support",
+        "createdAt": "2024-02-22T15:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "69",
+    "title": "Payment failed during checkout",
+    "description": "Issue reported in EN related to Riverty",
+    "messages": [
+      {
+        "content": "Can you confirm if the payment went through?",
+        "author": "customer",
+        "createdAt": "2024-05-26T09:00:00Z"
+      },
+      {
+        "content": "I have been charged twice for my purchase.",
+        "author": "support",
+        "createdAt": "2024-05-26T11:00:00Z"
+      },
+      {
+        "content": "Why is PayPal not available in your app anymore?",
+        "author": "customer",
+        "createdAt": "2024-05-26T13:00:00Z"
+      },
+      {
+        "content": "The shop says they don't accept PayPal right now.",
+        "author": "support",
+        "createdAt": "2024-05-26T15:00:00Z"
+      },
+      {
+        "content": "My payment via Klarna got declined.",
+        "author": "customer",
+        "createdAt": "2024-05-26T17:00:00Z"
+      },
+      {
+        "content": "The transaction shows pending in my bank.",
+        "author": "support",
+        "createdAt": "2024-05-26T19:00:00Z"
+      },
+      {
+        "content": "The shop says they don't accept Credit card right now.",
+        "author": "customer",
+        "createdAt": "2024-05-26T21:00:00Z"
+      },
+      {
+        "content": "Shop says payment is completed, but I see nothing in my bank.",
+        "author": "support",
+        "createdAt": "2024-05-26T23:00:00Z"
+      },
+      {
+        "content": "My payment via Credit card got declined.",
+        "author": "customer",
+        "createdAt": "2024-05-27T01:00:00Z"
+      },
+      {
+        "content": "Why is Google Pay not available in your app anymore?",
+        "author": "support",
+        "createdAt": "2024-05-27T03:00:00Z"
+      },
+      {
+        "content": "Why is Mobile Pay not available in your app anymore?",
+        "author": "customer",
+        "createdAt": "2024-05-27T05:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "70",
+    "title": "Klarna payment not showing in account",
+    "description": "Issue reported in EN related to Klarna",
+    "messages": [
+      {
+        "content": "The shop's checkout page freezes when I select Mobile Pay.",
+        "author": "customer",
+        "createdAt": "2024-01-01T09:00:00Z"
+      },
+      {
+        "content": "Please check if your account has sufficient funds.",
+        "author": "support",
+        "createdAt": "2024-01-01T11:00:00Z"
+      },
+      {
+        "content": "I have been charged twice for my purchase.",
+        "author": "customer",
+        "createdAt": "2024-01-01T13:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "71",
+    "title": "Double charge on Credit card",
+    "description": "Issue reported in SV related to Credit card",
+    "messages": [
+      {
+        "content": "Det verkar vara ett problem med Mobile Pay.",
+        "author": "customer",
+        "createdAt": "2024-01-24T09:00:00Z"
+      },
+      {
+        "content": "Min betalning via Apple Pay nekades.",
+        "author": "support",
+        "createdAt": "2024-01-24T11:00:00Z"
+      },
+      {
+        "content": "Kan du bekräfta om betalningen gick igenom?",
+        "author": "customer",
+        "createdAt": "2024-01-24T13:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "72",
+    "title": "Mobile Pay declined at checkout",
+    "description": "Issue reported in SV related to Klarna",
+    "messages": [
+      {
+        "content": "Jag har blivit debiterad två gånger för mitt köp.",
+        "author": "customer",
+        "createdAt": "2024-03-19T09:00:00Z"
+      },
+      {
+        "content": "Kontrollera om du har tillräckligt med pengar på kontot.",
+        "author": "support",
+        "createdAt": "2024-03-19T11:00:00Z"
+      },
+      {
+        "content": "Varför är Klarna inte längre tillgängligt i appen?",
+        "author": "customer",
+        "createdAt": "2024-03-19T13:00:00Z"
+      },
+      {
+        "content": "Kan du bekräfta om betalningen gick igenom?",
+        "author": "support",
+        "createdAt": "2024-03-19T15:00:00Z"
+      },
+      {
+        "content": "Det verkar vara ett problem med Mobile Pay.",
+        "author": "customer",
+        "createdAt": "2024-03-19T17:00:00Z"
+      },
+      {
+        "content": "Kan jag ändra min betalningsmetod till Mobile Pay?",
+        "author": "support",
+        "createdAt": "2024-03-19T19:00:00Z"
+      },
+      {
+        "content": "Min betalning via Google Pay nekades.",
+        "author": "customer",
+        "createdAt": "2024-03-19T21:00:00Z"
+      },
+      {
+        "content": "Betalningen gick igenom men beställningen är fortfarande obetald.",
+        "author": "support",
+        "createdAt": "2024-03-19T23:00:00Z"
+      },
+      {
+        "content": "Butikens kassasida fryser när jag väljer Google Pay.",
+        "author": "customer",
+        "createdAt": "2024-03-20T01:00:00Z"
+      },
+      {
+        "content": "Varför är PayPal inte längre tillgängligt i appen?",
+        "author": "support",
+        "createdAt": "2024-03-20T03:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "73",
+    "title": "Klarna payment not showing in account",
+    "description": "Issue reported in EN related to Riverty",
+    "messages": [
+      {
+        "content": "I'm trying to pay for my order but it keeps failing.",
+        "author": "customer",
+        "createdAt": "2024-05-21T09:00:00Z"
+      },
+      {
+        "content": "Shop says payment is completed, but I see nothing in my bank.",
+        "author": "support",
+        "createdAt": "2024-05-21T11:00:00Z"
+      },
+      {
+        "content": "Your payment has been processed successfully.",
+        "author": "customer",
+        "createdAt": "2024-05-21T13:00:00Z"
+      },
+      {
+        "content": "Please check if your account has sufficient funds.",
+        "author": "support",
+        "createdAt": "2024-05-21T15:00:00Z"
+      },
+      {
+        "content": "Can I change my payment method to Klarna?",
+        "author": "customer",
+        "createdAt": "2024-05-21T17:00:00Z"
+      },
+      {
+        "content": "Order was cancelled, but money was taken.",
+        "author": "support",
+        "createdAt": "2024-05-21T19:00:00Z"
+      },
+      {
+        "content": "It seems there is an issue with Apple Pay.",
+        "author": "customer",
+        "createdAt": "2024-05-21T21:00:00Z"
+      },
+      {
+        "content": "Order was cancelled, but money was taken.",
+        "author": "support",
+        "createdAt": "2024-05-21T23:00:00Z"
+      },
+      {
+        "content": "I requested a refund last week but haven't received it yet.",
+        "author": "customer",
+        "createdAt": "2024-05-22T01:00:00Z"
+      },
+      {
+        "content": "The shop says they don't accept Google Pay right now.",
+        "author": "support",
+        "createdAt": "2024-05-22T03:00:00Z"
+      },
+      {
+        "content": "Can you confirm if the payment went through?",
+        "author": "customer",
+        "createdAt": "2024-05-22T05:00:00Z"
+      },
+      {
+        "content": "The payment went through but the order is still marked as unpaid.",
+        "author": "support",
+        "createdAt": "2024-05-22T07:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "74",
+    "title": "Delayed refund from shop using PayPal",
+    "description": "Issue reported in SV related to Klarna",
+    "messages": [
+      {
+        "content": "Jag blev debiterad två gånger för samma beställning.",
+        "author": "customer",
+        "createdAt": "2024-02-21T09:00:00Z"
+      },
+      {
+        "content": "Beställningen avbröts men pengarna drogs ändå.",
+        "author": "support",
+        "createdAt": "2024-02-21T11:00:00Z"
+      },
+      {
+        "content": "Jag försökte 3 gånger och kan fortfarande inte betala med Credit card.",
+        "author": "customer",
+        "createdAt": "2024-02-21T13:00:00Z"
+      },
+      {
+        "content": "Det verkar vara ett problem med Mobile Pay.",
+        "author": "support",
+        "createdAt": "2024-02-21T15:00:00Z"
+      },
+      {
+        "content": "Butiken säger att de inte accepterar Mobile Pay just nu.",
+        "author": "customer",
+        "createdAt": "2024-02-21T17:00:00Z"
+      },
+      {
+        "content": "Butiken säger att de inte accepterar Riverty just nu.",
+        "author": "support",
+        "createdAt": "2024-02-21T19:00:00Z"
+      },
+      {
+        "content": "Kontrollera om du har tillräckligt med pengar på kontot.",
+        "author": "customer",
+        "createdAt": "2024-02-21T21:00:00Z"
+      },
+      {
+        "content": "Butiken säger att de inte accepterar Klarna just nu.",
+        "author": "support",
+        "createdAt": "2024-02-21T23:00:00Z"
+      },
+      {
+        "content": "Jag försöker betala min beställning men det misslyckas.",
+        "author": "customer",
+        "createdAt": "2024-02-22T01:00:00Z"
+      },
+      {
+        "content": "Jag har blivit debiterad två gånger för mitt köp.",
+        "author": "support",
+        "createdAt": "2024-02-22T03:00:00Z"
+      },
+      {
+        "content": "Kontrollera om du har tillräckligt med pengar på kontot.",
+        "author": "customer",
+        "createdAt": "2024-02-22T05:00:00Z"
+      },
+      {
+        "content": "Transaktionen visas som väntande i min bank.",
+        "author": "support",
+        "createdAt": "2024-02-22T07:00:00Z"
+      },
+      {
+        "content": "Kan du bekräfta om betalningen gick igenom?",
+        "author": "customer",
+        "createdAt": "2024-02-22T09:00:00Z"
+      },
+      {
+        "content": "Kan jag ändra min betalningsmetod till PayPal?",
+        "author": "support",
+        "createdAt": "2024-02-22T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "75",
+    "title": "Refund request not processed",
+    "description": "Issue reported in DA related to Google Pay",
+    "messages": [
+      {
+        "content": "Der ser ud til at være et problem med PayPal.",
+        "author": "customer",
+        "createdAt": "2024-02-22T09:00:00Z"
+      },
+      {
+        "content": "Min betaling via Mobile Pay blev afvist.",
+        "author": "support",
+        "createdAt": "2024-02-22T11:00:00Z"
+      },
+      {
+        "content": "Min betaling via Google Pay blev afvist.",
+        "author": "customer",
+        "createdAt": "2024-02-22T13:00:00Z"
+      },
+      {
+        "content": "Ordren blev annulleret, men pengene blev stadig trukket.",
+        "author": "support",
+        "createdAt": "2024-02-22T15:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "76",
+    "title": "Technical issue with PayPal payment gateway",
+    "description": "Issue reported in SV related to Google Pay",
+    "messages": [
+      {
+        "content": "Betalningen gick igenom men beställningen är fortfarande obetald.",
+        "author": "customer",
+        "createdAt": "2024-04-25T09:00:00Z"
+      },
+      {
+        "content": "Kan du bekräfta om betalningen gick igenom?",
+        "author": "support",
+        "createdAt": "2024-04-25T11:00:00Z"
+      },
+      {
+        "content": "Min betalning via Google Pay nekades.",
+        "author": "customer",
+        "createdAt": "2024-04-25T13:00:00Z"
+      },
+      {
+        "content": "Kan du bekräfta om betalningen gick igenom?",
+        "author": "support",
+        "createdAt": "2024-04-25T15:00:00Z"
+      },
+      {
+        "content": "Butikens kassasida fryser när jag väljer PayPal.",
+        "author": "customer",
+        "createdAt": "2024-04-25T17:00:00Z"
+      },
+      {
+        "content": "Kontrollera om du har tillräckligt med pengar på kontot.",
+        "author": "support",
+        "createdAt": "2024-04-25T19:00:00Z"
+      },
+      {
+        "content": "Kan du bekräfta om betalningen gick igenom?",
+        "author": "customer",
+        "createdAt": "2024-04-25T21:00:00Z"
+      },
+      {
+        "content": "Jag blev debiterad två gånger för samma beställning.",
+        "author": "support",
+        "createdAt": "2024-04-25T23:00:00Z"
+      },
+      {
+        "content": "Varför är Riverty inte längre tillgängligt i appen?",
+        "author": "customer",
+        "createdAt": "2024-04-26T01:00:00Z"
+      },
+      {
+        "content": "Kan jag ändra min betalningsmetod till Mobile Pay?",
+        "author": "support",
+        "createdAt": "2024-04-26T03:00:00Z"
+      },
+      {
+        "content": "Min betalning via Mobile Pay nekades.",
+        "author": "customer",
+        "createdAt": "2024-04-26T05:00:00Z"
+      },
+      {
+        "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
+        "author": "support",
+        "createdAt": "2024-04-26T07:00:00Z"
+      },
+      {
+        "content": "Transaktionen visas som väntande i min bank.",
+        "author": "customer",
+        "createdAt": "2024-04-26T09:00:00Z"
+      },
+      {
+        "content": "Butiken säger att betalningen är klar men jag ser inget på banken.",
+        "author": "support",
+        "createdAt": "2024-04-26T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "77",
+    "title": "Chargeback request for unauthorized payment",
+    "description": "Issue reported in EN related to Mobile Pay",
+    "messages": [
+      {
+        "content": "The payment went through but the order is still marked as unpaid.",
+        "author": "customer",
+        "createdAt": "2024-04-24T09:00:00Z"
+      },
+      {
+        "content": "It seems there is an issue with Apple Pay.",
+        "author": "support",
+        "createdAt": "2024-04-24T11:00:00Z"
+      },
+      {
+        "content": "Order was cancelled, but money was taken.",
+        "author": "customer",
+        "createdAt": "2024-04-24T13:00:00Z"
+      },
+      {
+        "content": "Can you confirm if the payment went through?",
+        "author": "support",
+        "createdAt": "2024-04-24T15:00:00Z"
+      },
+      {
+        "content": "I tried 3 times and still can't pay with PayPal.",
+        "author": "customer",
+        "createdAt": "2024-04-24T17:00:00Z"
+      },
+      {
+        "content": "Shop says payment is completed, but I see nothing in my bank.",
+        "author": "support",
+        "createdAt": "2024-04-24T19:00:00Z"
+      },
+      {
+        "content": "The payment went through but the order is still marked as unpaid.",
+        "author": "customer",
+        "createdAt": "2024-04-24T21:00:00Z"
+      },
+      {
+        "content": "My refund has been pending for 10 days now.",
+        "author": "support",
+        "createdAt": "2024-04-24T23:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "78",
+    "title": "Unable to complete purchase via Riverty",
+    "description": "Issue reported in DA related to Riverty",
+    "messages": [
+      {
+        "content": "Ordren blev annulleret, men pengene blev stadig trukket.",
+        "author": "customer",
+        "createdAt": "2024-02-29T09:00:00Z"
+      },
+      {
+        "content": "Kan du bekræfte, om betalingen gik igennem?",
+        "author": "support",
+        "createdAt": "2024-02-29T11:00:00Z"
+      },
+      {
+        "content": "Jeg prøvede 3 gange og kan stadig ikke betale med Riverty.",
+        "author": "customer",
+        "createdAt": "2024-02-29T13:00:00Z"
+      },
+      {
+        "content": "Ordren blev annulleret, men pengene blev stadig trukket.",
+        "author": "support",
+        "createdAt": "2024-02-29T15:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at betalingen er gennemført, men jeg kan ikke se noget i banken.",
+        "author": "customer",
+        "createdAt": "2024-02-29T17:00:00Z"
+      },
+      {
+        "content": "Kan jeg ændre min betalingsmetode til Klarna?",
+        "author": "support",
+        "createdAt": "2024-02-29T19:00:00Z"
+      },
+      {
+        "content": "Hvorfor er PayPal ikke længere tilgængelig i appen?",
+        "author": "customer",
+        "createdAt": "2024-02-29T21:00:00Z"
+      },
+      {
+        "content": "Jeg anmodede om en refundering i sidste uge, men har stadig ikke fået den.",
+        "author": "support",
+        "createdAt": "2024-02-29T23:00:00Z"
+      },
+      {
+        "content": "Hvorfor er Riverty ikke længere tilgængelig i appen?",
+        "author": "customer",
+        "createdAt": "2024-03-01T01:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at de ikke accepterer Mobile Pay lige nu.",
+        "author": "support",
+        "createdAt": "2024-03-01T03:00:00Z"
+      },
+      {
+        "content": "Der ser ud til at være et problem med Google Pay.",
+        "author": "customer",
+        "createdAt": "2024-03-01T05:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at de ikke accepterer Credit card lige nu.",
+        "author": "support",
+        "createdAt": "2024-03-01T07:00:00Z"
+      },
+      {
+        "content": "Jeg prøver at betale for min ordre, men det mislykkes.",
+        "author": "customer",
+        "createdAt": "2024-03-01T09:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "79",
+    "title": "Payment failed during checkout",
+    "description": "Issue reported in DA related to Google Pay",
+    "messages": [
+      {
+        "content": "Butikken siger, at betalingen er gennemført, men jeg kan ikke se noget i banken.",
+        "author": "customer",
+        "createdAt": "2024-07-14T09:00:00Z"
+      },
+      {
+        "content": "Hvorfor er Mobile Pay ikke længere tilgængelig i appen?",
+        "author": "support",
+        "createdAt": "2024-07-14T11:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at de ikke accepterer PayPal lige nu.",
+        "author": "customer",
+        "createdAt": "2024-07-14T13:00:00Z"
+      },
+      {
+        "content": "Transaktionen står som afventende i min bank.",
+        "author": "support",
+        "createdAt": "2024-07-14T15:00:00Z"
+      },
+      {
+        "content": "Hvorfor er Klarna ikke længere tilgængelig i appen?",
+        "author": "customer",
+        "createdAt": "2024-07-14T17:00:00Z"
+      },
+      {
+        "content": "Der ser ud til at være et problem med Google Pay.",
+        "author": "support",
+        "createdAt": "2024-07-14T19:00:00Z"
+      },
+      {
+        "content": "Tjek venligst om din konto har nok penge.",
+        "author": "customer",
+        "createdAt": "2024-07-14T21:00:00Z"
+      },
+      {
+        "content": "Jeg prøvede 3 gange og kan stadig ikke betale med Credit card.",
+        "author": "support",
+        "createdAt": "2024-07-14T23:00:00Z"
+      },
+      {
+        "content": "Kan jeg ændre min betalingsmetode til Credit card?",
+        "author": "customer",
+        "createdAt": "2024-07-15T01:00:00Z"
+      },
+      {
+        "content": "Tjek venligst om din konto har nok penge.",
+        "author": "support",
+        "createdAt": "2024-07-15T03:00:00Z"
+      },
+      {
+        "content": "Jeg er blevet opkrævet to gange for mit køb.",
+        "author": "customer",
+        "createdAt": "2024-07-15T05:00:00Z"
+      },
+      {
+        "content": "Hvorfor er Google Pay ikke længere tilgængelig i appen?",
+        "author": "support",
+        "createdAt": "2024-07-15T07:00:00Z"
+      },
+      {
+        "content": "Hvilken fejlmeddelelse ser du?",
+        "author": "customer",
+        "createdAt": "2024-07-15T09:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "80",
+    "title": "Chargeback request for unauthorized payment",
+    "description": "Issue reported in SV related to Google Pay",
+    "messages": [
+      {
+        "content": "Det verkar vara ett problem med Mobile Pay.",
+        "author": "customer",
+        "createdAt": "2024-04-21T09:00:00Z"
+      },
+      {
+        "content": "Jag försöker betala min beställning men det misslyckas.",
+        "author": "support",
+        "createdAt": "2024-04-21T11:00:00Z"
+      },
+      {
+        "content": "Kan du bekräfta om betalningen gick igenom?",
+        "author": "customer",
+        "createdAt": "2024-04-21T13:00:00Z"
+      },
+      {
+        "content": "Det verkar vara ett problem med PayPal.",
+        "author": "support",
+        "createdAt": "2024-04-21T15:00:00Z"
+      },
+      {
+        "content": "Kan jag ändra min betalningsmetod till Mobile Pay?",
+        "author": "customer",
+        "createdAt": "2024-04-21T17:00:00Z"
+      },
+      {
+        "content": "Jag försöker betala min beställning men det misslyckas.",
+        "author": "support",
+        "createdAt": "2024-04-21T19:00:00Z"
+      },
+      {
+        "content": "Jag försökte 3 gånger och kan fortfarande inte betala med Google Pay.",
+        "author": "customer",
+        "createdAt": "2024-04-21T21:00:00Z"
+      },
+      {
+        "content": "Kan du bekräfta om betalningen gick igenom?",
+        "author": "support",
+        "createdAt": "2024-04-21T23:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "81",
+    "title": "Overcharged when paying with Riverty",
+    "description": "Issue reported in SV related to Mobile Pay",
+    "messages": [
+      {
+        "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
+        "author": "customer",
+        "createdAt": "2024-01-05T09:00:00Z"
+      },
+      {
+        "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
+        "author": "support",
+        "createdAt": "2024-01-05T11:00:00Z"
+      },
+      {
+        "content": "Kan jag ändra min betalningsmetod till Apple Pay?",
+        "author": "customer",
+        "createdAt": "2024-01-05T13:00:00Z"
+      },
+      {
+        "content": "Butiken säger att de inte accepterar Credit card just nu.",
+        "author": "support",
+        "createdAt": "2024-01-05T15:00:00Z"
+      },
+      {
+        "content": "Din betalning har behandlats framgångsrikt.",
+        "author": "customer",
+        "createdAt": "2024-01-05T17:00:00Z"
+      },
+      {
+        "content": "Jag försökte 3 gånger och kan fortfarande inte betala med Riverty.",
+        "author": "support",
+        "createdAt": "2024-01-05T19:00:00Z"
+      },
+      {
+        "content": "Butikens kassasida fryser när jag väljer Credit card.",
+        "author": "customer",
+        "createdAt": "2024-01-05T21:00:00Z"
+      },
+      {
+        "content": "Jag har blivit debiterad två gånger för mitt köp.",
+        "author": "support",
+        "createdAt": "2024-01-05T23:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "82",
+    "title": "Refund request not processed",
+    "description": "Issue reported in SV related to Klarna",
+    "messages": [
+      {
+        "content": "Jag försökte 3 gånger och kan fortfarande inte betala med Apple Pay.",
+        "author": "customer",
+        "createdAt": "2024-02-10T09:00:00Z"
+      },
+      {
+        "content": "Jag försökte 3 gånger och kan fortfarande inte betala med Mobile Pay.",
+        "author": "support",
+        "createdAt": "2024-02-10T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "83",
+    "title": "Google Pay unavailable in selected shop",
+    "description": "Issue reported in SV related to PayPal",
+    "messages": [
+      {
+        "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
+        "author": "customer",
+        "createdAt": "2024-02-22T09:00:00Z"
+      },
+      {
+        "content": "Vilket felmeddelande får du?",
+        "author": "support",
+        "createdAt": "2024-02-22T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "84",
+    "title": "Google Pay declined at checkout",
+    "description": "Issue reported in DA related to Apple Pay",
+    "messages": [
+      {
+        "content": "Jeg anmodede om en refundering i sidste uge, men har stadig ikke fået den.",
+        "author": "customer",
+        "createdAt": "2024-01-15T09:00:00Z"
+      },
+      {
+        "content": "Jeg anmodede om en refundering i sidste uge, men har stadig ikke fået den.",
+        "author": "support",
+        "createdAt": "2024-01-15T11:00:00Z"
+      },
+      {
+        "content": "Kan jeg ændre min betalingsmetode til Google Pay?",
+        "author": "customer",
+        "createdAt": "2024-01-15T13:00:00Z"
+      },
+      {
+        "content": "Kan du bekræfte, om betalingen gik igennem?",
+        "author": "support",
+        "createdAt": "2024-01-15T15:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "85",
+    "title": "PayPal payment not showing in account",
+    "description": "Issue reported in EN related to Riverty",
+    "messages": [
+      {
+        "content": "What error message are you seeing?",
+        "author": "customer",
+        "createdAt": "2024-03-06T09:00:00Z"
+      },
+      {
+        "content": "I'm trying to pay for my order but it keeps failing.",
+        "author": "support",
+        "createdAt": "2024-03-06T11:00:00Z"
+      },
+      {
+        "content": "I requested a refund last week but haven't received it yet.",
+        "author": "customer",
+        "createdAt": "2024-03-06T13:00:00Z"
+      },
+      {
+        "content": "The transaction shows pending in my bank.",
+        "author": "support",
+        "createdAt": "2024-03-06T15:00:00Z"
+      },
+      {
+        "content": "It seems there is an issue with Klarna.",
+        "author": "customer",
+        "createdAt": "2024-03-06T17:00:00Z"
+      },
+      {
+        "content": "Shop says payment is completed, but I see nothing in my bank.",
+        "author": "support",
+        "createdAt": "2024-03-06T19:00:00Z"
+      },
+      {
+        "content": "Can you confirm if the payment went through?",
+        "author": "customer",
+        "createdAt": "2024-03-06T21:00:00Z"
+      },
+      {
+        "content": "My refund has been pending for 10 days now.",
+        "author": "support",
+        "createdAt": "2024-03-06T23:00:00Z"
+      },
+      {
+        "content": "I tried 3 times and still can't pay with Riverty.",
+        "author": "customer",
+        "createdAt": "2024-03-07T01:00:00Z"
+      },
+      {
+        "content": "I have been charged twice for my purchase.",
+        "author": "support",
+        "createdAt": "2024-03-07T03:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "86",
+    "title": "Google Pay unavailable in selected shop",
+    "description": "Issue reported in SV related to Google Pay",
+    "messages": [
+      {
+        "content": "Jag försökte 3 gånger och kan fortfarande inte betala med Apple Pay.",
+        "author": "customer",
+        "createdAt": "2024-03-04T09:00:00Z"
+      },
+      {
+        "content": "Det verkar vara ett problem med PayPal.",
+        "author": "support",
+        "createdAt": "2024-03-04T11:00:00Z"
+      },
+      {
+        "content": "Beställningen avbröts men pengarna drogs ändå.",
+        "author": "customer",
+        "createdAt": "2024-03-04T13:00:00Z"
+      },
+      {
+        "content": "Jag har blivit debiterad två gånger för mitt köp.",
+        "author": "support",
+        "createdAt": "2024-03-04T15:00:00Z"
+      },
+      {
+        "content": "Butiken säger att de inte accepterar Mobile Pay just nu.",
+        "author": "customer",
+        "createdAt": "2024-03-04T17:00:00Z"
+      },
+      {
+        "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
+        "author": "support",
+        "createdAt": "2024-03-04T19:00:00Z"
+      },
+      {
+        "content": "Butiken säger att betalningen är klar men jag ser inget på banken.",
+        "author": "customer",
+        "createdAt": "2024-03-04T21:00:00Z"
+      },
+      {
+        "content": "Kontrollera om du har tillräckligt med pengar på kontot.",
+        "author": "support",
+        "createdAt": "2024-03-04T23:00:00Z"
+      },
+      {
+        "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
+        "author": "customer",
+        "createdAt": "2024-03-05T01:00:00Z"
+      },
+      {
+        "content": "Min återbetalning har varit väntande i 10 dagar nu.",
+        "author": "support",
+        "createdAt": "2024-03-05T03:00:00Z"
+      },
+      {
+        "content": "Beställningen avbröts men pengarna drogs ändå.",
+        "author": "customer",
+        "createdAt": "2024-03-05T05:00:00Z"
+      },
+      {
+        "content": "Min betalning via Credit card nekades.",
+        "author": "support",
+        "createdAt": "2024-03-05T07:00:00Z"
+      },
+      {
+        "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
+        "author": "customer",
+        "createdAt": "2024-03-05T09:00:00Z"
+      },
+      {
+        "content": "Jag har blivit debiterad två gånger för mitt köp.",
+        "author": "support",
+        "createdAt": "2024-03-05T11:00:00Z"
+      },
+      {
+        "content": "Din betalning har behandlats framgångsrikt.",
+        "author": "customer",
+        "createdAt": "2024-03-05T13:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "87",
+    "title": "Refund request not processed",
+    "description": "Issue reported in DA related to Riverty",
+    "messages": [
+      {
+        "content": "Jeg prøvede 3 gange og kan stadig ikke betale med Mobile Pay.",
+        "author": "customer",
+        "createdAt": "2024-03-08T09:00:00Z"
+      },
+      {
+        "content": "Butikkens checkout-side fryser, når jeg vælger Apple Pay.",
+        "author": "support",
+        "createdAt": "2024-03-08T11:00:00Z"
+      },
+      {
+        "content": "Min betaling via Credit card blev afvist.",
+        "author": "customer",
+        "createdAt": "2024-03-08T13:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at de ikke accepterer Google Pay lige nu.",
+        "author": "support",
+        "createdAt": "2024-03-08T15:00:00Z"
+      },
+      {
+        "content": "Butikkens checkout-side fryser, når jeg vælger Riverty.",
+        "author": "customer",
+        "createdAt": "2024-03-08T17:00:00Z"
+      },
+      {
+        "content": "Betalingen gik igennem, men ordren står stadig som ubetalt.",
+        "author": "support",
+        "createdAt": "2024-03-08T19:00:00Z"
+      },
+      {
+        "content": "Tjek venligst om din konto har nok penge.",
+        "author": "customer",
+        "createdAt": "2024-03-08T21:00:00Z"
+      },
+      {
+        "content": "Jeg prøver at betale for min ordre, men det mislykkes.",
+        "author": "support",
+        "createdAt": "2024-03-08T23:00:00Z"
+      },
+      {
+        "content": "Der ser ud til at være et problem med Google Pay.",
+        "author": "customer",
+        "createdAt": "2024-03-09T01:00:00Z"
+      },
+      {
+        "content": "Kan du bekræfte, om betalingen gik igennem?",
+        "author": "support",
+        "createdAt": "2024-03-09T03:00:00Z"
+      },
+      {
+        "content": "Hvilken fejlmeddelelse ser du?",
+        "author": "customer",
+        "createdAt": "2024-03-09T05:00:00Z"
+      },
+      {
+        "content": "Butikken siger, at de ikke accepterer Google Pay lige nu.",
+        "author": "support",
+        "createdAt": "2024-03-09T07:00:00Z"
+      },
+      {
+        "content": "Tjek venligst om din konto har nok penge.",
+        "author": "customer",
+        "createdAt": "2024-03-09T09:00:00Z"
+      },
+      {
+        "content": "Hvorfor er Apple Pay ikke længere tilgængelig i appen?",
+        "author": "support",
+        "createdAt": "2024-03-09T11:00:00Z"
+      },
+      {
+        "content": "Min refundering har været afventende i 10 dage nu.",
+        "author": "customer",
+        "createdAt": "2024-03-09T13:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "88",
+    "title": "Chargeback request for unauthorized payment",
+    "description": "Issue reported in SV related to Riverty",
+    "messages": [
+      {
+        "content": "Min återbetalning har varit väntande i 10 dagar nu.",
+        "author": "customer",
+        "createdAt": "2024-04-15T09:00:00Z"
+      },
+      {
+        "content": "Transaktionen visas som väntande i min bank.",
+        "author": "support",
+        "createdAt": "2024-04-15T11:00:00Z"
+      },
+      {
+        "content": "Butikens kassasida fryser när jag väljer Apple Pay.",
+        "author": "customer",
+        "createdAt": "2024-04-15T13:00:00Z"
+      },
+      {
+        "content": "Varför är Klarna inte längre tillgängligt i appen?",
+        "author": "support",
+        "createdAt": "2024-04-15T15:00:00Z"
+      },
+      {
+        "content": "Det verkar vara ett problem med Riverty.",
+        "author": "customer",
+        "createdAt": "2024-04-15T17:00:00Z"
+      },
+      {
+        "content": "Varför är Apple Pay inte längre tillgängligt i appen?",
+        "author": "support",
+        "createdAt": "2024-04-15T19:00:00Z"
+      },
+      {
+        "content": "Det verkar vara ett problem med Mobile Pay.",
+        "author": "customer",
+        "createdAt": "2024-04-15T21:00:00Z"
+      },
+      {
+        "content": "Transaktionen visas som väntande i min bank.",
+        "author": "support",
+        "createdAt": "2024-04-15T23:00:00Z"
+      },
+      {
+        "content": "Betalningen gick igenom men beställningen är fortfarande obetald.",
+        "author": "customer",
+        "createdAt": "2024-04-16T01:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "89",
+    "title": "Klarna declined at checkout",
+    "description": "Issue reported in SV related to Riverty",
+    "messages": [
+      {
+        "content": "Butiken säger att betalningen är klar men jag ser inget på banken.",
+        "author": "customer",
+        "createdAt": "2024-04-04T09:00:00Z"
+      },
+      {
+        "content": "Jag blev debiterad två gånger för samma beställning.",
+        "author": "support",
+        "createdAt": "2024-04-04T11:00:00Z"
+      },
+      {
+        "content": "Jag försöker betala min beställning men det misslyckas.",
+        "author": "customer",
+        "createdAt": "2024-04-04T13:00:00Z"
+      },
+      {
+        "content": "Butikens kassasida fryser när jag väljer Klarna.",
+        "author": "support",
+        "createdAt": "2024-04-04T15:00:00Z"
+      },
+      {
+        "content": "Transaktionen visas som väntande i min bank.",
+        "author": "customer",
+        "createdAt": "2024-04-04T17:00:00Z"
+      },
+      {
+        "content": "Butiken säger att betalningen är klar men jag ser inget på banken.",
+        "author": "support",
+        "createdAt": "2024-04-04T19:00:00Z"
+      },
+      {
+        "content": "Beställningen avbröts men pengarna drogs ändå.",
+        "author": "customer",
+        "createdAt": "2024-04-04T21:00:00Z"
+      },
+      {
+        "content": "Beställningen avbröts men pengarna drogs ändå.",
+        "author": "support",
+        "createdAt": "2024-04-04T23:00:00Z"
+      },
+      {
+        "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
+        "author": "customer",
+        "createdAt": "2024-04-05T01:00:00Z"
+      },
+      {
+        "content": "Kan du bekräfta om betalningen gick igenom?",
+        "author": "support",
+        "createdAt": "2024-04-05T03:00:00Z"
+      },
+      {
+        "content": "Jag har blivit debiterad två gånger för mitt köp.",
+        "author": "customer",
+        "createdAt": "2024-04-05T05:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "90",
+    "title": "Problem completing transaction with Apple Pay",
+    "description": "Issue reported in DA related to Google Pay",
+    "messages": [
+      {
+        "content": "Ordren blev annulleret, men pengene blev stadig trukket.",
+        "author": "customer",
+        "createdAt": "2024-03-30T09:00:00Z"
+      },
+      {
+        "content": "Butikkens checkout-side fryser, når jeg vælger Credit card.",
+        "author": "support",
+        "createdAt": "2024-03-30T11:00:00Z"
+      },
+      {
+        "content": "Min betaling via PayPal blev afvist.",
+        "author": "customer",
+        "createdAt": "2024-03-30T13:00:00Z"
+      },
+      {
+        "content": "Jeg anmodede om en refundering i sidste uge, men har stadig ikke fået den.",
+        "author": "support",
+        "createdAt": "2024-03-30T15:00:00Z"
+      },
+      {
+        "content": "Kan jeg ændre min betalingsmetode til Google Pay?",
+        "author": "customer",
+        "createdAt": "2024-03-30T17:00:00Z"
+      },
+      {
+        "content": "Min betaling via Klarna blev afvist.",
+        "author": "support",
+        "createdAt": "2024-03-30T19:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "91",
+    "title": "Delayed refund from shop using Credit card",
+    "description": "Issue reported in EN related to PayPal",
+    "messages": [
+      {
+        "content": "Please check if your account has sufficient funds.",
+        "author": "customer",
+        "createdAt": "2024-02-05T09:00:00Z"
+      },
+      {
+        "content": "My payment via Apple Pay got declined.",
+        "author": "support",
+        "createdAt": "2024-02-05T11:00:00Z"
+      },
+      {
+        "content": "The payment went through but the order is still marked as unpaid.",
+        "author": "customer",
+        "createdAt": "2024-02-05T13:00:00Z"
+      },
+      {
+        "content": "I requested a refund last week but haven't received it yet.",
+        "author": "support",
+        "createdAt": "2024-02-05T15:00:00Z"
+      },
+      {
+        "content": "The payment went through but the order is still marked as unpaid.",
+        "author": "customer",
+        "createdAt": "2024-02-05T17:00:00Z"
+      },
+      {
+        "content": "Shop says payment is completed, but I see nothing in my bank.",
+        "author": "support",
+        "createdAt": "2024-02-05T19:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "92",
+    "title": "Chargeback request for unauthorized payment",
+    "description": "Issue reported in SV related to Credit card",
+    "messages": [
+      {
+        "content": "Vilket felmeddelande får du?",
+        "author": "customer",
+        "createdAt": "2024-05-26T09:00:00Z"
+      },
+      {
+        "content": "Det verkar vara ett problem med Apple Pay.",
+        "author": "support",
+        "createdAt": "2024-05-26T11:00:00Z"
+      },
+      {
+        "content": "Min betalning via Google Pay nekades.",
+        "author": "customer",
+        "createdAt": "2024-05-26T13:00:00Z"
+      },
+      {
+        "content": "Det verkar vara ett problem med PayPal.",
+        "author": "support",
+        "createdAt": "2024-05-26T15:00:00Z"
+      },
+      {
+        "content": "Kan jag ändra min betalningsmetod till Mobile Pay?",
+        "author": "customer",
+        "createdAt": "2024-05-26T17:00:00Z"
+      },
+      {
+        "content": "Butikens kassasida fryser när jag väljer Klarna.",
+        "author": "support",
+        "createdAt": "2024-05-26T19:00:00Z"
+      },
+      {
+        "content": "Jag försöker betala min beställning men det misslyckas.",
+        "author": "customer",
+        "createdAt": "2024-05-26T21:00:00Z"
+      },
+      {
+        "content": "Butikens kassasida fryser när jag väljer PayPal.",
+        "author": "support",
+        "createdAt": "2024-05-26T23:00:00Z"
+      },
+      {
+        "content": "Vilket felmeddelande får du?",
+        "author": "customer",
+        "createdAt": "2024-05-27T01:00:00Z"
+      },
+      {
+        "content": "Det verkar vara ett problem med PayPal.",
+        "author": "support",
+        "createdAt": "2024-05-27T03:00:00Z"
+      },
+      {
+        "content": "Jag försöker betala min beställning men det misslyckas.",
+        "author": "customer",
+        "createdAt": "2024-05-27T05:00:00Z"
+      },
+      {
+        "content": "Jag försökte 3 gånger och kan fortfarande inte betala med Google Pay.",
+        "author": "support",
+        "createdAt": "2024-05-27T07:00:00Z"
+      },
+      {
+        "content": "Jag blev debiterad två gånger för samma beställning.",
+        "author": "customer",
+        "createdAt": "2024-05-27T09:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "93",
+    "title": "Double charge on Credit card",
+    "description": "Issue reported in EN related to Credit card",
+    "messages": [
+      {
+        "content": "The shop's checkout page freezes when I select Riverty.",
+        "author": "customer",
+        "createdAt": "2024-02-04T09:00:00Z"
+      },
+      {
+        "content": "Can I change my payment method to Apple Pay?",
+        "author": "support",
+        "createdAt": "2024-02-04T11:00:00Z"
+      },
+      {
+        "content": "The transaction shows pending in my bank.",
+        "author": "customer",
+        "createdAt": "2024-02-04T13:00:00Z"
+      },
+      {
+        "content": "Why is PayPal not available in your app anymore?",
+        "author": "support",
+        "createdAt": "2024-02-04T15:00:00Z"
+      },
+      {
+        "content": "It seems there is an issue with Google Pay.",
+        "author": "customer",
+        "createdAt": "2024-02-04T17:00:00Z"
+      },
+      {
+        "content": "Can I change my payment method to Riverty?",
+        "author": "support",
+        "createdAt": "2024-02-04T19:00:00Z"
+      },
+      {
+        "content": "I'm trying to pay for my order but it keeps failing.",
+        "author": "customer",
+        "createdAt": "2024-02-04T21:00:00Z"
+      },
+      {
+        "content": "Order was cancelled, but money was taken.",
+        "author": "support",
+        "createdAt": "2024-02-04T23:00:00Z"
+      },
+      {
+        "content": "Can you confirm if the payment went through?",
+        "author": "customer",
+        "createdAt": "2024-02-05T01:00:00Z"
+      },
+      {
+        "content": "I tried 3 times and still can't pay with PayPal.",
+        "author": "support",
+        "createdAt": "2024-02-05T03:00:00Z"
+      },
+      {
+        "content": "I requested a refund last week but haven't received it yet.",
+        "author": "customer",
+        "createdAt": "2024-02-05T05:00:00Z"
+      },
+      {
+        "content": "I'm trying to pay for my order but it keeps failing.",
+        "author": "support",
+        "createdAt": "2024-02-05T07:00:00Z"
+      },
+      {
+        "content": "My refund has been pending for 10 days now.",
+        "author": "customer",
+        "createdAt": "2024-02-05T09:00:00Z"
+      },
+      {
+        "content": "The shop's checkout page freezes when I select PayPal.",
+        "author": "support",
+        "createdAt": "2024-02-05T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "94",
+    "title": "Refund stuck for over a week",
+    "description": "Issue reported in SV related to Riverty",
+    "messages": [
+      {
+        "content": "Kan jag ändra min betalningsmetod till Riverty?",
+        "author": "customer",
+        "createdAt": "2024-03-23T09:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "95",
+    "title": "Unable to complete purchase via Credit card",
+    "description": "Issue reported in SV related to Riverty",
+    "messages": [
+      {
+        "content": "Varför är Mobile Pay inte längre tillgängligt i appen?",
+        "author": "customer",
+        "createdAt": "2024-04-13T09:00:00Z"
+      },
+      {
+        "content": "Vilket felmeddelande får du?",
+        "author": "support",
+        "createdAt": "2024-04-13T11:00:00Z"
+      },
+      {
+        "content": "Jag har blivit debiterad två gånger för mitt köp.",
+        "author": "customer",
+        "createdAt": "2024-04-13T13:00:00Z"
+      },
+      {
+        "content": "Kan du bekräfta om betalningen gick igenom?",
+        "author": "support",
+        "createdAt": "2024-04-13T15:00:00Z"
+      },
+      {
+        "content": "Kan du bekräfta om betalningen gick igenom?",
+        "author": "customer",
+        "createdAt": "2024-04-13T17:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "96",
+    "title": "Problem completing transaction with Mobile Pay",
+    "description": "Issue reported in EN related to Credit card",
+    "messages": [
+      {
+        "content": "Order was cancelled, but money was taken.",
+        "author": "customer",
+        "createdAt": "2024-02-18T09:00:00Z"
+      },
+      {
+        "content": "What error message are you seeing?",
+        "author": "support",
+        "createdAt": "2024-02-18T11:00:00Z"
+      },
+      {
+        "content": "The shop's checkout page freezes when I select Mobile Pay.",
+        "author": "customer",
+        "createdAt": "2024-02-18T13:00:00Z"
+      },
+      {
+        "content": "I requested a refund last week but haven't received it yet.",
+        "author": "support",
+        "createdAt": "2024-02-18T15:00:00Z"
+      },
+      {
+        "content": "Shop says payment is completed, but I see nothing in my bank.",
+        "author": "customer",
+        "createdAt": "2024-02-18T17:00:00Z"
+      },
+      {
+        "content": "My refund has been pending for 10 days now.",
+        "author": "support",
+        "createdAt": "2024-02-18T19:00:00Z"
+      },
+      {
+        "content": "Please check if your account has sufficient funds.",
+        "author": "customer",
+        "createdAt": "2024-02-18T21:00:00Z"
+      },
+      {
+        "content": "Order was cancelled, but money was taken.",
+        "author": "support",
+        "createdAt": "2024-02-18T23:00:00Z"
+      },
+      {
+        "content": "I'm trying to pay for my order but it keeps failing.",
+        "author": "customer",
+        "createdAt": "2024-02-19T01:00:00Z"
+      },
+      {
+        "content": "The payment went through but the order is still marked as unpaid.",
+        "author": "support",
+        "createdAt": "2024-02-19T03:00:00Z"
+      },
+      {
+        "content": "The transaction shows pending in my bank.",
+        "author": "customer",
+        "createdAt": "2024-02-19T05:00:00Z"
+      },
+      {
+        "content": "The shop says they don't accept Riverty right now.",
+        "author": "support",
+        "createdAt": "2024-02-19T07:00:00Z"
+      },
+      {
+        "content": "The shop says they don't accept Mobile Pay right now.",
+        "author": "customer",
+        "createdAt": "2024-02-19T09:00:00Z"
+      },
+      {
+        "content": "The payment went through but the order is still marked as unpaid.",
+        "author": "support",
+        "createdAt": "2024-02-19T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "97",
+    "title": "Double charge on PayPal",
+    "description": "Issue reported in SV related to Mobile Pay",
+    "messages": [
+      {
+        "content": "Kan du bekräfta om betalningen gick igenom?",
+        "author": "customer",
+        "createdAt": "2024-05-11T09:00:00Z"
+      },
+      {
+        "content": "Det verkar vara ett problem med Mobile Pay.",
+        "author": "support",
+        "createdAt": "2024-05-11T11:00:00Z"
+      },
+      {
+        "content": "Kan du bekräfta om betalningen gick igenom?",
+        "author": "customer",
+        "createdAt": "2024-05-11T13:00:00Z"
+      },
+      {
+        "content": "Jag försökte 3 gånger och kan fortfarande inte betala med Mobile Pay.",
+        "author": "support",
+        "createdAt": "2024-05-11T15:00:00Z"
+      },
+      {
+        "content": "Jag blev debiterad två gånger för samma beställning.",
+        "author": "customer",
+        "createdAt": "2024-05-11T17:00:00Z"
+      },
+      {
+        "content": "Vilket felmeddelande får du?",
+        "author": "support",
+        "createdAt": "2024-05-11T19:00:00Z"
+      },
+      {
+        "content": "Transaktionen visas som väntande i min bank.",
+        "author": "customer",
+        "createdAt": "2024-05-11T21:00:00Z"
+      },
+      {
+        "content": "Det verkar vara ett problem med Riverty.",
+        "author": "support",
+        "createdAt": "2024-05-11T23:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "98",
+    "title": "Refund request not processed",
+    "description": "Issue reported in EN related to Credit card",
+    "messages": [
+      {
+        "content": "I requested a refund last week but haven't received it yet.",
+        "author": "customer",
+        "createdAt": "2024-05-11T09:00:00Z"
+      },
+      {
+        "content": "The shop's checkout page freezes when I select Apple Pay.",
+        "author": "support",
+        "createdAt": "2024-05-11T11:00:00Z"
+      },
+      {
+        "content": "Your payment has been processed successfully.",
+        "author": "customer",
+        "createdAt": "2024-05-11T13:00:00Z"
+      },
+      {
+        "content": "What error message are you seeing?",
+        "author": "support",
+        "createdAt": "2024-05-11T15:00:00Z"
+      },
+      {
+        "content": "Can you confirm if the payment went through?",
+        "author": "customer",
+        "createdAt": "2024-05-11T17:00:00Z"
+      },
+      {
+        "content": "Can you confirm if the payment went through?",
+        "author": "support",
+        "createdAt": "2024-05-11T19:00:00Z"
+      },
+      {
+        "content": "I have been charged twice for my purchase.",
+        "author": "customer",
+        "createdAt": "2024-05-11T21:00:00Z"
+      },
+      {
+        "content": "I requested a refund last week but haven't received it yet.",
+        "author": "support",
+        "createdAt": "2024-05-11T23:00:00Z"
+      },
+      {
+        "content": "The shop's checkout page freezes when I select PayPal.",
+        "author": "customer",
+        "createdAt": "2024-05-12T01:00:00Z"
+      },
+      {
+        "content": "Shop says payment is completed, but I see nothing in my bank.",
+        "author": "support",
+        "createdAt": "2024-05-12T03:00:00Z"
+      },
+      {
+        "content": "It seems there is an issue with Google Pay.",
+        "author": "customer",
+        "createdAt": "2024-05-12T05:00:00Z"
+      },
+      {
+        "content": "It seems there is an issue with Apple Pay.",
+        "author": "support",
+        "createdAt": "2024-05-12T07:00:00Z"
+      },
+      {
+        "content": "The shop's checkout page freezes when I select PayPal.",
+        "author": "customer",
+        "createdAt": "2024-05-12T09:00:00Z"
+      },
+      {
+        "content": "I was charged twice for the same order.",
+        "author": "support",
+        "createdAt": "2024-05-12T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "99",
+    "title": "Refund request not processed",
+    "description": "Issue reported in DA related to Mobile Pay",
+    "messages": [
+      {
+        "content": "Butikken siger, at de ikke accepterer Credit card lige nu.",
+        "author": "customer",
+        "createdAt": "2024-04-29T09:00:00Z"
+      },
+      {
+        "content": "Jeg prøvede 3 gange og kan stadig ikke betale med Klarna.",
+        "author": "support",
+        "createdAt": "2024-04-29T11:00:00Z"
+      },
+      {
+        "content": "Butikkens checkout-side fryser, når jeg vælger PayPal.",
+        "author": "customer",
+        "createdAt": "2024-04-29T13:00:00Z"
+      },
+      {
+        "content": "Transaktionen står som afventende i min bank.",
+        "author": "support",
+        "createdAt": "2024-04-29T15:00:00Z"
+      },
+      {
+        "content": "Butikkens checkout-side fryser, når jeg vælger Klarna.",
+        "author": "customer",
+        "createdAt": "2024-04-29T17:00:00Z"
+      },
+      {
+        "content": "Transaktionen står som afventende i min bank.",
+        "author": "support",
+        "createdAt": "2024-04-29T19:00:00Z"
+      },
+      {
+        "content": "Min betaling via Apple Pay blev afvist.",
+        "author": "customer",
+        "createdAt": "2024-04-29T21:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "100",
+    "title": "Credit card declined at checkout",
+    "description": "Issue reported in SV related to Apple Pay",
+    "messages": [
+      {
+        "content": "Vilket felmeddelande får du?",
+        "author": "customer",
+        "createdAt": "2024-03-05T09:00:00Z"
+      },
+      {
+        "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
+        "author": "support",
+        "createdAt": "2024-03-05T11:00:00Z"
+      },
+      {
+        "content": "Jag försökte 3 gånger och kan fortfarande inte betala med Google Pay.",
+        "author": "customer",
+        "createdAt": "2024-03-05T13:00:00Z"
+      },
+      {
+        "content": "Kan du bekräfta om betalningen gick igenom?",
+        "author": "support",
+        "createdAt": "2024-03-05T15:00:00Z"
+      },
+      {
+        "content": "Jag försökte 3 gånger och kan fortfarande inte betala med Riverty.",
+        "author": "customer",
+        "createdAt": "2024-03-05T17:00:00Z"
+      },
+      {
+        "content": "Betalningen gick igenom men beställningen är fortfarande obetald.",
+        "author": "support",
+        "createdAt": "2024-03-05T19:00:00Z"
+      },
+      {
+        "content": "Beställningen avbröts men pengarna drogs ändå.",
+        "author": "customer",
+        "createdAt": "2024-03-05T21:00:00Z"
+      },
+      {
+        "content": "Kan jag ändra min betalningsmetod till Klarna?",
+        "author": "support",
+        "createdAt": "2024-03-05T23:00:00Z"
+      },
+      {
+        "content": "Jag blev debiterad två gånger för samma beställning.",
+        "author": "customer",
+        "createdAt": "2024-03-06T01:00:00Z"
+      }
+    ]
+  }
+]
