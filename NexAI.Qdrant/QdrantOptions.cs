@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using NexAI.Config;
 
-namespace NexAI;
+namespace NexAI.Qdrant;
 
 public record QdrantOptions : IOptions
 {

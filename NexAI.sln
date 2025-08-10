@@ -5,7 +5,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_", "_", "{789FE3E4-67D1-467F-BADF-7AE04AD1968A}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		docker-compose.yml = docker-compose.yml
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -19,15 +18,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexAI.OpenAI", "NexAI.OpenA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexAI.Zendesk", "NexAI.Zendesk\NexAI.Zendesk.csproj", "{36F33806-5F5D-458B-8182-E313A90F0CA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexAI.MongoDb", "NexAI.MongoDb\NexAI.MongoDb.csproj", "{A62FB50E-241B-4912-B7D7-D114B557E2B8}"
->>>>>>> a0bc5dd (0.0.1)
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_", "_", "{789FE3E4-67D1-467F-BADF-7AE04AD1968A}"
-	ProjectSection(SolutionItems) = preProject
-		.gitignore = .gitignore
-		docker-compose.yml = docker-compose.yml
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,5 +28,25 @@ Global
 		{3D5876C4-DF59-48F9-AB2C-CA3C571D1C3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D5876C4-DF59-48F9-AB2C-CA3C571D1C3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D5876C4-DF59-48F9-AB2C-CA3C571D1C3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B87DDEE6-7F0F-40E4-B557-3E84604C256B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B87DDEE6-7F0F-40E4-B557-3E84604C256B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B87DDEE6-7F0F-40E4-B557-3E84604C256B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B87DDEE6-7F0F-40E4-B557-3E84604C256B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E9E27E6-01B9-45BE-9F85-0EEB3666A740}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E9E27E6-01B9-45BE-9F85-0EEB3666A740}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E9E27E6-01B9-45BE-9F85-0EEB3666A740}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E9E27E6-01B9-45BE-9F85-0EEB3666A740}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B51E3C1-BAEA-4263-8518-078C6561720C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B51E3C1-BAEA-4263-8518-078C6561720C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B51E3C1-BAEA-4263-8518-078C6561720C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B51E3C1-BAEA-4263-8518-078C6561720C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8911E88-66A8-4A20-8C54-B0F9F8E481A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8911E88-66A8-4A20-8C54-B0F9F8E481A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8911E88-66A8-4A20-8C54-B0F9F8E481A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8911E88-66A8-4A20-8C54-B0F9F8E481A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36F33806-5F5D-458B-8182-E313A90F0CA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36F33806-5F5D-458B-8182-E313A90F0CA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36F33806-5F5D-458B-8182-E313A90F0CA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36F33806-5F5D-458B-8182-E313A90F0CA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

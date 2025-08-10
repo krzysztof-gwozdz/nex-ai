@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.SemanticKernel" Version="1.61.0"/>
+        <PackageReference Include="Spectre.Console" Version="0.50.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="appsettings.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="appsettings.*.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <DependentUpon>appsettings.json</DependentUpon>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\NexAI.Config\NexAI.Config.csproj"/>
+        <ProjectReference Include="..\NexAI.OpenAI\NexAI.OpenAI.csproj"/>
+        <ProjectReference Include="..\NexAI.Qdrant\NexAI.Qdrant.csproj"/>
+        <ProjectReference Include="..\NexAI.Zendesk\NexAI.Zendesk.csproj"/>
+    </ItemGroup>
+
+</Project>

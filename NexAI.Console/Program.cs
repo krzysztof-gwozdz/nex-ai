@@ -1,6 +1,5 @@
-﻿using NexAI;
-using NexAI.Config;
-using NexAI.Zendesk;
+﻿using NexAI.Config;
+using NexAI.Console;
 using Spectre.Console;
 
 try
@@ -8,9 +7,7 @@ try
     Console.OutputEncoding = System.Text.Encoding.UTF8;
     AnsiConsole.Write(new FigletText("Nex AI").Color(Color.Aquamarine1));
     var options = new Options(Configuration.Get());
-    var zendeskIssueStore = new ZendeskIssueStore(options);
-    await zendeskIssueStore.Initialize();
-    var agent = new Agent(options, zendeskIssueStore);
+    var agent = new Agent(options);
     //await agent.SearchForSimilarIssues();
     //await agent.SearchForIssues();
     await agent.StartConversation();

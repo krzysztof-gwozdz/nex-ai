@@ -5,7 +5,7 @@ using OpenAI.Chat;
 using OpenAI.Embeddings;
 using OpenAI.Images;
 
-namespace NexAI;
+namespace NexAI.OpenAI;
 
 public sealed class AI
 {
@@ -27,7 +27,7 @@ public sealed class AI
     {
         chatCompletionOptions ??= new();
         chatCompletionOptions.Temperature = 0f;
-        
+
         List<ChatMessage> messages =
         [
             ChatMessage.CreateUserMessage(message),
@@ -36,12 +36,12 @@ public sealed class AI
         var result = await _chatClient.CompleteChatAsync(messages, chatCompletionOptions);
         return result?.Value?.Content[0]?.Text ?? string.Empty;
     }
-    
+
     public async Task<TAnswer> Ask<TAnswer>(string message, string systemMessage, ChatCompletionOptions? chatCompletionOptions = null)
     {
         chatCompletionOptions ??= new();
         chatCompletionOptions.Temperature = 0f;
-        
+
         List<ChatMessage> messages =
         [
             ChatMessage.CreateUserMessage(message),
@@ -49,7 +49,7 @@ public sealed class AI
         ];
         var result = await _chatClient.CompleteChatAsync(messages, chatCompletionOptions);
         var text = result?.Value?.Content[0]?.Text ?? string.Empty;
-        return JsonSerializer.Deserialize<TAnswer>(text) ?? throw new SomethingIsNotYesException($"AI did not return valid result. Expected JSON, got: {text}");
+        return JsonSerializer.Deserialize<TAnswer>(text) ?? throw new($"AI did not return valid result. Expected JSON, got: {text}");
     }
 
     public async Task<string> Ask(BinaryData[] images, string message, string systemMessage)
@@ -67,8 +67,9 @@ public sealed class AI
         var result = await _chatClient.CompleteChatAsync(messages, chatCompletionOptions);
         if (result?.Value is null)
         {
-            throw new SomethingIsNotYesException("AI did not return any result.");
+            throw new("AI did not return any result.");
         }
+
         return result.Value;
     }
 

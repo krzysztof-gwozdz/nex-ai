@@ -3,10 +3,11 @@ using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using NexAI.Config;
+using NexAI.OpenAI;
 using NexAI.Zendesk;
 using Spectre.Console;
 
-namespace NexAI;
+namespace NexAI.Console;
 
 public class Agent
 {
@@ -15,11 +16,12 @@ public class Agent
     private readonly OpenAIPromptExecutionSettings _openAIPromptExecutionSettings;
     private readonly ZendeskIssueStore _zendeskIssueStore;
 
-    public Agent(Options options, ZendeskIssueStore zendeskIssueStore)
+    public Agent(Options options)
     {
         var openAIOptions = options.Get<OpenAIOptions>();
+        _zendeskIssueStore = new(options);;
         var builder = Kernel.CreateBuilder().AddOpenAIChatCompletion(openAIOptions.Model, openAIOptions.ApiKey);
-        builder.Services.AddSingleton(zendeskIssueStore);
+        builder.Services.AddSingleton(_zendeskIssueStore);
         _kernel = builder.Build();
         _kernel.Plugins.AddFromType<ZendeskPlugin>("ZendeskIssues", _kernel.Services);
         _chatCompletionService = _kernel.GetRequiredService<IChatCompletionService>();
@@ -27,7 +29,6 @@ public class Agent
         {
             FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
         };
-        _zendeskIssueStore = zendeskIssueStore;
     }
 
     public async Task StartConversation()

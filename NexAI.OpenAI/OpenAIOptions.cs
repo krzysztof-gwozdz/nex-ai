@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using NexAI.Config;
 
-namespace NexAI.Config;
+namespace NexAI.OpenAI;
 
 public record OpenAIOptions : IOptions
 {

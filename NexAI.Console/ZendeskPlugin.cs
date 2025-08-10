@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel;
 using Microsoft.SemanticKernel;
+using NexAI.Zendesk;
 using Spectre.Console;
 
-namespace NexAI.Zendesk;
+namespace NexAI.Console;
 
 public class ZendeskPlugin(ZendeskIssueStore zendeskIssueStore)
 {
