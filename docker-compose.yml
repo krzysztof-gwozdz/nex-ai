@@ -9,5 +9,19 @@ services:
       - qdrant_data:/qdrant/storage
     restart: unless-stopped
 
+  mongodb:
+    image: mongo:latest
+    container_name: nexai-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: nexai
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+
 volumes:
   qdrant_data:
+  mongodb_data:

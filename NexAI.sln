@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexAI.OpenAI", "NexAI.OpenA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexAI.Zendesk", "NexAI.Zendesk\NexAI.Zendesk.csproj", "{36F33806-5F5D-458B-8182-E313A90F0CA6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexAI.MongoDb", "NexAI.MongoDb\NexAI.MongoDb.csproj", "{A62FB50E-241B-4912-B7D7-D114B557E2B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +50,9 @@ Global
 		{36F33806-5F5D-458B-8182-E313A90F0CA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36F33806-5F5D-458B-8182-E313A90F0CA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36F33806-5F5D-458B-8182-E313A90F0CA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A62FB50E-241B-4912-B7D7-D114B557E2B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A62FB50E-241B-4912-B7D7-D114B557E2B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A62FB50E-241B-4912-B7D7-D114B557E2B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A62FB50E-241B-4912-B7D7-D114B557E2B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
