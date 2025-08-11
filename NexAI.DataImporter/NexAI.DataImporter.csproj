@@ -19,13 +19,14 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
             <DependentUpon>appsettings.json</DependentUpon>
         </None>
-        <None Update="sample-issues.json">
+        <None Update="Zendesk\sample-issues.json">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\NexAI.Config\NexAI.Config.csproj"/>
+        <ProjectReference Include="..\NexAI.MongoDb\NexAI.MongoDb.csproj" />
         <ProjectReference Include="..\NexAI.Qdrant\NexAI.Qdrant.csproj"/>
         <ProjectReference Include="..\NexAI.Zendesk\NexAI.Zendesk.csproj"/>
     </ItemGroup>

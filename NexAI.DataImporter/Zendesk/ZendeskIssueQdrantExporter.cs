@@ -7,27 +7,27 @@ using Qdrant.Client;
 using Qdrant.Client.Grpc;
 using Spectre.Console;
 
-namespace NexAI.DataImporter;
+namespace NexAI.DataImporter.Zendesk;
 
-public class ZendeskIssueExporter(Options options)
+public class ZendeskIssueQdrantExporter(Options options)
 {
     private const string CollectionName = "nexai.zendesk_issues";
-    private readonly QdrantOptions _qdrantOptions = options.Get<QdrantOptions>();
     private readonly TextEmbedder _textEmbedder = new(options);
+    private readonly QdrantOptions _qdrantOptions = options.Get<QdrantOptions>();
 
     public async Task Export(ZendeskIssue[] zendeskIssues)
     {
-        AnsiConsole.MarkupLine("[yellow]Initializing Zendesk issue store...[/]");
+        AnsiConsole.MarkupLine("[yellow]Start exporting Zendesk issues into Qdrant...[/]");
         using var client = new QdrantClient(_qdrantOptions.Host, _qdrantOptions.Port);
         if (!await client.CollectionExistsAsync(CollectionName))
         {
             await client.CreateCollectionAsync(CollectionName, new VectorParams { Size = 1536, Distance = Distance.Dot });
             await InsertData(zendeskIssues);
-            AnsiConsole.MarkupLine("[green]Zendesk issue store initialized with sample data.[/]");
+            AnsiConsole.MarkupLine("[green]Zendesk issue store initialized.[/]");
         }
         else
         {
-            AnsiConsole.MarkupLine("[green]Zendesk issue store already initialized.[/]");
+            AnsiConsole.MarkupLine("[green]Zendesk issue already initialized.[/]");
         }
     }
 

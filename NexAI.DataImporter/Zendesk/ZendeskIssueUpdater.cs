@@ -1,6 +1,6 @@
 ﻿using NexAI.Config;
 
-namespace NexAI.DataImporter;
+namespace NexAI.DataImporter.Zendesk;
 
 public class ZendeskIssueUpdater(Options options)
 {
