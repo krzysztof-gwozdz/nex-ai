@@ -1,5 +1,4 @@
 ﻿using NexAI.Config;
-using NexAI.DataImporter;
 using NexAI.DataImporter.Zendesk;
 using Spectre.Console;
 
