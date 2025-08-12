@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using NexAI.Config;
+﻿using NexAI.Config;
 using NexAI.OpenAI;
 using NexAI.Qdrant;
 using NexAI.Zendesk;
@@ -11,7 +10,6 @@ namespace NexAI.DataImporter.Zendesk;
 
 public class ZendeskIssueQdrantExporter(Options options)
 {
-    private const string CollectionName = "nexai.zendesk_issues";
     private readonly TextEmbedder _textEmbedder = new(options);
     private readonly QdrantOptions _qdrantOptions = options.Get<QdrantOptions>();
 
@@ -19,9 +17,9 @@ public class ZendeskIssueQdrantExporter(Options options)
     {
         AnsiConsole.MarkupLine("[yellow]Start exporting Zendesk issues into Qdrant...[/]");
         using var client = new QdrantClient(_qdrantOptions.Host, _qdrantOptions.Port);
-        if (!await client.CollectionExistsAsync(CollectionName))
+        if (!await client.CollectionExistsAsync(ZendeskIssueCollections.QdrantCollectionName))
         {
-            await client.CreateCollectionAsync(CollectionName, new VectorParams { Size = 1536, Distance = Distance.Dot });
+            await client.CreateCollectionAsync(ZendeskIssueCollections.QdrantCollectionName, new VectorParams { Size = 1536, Distance = Distance.Dot });
             await InsertData(zendeskIssues);
             AnsiConsole.MarkupLine("[green]Zendesk issue store initialized.[/]");
         }
@@ -38,7 +36,7 @@ public class ZendeskIssueQdrantExporter(Options options)
 
         foreach (var zendeskIssue in zendeskIssues)
         {
-            var embedding = await _textEmbedder.GenerateEmbedding(zendeskIssue.ToString());
+            var embedding = await _textEmbedder.GenerateEmbedding(zendeskIssue.CombinedContent());
             var point = new PointStruct
             {
                 Id = zendeskIssue.Id == Guid.Empty ? Guid.NewGuid() : zendeskIssue.Id,
@@ -46,13 +44,10 @@ public class ZendeskIssueQdrantExporter(Options options)
                 Payload =
                 {
                     ["number"] = zendeskIssue.Number,
-                    ["title"] = zendeskIssue.Title,
-                    ["description"] = zendeskIssue.Description,
-                    ["messages"] = JsonSerializer.Serialize(zendeskIssue.Messages),
                 }
             };
             points.Add(point);
         }
-        await client.UpsertAsync(CollectionName, points);
+        await client.UpsertAsync(ZendeskIssueCollections.QdrantCollectionName, points);
     }
 }

@@ -5,23 +5,24 @@ using Microsoft.SemanticKernel.Connectors.OpenAI;
 using NexAI.Config;
 using NexAI.OpenAI;
 using NexAI.Zendesk;
+using NexAI.Zendesk.Queries;
 using Spectre.Console;
 
 namespace NexAI.Console;
 
 public class Agent
 {
+    private readonly Options _options;
     private readonly Kernel _kernel;
     private readonly IChatCompletionService _chatCompletionService;
     private readonly OpenAIPromptExecutionSettings _openAIPromptExecutionSettings;
-    private readonly ZendeskIssueStore _zendeskIssueStore;
-
+    
     public Agent(Options options)
     {
+        _options = options;
         var openAIOptions = options.Get<OpenAIOptions>();
-        _zendeskIssueStore = new(options);;
         var builder = Kernel.CreateBuilder().AddOpenAIChatCompletion(openAIOptions.Model, openAIOptions.ApiKey);
-        builder.Services.AddSingleton(_zendeskIssueStore);
+        builder.Services.AddSingleton(options);
         _kernel = builder.Build();
         _kernel.Plugins.AddFromType<ZendeskPlugin>("ZendeskIssues", _kernel.Services);
         _chatCompletionService = _kernel.GetRequiredService<IChatCompletionService>();
@@ -73,14 +74,14 @@ public class Agent
 
             try
             {
-                var targetIssue = await _zendeskIssueStore.GetIssueByNumber(userMessage);
+                var targetIssue = await new GetZendeskIssueByNumberQuery(_options).Handle(userMessage);
                 if (targetIssue is null)
                 {
                     AnsiConsole.MarkupLine($"[red]Issue with number '{userMessage.EscapeMarkup()}' not found.[/]");
                     continue;
                 }
 
-                var similarIssues = await _zendeskIssueStore.FindSimilarIssuesByNumber(userMessage, 10);
+                var similarIssues = await new FindSimilarIssuesToSpecificIssueQuery(_options).Handle(userMessage, 10);
                 AnsiConsole.MarkupLine($"[green]Found issue: {targetIssue.Title.EscapeMarkup()}[/]");
                 DisplaySimilarIssues(similarIssues);
             }
@@ -105,7 +106,7 @@ public class Agent
 
             try
             {
-                var similarIssues = await _zendeskIssueStore.FindSimilarIssuesByPhrase(userMessage, 10);
+                var similarIssues = await new FindSimilarIssuesByPhraseQuery(_options).Handle(userMessage, 10);
                 DisplaySimilarIssues(similarIssues);
             }
             catch (Exception ex)
@@ -128,13 +129,11 @@ public class Agent
             AnsiConsole.MarkupLine($"[bold]Found {similarIssues.Count} similar issues:[/]");
             var table = new Table()
                 .AddColumn("Number")
-                .AddColumn("Title")
                 .AddColumn("Similarity Score");
             foreach (var issue in similarIssues)
             {
                 table.AddRow(
                     issue.Number,
-                    issue.Title,
                     $"{issue.Similarity:P1}"
                 );
             }

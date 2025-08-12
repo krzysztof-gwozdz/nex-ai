@@ -6,14 +6,14 @@ public record ZendeskIssue(Guid Id, string Number, string Title, string Descript
 {
     public record ZendeskIssueMessage(string Content, string Author, DateTime CreatedAt);
 
-    public override string ToString()
+    public string CombinedContent()
     {
         var textBuilder = new StringBuilder();
-        textBuilder.AppendLine(Title ?? "");
-        textBuilder.AppendLine(Description ?? "");
-        foreach (var message in Messages.OrderBy(m => m.CreatedAt))
+        textBuilder.AppendLine(Title);
+        textBuilder.AppendLine(Description);
+        foreach (var message in Messages.OrderBy(message => message.CreatedAt))
         {
-            textBuilder.AppendLine(message.Content ?? "");
+            textBuilder.AppendLine(message.Content);
         }
 
         return textBuilder.ToString();
