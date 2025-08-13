@@ -21,6 +21,7 @@ public class ZendeskIssueMongoDbExporter(Options options)
         {
             await database.CreateCollectionAsync(ZendeskIssueCollections.MongoDbCollectionName);
             var collection = database.GetCollection<ZendeskIssueMongoDbDocument>(ZendeskIssueCollections.MongoDbCollectionName);
+            await CreateFullTextIndex(collection);
             await InsertData(zendeskIssues, collection);
             AnsiConsole.MarkupLine("[green]Zendesk issue store initialized.[/]");
         }
@@ -28,6 +29,16 @@ public class ZendeskIssueMongoDbExporter(Options options)
         {
             AnsiConsole.MarkupLine("[green]Zendesk issue already initialized.[/]");
         }
+    }
+
+    private static async Task CreateFullTextIndex(IMongoCollection<ZendeskIssueMongoDbDocument> collection)
+    {
+        var indexKeys = Builders<ZendeskIssueMongoDbDocument>.IndexKeys
+            .Text(zendeskIssue => zendeskIssue.Title)
+            .Text(zendeskIssue => zendeskIssue.Description)
+            .Text(zendeskIssue => zendeskIssue.Messages.Select(message => message.Content));
+        var indexModel = new CreateIndexModel<ZendeskIssueMongoDbDocument>(indexKeys);
+        await collection.Indexes.CreateOneAsync(indexModel);
     }
 
     private static async Task InsertData(ZendeskIssue[] zendeskIssues, IMongoCollection<ZendeskIssueMongoDbDocument> collection)
