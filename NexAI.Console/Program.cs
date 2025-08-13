@@ -12,7 +12,6 @@ try
     var features = new[]
     {
         "Start Conversation with Nex AI",
-        "Search for Similar Issues to Specific Issue",
         "Search for Issues by Phrase"
     };
     var feature = new SelectionPrompt<string>().AddChoices(features).UseConverter(choice => choice);
@@ -22,11 +21,8 @@ try
             var agent = new NexAIAgent(options);
             await agent.StartConversation();
             break;
-        case "Search for Similar Issues to Specific Issue":
-            await new SearchForSimilarZendeskIssuesByNumberFeature(options).Run(10);
-            break;
         case "Search for Issues by Phrase":
-            await new SearchForSimilarZendeskIssuesByPhraseFeature(options).Run(10);
+            await new SearchForZendeskIssuesByPhraseFeature(options).Run(10);
             break;
         default:
             throw new InvalidOperationException("Invalid feature selected.");

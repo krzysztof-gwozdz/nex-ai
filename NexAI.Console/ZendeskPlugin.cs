@@ -17,9 +17,17 @@ public class ZendeskPlugin(Options options)
         return await new GetZendeskIssueByNumberQuery(options).Handle(number);
     }
 
+    [KernelFunction("get_zendesk_issues_by_numbers")]
+    [Description("Retrieves Zendesk issues by their numbers.")]
+    public async Task<ZendeskIssue[]> GetIssuesByNumbers(string[] numbers)
+    {
+        AnsiConsole.MarkupLine($"[yellow]Using tool get_zendesk_issues_by_numbers. Retrieving Zendesk issues with numbers: {string.Join(", ", numbers)}[/]");
+        return await new GetZendeskIssuesByNumbersQuery(options).Handle(numbers);
+    }
+
     [KernelFunction("find_similar_zendesk_issue_by_number")]
     [Description("Finds similar issues based on the issue number.")]
-    public async Task<List<SimilarIssue>> FindSimilarIssuesToSpecificIssueQuery(string number, ulong limit)
+    public async Task<List<SimilarIssue>> FindSimilarIssuesToSpecificIssueQuery(string number, int limit)
     {
         AnsiConsole.MarkupLine($"[yellow]Using tool find_similar_issues_by_number. Finding similar issues for number: {number} with limit: {limit}[/]");
         return await new FindSimilarZendeskIssuesByNumberQuery(options).Handle(number, limit);
@@ -27,7 +35,7 @@ public class ZendeskPlugin(Options options)
 
     [KernelFunction("find_similar_zendesk_issues_by_phrase")]
     [Description("Finds similar issues based on a phrase.")]
-    public async Task<List<SimilarIssue>> FindSimilarIssuesByPhrase(string phrase, ulong limit)
+    public async Task<List<SimilarIssue>> FindSimilarIssuesByPhrase(string phrase, int limit)
     {
         AnsiConsole.MarkupLine($"[yellow]Using tool find_similar_issues_by_phrase. Finding similar issues for phrase: {phrase} with limit: {limit}[/]");
         return await new FindSimilarZendeskIssuesByPhraseQuery(options).Handle(phrase, limit);
