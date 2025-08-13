@@ -2,7 +2,7 @@
 
 namespace NexAI.Zendesk.Queries;
 
-public class FindSimilarIssuesToSpecificIssueQuery(Options options)
+public class FindSimilarZendeskIssuesByNumberQuery(Options options)
 {
     public async Task<List<SimilarIssue>> Handle(string number, ulong limit)
     {
@@ -10,7 +10,7 @@ public class FindSimilarIssuesToSpecificIssueQuery(Options options)
         var zendeskIssue = await getZendeskIssueByNumberQuery.Handle(number);
         if (zendeskIssue == null)
             return [];
-        var findSimilarIssuesByPhraseQuery = new FindSimilarIssuesByPhraseQuery(options);
+        var findSimilarIssuesByPhraseQuery = new FindSimilarZendeskIssuesByPhraseQuery(options);
         var similarIssues = await findSimilarIssuesByPhraseQuery.Handle(zendeskIssue.CombinedContent(), limit + 1);
         return similarIssues
             .Where(issue => issue.Number != number)

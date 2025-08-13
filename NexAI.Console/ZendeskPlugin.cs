@@ -17,19 +17,19 @@ public class ZendeskPlugin(Options options)
         return await new GetZendeskIssueByNumberQuery(options).Handle(number);
     }
 
-    [KernelFunction("find_similar_issue_to_specific_issue")]
+    [KernelFunction("find_similar_zendesk_issue_by_number")]
     [Description("Finds similar issues based on the issue number.")]
     public async Task<List<SimilarIssue>> FindSimilarIssuesToSpecificIssueQuery(string number, ulong limit)
     {
         AnsiConsole.MarkupLine($"[yellow]Using tool find_similar_issues_by_number. Finding similar issues for number: {number} with limit: {limit}[/]");
-        return await new FindSimilarIssuesToSpecificIssueQuery(options).Handle(number, limit);
+        return await new FindSimilarZendeskIssuesByNumberQuery(options).Handle(number, limit);
     }
 
-    [KernelFunction("find_similar_issues_by_phrase")]
+    [KernelFunction("find_similar_zendesk_issues_by_phrase")]
     [Description("Finds similar issues based on a phrase.")]
     public async Task<List<SimilarIssue>> FindSimilarIssuesByPhrase(string phrase, ulong limit)
     {
         AnsiConsole.MarkupLine($"[yellow]Using tool find_similar_issues_by_phrase. Finding similar issues for phrase: {phrase} with limit: {limit}[/]");
-        return await new FindSimilarIssuesByPhraseQuery(options).Handle(phrase, limit);
+        return await new FindSimilarZendeskIssuesByPhraseQuery(options).Handle(phrase, limit);
     }
 }

@@ -5,35 +5,19 @@ using Spectre.Console;
 
 namespace NexAI.Console.Features;
 
-public class SearchForSimilarIssuesToSpecificIssueFeature(Options options)
+public class SearchForSimilarZendeskIssuesByPhraseFeature(Options options)
 {
     public async Task Run(ulong limit)
     {
         while (true)
         {
-            AnsiConsole.MarkupLine("[Aquamarine1]Welcome to Similar Issues Search! Enter an issue number to find similar issues. Type [bold]STOP[/] to exit.[/]");
-            var userMessage = AnsiConsole.Prompt(new TextPrompt<string>("Issue number > "));
-
+            AnsiConsole.MarkupLine("[Aquamarine1]Welcome to Issues Search! Enter search phrase. Type [bold]STOP[/] to exit.[/]");
+            var userMessage = AnsiConsole.Prompt(new TextPrompt<string>("> "));
             if (userMessage.ToUpper() == "STOP")
                 return;
-
-            if (string.IsNullOrWhiteSpace(userMessage))
-            {
-                AnsiConsole.MarkupLine("[Aquamarine1]Please enter a valid issue number.[/]");
-                continue;
-            }
-
             try
             {
-                var targetIssue = await new GetZendeskIssueByNumberQuery(options).Handle(userMessage);
-                if (targetIssue is null)
-                {
-                    AnsiConsole.MarkupLine($"[red]Issue with number '{userMessage.EscapeMarkup()}' not found.[/]");
-                    continue;
-                }
-
-                var similarIssues = await new FindSimilarIssuesToSpecificIssueQuery(options).Handle(userMessage, limit);
-                AnsiConsole.MarkupLine($"[green]Found issue: {targetIssue.Title.EscapeMarkup()}[/]");
+                var similarIssues = await new FindSimilarZendeskIssuesByPhraseQuery(options).Handle(userMessage, limit);
                 DisplaySimilarIssues(similarIssues);
             }
             catch (Exception ex)

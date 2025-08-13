@@ -23,10 +23,10 @@ try
             await agent.StartConversation();
             break;
         case "Search for Similar Issues to Specific Issue":
-            await new SearchForSimilarIssuesToSpecificIssueFeature(options).Run(10);
+            await new SearchForSimilarZendeskIssuesByNumberFeature(options).Run(10);
             break;
         case "Search for Issues by Phrase":
-            await new SearchForIssuesByPhraseFeature(options).Run(10);
+            await new SearchForSimilarZendeskIssuesByPhraseFeature(options).Run(10);
             break;
         default:
             throw new InvalidOperationException("Invalid feature selected.");
