@@ -13,9 +13,9 @@ public class GetZendeskIssueByNumberQuery(Options options)
         var clientSettings = MongoClientSettings.FromUrl(new(_mongoDbOptions.ConnectionString));
         var client = new MongoClient(clientSettings);
         var database = client.GetDatabase(_mongoDbOptions.Database);
-        var collection = database.GetCollection<ZendeskIssue>(ZendeskIssueCollections.MongoDbCollectionName);
-        var filter = Builders<ZendeskIssue>.Filter.Eq(issue => issue.Number, number);
+        var collection = database.GetCollection<ZendeskIssueMongoDbDocument>(ZendeskIssueCollections.MongoDbCollectionName);
+        var filter = Builders<ZendeskIssueMongoDbDocument>.Filter.Eq(issue => issue.Number, number);
         var zendeskIssue = await collection.Find(filter).FirstOrDefaultAsync();
-        return zendeskIssue;
+        return zendeskIssue.ToZendeskIssue();
     }
 }

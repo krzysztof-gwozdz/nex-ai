@@ -20,5 +20,5 @@ public record MongoDbOptions : IOptions
     [Required(AllowEmptyStrings = false)]
     public string Password { get; init; } = null!;
     
-    public string ConnectionString => $"mongodb://{Username}:{Password}@{Host}:{Port}/{Database}";
+    public string ConnectionString => $"mongodb://{Username}:{Password}@{Host}:{Port}";
 }
