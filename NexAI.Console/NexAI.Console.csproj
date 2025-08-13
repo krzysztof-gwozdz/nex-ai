@@ -23,6 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\NexAI.AzureDevOps\NexAI.AzureDevOps.csproj" />
         <ProjectReference Include="..\NexAI.Config\NexAI.Config.csproj"/>
         <ProjectReference Include="..\NexAI.OpenAI\NexAI.OpenAI.csproj"/>
         <ProjectReference Include="..\NexAI.Qdrant\NexAI.Qdrant.csproj"/>

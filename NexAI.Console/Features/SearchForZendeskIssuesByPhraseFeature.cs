@@ -75,7 +75,7 @@ public class SearchForZendeskIssuesByPhraseFeature(Options options)
             var table = new Table().AddColumn("Number").AddColumn("Title").AddColumn("Description");
             foreach (var issue in zendeskIssues)
             {
-                table.AddRow(issue.Number, issue.Title, issue.Description);
+                table.AddRow(issue.Number.EscapeMarkup(), issue.Title.EscapeMarkup(), issue.Description.EscapeMarkup());
             }
 
             AnsiConsole.Write(table);
