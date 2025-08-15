@@ -24,9 +24,9 @@ public class GetAzureDevopsWorkItemsQuery(Options options)
         FROM workitems
         WHERE
             [System.TeamProject] = @project
-        AND (
-            [System.Title] CONTAINS WORDS '{phrase}'
-            OR [System.Description] CONTAINS WORDS '{phrase}'
-        )
+            AND (
+                [System.Title] CONTAINS WORDS '{phrase}'
+                OR [System.Description] CONTAINS WORDS '{phrase}'
+            )
         ";
 }

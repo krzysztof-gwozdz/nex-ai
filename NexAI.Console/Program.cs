@@ -13,7 +13,8 @@ try
     {
         "Start Conversation with Nex AI",
         "Search for Issues by Phrase",
-        "Search for Azure Work Items by Phrase"
+        "Search for Azure Work Items by Phrase",
+        "Search for Info About Issue"
     };
     var feature = new SelectionPrompt<string>().AddChoices(features).UseConverter(choice => choice);
     switch (AnsiConsole.Prompt(feature))
@@ -27,6 +28,9 @@ try
             break;
         case "Search for Azure Work Items by Phrase":
             await new SearchForAzureWorkItemsByPhraseFeature(options).Run(10);
+            break;
+        case "Search for Info About Issue":
+            await new SearchForInfoAboutIssueFeature(options).Run();
             break;
         default:
             throw new InvalidOperationException("Invalid feature selected.");
