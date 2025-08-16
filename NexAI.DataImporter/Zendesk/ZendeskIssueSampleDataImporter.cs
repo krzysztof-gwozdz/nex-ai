@@ -5,7 +5,7 @@ using Spectre.Console;
 
 namespace NexAI.DataImporter.Zendesk;
 
-internal class ZendeskIssueImporter(Options options)
+internal class ZendeskIssueSampleDataImporter(Options options)
 {
     public async Task<ZendeskIssue[]> Import()
     {

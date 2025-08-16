@@ -6,7 +6,7 @@ public class ZendeskIssueUpdater(Options options)
 {
     public async Task Update()
     {
-        var importer = new ZendeskIssueImporter(options);
+        var importer = new ZendeskIssueSampleDataImporter(options);
         var zendeskIssues = await importer.Import();
         var exporter = new ZendeskIssueExporter(options);
         await exporter.Export(zendeskIssues);
