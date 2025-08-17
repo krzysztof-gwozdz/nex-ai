@@ -39,6 +39,13 @@ public class ZendeskApiClient
             dto => dto.Users,
             limit);
 
+    public async Task<ListTicketCommentsDto.CommentDto[]> GetTicketComments(long ticketId, int limit) =>
+        await GetPagedItems<ListTicketCommentsDto, ListTicketCommentsDto.CommentDto>(
+            $"/api/v2/tickets/{ticketId}/comments",
+            "Failed to get ticket comments",
+            dto => dto.Comments,
+            limit);
+
     private async Task<int> GetCount(string endpoint, string errorMessage)
     {
         var response = await _httpClient.GetAsync(endpoint);

@@ -18,7 +18,14 @@ internal class ZendeskIssueImporter(Options options)
         var tickets = await zendeskApiClient.GetTickets(10);
         foreach (var ticket in tickets.Take(10))
         {
-            AnsiConsole.MarkupLine($"[green]{ticket.Subject}[/]");
+            AnsiConsole.MarkupLine($"[green]{ticket.Subject.EscapeMarkup()}[/]");
+            AnsiConsole.MarkupLine($"[green]Comments:[/]");
+            var comments = await zendeskApiClient.GetTicketComments(ticket.Id!.Value, 5);
+            foreach (var comment in comments)
+            {
+                AnsiConsole.MarkupLine($"[green]{comment.PlainBody.EscapeMarkup()}[/]");
+            }
+            AnsiConsole.MarkupLine("");
         }
 
         var agentsCount = await zendeskApiClient.GetAgentsCount();
@@ -28,7 +35,7 @@ internal class ZendeskIssueImporter(Options options)
         AnsiConsole.MarkupLine("First 10 agents names:");
         foreach (var agent in agents.Take(10))
         {
-            AnsiConsole.MarkupLine($"[green]{agent.Name}[/]");
+            AnsiConsole.MarkupLine($"[green]{agent.Name.EscapeMarkup()}[/]");
         }   
 
         return [];
