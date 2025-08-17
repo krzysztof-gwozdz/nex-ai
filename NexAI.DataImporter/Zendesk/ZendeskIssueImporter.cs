@@ -28,14 +28,14 @@ internal class ZendeskIssueImporter(Options options)
             AnsiConsole.MarkupLine("");
         }
 
-        var agentsCount = await zendeskApiClient.GetAgentsCount();
-        AnsiConsole.MarkupLine($"[yellow]Zendesk agents count: {agentsCount}[/]");
+        var employeesCount = await zendeskApiClient.GetEmployeesCount();
+        AnsiConsole.MarkupLine($"[yellow]Zendesk employees count: {employeesCount}[/]");
         
-        var agents = await zendeskApiClient.GetAgents(10);
-        AnsiConsole.MarkupLine("First 10 agents names:");
-        foreach (var agent in agents.Take(10))
+        var employees = await zendeskApiClient.GetEmployees(10);
+        AnsiConsole.MarkupLine("First 10 employees names:");
+        foreach (var employee in employees)
         {
-            AnsiConsole.MarkupLine($"[green]{agent.Name.EscapeMarkup()}[/]");
+            AnsiConsole.MarkupLine($"[green]{employee.Name.EscapeMarkup()} ({employee.Role.EscapeMarkup()})[/]");
         }   
 
         return [];

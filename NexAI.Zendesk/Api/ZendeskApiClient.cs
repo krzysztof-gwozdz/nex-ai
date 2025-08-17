@@ -28,12 +28,12 @@ public class ZendeskApiClient
             dto => dto.Tickets,
             limit);
 
-    public async Task<int> GetAgentsCount() => 
-        await GetCount("/api/v2/users/count?role=agent");
+    public async Task<int> GetEmployeesCount() => 
+        await GetCount("/api/v2/users/count?role[]=agent&role[]=admin");
 
-    public async Task<ListUsersDto.UserDto[]> GetAgents(int limit) =>
+    public async Task<ListUsersDto.UserDto[]> GetEmployees(int limit) =>
         await GetPagedItems<ListUsersDto, ListUsersDto.UserDto>(
-            "/api/v2/users?role=agent",
+            "/api/v2/users?role[]=agent&role[]=admin",
             dto => dto.Users,
             limit);
 
