@@ -4,7 +4,12 @@ NexAI is an AI agent as a kind of '2.5 line of support.
 
 # Versions
 
+### 0.0.6
+
+- Integrate with Zendesk API.
+
 ### 0.0.5
+
 - Integrate with Azure DevOps to fetch work items.
 
 ### 0.0.4
