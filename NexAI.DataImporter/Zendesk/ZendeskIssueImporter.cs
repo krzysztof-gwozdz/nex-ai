@@ -1,7 +1,7 @@
-﻿using NexAI.Zendesk;
+﻿using NexAI.Config;
+using NexAI.Zendesk;
 using NexAI.Zendesk.Api;
 using Spectre.Console;
-using Options = NexAI.Config.Options;
 
 namespace NexAI.DataImporter.Zendesk;
 
@@ -11,33 +11,38 @@ internal class ZendeskIssueImporter(Options options)
     {
         AnsiConsole.MarkupLine("[yellow]Importing sample Zendesk issues from JSON...[/]");
         var zendeskApiClient = new ZendeskApiClient(options);
-        
-        var ticketCount = await zendeskApiClient.GetTicketCount();
-        AnsiConsole.MarkupLine($"[yellow]Zendesk tickets count: {ticketCount}[/]");
 
-        var tickets = await zendeskApiClient.GetTickets(10);
-        foreach (var ticket in tickets.Take(10))
+        var employees = await zendeskApiClient.GetEmployees();
+        var zendeskIssues = new List<ZendeskIssue>();
+        var tickets = await zendeskApiClient.GetTickets(5); // todo remove limit when finish testing
+        foreach (var ticket in tickets)
         {
-            AnsiConsole.MarkupLine($"[green]{ticket.Subject.EscapeMarkup()}[/]");
-            AnsiConsole.MarkupLine($"[green]Comments:[/]");
-            var comments = await zendeskApiClient.GetTicketComments(ticket.Id!.Value, 5);
-            foreach (var comment in comments)
-            {
-                AnsiConsole.MarkupLine($"[green]{comment.PlainBody.EscapeMarkup()}[/]");
-            }
-            AnsiConsole.MarkupLine("");
+            var comments = await zendeskApiClient.GetTicketComments(ticket.Id!.Value);
+            zendeskIssues.Add(new(
+                Guid.CreateVersion7(),
+                ticket.Id.Value.ToString(),
+                ticket.Subject ?? "<MISSING TITLE>",
+                ticket.Description ?? "<MISSING DESCRIPTION>",
+                comments.Select(comment => new ZendeskIssue.ZendeskIssueMessage(
+                        comment.PlainBody ?? "<MISSING BODY>",
+                        employees.FirstOrDefault(e => e.Id == comment.AuthorId)?.Name ?? "Unknown Author",
+                        DateTime.Parse(comment.CreatedAt ?? "<MISSING CREATED AT>")
+                    )
+                ).ToArray()
+            ));
         }
 
-        var employeesCount = await zendeskApiClient.GetEmployeesCount();
-        AnsiConsole.MarkupLine($"[yellow]Zendesk employees count: {employeesCount}[/]");
-        
-        var employees = await zendeskApiClient.GetEmployees(10);
-        AnsiConsole.MarkupLine("First 10 employees names:");
-        foreach (var employee in employees)
+        AnsiConsole.MarkupLine($"[green]Successfully imported {zendeskIssues.Count} Zendesk issues.[/]");
+        foreach (var issue in zendeskIssues)
         {
-            AnsiConsole.MarkupLine($"[green]{employee.Name.EscapeMarkup()} ({employee.Role.EscapeMarkup()})[/]");
-        }   
+            AnsiConsole.MarkupLine($"{issue.Id} {issue.Number} {issue.Title.EscapeMarkup()}");
+            AnsiConsole.MarkupLine($"{issue.Description.EscapeMarkup()}");
+            foreach (var message in issue.Messages)
+            {
+                AnsiConsole.MarkupLine($"{message.Author.EscapeMarkup()} {message.CreatedAt} {message.Content.EscapeMarkup()}");
+            }
+        }
 
-        return [];
+        return zendeskIssues.ToArray();
     }
 }

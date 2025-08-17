@@ -93,7 +93,7 @@ public record ListUsersDto(
             [property: JsonPropertyName("company_name")]
             string? CompanyName,
             [property: JsonPropertyName("merchantid")]
-            string? MerchantId,
+            long? MerchantId,
             [property: JsonPropertyName("orgnr")]
             string? Organization,
             [property: JsonPropertyName("phone_number")]

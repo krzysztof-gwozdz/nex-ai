@@ -19,25 +19,25 @@ public class ZendeskApiClient
         _httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {zendeskOptions.AuthorizationToken}");
     }
 
-    public async Task<int> GetTicketCount() => 
+    public async Task<int> GetTicketCount() =>
         await GetCount("/api/v2/tickets/count");
 
-    public async Task<ListTicketsDto.TicketDto[]> GetTickets(int limit) =>
+    public async Task<ListTicketsDto.TicketDto[]> GetTickets(int? limit = null) =>
         await GetPagedItems<ListTicketsDto, ListTicketsDto.TicketDto>(
             "/api/v2/tickets",
             dto => dto.Tickets,
             limit);
 
-    public async Task<int> GetEmployeesCount() => 
+    public async Task<int> GetEmployeesCount() =>
         await GetCount("/api/v2/users/count?role[]=agent&role[]=admin");
 
-    public async Task<ListUsersDto.UserDto[]> GetEmployees(int limit) =>
+    public async Task<ListUsersDto.UserDto[]> GetEmployees(int? limit = null) =>
         await GetPagedItems<ListUsersDto, ListUsersDto.UserDto>(
             "/api/v2/users?role[]=agent&role[]=admin",
             dto => dto.Users,
             limit);
 
-    public async Task<ListTicketCommentsDto.CommentDto[]> GetTicketComments(long ticketId, int limit) =>
+    public async Task<ListTicketCommentsDto.CommentDto[]> GetTicketComments(long ticketId, int? limit = null) =>
         await GetPagedItems<ListTicketCommentsDto, ListTicketCommentsDto.CommentDto>(
             $"/api/v2/tickets/{ticketId}/comments",
             dto => dto.Comments,
@@ -52,13 +52,13 @@ public class ZendeskApiClient
         return countsDto.Count?.Value ?? 0;
     }
 
-    private async Task<TItem[]> GetPagedItems<TDto, TItem>(string endpoint,  Func<TDto, TItem[]?> getItems, int limit) where TDto : PagedDto
+    private async Task<TItem[]> GetPagedItems<TDto, TItem>(string endpoint, Func<TDto, TItem[]?> getItems, int? limit) where TDto : PagedDto
     {
         var allItems = new List<TItem>();
         var page = 1;
         var hasMorePages = true;
 
-        while (hasMorePages && allItems.Count < limit)
+        while (hasMorePages)
         {
             var separator = endpoint.Contains('?') ? "&" : "?";
             var response = await _httpClient.GetAsync($"{endpoint}{separator}page={page}");
@@ -69,12 +69,12 @@ public class ZendeskApiClient
             var items = getItems(dto);
             if (items is not null)
             {
-                var remainingSlots = limit - allItems.Count;
+                var remainingSlots = limit.HasValue ? limit.Value - allItems.Count : items.Length;
                 var itemsToAdd = items.Take(remainingSlots).ToArray();
                 allItems.AddRange(itemsToAdd);
             }
 
-            hasMorePages = !string.IsNullOrEmpty(dto.NextPage) && allItems.Count < limit;
+            hasMorePages = !string.IsNullOrEmpty(dto.NextPage) && (limit is null || allItems.Count < limit);
             page++;
         }
 
