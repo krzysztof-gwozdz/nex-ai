@@ -1,8 +1,8 @@
 [
   {
     "number": "822318",
-    "title": "Important issue test issue",
-    "description": "Important issue test issue description",
+    "title": "Important ticket test ticket",
+    "description": "Important ticket test ticket description",
     "messages": [
       {
         "content": "Question 1",
@@ -29,7 +29,7 @@
   {
     "number": "1",
     "title": "Riverty unavailable in selected shop",
-    "description": "Issue reported in SV related to Klarna",
+    "description": "Ticket reported in SV related to Klarna",
     "messages": [
       {
         "content": "Kan jag ändra min betalningsmetod till Apple Pay?",
@@ -86,7 +86,7 @@
   {
     "number": "2",
     "title": "Shop integration error when using Google Pay",
-    "description": "Issue reported in DA related to Credit card",
+    "description": "Ticket reported in DA related to Credit card",
     "messages": [
       {
         "content": "Der ser ud til at være et problem med Riverty.",
@@ -168,7 +168,7 @@
   {
     "number": "3",
     "title": "Refund stuck for over a week",
-    "description": "Issue reported in DA related to Riverty",
+    "description": "Ticket reported in DA related to Riverty",
     "messages": [
       {
         "content": "Hvorfor er Credit card ikke længere tilgængelig i appen?",
@@ -180,7 +180,7 @@
   {
     "number": "4",
     "title": "Google Pay payment not showing in account",
-    "description": "Issue reported in DA related to PayPal",
+    "description": "Ticket reported in DA related to PayPal",
     "messages": [
       {
         "content": "Jeg blev opkrævet to gange for den samme ordre.",
@@ -217,7 +217,7 @@
   {
     "number": "5",
     "title": "Refund stuck for over a week",
-    "description": "Issue reported in SV related to Apple Pay",
+    "description": "Ticket reported in SV related to Apple Pay",
     "messages": [
       {
         "content": "Butikens kassasida fryser när jag väljer Mobile Pay.",
@@ -249,10 +249,10 @@
   {
     "number": "6",
     "title": "Payment processed but shop did not confirm",
-    "description": "Issue reported in EN related to Credit card",
+    "description": "Ticket reported in EN related to Credit card",
     "messages": [
       {
-        "content": "It seems there is an issue with Google Pay.",
+        "content": "It seems there is an ticket with Google Pay.",
         "author": "customer",
         "createdAt": "2024-03-26T09:00:00Z"
       },
@@ -296,7 +296,7 @@
   {
     "number": "7",
     "title": "Google Pay payment not showing in account",
-    "description": "Issue reported in SV related to Google Pay",
+    "description": "Ticket reported in SV related to Google Pay",
     "messages": [
       {
         "content": "Betalningen gick igenom men beställningen är fortfarande obetald.",
@@ -372,8 +372,8 @@
   },
   {
     "number": "8",
-    "title": "Technical issue with Credit card payment gateway",
-    "description": "Issue reported in EN related to Riverty",
+    "title": "Technical ticket with Credit card payment gateway",
+    "description": "Ticket reported in EN related to Riverty",
     "messages": [
       {
         "content": "My payment via Google Pay got declined.",
@@ -385,7 +385,7 @@
   {
     "number": "9",
     "title": "PayPal payment not showing in account",
-    "description": "Issue reported in SV related to Klarna",
+    "description": "Ticket reported in SV related to Klarna",
     "messages": [
       {
         "content": "Min återbetalning har varit väntande i 10 dagar nu.",
@@ -412,7 +412,7 @@
   {
     "number": "10",
     "title": "Google Pay declined at checkout",
-    "description": "Issue reported in DA related to PayPal",
+    "description": "Ticket reported in DA related to PayPal",
     "messages": [
       {
         "content": "Tjek venligst om din konto har nok penge.",
@@ -489,7 +489,7 @@
   {
     "number": "11",
     "title": "Shop integration error when using Riverty",
-    "description": "Issue reported in DA related to Klarna",
+    "description": "Ticket reported in DA related to Klarna",
     "messages": [
       {
         "content": "Kan jeg ændre min betalingsmetode til Riverty?",
@@ -526,7 +526,7 @@
   {
     "number": "12",
     "title": "Delayed refund from shop using PayPal",
-    "description": "Issue reported in EN related to Apple Pay",
+    "description": "Ticket reported in EN related to Apple Pay",
     "messages": [
       {
         "content": "My refund has been pending for 10 days now.",
@@ -539,7 +539,7 @@
         "createdAt": "2024-01-13T11:00:00Z"
       },
       {
-        "content": "It seems there is an issue with PayPal.",
+        "content": "It seems there is an ticket with PayPal.",
         "author": "customer",
         "createdAt": "2024-01-13T13:00:00Z"
       },
@@ -603,7 +603,7 @@
   {
     "number": "13",
     "title": "Shop payment not working for PayPal",
-    "description": "Issue reported in DA related to Credit card",
+    "description": "Ticket reported in DA related to Credit card",
     "messages": [
       {
         "content": "Butikkens checkout-side fryser, når jeg vælger Credit card.",
@@ -645,7 +645,7 @@
   {
     "number": "14",
     "title": "Refund stuck for over a week",
-    "description": "Issue reported in SV related to Credit card",
+    "description": "Ticket reported in SV related to Credit card",
     "messages": [
       {
         "content": "Varför är Klarna inte längre tillgängligt i appen?",
@@ -667,7 +667,7 @@
   {
     "number": "15",
     "title": "Pending transaction not clearing",
-    "description": "Issue reported in EN related to Apple Pay",
+    "description": "Ticket reported in EN related to Apple Pay",
     "messages": [
       {
         "content": "Why is PayPal not available in your app anymore?",
@@ -675,7 +675,7 @@
         "createdAt": "2024-04-11T09:00:00Z"
       },
       {
-        "content": "It seems there is an issue with Riverty.",
+        "content": "It seems there is an ticket with Riverty.",
         "author": "support",
         "createdAt": "2024-04-11T11:00:00Z"
       },
@@ -714,7 +714,7 @@
   {
     "number": "16",
     "title": "Apple Pay payment not showing in account",
-    "description": "Issue reported in EN related to Riverty",
+    "description": "Ticket reported in EN related to Riverty",
     "messages": [
       {
         "content": "My payment via Google Pay got declined.",
@@ -747,12 +747,12 @@
         "createdAt": "2024-01-10T19:00:00Z"
       },
       {
-        "content": "It seems there is an issue with Klarna.",
+        "content": "It seems there is an ticket with Klarna.",
         "author": "customer",
         "createdAt": "2024-01-10T21:00:00Z"
       },
       {
-        "content": "It seems there is an issue with Klarna.",
+        "content": "It seems there is an ticket with Klarna.",
         "author": "support",
         "createdAt": "2024-01-10T23:00:00Z"
       }
@@ -761,7 +761,7 @@
   {
     "number": "17",
     "title": "Problem completing transaction with Klarna",
-    "description": "Issue reported in EN related to Klarna",
+    "description": "Ticket reported in EN related to Klarna",
     "messages": [
       {
         "content": "Order was cancelled, but money was taken.",
@@ -769,7 +769,7 @@
         "createdAt": "2024-04-27T09:00:00Z"
       },
       {
-        "content": "It seems there is an issue with Google Pay.",
+        "content": "It seems there is an ticket with Google Pay.",
         "author": "support",
         "createdAt": "2024-04-27T11:00:00Z"
       },
@@ -838,7 +838,7 @@
   {
     "number": "18",
     "title": "Order cancelled but payment still taken",
-    "description": "Issue reported in DA related to Google Pay",
+    "description": "Ticket reported in DA related to Google Pay",
     "messages": [
       {
         "content": "Butikkens checkout-side fryser, når jeg vælger Riverty.",
@@ -895,7 +895,7 @@
   {
     "number": "19",
     "title": "Unable to complete purchase via Klarna",
-    "description": "Issue reported in DA related to PayPal",
+    "description": "Ticket reported in DA related to PayPal",
     "messages": [
       {
         "content": "Hvilken fejlmeddelelse ser du?",
@@ -927,7 +927,7 @@
   {
     "number": "20",
     "title": "Apple Pay payment not showing in account",
-    "description": "Issue reported in DA related to Google Pay",
+    "description": "Ticket reported in DA related to Google Pay",
     "messages": [
       {
         "content": "Kan jeg ændre min betalingsmetode til Credit card?",
@@ -1009,7 +1009,7 @@
   {
     "number": "21",
     "title": "Overcharged when paying with Google Pay",
-    "description": "Issue reported in SV related to PayPal",
+    "description": "Ticket reported in SV related to PayPal",
     "messages": [
       {
         "content": "Varför är PayPal inte längre tillgängligt i appen?",
@@ -1026,7 +1026,7 @@
   {
     "number": "22",
     "title": "Payment failed during checkout",
-    "description": "Issue reported in EN related to PayPal",
+    "description": "Ticket reported in EN related to PayPal",
     "messages": [
       {
         "content": "Why is Klarna not available in your app anymore?",
@@ -1108,7 +1108,7 @@
   {
     "number": "23",
     "title": "Order cancelled but payment still taken",
-    "description": "Issue reported in DA related to PayPal",
+    "description": "Ticket reported in DA related to PayPal",
     "messages": [
       {
         "content": "Transaktionen står som afventende i min bank.",
@@ -1135,7 +1135,7 @@
   {
     "number": "24",
     "title": "Shop integration error when using Klarna",
-    "description": "Issue reported in DA related to Google Pay",
+    "description": "Ticket reported in DA related to Google Pay",
     "messages": [
       {
         "content": "Kan du bekræfte, om betalingen gik igennem?",
@@ -1177,7 +1177,7 @@
   {
     "number": "25",
     "title": "Delayed refund from shop using Google Pay",
-    "description": "Issue reported in EN related to Riverty",
+    "description": "Ticket reported in EN related to Riverty",
     "messages": [
       {
         "content": "My refund has been pending for 10 days now.",
@@ -1250,7 +1250,7 @@
         "createdAt": "2024-04-14T11:00:00Z"
       },
       {
-        "content": "It seems there is an issue with Credit card.",
+        "content": "It seems there is an ticket with Credit card.",
         "author": "customer",
         "createdAt": "2024-04-14T13:00:00Z"
       }
@@ -1259,7 +1259,7 @@
   {
     "number": "26",
     "title": "Double charge on Riverty",
-    "description": "Issue reported in SV related to Apple Pay",
+    "description": "Ticket reported in SV related to Apple Pay",
     "messages": [
       {
         "content": "Varför är Klarna inte längre tillgängligt i appen?",
@@ -1276,7 +1276,7 @@
   {
     "number": "27",
     "title": "Payment processed but shop did not confirm",
-    "description": "Issue reported in DA related to PayPal",
+    "description": "Ticket reported in DA related to PayPal",
     "messages": [
       {
         "content": "Butikken siger, at betalingen er gennemført, men jeg kan ikke se noget i banken.",
@@ -1308,7 +1308,7 @@
   {
     "number": "28",
     "title": "Chargeback request for unauthorized payment",
-    "description": "Issue reported in EN related to Riverty",
+    "description": "Ticket reported in EN related to Riverty",
     "messages": [
       {
         "content": "I tried 3 times and still can't pay with PayPal.",
@@ -1330,7 +1330,7 @@
   {
     "number": "29",
     "title": "Refund request not processed Pikachu.",
-    "description": "Issue reported in EN related to Google Pay",
+    "description": "Ticket reported in EN related to Google Pay",
     "messages": [
       {
         "content": "I'm trying to pay for my order but it keeps failing.",
@@ -1412,7 +1412,7 @@
   {
     "number": "30",
     "title": "Shop integration error when using Riverty",
-    "description": "Issue reported in SV related to Klarna",
+    "description": "Ticket reported in SV related to Klarna",
     "messages": [
       {
         "content": "Det verkar vara ett problem med Mobile Pay.",
@@ -1469,7 +1469,7 @@
   {
     "number": "31",
     "title": "Payment processed but shop did not confirm",
-    "description": "Issue reported in DA related to Apple Pay",
+    "description": "Ticket reported in DA related to Apple Pay",
     "messages": [
       {
         "content": "Jeg prøvede 3 gange og kan stadig ikke betale med Mobile Pay.",
@@ -1506,7 +1506,7 @@
   {
     "number": "32",
     "title": "Unable to complete purchase via Riverty",
-    "description": "Issue reported in EN related to Apple Pay",
+    "description": "Ticket reported in EN related to Apple Pay",
     "messages": [
       {
         "content": "Please check if your account has sufficient funds.",
@@ -1553,7 +1553,7 @@
   {
     "number": "33",
     "title": "Google Pay payment not showing in account",
-    "description": "Issue reported in DA related to Mobile Pay",
+    "description": "Ticket reported in DA related to Mobile Pay",
     "messages": [
       {
         "content": "Tjek venligst om din konto har nok penge.",
@@ -1575,7 +1575,7 @@
   {
     "number": "34",
     "title": "Payment failed during checkout",
-    "description": "Issue reported in EN related to Apple Pay",
+    "description": "Ticket reported in EN related to Apple Pay",
     "messages": [
       {
         "content": "Can I change my payment method to Apple Pay?",
@@ -1587,7 +1587,7 @@
   {
     "number": "35",
     "title": "PayPal unavailable in selected shop",
-    "description": "Issue reported in DA related to Riverty",
+    "description": "Ticket reported in DA related to Riverty",
     "messages": [
       {
         "content": "Jeg er blevet opkrævet to gange for mit køb.",
@@ -1599,7 +1599,7 @@
   {
     "number": "36",
     "title": "Payment failed during checkout",
-    "description": "Issue reported in SV related to Klarna",
+    "description": "Ticket reported in SV related to Klarna",
     "messages": [
       {
         "content": "Beställningen avbröts men pengarna drogs ändå.",
@@ -1611,7 +1611,7 @@
   {
     "number": "37",
     "title": "Overcharged when paying with Credit card",
-    "description": "Issue reported in EN related to Credit card",
+    "description": "Ticket reported in EN related to Credit card",
     "messages": [
       {
         "content": "My refund has been pending for 10 days now.",
@@ -1658,7 +1658,7 @@
   {
     "number": "38",
     "title": "Pending transaction not clearing",
-    "description": "Issue reported in EN related to Credit card",
+    "description": "Ticket reported in EN related to Credit card",
     "messages": [
       {
         "content": "Can I change my payment method to Riverty?",
@@ -1740,7 +1740,7 @@
   {
     "number": "39",
     "title": "Chargeback request for unauthorized payment",
-    "description": "Issue reported in SV related to Credit card",
+    "description": "Ticket reported in SV related to Credit card",
     "messages": [
       {
         "content": "Jag försöker betala min beställning men det misslyckas.",
@@ -1822,7 +1822,7 @@
   {
     "number": "40",
     "title": "Unable to complete purchase via Apple Pay",
-    "description": "Issue reported in EN related to Credit card",
+    "description": "Ticket reported in EN related to Credit card",
     "messages": [
       {
         "content": "Please check if your account has sufficient funds.",
@@ -1854,7 +1854,7 @@
   {
     "number": "41",
     "title": "Problem completing transaction with Google Pay",
-    "description": "Issue reported in SV related to Google Pay",
+    "description": "Ticket reported in SV related to Google Pay",
     "messages": [
       {
         "content": "Jag försökte 3 gånger och kan fortfarande inte betala med Riverty.",
@@ -1911,7 +1911,7 @@
   {
     "number": "42",
     "title": "Delayed refund from shop using PayPal Pikachu.",
-    "description": "Issue reported in EN related to Klarna",
+    "description": "Ticket reported in EN related to Klarna",
     "messages": [
       {
         "content": "Your payment has been processed successfully.",
@@ -1963,7 +1963,7 @@
   {
     "number": "43",
     "title": "Pending transaction not clearing",
-    "description": "Issue reported in EN related to Riverty",
+    "description": "Ticket reported in EN related to Riverty",
     "messages": [
       {
         "content": "Your payment has been processed successfully.",
@@ -2040,7 +2040,7 @@
   {
     "number": "44",
     "title": "PayPal payment not showing in account",
-    "description": "Issue reported in SV related to Klarna",
+    "description": "Ticket reported in SV related to Klarna",
     "messages": [
       {
         "content": "Vilket felmeddelande får du?",
@@ -2077,7 +2077,7 @@
   {
     "number": "45",
     "title": "Mobile Pay unavailable in selected shop",
-    "description": "Issue reported in EN related to Riverty",
+    "description": "Ticket reported in EN related to Riverty",
     "messages": [
       {
         "content": "I have been charged twice for my purchase.",
@@ -2139,7 +2139,7 @@
   {
     "number": "46",
     "title": "Chargeback request for unauthorized payment",
-    "description": "Issue reported in SV related to Klarna",
+    "description": "Ticket reported in SV related to Klarna",
     "messages": [
       {
         "content": "Beställningen avbröts men pengarna drogs ändå.",
@@ -2156,7 +2156,7 @@
   {
     "number": "47",
     "title": "Overcharged when paying with Klarna",
-    "description": "Issue reported in EN related to Google Pay",
+    "description": "Ticket reported in EN related to Google Pay",
     "messages": [
       {
         "content": "Shop says payment is completed, but I see nothing in my bank.",
@@ -2178,7 +2178,7 @@
   {
     "number": "48",
     "title": "Overcharged when paying with Google Pay",
-    "description": "Issue reported in DA related to Credit card",
+    "description": "Ticket reported in DA related to Credit card",
     "messages": [
       {
         "content": "Kan jeg ændre min betalingsmetode til PayPal?",
@@ -2200,7 +2200,7 @@
   {
     "number": "49",
     "title": "Shop payment not working for Apple Pay",
-    "description": "Issue reported in SV related to Mobile Pay",
+    "description": "Ticket reported in SV related to Mobile Pay",
     "messages": [
       {
         "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
@@ -2282,7 +2282,7 @@
   {
     "number": "50",
     "title": "Apple Pay payment not showing in account",
-    "description": "Issue reported in DA related to Credit card",
+    "description": "Ticket reported in DA related to Credit card",
     "messages": [
       {
         "content": "Min betaling via PayPal blev afvist.",
@@ -2354,7 +2354,7 @@
   {
     "number": "51",
     "title": "Chargeback request for unauthorized payment",
-    "description": "Issue reported in DA related to Google Pay",
+    "description": "Ticket reported in DA related to Google Pay",
     "messages": [
       {
         "content": "Betalingen gik igennem, men ordren står stadig som ubetalt.",
@@ -2405,8 +2405,8 @@
   },
   {
     "number": "52",
-    "title": "Technical issue with Apple Pay payment gateway",
-    "description": "Issue reported in DA related to Mobile Pay",
+    "title": "Technical ticket with Apple Pay payment gateway",
+    "description": "Ticket reported in DA related to Mobile Pay",
     "messages": [
       {
         "content": "Jeg blev opkrævet to gange for den samme ordre.",
@@ -2443,7 +2443,7 @@
   {
     "number": "53",
     "title": "Shop integration error when using Riverty",
-    "description": "Issue reported in DA related to Mobile Pay",
+    "description": "Ticket reported in DA related to Mobile Pay",
     "messages": [
       {
         "content": "Ordren blev annulleret, men pengene blev stadig trukket.",
@@ -2465,7 +2465,7 @@
   {
     "number": "54",
     "title": "Shop integration error when using Mobile Pay",
-    "description": "Issue reported in DA related to Credit card",
+    "description": "Ticket reported in DA related to Credit card",
     "messages": [
       {
         "content": "Jeg blev opkrævet to gange for den samme ordre.",
@@ -2527,7 +2527,7 @@
   {
     "number": "55",
     "title": "Refund request not processed",
-    "description": "Issue reported in EN related to Riverty",
+    "description": "Ticket reported in EN related to Riverty",
     "messages": [
       {
         "content": "What error message are you seeing?",
@@ -2589,7 +2589,7 @@
   {
     "number": "56",
     "title": "Credit card declined at checkout",
-    "description": "Issue reported in DA related to Google Pay",
+    "description": "Ticket reported in DA related to Google Pay",
     "messages": [
       {
         "content": "Min refundering har været afventende i 10 dage nu.",
@@ -2666,7 +2666,7 @@
   {
     "number": "57",
     "title": "Refund request not processed",
-    "description": "Issue reported in EN related to Credit card",
+    "description": "Ticket reported in EN related to Credit card",
     "messages": [
       {
         "content": "The shop's checkout page freezes when I select Mobile Pay.",
@@ -2693,7 +2693,7 @@
   {
     "number": "58",
     "title": "Refund request not processed",
-    "description": "Issue reported in DA related to Apple Pay",
+    "description": "Ticket reported in DA related to Apple Pay",
     "messages": [
       {
         "content": "Ordren blev annulleret, men pengene blev stadig trukket.",
@@ -2735,7 +2735,7 @@
   {
     "number": "59",
     "title": "Shop payment not working for Mobile Pay",
-    "description": "Issue reported in SV related to Klarna",
+    "description": "Ticket reported in SV related to Klarna",
     "messages": [
       {
         "content": "Butiken säger att de inte accepterar Credit card just nu.",
@@ -2762,7 +2762,7 @@
   {
     "number": "60",
     "title": "Double charge on Mobile Pay",
-    "description": "Issue reported in DA related to Klarna",
+    "description": "Ticket reported in DA related to Klarna",
     "messages": [
       {
         "content": "Jeg anmodede om en refundering i sidste uge, men har stadig ikke fået den.",
@@ -2814,7 +2814,7 @@
   {
     "number": "61",
     "title": "Payment failed during checkout",
-    "description": "Issue reported in SV related to Google Pay",
+    "description": "Ticket reported in SV related to Google Pay",
     "messages": [
       {
         "content": "Butikens kassasida fryser när jag väljer Klarna.",
@@ -2866,7 +2866,7 @@
   {
     "number": "62",
     "title": "Unable to complete purchase via Mobile Pay",
-    "description": "Issue reported in SV related to Google Pay",
+    "description": "Ticket reported in SV related to Google Pay",
     "messages": [
       {
         "content": "Din betalning har behandlats framgångsrikt.",
@@ -2923,7 +2923,7 @@
   {
     "number": "63",
     "title": "Double charge on Mobile Pay",
-    "description": "Issue reported in SV related to Credit card",
+    "description": "Ticket reported in SV related to Credit card",
     "messages": [
       {
         "content": "Jag försökte 3 gånger och kan fortfarande inte betala med Credit card.",
@@ -2970,7 +2970,7 @@
   {
     "number": "64",
     "title": "Refund request not processed",
-    "description": "Issue reported in DA related to Riverty",
+    "description": "Ticket reported in DA related to Riverty",
     "messages": [
       {
         "content": "Butikkens checkout-side fryser, når jeg vælger Apple Pay.",
@@ -3042,7 +3042,7 @@
   {
     "number": "65",
     "title": "Chargeback request for unauthorized payment",
-    "description": "Issue reported in DA related to Riverty",
+    "description": "Ticket reported in DA related to Riverty",
     "messages": [
       {
         "content": "Jeg prøvede 3 gange og kan stadig ikke betale med Google Pay.",
@@ -3104,7 +3104,7 @@
   {
     "number": "66",
     "title": "Payment failed during checkout",
-    "description": "Issue reported in SV related to Google Pay",
+    "description": "Ticket reported in SV related to Google Pay",
     "messages": [
       {
         "content": "Transaktionen visas som väntande i min bank.",
@@ -3121,7 +3121,7 @@
   {
     "number": "67",
     "title": "Payment failed during checkout",
-    "description": "Issue reported in EN related to Riverty",
+    "description": "Ticket reported in EN related to Riverty",
     "messages": [
       {
         "content": "My payment via Apple Pay got declined.",
@@ -3149,7 +3149,7 @@
         "createdAt": "2024-05-10T17:00:00Z"
       },
       {
-        "content": "It seems there is an issue with PayPal.",
+        "content": "It seems there is an ticket with PayPal.",
         "author": "support",
         "createdAt": "2024-05-10T19:00:00Z"
       },
@@ -3163,7 +3163,7 @@
   {
     "number": "68",
     "title": "Chargeback request for unauthorized payment",
-    "description": "Issue reported in SV related to Credit card",
+    "description": "Ticket reported in SV related to Credit card",
     "messages": [
       {
         "content": "Varför är Google Pay inte längre tillgängligt i appen?",
@@ -3190,7 +3190,7 @@
   {
     "number": "69",
     "title": "Payment failed during checkout",
-    "description": "Issue reported in EN related to Riverty",
+    "description": "Ticket reported in EN related to Riverty",
     "messages": [
       {
         "content": "Can you confirm if the payment went through?",
@@ -3252,7 +3252,7 @@
   {
     "number": "70",
     "title": "Klarna payment not showing in account",
-    "description": "Issue reported in EN related to Klarna",
+    "description": "Ticket reported in EN related to Klarna",
     "messages": [
       {
         "content": "The shop's checkout page freezes when I select Mobile Pay.",
@@ -3274,7 +3274,7 @@
   {
     "number": "71",
     "title": "Double charge on Credit card",
-    "description": "Issue reported in SV related to Credit card",
+    "description": "Ticket reported in SV related to Credit card",
     "messages": [
       {
         "content": "Det verkar vara ett problem med Mobile Pay.",
@@ -3296,7 +3296,7 @@
   {
     "number": "72",
     "title": "Mobile Pay declined at checkout",
-    "description": "Issue reported in SV related to Klarna",
+    "description": "Ticket reported in SV related to Klarna",
     "messages": [
       {
         "content": "Jag har blivit debiterad två gånger för mitt köp.",
@@ -3353,7 +3353,7 @@
   {
     "number": "73",
     "title": "Klarna payment not showing in account",
-    "description": "Issue reported in EN related to Riverty",
+    "description": "Ticket reported in EN related to Riverty",
     "messages": [
       {
         "content": "I'm trying to pay for my order but it keeps failing.",
@@ -3386,7 +3386,7 @@
         "createdAt": "2024-05-21T19:00:00Z"
       },
       {
-        "content": "It seems there is an issue with Apple Pay.",
+        "content": "It seems there is an ticket with Apple Pay.",
         "author": "customer",
         "createdAt": "2024-05-21T21:00:00Z"
       },
@@ -3420,7 +3420,7 @@
   {
     "number": "74",
     "title": "Delayed refund from shop using PayPal",
-    "description": "Issue reported in SV related to Klarna",
+    "description": "Ticket reported in SV related to Klarna",
     "messages": [
       {
         "content": "Jag blev debiterad två gånger för samma beställning.",
@@ -3497,7 +3497,7 @@
   {
     "number": "75",
     "title": "Refund request not processed",
-    "description": "Issue reported in DA related to Google Pay",
+    "description": "Ticket reported in DA related to Google Pay",
     "messages": [
       {
         "content": "Der ser ud til at være et problem med PayPal.",
@@ -3523,8 +3523,8 @@
   },
   {
     "number": "76",
-    "title": "Technical issue with PayPal payment gateway",
-    "description": "Issue reported in SV related to Google Pay",
+    "title": "Technical ticket with PayPal payment gateway",
+    "description": "Ticket reported in SV related to Google Pay",
     "messages": [
       {
         "content": "Betalningen gick igenom men beställningen är fortfarande obetald.",
@@ -3601,7 +3601,7 @@
   {
     "number": "77",
     "title": "Chargeback request for unauthorized payment",
-    "description": "Issue reported in EN related to Mobile Pay",
+    "description": "Ticket reported in EN related to Mobile Pay",
     "messages": [
       {
         "content": "The payment went through but the order is still marked as unpaid.",
@@ -3609,7 +3609,7 @@
         "createdAt": "2024-04-24T09:00:00Z"
       },
       {
-        "content": "It seems there is an issue with Apple Pay.",
+        "content": "It seems there is an ticket with Apple Pay.",
         "author": "support",
         "createdAt": "2024-04-24T11:00:00Z"
       },
@@ -3648,7 +3648,7 @@
   {
     "number": "78",
     "title": "Unable to complete purchase via Riverty",
-    "description": "Issue reported in DA related to Riverty",
+    "description": "Ticket reported in DA related to Riverty",
     "messages": [
       {
         "content": "Ordren blev annulleret, men pengene blev stadig trukket.",
@@ -3720,7 +3720,7 @@
   {
     "number": "79",
     "title": "Payment failed during checkout",
-    "description": "Issue reported in DA related to Google Pay",
+    "description": "Ticket reported in DA related to Google Pay",
     "messages": [
       {
         "content": "Butikken siger, at betalingen er gennemført, men jeg kan ikke se noget i banken.",
@@ -3792,7 +3792,7 @@
   {
     "number": "80",
     "title": "Chargeback request for unauthorized payment",
-    "description": "Issue reported in SV related to Google Pay",
+    "description": "Ticket reported in SV related to Google Pay",
     "messages": [
       {
         "content": "Det verkar vara ett problem med Mobile Pay.",
@@ -3839,7 +3839,7 @@
   {
     "number": "81",
     "title": "Overcharged when paying with Riverty",
-    "description": "Issue reported in SV related to Mobile Pay",
+    "description": "Ticket reported in SV related to Mobile Pay",
     "messages": [
       {
         "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
@@ -3886,7 +3886,7 @@
   {
     "number": "82",
     "title": "Refund request not processed",
-    "description": "Issue reported in SV related to Klarna",
+    "description": "Ticket reported in SV related to Klarna",
     "messages": [
       {
         "content": "Jag försökte 3 gånger och kan fortfarande inte betala med Apple Pay.",
@@ -3903,7 +3903,7 @@
   {
     "number": "83",
     "title": "Google Pay unavailable in selected shop",
-    "description": "Issue reported in SV related to PayPal",
+    "description": "Ticket reported in SV related to PayPal",
     "messages": [
       {
         "content": "Jag begärde återbetalning förra veckan men har inte fått den än.",
@@ -3920,7 +3920,7 @@
   {
     "number": "84",
     "title": "Google Pay declined at checkout",
-    "description": "Issue reported in DA related to Apple Pay",
+    "description": "Ticket reported in DA related to Apple Pay",
     "messages": [
       {
         "content": "Jeg anmodede om en refundering i sidste uge, men har stadig ikke fået den.",
@@ -3947,7 +3947,7 @@
   {
     "number": "85",
     "title": "PayPal payment not showing in account",
-    "description": "Issue reported in EN related to Riverty",
+    "description": "Ticket reported in EN related to Riverty",
     "messages": [
       {
         "content": "What error message are you seeing?",
@@ -3970,7 +3970,7 @@
         "createdAt": "2024-03-06T15:00:00Z"
       },
       {
-        "content": "It seems there is an issue with Klarna.",
+        "content": "It seems there is an ticket with Klarna.",
         "author": "customer",
         "createdAt": "2024-03-06T17:00:00Z"
       },
@@ -4004,7 +4004,7 @@
   {
     "number": "86",
     "title": "Google Pay unavailable in selected shop",
-    "description": "Issue reported in SV related to Google Pay",
+    "description": "Ticket reported in SV related to Google Pay",
     "messages": [
       {
         "content": "Jag försökte 3 gånger och kan fortfarande inte betala med Apple Pay.",
@@ -4086,7 +4086,7 @@
   {
     "number": "87",
     "title": "Refund request not processed",
-    "description": "Issue reported in DA related to Riverty",
+    "description": "Ticket reported in DA related to Riverty",
     "messages": [
       {
         "content": "Jeg prøvede 3 gange og kan stadig ikke betale med Mobile Pay.",
@@ -4168,7 +4168,7 @@
   {
     "number": "88",
     "title": "Chargeback request for unauthorized payment",
-    "description": "Issue reported in SV related to Riverty",
+    "description": "Ticket reported in SV related to Riverty",
     "messages": [
       {
         "content": "Min återbetalning har varit väntande i 10 dagar nu.",
@@ -4220,7 +4220,7 @@
   {
     "number": "89",
     "title": "Klarna declined at checkout",
-    "description": "Issue reported in SV related to Riverty",
+    "description": "Ticket reported in SV related to Riverty",
     "messages": [
       {
         "content": "Butiken säger att betalningen är klar men jag ser inget på banken.",
@@ -4282,7 +4282,7 @@
   {
     "number": "90",
     "title": "Problem completing transaction with Apple Pay",
-    "description": "Issue reported in DA related to Google Pay",
+    "description": "Ticket reported in DA related to Google Pay",
     "messages": [
       {
         "content": "Ordren blev annulleret, men pengene blev stadig trukket.",
@@ -4319,7 +4319,7 @@
   {
     "number": "91",
     "title": "Delayed refund from shop using Credit card",
-    "description": "Issue reported in EN related to PayPal",
+    "description": "Ticket reported in EN related to PayPal",
     "messages": [
       {
         "content": "Please check if your account has sufficient funds.",
@@ -4356,7 +4356,7 @@
   {
     "number": "92",
     "title": "Chargeback request for unauthorized payment",
-    "description": "Issue reported in SV related to Credit card",
+    "description": "Ticket reported in SV related to Credit card",
     "messages": [
       {
         "content": "Vilket felmeddelande får du?",
@@ -4428,7 +4428,7 @@
   {
     "number": "93",
     "title": "Double charge on Credit card",
-    "description": "Issue reported in EN related to Credit card",
+    "description": "Ticket reported in EN related to Credit card",
     "messages": [
       {
         "content": "The shop's checkout page freezes when I select Riverty.",
@@ -4451,7 +4451,7 @@
         "createdAt": "2024-02-04T15:00:00Z"
       },
       {
-        "content": "It seems there is an issue with Google Pay.",
+        "content": "It seems there is an ticket with Google Pay.",
         "author": "customer",
         "createdAt": "2024-02-04T17:00:00Z"
       },
@@ -4505,7 +4505,7 @@
   {
     "number": "94",
     "title": "Refund stuck for over a week",
-    "description": "Issue reported in SV related to Riverty",
+    "description": "Ticket reported in SV related to Riverty",
     "messages": [
       {
         "content": "Kan jag ändra min betalningsmetod till Riverty?",
@@ -4517,7 +4517,7 @@
   {
     "number": "95",
     "title": "Unable to complete purchase via Credit card",
-    "description": "Issue reported in SV related to Riverty",
+    "description": "Ticket reported in SV related to Riverty",
     "messages": [
       {
         "content": "Varför är Mobile Pay inte längre tillgängligt i appen?",
@@ -4549,7 +4549,7 @@
   {
     "number": "96",
     "title": "Problem completing transaction with Mobile Pay",
-    "description": "Issue reported in EN related to Credit card",
+    "description": "Ticket reported in EN related to Credit card",
     "messages": [
       {
         "content": "Order was cancelled, but money was taken.",
@@ -4626,7 +4626,7 @@
   {
     "number": "97",
     "title": "Double charge on PayPal",
-    "description": "Issue reported in SV related to Mobile Pay",
+    "description": "Ticket reported in SV related to Mobile Pay",
     "messages": [
       {
         "content": "Kan du bekräfta om betalningen gick igenom?",
@@ -4673,7 +4673,7 @@
   {
     "number": "98",
     "title": "Refund request not processed",
-    "description": "Issue reported in EN related to Credit card",
+    "description": "Ticket reported in EN related to Credit card",
     "messages": [
       {
         "content": "I requested a refund last week but haven't received it yet.",
@@ -4726,12 +4726,12 @@
         "createdAt": "2024-05-12T03:00:00Z"
       },
       {
-        "content": "It seems there is an issue with Google Pay.",
+        "content": "It seems there is an ticket with Google Pay.",
         "author": "customer",
         "createdAt": "2024-05-12T05:00:00Z"
       },
       {
-        "content": "It seems there is an issue with Apple Pay.",
+        "content": "It seems there is an ticket with Apple Pay.",
         "author": "support",
         "createdAt": "2024-05-12T07:00:00Z"
       },
@@ -4750,7 +4750,7 @@
   {
     "number": "99",
     "title": "Refund request not processed",
-    "description": "Issue reported in DA related to Mobile Pay",
+    "description": "Ticket reported in DA related to Mobile Pay",
     "messages": [
       {
         "content": "Butikken siger, at de ikke accepterer Credit card lige nu.",
@@ -4792,7 +4792,7 @@
   {
     "number": "100",
     "title": "Credit card declined at checkout",
-    "description": "Issue reported in SV related to Apple Pay",
+    "description": "Ticket reported in SV related to Apple Pay",
     "messages": [
       {
         "content": "Vilket felmeddelande får du?",

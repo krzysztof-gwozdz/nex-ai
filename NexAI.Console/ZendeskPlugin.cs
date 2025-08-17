@@ -9,35 +9,35 @@ namespace NexAI.Console;
 
 public class ZendeskPlugin(Options options)
 {
-    [KernelFunction("get_zendesk_issue_by_number")]
-    [Description("Retrieves a Zendesk issue by its number.")]
-    public async Task<ZendeskIssue?> GetIssueByNumber(string number)
+    [KernelFunction("get_zendesk_ticket_by_number")]
+    [Description("Retrieves a Zendesk ticket by its number.")]
+    public async Task<ZendeskTicket?> GetTicketByNumber(string number)
     {
-        AnsiConsole.MarkupLine($"[yellow]Using tool get_zendesk_issue_by_number. Retrieving Zendesk issue with number: {number}[/]");
-        return await new GetZendeskIssueByNumberQuery(options).Handle(number);
+        AnsiConsole.MarkupLine($"[yellow]Using tool get_zendesk_ticket_by_number. Retrieving Zendesk ticket with number: {number}[/]");
+        return await new GetZendeskTicketByNumberQuery(options).Handle(number);
     }
 
-    [KernelFunction("get_zendesk_issues_by_numbers")]
-    [Description("Retrieves Zendesk issues by their numbers.")]
-    public async Task<ZendeskIssue[]> GetIssuesByNumbers(string[] numbers)
+    [KernelFunction("get_zendesk_tickets_by_numbers")]
+    [Description("Retrieves Zendesk tickets by their numbers.")]
+    public async Task<ZendeskTicket[]> GetTicketsByNumbers(string[] numbers)
     {
-        AnsiConsole.MarkupLine($"[yellow]Using tool get_zendesk_issues_by_numbers. Retrieving Zendesk issues with numbers: {string.Join(", ", numbers)}[/]");
-        return await new GetZendeskIssuesByNumbersQuery(options).Handle(numbers);
+        AnsiConsole.MarkupLine($"[yellow]Using tool get_zendesk_tickets_by_numbers. Retrieving Zendesk tickets with numbers: {string.Join(", ", numbers)}[/]");
+        return await new GetZendeskTicketsByNumbersQuery(options).Handle(numbers);
     }
 
-    [KernelFunction("find_similar_zendesk_issue_by_number")]
-    [Description("Finds similar issues based on the issue number.")]
-    public async Task<List<SimilarIssue>> FindSimilarIssuesToSpecificIssueQuery(string number, int limit)
+    [KernelFunction("find_similar_zendesk_ticket_by_number")]
+    [Description("Finds similar tickets based on the ticket number.")]
+    public async Task<List<SimilarTicket>> FindSimilarTicketsToSpecificTicketQuery(string number, int limit)
     {
-        AnsiConsole.MarkupLine($"[yellow]Using tool find_similar_issues_by_number. Finding similar issues for number: {number} with limit: {limit}[/]");
-        return await new FindSimilarZendeskIssuesByNumberQuery(options).Handle(number, limit);
+        AnsiConsole.MarkupLine($"[yellow]Using tool find_similar_tickets_by_number. Finding similar tickets for number: {number} with limit: {limit}[/]");
+        return await new FindSimilarZendeskTicketsByNumberQuery(options).Handle(number, limit);
     }
 
-    [KernelFunction("find_similar_zendesk_issues_by_phrase")]
-    [Description("Finds similar issues based on a phrase.")]
-    public async Task<List<SimilarIssue>> FindSimilarIssuesByPhrase(string phrase, int limit)
+    [KernelFunction("find_similar_zendesk_tickets_by_phrase")]
+    [Description("Finds similar tickets based on a phrase.")]
+    public async Task<List<SimilarTicket>> FindSimilarTicketsByPhrase(string phrase, int limit)
     {
-        AnsiConsole.MarkupLine($"[yellow]Using tool find_similar_issues_by_phrase. Finding similar issues for phrase: {phrase} with limit: {limit}[/]");
-        return await new FindSimilarZendeskIssuesByPhraseQuery(options).Handle(phrase, limit);
+        AnsiConsole.MarkupLine($"[yellow]Using tool find_similar_tickets_by_phrase. Finding similar tickets for phrase: {phrase} with limit: {limit}[/]");
+        return await new FindSimilarZendeskTicketsByPhraseQuery(options).Handle(phrase, limit);
     }
 }

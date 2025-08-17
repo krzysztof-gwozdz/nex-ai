@@ -12,9 +12,9 @@ try
     var features = new[]
     {
         "Start Conversation with Nex AI",
-        "Search for Issues by Phrase",
+        "Search for Tickets by Phrase",
         "Search for Azure Work Items by Phrase",
-        "Search for Info About Issue"
+        "Search for Info About Ticket"
     };
     var feature = new SelectionPrompt<string>().AddChoices(features).UseConverter(choice => choice);
     switch (AnsiConsole.Prompt(feature))
@@ -23,14 +23,14 @@ try
             var agent = new NexAIAgent(options);
             await agent.StartConversation();
             break;
-        case "Search for Issues by Phrase":
-            await new SearchForZendeskIssuesByPhraseFeature(options).Run(10);
+        case "Search for Tickets by Phrase":
+            await new SearchForZendeskTicketsByPhraseFeature(options).Run(10);
             break;
         case "Search for Azure Work Items by Phrase":
             await new SearchForAzureWorkItemsByPhraseFeature(options).Run(10);
             break;
-        case "Search for Info About Issue":
-            await new SearchForInfoAboutIssueFeature(options).Run();
+        case "Search for Info About Ticket":
+            await new SearchForInfoAboutTicketFeature(options).Run();
             break;
         default:
             throw new InvalidOperationException("Invalid feature selected.");

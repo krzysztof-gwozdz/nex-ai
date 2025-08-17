@@ -2,18 +2,18 @@
 
 namespace NexAI.AzureDevOps.Queries;
 
-public class GetAzureDevopsWorkItemsRelatedToZendeskIssueQuery(Options options)
+public class GetAzureDevopsWorkItemsRelatedToZendeskTicketQuery(Options options)
 {
     private readonly AzureDevOpsClient _azureDevOpsClient = new(options);
 
-    public async Task<AzureDevOpsWorkItem[]> Handle(string zendeskIssueNumber, int limit)
+    public async Task<AzureDevOpsWorkItem[]> Handle(string zendeskTicketNumber, int limit)
     {
-        var query = await _azureDevOpsClient.GetOrCreateQuery(GetQuery(zendeskIssueNumber), limit);
+        var query = await _azureDevOpsClient.GetOrCreateQuery(GetQuery(zendeskTicketNumber), limit);
         var workItems = await _azureDevOpsClient.GetWorkItems(query);
         return workItems.Select(workItem => new AzureDevOpsWorkItem(workItem)).ToArray();
     }
 
-    private static string GetQuery(string zendeskIssueNumber) =>
+    private static string GetQuery(string zendeskTicketNumber) =>
         $@"
         SELECT
             [System.Id],
@@ -31,8 +31,8 @@ public class GetAzureDevopsWorkItemsRelatedToZendeskIssueQuery(Options options)
                 OR [System.Tags] CONTAINS 'Zendesk'
             )
             AND (
-                [System.Title] CONTAINS '{zendeskIssueNumber}'
-                OR [System.Description] CONTAINS WORDS '{zendeskIssueNumber}'
+                [System.Title] CONTAINS '{zendeskTicketNumber}'
+                OR [System.Description] CONTAINS WORDS '{zendeskTicketNumber}'
             )
         ";
 }

@@ -7,20 +7,20 @@ using Spectre.Console;
 
 namespace NexAI.Console.Features;
 
-public class SearchForInfoAboutIssueFeature(Options options)
+public class SearchForInfoAboutTicketFeature(Options options)
 {
     public async Task Run()
     {
         while (true)
         {
-            AnsiConsole.MarkupLine("[Aquamarine1]Welcome to Issue Info Fetcher! Enter Zendesk issue number. Type [bold]STOP[/] to exit.[/]");
+            AnsiConsole.MarkupLine("[Aquamarine1]Welcome to Ticket Info Fetcher! Enter Zendesk ticket number. Type [bold]STOP[/] to exit.[/]");
             var userMessage = AnsiConsole.Prompt(new TextPrompt<string>("> "));
             if (userMessage.ToUpper() == "STOP")
                 return;
             try
             {
                 AnsiConsole.Write(new Rule("[bold]Fetching data.[/]"));
-                await FetchZendeskIssueInfo(userMessage);
+                await FetchZendeskTicketInfo(userMessage);
             }
             catch (Exception ex)
             {
@@ -31,32 +31,32 @@ public class SearchForInfoAboutIssueFeature(Options options)
         }
     }
 
-    private async Task FetchZendeskIssueInfo(string userMessage)
+    private async Task FetchZendeskTicketInfo(string userMessage)
     {
-        var zendeskIssue = await new GetZendeskIssueByNumberQuery(options).Handle(userMessage);
-        if (zendeskIssue == null)
+        var zendeskTicket = await new GetZendeskTicketByNumberQuery(options).Handle(userMessage);
+        if (zendeskTicket == null)
         {
-            AnsiConsole.MarkupLine("[red]No Zendesk issue found with that number.[/]");
+            AnsiConsole.MarkupLine("[red]No Zendesk ticket found with that number.[/]");
             return;
         }
-        DisplayZendeskIssue(zendeskIssue);
-        var azureDevOpsWorkItem = await new GetAzureDevopsWorkItemsRelatedToZendeskIssueQuery(options).Handle(zendeskIssue.Number, 10);
+        DisplayZendeskTicket(zendeskTicket);
+        var azureDevOpsWorkItem = await new GetAzureDevopsWorkItemsRelatedToZendeskTicketQuery(options).Handle(zendeskTicket.Number, 10);
         DisplayAzureDevOpsWorkItems(azureDevOpsWorkItem);
     }
 
-    private static void DisplayZendeskIssue(ZendeskIssue zendeskIssue)
+    private static void DisplayZendeskTicket(ZendeskTicket zendeskTicket)
     {
-        AnsiConsole.MarkupLine("[bold Aquamarine1]Found Zendesk issue:[/]");
-        AnsiConsole.MarkupLine($"[bold]Number:[/] {zendeskIssue.Number}");
-        AnsiConsole.MarkupLine($"[bold]Title:[/] {zendeskIssue.Title.EscapeMarkup()}");
-        AnsiConsole.MarkupLine($"[bold]Description:[/] {zendeskIssue.Description.EscapeMarkup()}");
+        AnsiConsole.MarkupLine("[bold Aquamarine1]Found Zendesk ticket:[/]");
+        AnsiConsole.MarkupLine($"[bold]Number:[/] {zendeskTicket.Number}");
+        AnsiConsole.MarkupLine($"[bold]Title:[/] {zendeskTicket.Title.EscapeMarkup()}");
+        AnsiConsole.MarkupLine($"[bold]Description:[/] {zendeskTicket.Description.EscapeMarkup()}");
         AnsiConsole.MarkupLine("[bold]Messages:[/]");
-        if (zendeskIssue.Messages.Length == 0)
+        if (zendeskTicket.Messages.Length == 0)
         {
-            AnsiConsole.MarkupLine("[yellow]No messages found for this issue.[/]");
+            AnsiConsole.MarkupLine("[yellow]No messages found for this ticket.[/]");
             return;
         }
-        foreach (var message in zendeskIssue.Messages)
+        foreach (var message in zendeskTicket.Messages)
         {
             AnsiConsole.MarkupLine($"[bold]Author:[/] {message.Author.EscapeMarkup()}");
             AnsiConsole.MarkupLine($"[bold]Content:[/] {message.Content.EscapeMarkup()}");

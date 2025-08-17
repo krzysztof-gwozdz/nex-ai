@@ -2,9 +2,9 @@ using System.Text;
 
 namespace NexAI.Zendesk;
 
-public record ZendeskIssue(Guid Id, string Number, string Title, string Description, ZendeskIssue.ZendeskIssueMessage[] Messages)
+public record ZendeskTicket(Guid Id, string Number, string Title, string Description, ZendeskTicket.ZendeskTicketMessage[] Messages)
 {
-    public record ZendeskIssueMessage(string Content, string Author, DateTime CreatedAt);
+    public record ZendeskTicketMessage(string Content, string Author, DateTime CreatedAt);
 
     public string CombinedContent()
     {

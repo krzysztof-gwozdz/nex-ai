@@ -16,7 +16,7 @@ public class SearchForAzureWorkItemsByPhraseFeature(Options options)
                 return;
             try
             {
-                AnsiConsole.Write(new Rule($"[bold]Searching for up to {limit} issues for phrase: {userMessage.EscapeMarkup()}[/]"));
+                AnsiConsole.Write(new Rule($"[bold]Searching for up to {limit} tickets for phrase: {userMessage.EscapeMarkup()}[/]"));
                 await GetAzureDevOpsWorkItemByPhrase(userMessage, limit);
             }
             catch (Exception ex)
@@ -40,9 +40,9 @@ public class SearchForAzureWorkItemsByPhraseFeature(Options options)
         {
             AnsiConsole.MarkupLine($"[bold]Found {azureDevOpsWorkItems.Length} work items:[/]");
             var table = new Table().AddColumn("Id").AddColumn("Title").AddColumn("Description").AddColumn("State").AddColumn("AssignedTo");
-            foreach (var issue in azureDevOpsWorkItems)
+            foreach (var ticket in azureDevOpsWorkItems)
             {   
-                table.AddRow(issue.Id.EscapeMarkup(), issue.Title.EscapeMarkup(), issue.Description.EscapeMarkup(), issue.State.EscapeMarkup(), issue.AssignedTo.EscapeMarkup());
+                table.AddRow(ticket.Id.EscapeMarkup(), ticket.Title.EscapeMarkup(), ticket.Description.EscapeMarkup(), ticket.State.EscapeMarkup(), ticket.AssignedTo.EscapeMarkup());
             }
 
             AnsiConsole.Write(table);

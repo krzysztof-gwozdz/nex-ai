@@ -2,7 +2,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace NexAI.Zendesk;
 
-public record ZendeskIssueMongoDbDocument
+public record ZendeskTicketMongoDbDocument
 {
     [BsonId]
     [BsonElement("_id")]
@@ -32,12 +32,12 @@ public record ZendeskIssueMongoDbDocument
         public DateTime CreatedAt { get; init; }
     }
 
-    public ZendeskIssue ToZendeskIssue() =>
+    public ZendeskTicket ToZendeskTicket() =>
         new(
             Id,
             Number,
             Title,
             Description,
-            Messages.Select(message => new ZendeskIssue.ZendeskIssueMessage(message.Content, message.Author, message.CreatedAt)).ToArray()
+            Messages.Select(message => new ZendeskTicket.ZendeskTicketMessage(message.Content, message.Author, message.CreatedAt)).ToArray()
         );
 }

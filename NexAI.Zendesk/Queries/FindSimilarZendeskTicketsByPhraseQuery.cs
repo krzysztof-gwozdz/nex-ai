@@ -5,18 +5,18 @@ using Qdrant.Client;
 
 namespace NexAI.Zendesk.Queries;
 
-public class FindSimilarZendeskIssuesByPhraseQuery(Options options)
+public class FindSimilarZendeskTicketsByPhraseQuery(Options options)
 {
     private readonly QdrantOptions _qdrantOptions = options.Get<QdrantOptions>();
     private readonly TextEmbedder _textEmbedder = new(options);
     
-    public async Task<List<SimilarIssue>> Handle(string phrase, int limit)
+    public async Task<List<SimilarTicket>> Handle(string phrase, int limit)
     {
         using var client = new QdrantClient(_qdrantOptions.Host, _qdrantOptions.Port);
         var embedding = await _textEmbedder.GenerateEmbedding(phrase);
-        var response = await client.SearchAsync(ZendeskIssueCollections.QdrantCollectionName, embedding, limit: (ulong)limit);
+        var response = await client.SearchAsync(ZendeskTicketCollections.QdrantCollectionName, embedding, limit: (ulong)limit);
         return response
-            .Select(point => new SimilarIssue(point.Payload["number"].StringValue, point.Score))
+            .Select(point => new SimilarTicket(point.Payload["number"].StringValue, point.Score))
             .ToList();
     }
 }

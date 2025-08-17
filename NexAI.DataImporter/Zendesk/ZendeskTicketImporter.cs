@@ -5,25 +5,25 @@ using Spectre.Console;
 
 namespace NexAI.DataImporter.Zendesk;
 
-internal class ZendeskIssueImporter(Options options)
+internal class ZendeskTicketImporter(Options options)
 {
-    public async Task<ZendeskIssue[]> Import()
+    public async Task<ZendeskTicket[]> Import()
     {
-        AnsiConsole.MarkupLine("[yellow]Importing sample Zendesk issues from JSON...[/]");
+        AnsiConsole.MarkupLine("[yellow]Importing sample Zendesk tickets from JSON...[/]");
         var zendeskApiClient = new ZendeskApiClient(options);
 
         var employees = await zendeskApiClient.GetEmployees();
-        var zendeskIssues = new List<ZendeskIssue>();
+        var zendeskTickets = new List<ZendeskTicket>();
         var tickets = await zendeskApiClient.GetTickets(5); // todo remove limit when finish testing
         foreach (var ticket in tickets)
         {
             var comments = await zendeskApiClient.GetTicketComments(ticket.Id!.Value);
-            zendeskIssues.Add(new(
+            zendeskTickets.Add(new(
                 Guid.CreateVersion7(),
                 ticket.Id.Value.ToString(),
                 ticket.Subject ?? "<MISSING TITLE>",
                 ticket.Description ?? "<MISSING DESCRIPTION>",
-                comments.Select(comment => new ZendeskIssue.ZendeskIssueMessage(
+                comments.Select(comment => new ZendeskTicket.ZendeskTicketMessage(
                         comment.PlainBody ?? "<MISSING BODY>",
                         employees.FirstOrDefault(e => e.Id == comment.AuthorId)?.Name ?? "Unknown Author",
                         DateTime.Parse(comment.CreatedAt ?? "<MISSING CREATED AT>")
@@ -32,17 +32,17 @@ internal class ZendeskIssueImporter(Options options)
             ));
         }
 
-        AnsiConsole.MarkupLine($"[green]Successfully imported {zendeskIssues.Count} Zendesk issues.[/]");
-        foreach (var issue in zendeskIssues)
+        AnsiConsole.MarkupLine($"[green]Successfully imported {zendeskTickets.Count} Zendesk tickets.[/]");
+        foreach (var ticket in zendeskTickets)
         {
-            AnsiConsole.MarkupLine($"{issue.Id} {issue.Number} {issue.Title.EscapeMarkup()}");
-            AnsiConsole.MarkupLine($"{issue.Description.EscapeMarkup()}");
-            foreach (var message in issue.Messages)
+            AnsiConsole.MarkupLine($"{ticket.Id} {ticket.Number} {ticket.Title.EscapeMarkup()}");
+            AnsiConsole.MarkupLine($"{ticket.Description.EscapeMarkup()}");
+            foreach (var message in ticket.Messages)
             {
                 AnsiConsole.MarkupLine($"{message.Author.EscapeMarkup()} {message.CreatedAt} {message.Content.EscapeMarkup()}");
             }
         }
 
-        return zendeskIssues.ToArray();
+        return zendeskTickets.ToArray();
     }
 }

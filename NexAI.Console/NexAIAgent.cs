@@ -20,7 +20,7 @@ public class NexAIAgent
         var builder = Kernel.CreateBuilder().AddOpenAIChatCompletion(openAIOptions.Model, openAIOptions.ApiKey);
         builder.Services.AddSingleton(options);
         _kernel = builder.Build();
-        _kernel.Plugins.AddFromType<ZendeskPlugin>("ZendeskIssues", _kernel.Services);
+        _kernel.Plugins.AddFromType<ZendeskPlugin>("ZendeskTickets", _kernel.Services);
         _chatCompletionService = _kernel.GetRequiredService<IChatCompletionService>();
         _openAIPromptExecutionSettings = new()
         {
