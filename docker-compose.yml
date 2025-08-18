@@ -21,7 +21,23 @@ services:
     volumes:
       - mongodb_data:/data/db
     restart: unless-stopped
-
+  
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    entrypoint: >
+      sh -c "
+      ollama serve &
+      sleep 5 &&
+      ollama pull deepseek-r1:1.5b &&
+      tail -f /dev/null
+      "
+    profiles: ["ollama"]
 volumes:
   qdrant_data:
   mongodb_data:
+  ollama_data:
