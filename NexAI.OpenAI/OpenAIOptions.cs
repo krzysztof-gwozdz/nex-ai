@@ -9,5 +9,10 @@ public record OpenAIOptions : IOptions
     public string ApiKey { get; init; } = null!;
 
     [Required(AllowEmptyStrings = false)]
-    public string Model { get; init; } = null!;
+    public string ChatModel { get; init; } = null!;
+
+    [Required(AllowEmptyStrings = false)]
+    public string EmbeddingModel { get; init; } = null!;
+    
+    public ulong EmbeddingDimension { get; init; }
 }

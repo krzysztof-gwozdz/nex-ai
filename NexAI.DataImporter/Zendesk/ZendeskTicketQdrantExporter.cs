@@ -19,7 +19,7 @@ public class ZendeskTicketQdrantExporter(Options options)
         using var client = new QdrantClient(_qdrantOptions.Host, _qdrantOptions.Port);
         if (!await client.CollectionExistsAsync(ZendeskTicketCollections.QdrantCollectionName))
         {
-            await client.CreateCollectionAsync(ZendeskTicketCollections.QdrantCollectionName, new VectorParams { Size = 1536, Distance = Distance.Dot });
+            await client.CreateCollectionAsync(ZendeskTicketCollections.QdrantCollectionName, new VectorParams { Size = _textEmbedder.EmbeddingDimension, Distance = Distance.Dot });
             await InsertData(zendeskTickets);
             AnsiConsole.MarkupLine("[green]Zendesk ticket store initialized.[/]");
         }

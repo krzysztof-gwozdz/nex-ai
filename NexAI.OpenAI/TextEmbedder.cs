@@ -3,15 +3,14 @@ using OpenAI.Embeddings;
 
 namespace NexAI.OpenAI;
 
-public class TextEmbedder
+public class TextEmbedder(Options options)
 {
-    private readonly EmbeddingClient _embeddingClient;
-
-    public TextEmbedder(Options options)
-    {
-        var apiKey = options.Get<OpenAIOptions>().ApiKey;
-        _embeddingClient = new("text-embedding-3-small", apiKey); // 1536 dimensions
-    }
+    private readonly EmbeddingClient _embeddingClient = new(
+        options.Get<OpenAIOptions>().EmbeddingModel,
+        options.Get<OpenAIOptions>().ApiKey
+    );
+    
+    public ulong EmbeddingDimension => options.Get<OpenAIOptions>().EmbeddingDimension;
 
     public async Task<ReadOnlyMemory<float>> GenerateEmbedding(string text)
     {
