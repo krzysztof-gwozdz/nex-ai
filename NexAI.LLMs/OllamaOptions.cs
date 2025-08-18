@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using NexAI.Config;
 
-namespace NexAI.Ollama;
+namespace NexAI.LLMs;
 
 public record OllamaOptions : IOptions
 {

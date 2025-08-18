@@ -1,9 +1,9 @@
 ﻿using NexAI.Config;
 using OllamaSharp;
 
-namespace NexAI.Ollama;
+namespace NexAI.LLMs;
 
-public class TextEmbedder(Options options)
+public class OllamaTextEmbedder(Options options)
 {
     private readonly OllamaApiClient _apiClient = new(
         options.Get<OllamaOptions>().BaseAddress,

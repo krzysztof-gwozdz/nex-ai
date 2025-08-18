@@ -1,5 +1,5 @@
 ﻿using NexAI.Config;
-using NexAI.OpenAI;
+using NexAI.LLMs;
 using NexAI.Qdrant;
 using NexAI.Zendesk;
 using Qdrant.Client;
@@ -10,8 +10,8 @@ namespace NexAI.DataImporter.Zendesk;
 
 public class ZendeskTicketQdrantExporter(Options options)
 {
-    private readonly TextEmbedder _textEmbedder = new(options);
     private readonly QdrantOptions _qdrantOptions = options.Get<QdrantOptions>();
+    private readonly OpenAITextEmbedder _textEmbedder = new(options);
 
     public async Task Export(ZendeskTicket[] zendeskTickets)
     {

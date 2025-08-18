@@ -1,11 +1,9 @@
-﻿using Microsoft.Extensions.AI;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using NexAI.Config;
-using NexAI.Ollama;
-using NexAI.OpenAI;
+using NexAI.LLMs;
 using Spectre.Console;
 
 namespace NexAI.Console;

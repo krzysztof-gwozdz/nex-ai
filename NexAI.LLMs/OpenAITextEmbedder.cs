@@ -1,9 +1,9 @@
 ﻿using NexAI.Config;
 using OpenAI.Embeddings;
 
-namespace NexAI.OpenAI;
+namespace NexAI.LLMs;
 
-public class TextEmbedder(Options options)
+public class OpenAITextEmbedder(Options options)
 {
     private readonly EmbeddingClient _embeddingClient = new(
         options.Get<OpenAIOptions>().EmbeddingModel,

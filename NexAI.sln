@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexAI.MongoDb", "NexAI.Mong
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexAI.AzureDevOps", "NexAI.AzureDevOps\NexAI.AzureDevOps.csproj", "{5491715C-DA5E-4B77-A479-B8D9AC5D48B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexAI.Ollama", "NexAI.Ollama\NexAI.Ollama.csproj", "{845C423B-B35A-43FF-AFDF-C0D158F00918}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexAI.LLMs", "NexAI.LLMs\NexAI.LLMs.csproj", "{845C423B-B35A-43FF-AFDF-C0D158F00918}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

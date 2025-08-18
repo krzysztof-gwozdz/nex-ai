@@ -5,16 +5,16 @@ using OpenAI.Chat;
 using OpenAI.Embeddings;
 using OpenAI.Images;
 
-namespace NexAI.OpenAI;
+namespace NexAI.LLMs;
 
-public sealed class AI
+public sealed class OpenAIClient
 {
     private readonly ChatClient _chatClient;
     private readonly AudioClient _audioClient;
     private readonly ImageClient _imageClient;
     private readonly EmbeddingClient _embeddingClient;
 
-    public AI(Options options)
+    public OpenAIClient(Options options)
     {
         var apiKey = options.Get<OpenAIOptions>().ApiKey;
         _chatClient = new("gpt-4.1", apiKey);
