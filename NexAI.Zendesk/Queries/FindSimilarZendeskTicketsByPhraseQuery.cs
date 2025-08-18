@@ -8,7 +8,7 @@ namespace NexAI.Zendesk.Queries;
 public class FindSimilarZendeskTicketsByPhraseQuery(Options options)
 {
     private readonly QdrantOptions _qdrantOptions = options.Get<QdrantOptions>();
-    private readonly OpenAITextEmbedder _textEmbedder = new(options);
+    private readonly TextEmbedder _textEmbedder = TextEmbedder.GetInstance(options);
     
     public async Task<List<SimilarTicket>> Handle(string phrase, int limit)
     {

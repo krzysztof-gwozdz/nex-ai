@@ -3,16 +3,16 @@ using OllamaSharp;
 
 namespace NexAI.LLMs;
 
-public class OllamaTextEmbedder(Options options)
+public class OllamaTextEmbedder(Options options) : TextEmbedder
 {
     private readonly OllamaApiClient _apiClient = new(
         options.Get<OllamaOptions>().BaseAddress,
         options.Get<OllamaOptions>().EmbeddingModel
     );
     
-    public ulong EmbeddingDimension => options.Get<OllamaOptions>().EmbeddingDimension;
+    public override ulong EmbeddingDimension => options.Get<OllamaOptions>().EmbeddingDimension;
 
-    public async Task<ReadOnlyMemory<float>> GenerateEmbedding(string text)
+    public override async Task<ReadOnlyMemory<float>> GenerateEmbedding(string text)
     {
         var embedding = await _apiClient.EmbedAsync(text);
         return embedding.Embeddings.First().ToArray();

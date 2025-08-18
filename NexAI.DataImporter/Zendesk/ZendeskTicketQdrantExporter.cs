@@ -11,7 +11,7 @@ namespace NexAI.DataImporter.Zendesk;
 public class ZendeskTicketQdrantExporter(Options options)
 {
     private readonly QdrantOptions _qdrantOptions = options.Get<QdrantOptions>();
-    private readonly OpenAITextEmbedder _textEmbedder = new(options);
+    private readonly TextEmbedder _textEmbedder = TextEmbedder.GetInstance(options);
 
     public async Task Export(ZendeskTicket[] zendeskTickets)
     {

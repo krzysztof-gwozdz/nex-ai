@@ -16,16 +16,11 @@ public class NexAIAgent
 
     public NexAIAgent(Options options)
     {
-        var openAIOptions = options.Get<OpenAIOptions>();
-        var ollamaOptions = options.Get<OllamaOptions>();
-        var builder = Kernel.CreateBuilder()
-                .AddOpenAIChatCompletion(openAIOptions.ChatModel, openAIOptions.ApiKey, serviceId: "openAI")
-                .AddOllamaChatCompletion(ollamaOptions.ChatModel, ollamaOptions.BaseAddress, serviceId: "ollama");
-        builder.Services.AddHttpClient();
-        builder.Services.AddSingleton(options);
+        var mode = options.Get<LLMsOptions>().Mode;
+        var builder = GetKernelBuilder(options, mode);
         _kernel = builder.Build();
         _kernel.Plugins.AddFromType<ZendeskPlugin>("ZendeskTickets", _kernel.Services);
-        _chatCompletionService = _kernel.GetRequiredService<IChatCompletionService>("openAI");
+        _chatCompletionService = _kernel.GetRequiredService<IChatCompletionService>(mode);
         _openAIPromptExecutionSettings = new()
         {
             FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
@@ -54,6 +49,27 @@ public class NexAIAgent
 
             AnsiConsole.Write(new Rule());
         }
+    }
+
+    private static IKernelBuilder GetKernelBuilder(Options options, string mode)
+    {
+        var builder = Kernel.CreateBuilder();
+        switch (mode)
+        {
+            case "OpenAI":
+                var openAIOptions = options.Get<OpenAIOptions>();
+                builder.AddOpenAIChatCompletion(openAIOptions.ChatModel, openAIOptions.ApiKey, serviceId: "OpenAI");
+                AnsiConsole.MarkupLine($"[red]Using OpenAI model: {openAIOptions.ChatModel}[/]");
+                break;
+            case "Ollama":
+                var ollamaOptions = options.Get<OllamaOptions>();
+                builder.AddOllamaChatCompletion(ollamaOptions.ChatModel, ollamaOptions.BaseAddress, serviceId: "Ollama");
+                AnsiConsole.MarkupLine($"[green]Using Ollama model: {ollamaOptions.ChatModel}[/]");
+                break;
+        }
+        builder.Services.AddHttpClient();
+        builder.Services.AddSingleton(options);
+        return builder;
     }
 
     private async Task<ChatMessageContent> GetAIResponse(ChatHistory chatHistory) =>
