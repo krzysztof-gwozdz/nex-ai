@@ -33,7 +33,8 @@ services:
       sh -c "
       ollama serve &
       sleep 5 &&
-      ollama pull deepseek-r1:1.5b &&
+      ollama pull gpt-oss &&
+      ollama pull mxbai-embed-large &&
       tail -f /dev/null
       "
     profiles: ["ollama"]

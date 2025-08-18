@@ -9,6 +9,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.SemanticKernel" Version="1.61.0"/>
+        <PackageReference Include="Microsoft.SemanticKernel.Connectors.Ollama" Version="1.62.0-alpha" />
         <PackageReference Include="Spectre.Console" Version="0.50.0"/>
     </ItemGroup>
 
@@ -25,6 +26,7 @@
     <ItemGroup>
         <ProjectReference Include="..\NexAI.AzureDevOps\NexAI.AzureDevOps.csproj" />
         <ProjectReference Include="..\NexAI.Config\NexAI.Config.csproj"/>
+        <ProjectReference Include="..\NexAI.Ollama\NexAI.Ollama.csproj" />
         <ProjectReference Include="..\NexAI.OpenAI\NexAI.OpenAI.csproj"/>
         <ProjectReference Include="..\NexAI.Qdrant\NexAI.Qdrant.csproj"/>
         <ProjectReference Include="..\NexAI.Zendesk\NexAI.Zendesk.csproj"/>

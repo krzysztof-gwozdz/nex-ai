@@ -1,8 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.AI;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using NexAI.Config;
+using NexAI.Ollama;
 using NexAI.OpenAI;
 using Spectre.Console;
 
@@ -13,15 +15,19 @@ public class NexAIAgent
     private readonly Kernel _kernel;
     private readonly IChatCompletionService _chatCompletionService;
     private readonly OpenAIPromptExecutionSettings _openAIPromptExecutionSettings;
-    
+
     public NexAIAgent(Options options)
     {
         var openAIOptions = options.Get<OpenAIOptions>();
-        var builder = Kernel.CreateBuilder().AddOpenAIChatCompletion(openAIOptions.Model, openAIOptions.ApiKey);
+        var ollamaOptions = options.Get<OllamaOptions>();
+        var builder = Kernel.CreateBuilder()
+                .AddOpenAIChatCompletion(openAIOptions.ChatModel, openAIOptions.ApiKey, serviceId: "openAI")
+                .AddOllamaChatCompletion(ollamaOptions.ChatModel, ollamaOptions.BaseAddress, serviceId: "ollama");
+        builder.Services.AddHttpClient();
         builder.Services.AddSingleton(options);
         _kernel = builder.Build();
         _kernel.Plugins.AddFromType<ZendeskPlugin>("ZendeskTickets", _kernel.Services);
-        _chatCompletionService = _kernel.GetRequiredService<IChatCompletionService>();
+        _chatCompletionService = _kernel.GetRequiredService<IChatCompletionService>("openAI");
         _openAIPromptExecutionSettings = new()
         {
             FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
