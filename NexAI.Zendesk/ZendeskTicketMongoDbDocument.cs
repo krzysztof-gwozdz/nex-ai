@@ -1,3 +1,4 @@
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace NexAI.Zendesk;
@@ -19,6 +20,9 @@ public record ZendeskTicketMongoDbDocument
 
     [BsonElement("messages")]
     public MessageDocument[] Messages { get; init; } = [];
+    
+    [BsonElement("score")]
+    public double Score { get; init; }
 
     public record MessageDocument
     {

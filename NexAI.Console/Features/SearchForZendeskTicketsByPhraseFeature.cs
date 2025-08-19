@@ -54,7 +54,7 @@ public class SearchForZendeskTicketsByPhraseFeature(Options options)
                 .ToList();
             foreach (var ticket in ticketsWithSimilarities)
             {
-                table.AddRow(ticket.Number, ticket.Title, ticket.Description, ticket.Similarity?.ToString("P1") ?? "N/A");
+                table.AddRow(ticket.Number, ticket.Title.EscapeMarkup(), ticket.Description[..50].EscapeMarkup(), ticket.Similarity?.ToString("P1") ?? "N/A");
             }
 
             AnsiConsole.Write(table);
@@ -65,17 +65,17 @@ public class SearchForZendeskTicketsByPhraseFeature(Options options)
     {
         var zendeskTickets = await new FindZendeskTicketsThatContainPhraseQuery(options).Handle(userMessage, limit);
         AnsiConsole.MarkupLine("[bold Aquamarine1]Tickets that contain phrase (full text search):[/]");
-        if (zendeskTickets.Length == 0)
+        if (zendeskTickets.Count == 0)
         {
             AnsiConsole.MarkupLine("[yellow]No similar tickets found.[/]");
         }
         else
         {
-            AnsiConsole.MarkupLine($"[bold]Found {zendeskTickets.Length} tickets:[/]");
-            var table = new Table().AddColumn("Number").AddColumn("Title").AddColumn("Description");
-            foreach (var ticket in zendeskTickets)
+            AnsiConsole.MarkupLine($"[bold]Found {zendeskTickets.Count} tickets:[/]");
+            var table = new Table().AddColumn("Number").AddColumn("Title").AddColumn("Description").AddColumn("Score");
+            foreach (var (ticket, score) in zendeskTickets)
             {
-                table.AddRow(ticket.Number.EscapeMarkup(), ticket.Title.EscapeMarkup(), ticket.Description.EscapeMarkup());
+                table.AddRow(ticket.Number.EscapeMarkup(), ticket.Title.EscapeMarkup(), ticket.Description[..50].EscapeMarkup(), score.ToString("0.00"));
             }
 
             AnsiConsole.Write(table);
