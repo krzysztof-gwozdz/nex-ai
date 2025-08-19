@@ -10,6 +10,7 @@ namespace NexAI.DataImporter.Zendesk;
 
 public class ZendeskTicketQdrantExporter(Options options)
 {
+    private readonly DataImporterOptions _dataImporterOptions = options.Get<DataImporterOptions>();
     private readonly QdrantOptions _qdrantOptions = options.Get<QdrantOptions>();
     private readonly TextEmbedder _textEmbedder = TextEmbedder.GetInstance(options);
 
@@ -23,6 +24,12 @@ public class ZendeskTicketQdrantExporter(Options options)
 
     private async Task CreateSchema(QdrantClient client)
     {
+        if (_dataImporterOptions.Recreate && await client.CollectionExistsAsync(ZendeskTicketCollections.QdrantCollectionName))
+        {
+            await client.DeleteCollectionAsync(ZendeskTicketCollections.QdrantCollectionName);
+            AnsiConsole.MarkupLine("[red]Deleted collection for Zendesk tickets in Qdrant.[/]");
+        }
+
         if (!await client.CollectionExistsAsync(ZendeskTicketCollections.QdrantCollectionName))
         {
             await client.CreateCollectionAsync(ZendeskTicketCollections.QdrantCollectionName, new VectorParams { Size = _textEmbedder.EmbeddingDimension, Distance = Distance.Dot });

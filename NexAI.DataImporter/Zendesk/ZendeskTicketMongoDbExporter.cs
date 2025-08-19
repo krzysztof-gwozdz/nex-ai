@@ -8,6 +8,7 @@ namespace NexAI.DataImporter.Zendesk;
 
 public class ZendeskTicketMongoDbExporter(Options options)
 {
+    private readonly DataImporterOptions _dataImporterOptions = options.Get<DataImporterOptions>();
     private readonly MongoDbOptions _mongoDbOptions = options.Get<MongoDbOptions>();
 
     public async Task Export(ZendeskTicket[] zendeskTickets)
@@ -20,9 +21,14 @@ public class ZendeskTicketMongoDbExporter(Options options)
         await InsertData(zendeskTickets, database);
     }
 
-    private static async Task CreateSchema(IMongoDatabase database)
+    private async Task CreateSchema(IMongoDatabase database)
     {
         var existingCollections = await (await database.ListCollectionNamesAsync()).ToListAsync();
+        if (_dataImporterOptions.Recreate && existingCollections.Contains(ZendeskTicketCollections.MongoDbCollectionName))
+        {
+            await database.DropCollectionAsync(ZendeskTicketCollections.MongoDbCollectionName);
+            AnsiConsole.MarkupLine("[red]Deleted collection for Zendesk tickets in MongoDb.[/]");
+        }
         if (!existingCollections.Contains(ZendeskTicketCollections.MongoDbCollectionName))
         {
             await database.CreateCollectionAsync(ZendeskTicketCollections.MongoDbCollectionName);
