@@ -17,37 +17,50 @@ public class ZendeskTicketQdrantExporter(Options options)
     {
         AnsiConsole.MarkupLine("[yellow]Start exporting Zendesk tickets into Qdrant...[/]");
         using var client = new QdrantClient(_qdrantOptions.Host, _qdrantOptions.Port);
+        await CreateSchema(client);
+        await InsertData(zendeskTickets, client);
+    }
+
+    private async Task CreateSchema(QdrantClient client)
+    {
         if (!await client.CollectionExistsAsync(ZendeskTicketCollections.QdrantCollectionName))
         {
             await client.CreateCollectionAsync(ZendeskTicketCollections.QdrantCollectionName, new VectorParams { Size = _textEmbedder.EmbeddingDimension, Distance = Distance.Dot });
-            await InsertData(zendeskTickets);
-            AnsiConsole.MarkupLine("[green]Zendesk ticket store initialized.[/]");
+            AnsiConsole.MarkupLine("[green]Created schema for Zendesk tickets in Qdrant.[/]");
         }
         else
         {
-            AnsiConsole.MarkupLine("[green]Zendesk ticket already initialized.[/]");
+            AnsiConsole.MarkupLine("[yellow]Collection for Zendesk tickets already exists in Qdrant. Skipping schema creation.[/]");
         }
     }
 
-    private async Task InsertData(ZendeskTicket[] zendeskTickets)
+    private async Task InsertData(ZendeskTicket[] zendeskTickets, QdrantClient client)
     {
-        using var client = new QdrantClient(_qdrantOptions.Host, _qdrantOptions.Port);
-        var points = new List<PointStruct>();
-
-        foreach (var zendeskTicket in zendeskTickets)
+        var collectionInfo = await client.GetCollectionInfoAsync(ZendeskTicketCollections.QdrantCollectionName);
+        if (collectionInfo.VectorsCount == 0)
         {
-            var embedding = await _textEmbedder.GenerateEmbedding(zendeskTicket.CombinedContent());
-            var point = new PointStruct
+            var points = new List<PointStruct>();
+
+            foreach (var zendeskTicket in zendeskTickets)
             {
-                Id = zendeskTicket.Id == Guid.Empty ? Guid.NewGuid() : zendeskTicket.Id,
-                Vectors = new() { Vector = embedding.ToArray() },
-                Payload =
+                var embedding = await _textEmbedder.GenerateEmbedding(zendeskTicket.CombinedContent());
+                var point = new PointStruct
                 {
-                    ["number"] = zendeskTicket.Number,
-                }
-            };
-            points.Add(point);
+                    Id = zendeskTicket.Id == Guid.Empty ? Guid.NewGuid() : zendeskTicket.Id,
+                    Vectors = new() { Vector = embedding.ToArray() },
+                    Payload =
+                    {
+                        ["number"] = zendeskTicket.Number,
+                    }
+                };
+                points.Add(point);
+            }
+            await client.UpsertAsync(ZendeskTicketCollections.QdrantCollectionName, points);
+            AnsiConsole.MarkupLine("[green]Successfully exported Zendesk tickets into Qdrant.[/]");
         }
-        await client.UpsertAsync(ZendeskTicketCollections.QdrantCollectionName, points);
+        else
+        {
+            AnsiConsole.MarkupLine("[yellow]Zendesk tickets already exported into Qdrant. Skipping export.[/]");
+        }
     }
 }

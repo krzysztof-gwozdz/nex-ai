@@ -6,9 +6,9 @@ public class ZendeskTicketUpdater(Options options)
 {
     public async Task Update()
     {
-        var importer = new ZendeskTicketImporter(options);
+        var importer = new ZendeskTicketSampleDataImporter(options);
         var zendeskTickets = await importer.Import();
         var exporter = new ZendeskTicketExporter(options);
-        // await exporter.Export(zendeskTickets); // DO NOT UNCOMMENT UNLESS YOU USE TEST DATA OR LOCAL LLM
+        await exporter.Export(zendeskTickets);
     }
 }

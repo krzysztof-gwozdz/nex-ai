@@ -14,7 +14,7 @@ internal class ZendeskTicketImporter(Options options)
 
         var employees = await zendeskApiClient.GetEmployees();
         var zendeskTickets = new List<ZendeskTicket>();
-        var tickets = await zendeskApiClient.GetTickets(5); // todo remove limit when finish testing
+        var tickets = await zendeskApiClient.GetTickets();
         foreach (var ticket in tickets)
         {
             var comments = await zendeskApiClient.GetTicketComments(ticket.Id!.Value);

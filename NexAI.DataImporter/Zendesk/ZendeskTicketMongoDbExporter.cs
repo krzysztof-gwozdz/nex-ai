@@ -16,18 +16,22 @@ public class ZendeskTicketMongoDbExporter(Options options)
         var clientSettings = MongoClientSettings.FromUrl(new(_mongoDbOptions.ConnectionString));
         var client = new MongoClient(clientSettings);
         var database = client.GetDatabase(_mongoDbOptions.Database);
+        await CreateSchema(database);
+        await InsertData(zendeskTickets, database);
+    }
+
+    private static async Task CreateSchema(IMongoDatabase database)
+    {
         var existingCollections = await (await database.ListCollectionNamesAsync()).ToListAsync();
         if (!existingCollections.Contains(ZendeskTicketCollections.MongoDbCollectionName))
         {
             await database.CreateCollectionAsync(ZendeskTicketCollections.MongoDbCollectionName);
-            var collection = database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketCollections.MongoDbCollectionName);
-            await CreateFullTextIndex(collection);
-            await InsertData(zendeskTickets, collection);
-            AnsiConsole.MarkupLine("[green]Zendesk ticket store initialized.[/]");
+            await CreateFullTextIndex(database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketCollections.MongoDbCollectionName));
+            AnsiConsole.MarkupLine("[green]Created schema for Zendesk tickets in MongoDb.[/]");
         }
         else
         {
-            AnsiConsole.MarkupLine("[green]Zendesk ticket already initialized.[/]");
+            AnsiConsole.MarkupLine("[yellow]Collection for Zendesk tickets already exists in MongoDb. Skipping schema creation.[/]");
         }
     }
 
@@ -41,30 +45,35 @@ public class ZendeskTicketMongoDbExporter(Options options)
         await collection.Indexes.CreateOneAsync(indexModel);
     }
 
-    private static async Task InsertData(ZendeskTicket[] zendeskTickets, IMongoCollection<ZendeskTicketMongoDbDocument> collection)
+    private static async Task InsertData(ZendeskTicket[] zendeskTickets, IMongoDatabase database)
     {
-        var documents = new List<ZendeskTicketMongoDbDocument>();
-        foreach (var zendeskTicket in zendeskTickets)
+        var collection = database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketCollections.MongoDbCollectionName);
+        if (await collection.EstimatedDocumentCountAsync() == 0)
         {
-            var document = new ZendeskTicketMongoDbDocument
+            var documents = new List<ZendeskTicketMongoDbDocument>();
+            foreach (var zendeskTicket in zendeskTickets)
             {
-                Id = zendeskTicket.Id,
-                Number = zendeskTicket.Number,
-                Title = zendeskTicket.Title,
-                Description = zendeskTicket.Description,
-                Messages = zendeskTicket.Messages.Select(m => new ZendeskTicketMongoDbDocument.MessageDocument
+                var document = new ZendeskTicketMongoDbDocument
                 {
-                    Content = m.Content,
-                    Author = m.Author,
-                    CreatedAt = m.CreatedAt
-                }).ToArray()
-            };
-            documents.Add(document);
-        }
-
-        if (documents.Count > 0)
-        {
+                    Id = zendeskTicket.Id,
+                    Number = zendeskTicket.Number,
+                    Title = zendeskTicket.Title,
+                    Description = zendeskTicket.Description,
+                    Messages = zendeskTicket.Messages.Select(m => new ZendeskTicketMongoDbDocument.MessageDocument
+                    {
+                        Content = m.Content,
+                        Author = m.Author,
+                        CreatedAt = m.CreatedAt
+                    }).ToArray()
+                };
+                documents.Add(document);
+            }
             await collection.InsertManyAsync(documents);
+            AnsiConsole.MarkupLine("[green]Successfully exported Zendesk tickets into Mongo.[/]");
+        }
+        else
+        {
+            AnsiConsole.MarkupLine("[yellow]Zendesk tickets already exported into Mongo. Skipping export.[/]");
         }
     }
 }
