@@ -6,6 +6,7 @@ public class ZendeskTicketUpdater(Options options)
 {
     public async Task Update()
     {
+        var dataImporterOptions = options.Get<DataImporterOptions>();
         var importer = new ZendeskTicketSampleDataImporter(options);
         var zendeskTickets = await importer.Import();
         var exporter = new ZendeskTicketExporter(options);

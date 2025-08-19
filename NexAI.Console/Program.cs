@@ -1,4 +1,5 @@
-﻿using NexAI.Config;
+﻿using Microsoft.Extensions.Configuration;
+using NexAI.Config;
 using NexAI.Console;
 using NexAI.Console.Features;
 using Spectre.Console;
@@ -7,7 +8,7 @@ try
 {
     Console.OutputEncoding = System.Text.Encoding.UTF8;
     AnsiConsole.Write(new FigletText("Nex AI").Color(Color.Aquamarine1));
-    var options = new Options(Configuration.Get());
+    var options = new Options(GetConfiguration());
 
     var features = new[]
     {
@@ -43,3 +44,10 @@ catch (Exception e)
 
 Console.WriteLine("Press any key to exit...");
 Console.ReadKey();
+return;
+
+IConfigurationRoot GetConfiguration() => new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json", optional: false)
+    .AddJsonFile("appsettings.local.json", optional: true)
+    .AddEnvironmentVariables()
+    .Build();
