@@ -4,6 +4,10 @@ NexAI is an AI agent as a kind of '2.5 line of support.
 
 # Versions
 
+### 0.0.7
+
+- Add support for local LLMs by integrating with Ollama.
+
 ### 0.0.6
 
 - Integrate with Zendesk API.
