@@ -69,11 +69,11 @@ public class ZendeskTicketMongoDbExporter(Options options)
                 documents.Add(document);
             }
             await collection.InsertManyAsync(documents);
-            AnsiConsole.MarkupLine("[green]Successfully exported Zendesk tickets into Mongo.[/]");
+            AnsiConsole.MarkupLine("[green]Successfully exported Zendesk tickets into MongoDb.[/]");
         }
         else
         {
-            AnsiConsole.MarkupLine("[yellow]Zendesk tickets already exported into Mongo. Skipping export.[/]");
+            AnsiConsole.MarkupLine("[yellow]Zendesk tickets already exported into MongoDb. Skipping export.[/]");
         }
     }
 }
