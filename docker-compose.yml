@@ -20,6 +20,7 @@ services:
       MONGO_INITDB_DATABASE: nexai
     volumes:
       - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
     restart: unless-stopped
   
   ollama:
@@ -37,8 +38,9 @@ services:
       ollama pull mxbai-embed-large &&
       tail -f /dev/null
       "
-    profiles: ["ollama"]
+    profiles: [ "ollama" ]
 volumes:
   qdrant_data:
   mongodb_data:
+  mongodb_config:
   ollama_data:
