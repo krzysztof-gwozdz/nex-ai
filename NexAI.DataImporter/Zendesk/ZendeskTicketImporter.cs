@@ -24,18 +24,7 @@ internal class ZendeskTicketImporter(Options options)
         foreach (var ticket in tickets)
         {
             var comments = await GetComments(zendeskApiClient, ticket.Id!.Value);
-            zendeskTickets.Add(new(
-                Guid.CreateVersion7(),
-                ticket.Id.Value.ToString(),
-                ticket.Subject ?? "<MISSING TITLE>",
-                ticket.Description ?? "<MISSING DESCRIPTION>",
-                comments.Select(comment => new ZendeskTicket.ZendeskTicketMessage(
-                        comment.PlainBody ?? "<MISSING BODY>",
-                        employees.FirstOrDefault(e => e.Id == comment.AuthorId)?.Name ?? "Unknown Author",
-                        DateTime.Parse(comment.CreatedAt ?? "<MISSING CREATED AT>")
-                    )
-                ).ToArray()
-            ));
+            zendeskTickets.Add(ZendeskTicketImporterMapper.Map(ticket, comments, employees));
         }
         AnsiConsole.MarkupLine($"[green]Successfully imported {zendeskTickets.Count} Zendesk tickets.[/]");
         return zendeskTickets.ToArray();
