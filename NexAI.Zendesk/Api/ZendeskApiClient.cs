@@ -19,6 +19,12 @@ public class ZendeskApiClient
         _httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {zendeskOptions.AuthorizationToken}");
     }
 
+    public async Task<ListGroupsDto.GroupDto[]> GetGroups() =>
+        await GetPagedItems<ListGroupsDto, ListGroupsDto.GroupDto>(
+            "/api/v2/groups",
+            dto => dto.Groups,
+            null);
+
     public async Task<int> GetTicketCount() =>
         await GetCount("/api/v2/tickets/count");
 

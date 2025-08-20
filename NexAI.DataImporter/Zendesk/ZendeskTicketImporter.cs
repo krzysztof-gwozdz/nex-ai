@@ -8,6 +8,7 @@ namespace NexAI.DataImporter.Zendesk;
 
 internal class ZendeskTicketImporter(Options options)
 {
+    private const string BackupGroupsFilePath = "zendesk_api_backup_groups.json";
     private const string BackupEmployeesFilePath = "zendesk_api_backup_employees.json";
     private const string BackupTicketsFilePath = "zendesk_api_backup_tickets.json";
     private const string BackupCommentsFilePath = "zendesk_api_backup_{0}_comments.json";
@@ -16,6 +17,7 @@ internal class ZendeskTicketImporter(Options options)
     {
         AnsiConsole.MarkupLine("[yellow]Importing sample Zendesk tickets from JSON...[/]");
         var zendeskApiClient = new ZendeskApiClient(options);
+        var groups = await GetGroups(zendeskApiClient);
         var employees = await GetEmployees(zendeskApiClient);
         var tickets = await GetTickets(zendeskApiClient);
         var zendeskTickets = new List<ZendeskTicket>();
@@ -37,6 +39,41 @@ internal class ZendeskTicketImporter(Options options)
         }
         AnsiConsole.MarkupLine($"[green]Successfully imported {zendeskTickets.Count} Zendesk tickets.[/]");
         return zendeskTickets.ToArray();
+    }
+
+    private static async Task<ListGroupsDto.GroupDto[]> GetGroups(ZendeskApiClient zendeskApiClient)
+    {
+        var groups = await TryGetGroupsFromBackup();
+        if (groups is null)
+        {
+            AnsiConsole.MarkupLine("[yellow]No groups backup found, fetching from Zendesk.[/]");
+            groups = await zendeskApiClient.GetGroups();
+            AnsiConsole.MarkupLine($"[green]Fetched {groups.Length} groups from Zendesk.[/]");
+            await BackupGroups(groups);
+            AnsiConsole.MarkupLine("[green]Groups backup created.[/]");
+        }
+        else
+        {
+            AnsiConsole.MarkupLine("[green]Groups backup found, using it.[/]");
+        }
+        return groups;
+    }
+
+    private static async Task<ListGroupsDto.GroupDto[]?> TryGetGroupsFromBackup()
+    {
+        var filePath = GetBackupFilePath(BackupGroupsFilePath);
+        if (!File.Exists(filePath))
+        {
+            return null;
+        }
+        var json = await File.ReadAllTextAsync(filePath);
+        return JsonSerializer.Deserialize<ListGroupsDto.GroupDto[]>(json);
+    }
+
+    private static async Task BackupGroups(ListGroupsDto.GroupDto[] groups)
+    {
+        var json = JsonSerializer.Serialize(groups, new JsonSerializerOptions { WriteIndented = true });
+        await File.WriteAllTextAsync(GetBackupFilePath(BackupGroupsFilePath), json);
     }
 
     private static async Task<ListUsersDto.UserDto[]> GetEmployees(ZendeskApiClient zendeskApiClient)
