@@ -6,6 +6,7 @@ using Spectre.Console;
 
 namespace NexAI.DataImporter.Zendesk;
 
+
 internal class ZendeskTicketImporter(Options options)
 {
     private const string BackupGroupsFilePath = "zendesk_api_backup_groups.json";
@@ -24,7 +25,7 @@ internal class ZendeskTicketImporter(Options options)
         foreach (var ticket in tickets)
         {
             var comments = await GetComments(zendeskApiClient, ticket.Id!.Value);
-            zendeskTickets.Add(ZendeskTicketImporterMapper.Map(ticket, comments, employees));
+            zendeskTickets.Add(ZendeskTicketMapper.Map(ticket, comments, employees));
         }
         AnsiConsole.MarkupLine($"[green]Successfully imported {zendeskTickets.Count} Zendesk tickets.[/]");
         return zendeskTickets.ToArray();
