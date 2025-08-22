@@ -3,6 +3,7 @@ using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using NexAI.Config;
+using NexAI.Console.Plugins;
 using NexAI.LLMs;
 using Spectre.Console;
 
@@ -19,7 +20,8 @@ public class NexAIAgent
         var mode = options.Get<LLMsOptions>().Mode;
         var builder = GetKernelBuilder(options, mode);
         _kernel = builder.Build();
-        _kernel.Plugins.AddFromType<ZendeskPlugin>("ZendeskTickets", _kernel.Services);
+        _kernel.Plugins.AddFromType<ZendeskTicketsPlugin>("ZendeskTickets", _kernel.Services);
+        _kernel.Plugins.AddFromType<AzureDevOpsIssuesPlugin>("AzureDevOpsIssues", _kernel.Services);
         _chatCompletionService = _kernel.GetRequiredService<IChatCompletionService>(mode);
         _openAIPromptExecutionSettings = new()
         {
