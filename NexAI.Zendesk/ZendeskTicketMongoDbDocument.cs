@@ -20,7 +20,7 @@ public record ZendeskTicketMongoDbDocument
 
     [BsonElement("messages")]
     public MessageDocument[] Messages { get; init; } = [];
-    
+
     [BsonElement("score")]
     public double Score { get; init; }
 
@@ -44,4 +44,19 @@ public record ZendeskTicketMongoDbDocument
             Description,
             Messages.Select(message => new ZendeskTicket.ZendeskTicketMessage(message.Content, message.Author, message.CreatedAt)).ToArray()
         );
+
+    public static ZendeskTicketMongoDbDocument Create(ZendeskTicket zendeskTicket) =>
+        new()
+        {
+            Id = zendeskTicket.Id,
+            Number = zendeskTicket.Number,
+            Title = zendeskTicket.Title,
+            Description = zendeskTicket.Description,
+            Messages = zendeskTicket.Messages.Select(message => new MessageDocument
+            {
+                Content = message.Content,
+                Author = message.Author,
+                CreatedAt = message.CreatedAt
+            }).ToArray()
+        };
 }

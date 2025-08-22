@@ -56,24 +56,7 @@ public class ZendeskTicketMongoDbExporter(Options options)
         var collection = database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketCollections.MongoDbCollectionName);
         if (await collection.EstimatedDocumentCountAsync() == 0)
         {
-            var documents = new List<ZendeskTicketMongoDbDocument>();
-            foreach (var zendeskTicket in zendeskTickets)
-            {
-                var document = new ZendeskTicketMongoDbDocument
-                {
-                    Id = zendeskTicket.Id,
-                    Number = zendeskTicket.Number,
-                    Title = zendeskTicket.Title,
-                    Description = zendeskTicket.Description,
-                    Messages = zendeskTicket.Messages.Select(m => new ZendeskTicketMongoDbDocument.MessageDocument
-                    {
-                        Content = m.Content,
-                        Author = m.Author,
-                        CreatedAt = m.CreatedAt
-                    }).ToArray()
-                };
-                documents.Add(document);
-            }
+            var documents = zendeskTickets.Select(ZendeskTicketMongoDbDocument.Create);
             await collection.InsertManyAsync(documents);
             AnsiConsole.MarkupLine("[green]Successfully exported Zendesk tickets into MongoDb.[/]");
         }
