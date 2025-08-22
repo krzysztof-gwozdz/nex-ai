@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Net;
+using System.Text.RegularExpressions;
 using NexAI.Zendesk;
 using NexAI.Zendesk.Api;
 using NexAI.Zendesk.Api.Dtos;
@@ -40,17 +41,17 @@ public static partial class ZendeskTicketMapper
         return zendeskTicket;
     }
 
-    private static string NormalizeId(long? number) =>
-        number is null or < 0 ? throw new("Could not parse Id") : number.Value.ToString();
+    private static string NormalizeId(long? id) =>
+        id is null or < 0 ? throw new("Could not parse Id") : id.Value.ToString();
 
-    private static string NormalizeTitle(string? title, string? description)
+    private static string NormalizeTitle(string? subject, string? description)
     {
-        if (string.IsNullOrWhiteSpace(title))
+        if (string.IsNullOrWhiteSpace(subject))
         {
             return string.IsNullOrWhiteSpace(description) ? "<MISSING TITLE>" : description[..Math.Min(description.Length, 50)];
         }
-        title = title.NormalizeText();
-        return title;
+        subject = subject.NormalizeText();
+        return subject;
     }
 
     private static string NormalizeDescription(string? description)
@@ -60,17 +61,17 @@ public static partial class ZendeskTicketMapper
             return "<MISSING DESCRIPTION>";
         }
         description = description.NormalizeText().MaskEmailAddresses().MaskPhoneNumbers().MaskImageUrls();
-        return System.Net.WebUtility.HtmlDecode(description);
+        return WebUtility.HtmlDecode(description);
     }
 
-    private static string NormalizeCommentBody(string? comment)
+    private static string NormalizeCommentBody(string? commentBody)
     {
-        if (string.IsNullOrWhiteSpace(comment))
+        if (string.IsNullOrWhiteSpace(commentBody))
         {
             return "<MISSING COMMENT>";
         }
-        comment = comment.NormalizeText().MaskEmailAddresses().MaskPhoneNumbers().MaskImageUrls();
-        return comment;
+        commentBody = commentBody.NormalizeText().MaskEmailAddresses().MaskPhoneNumbers().MaskImageUrls();
+        return commentBody;
     }
 
     private static string NormalizeAuthor(CommentDto comment, UserDto[] employees) =>
