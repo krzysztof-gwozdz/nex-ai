@@ -6,14 +6,13 @@ using Spectre.Console;
 
 namespace NexAI.DataImporter.Zendesk;
 
-
 internal class ZendeskTicketImporter(Options options)
 {
     private const string BackupGroupsFilePath = "zendesk_api_backup_groups.json";
     private const string BackupEmployeesFilePath = "zendesk_api_backup_employees.json";
     private const string BackupTicketsFilePath = "zendesk_api_backup_tickets.json";
     private const string BackupCommentsFilePath = "zendesk_api_backup_{0}_comments.json";
-    
+
     public async Task<ZendeskTicket[]> Import()
     {
         AnsiConsole.MarkupLine("[yellow]Importing sample Zendesk tickets from JSON...[/]");
@@ -31,147 +30,33 @@ internal class ZendeskTicketImporter(Options options)
         return zendeskTickets.ToArray();
     }
 
-    private static async Task<ListGroupsDto.GroupDto[]> GetGroups(ZendeskApiClient zendeskApiClient)
-    {
-        var groups = await TryGetGroupsFromBackup();
-        if (groups is null)
-        {
-            AnsiConsole.MarkupLine("[yellow]No groups backup found, fetching from Zendesk.[/]");
-            groups = await zendeskApiClient.GetGroups();
-            AnsiConsole.MarkupLine($"[green]Fetched {groups.Length} groups from Zendesk.[/]");
-            await BackupGroups(groups);
-            AnsiConsole.MarkupLine("[green]Groups backup created.[/]");
-        }
-        else
-        {
-            AnsiConsole.MarkupLine("[green]Groups backup found, using it.[/]");
-        }
-        return groups;
-    }
+    private static async Task<ListGroupsDto.GroupDto[]> GetGroups(ZendeskApiClient zendeskApiClient) =>
+        await LoadOrFetch(
+            BackupGroupsFilePath,
+            zendeskApiClient.GetGroups,
+            "Groups",
+            group => $"Fetched {group.Length} groups from Zendesk.");
 
-    private static async Task<ListGroupsDto.GroupDto[]?> TryGetGroupsFromBackup()
-    {
-        var filePath = GetBackupFilePath(BackupGroupsFilePath);
-        if (!File.Exists(filePath))
-        {
-            return null;
-        }
-        var json = await File.ReadAllTextAsync(filePath);
-        return JsonSerializer.Deserialize<ListGroupsDto.GroupDto[]>(json);
-    }
+    private static async Task<ListUsersDto.UserDto[]> GetEmployees(ZendeskApiClient zendeskApiClient) =>
+        await LoadOrFetch(
+            BackupEmployeesFilePath,
+            () => zendeskApiClient.GetEmployees(),
+            "Employees",
+            user => $"Fetched {user.Length} employees from Zendesk.");
 
-    private static async Task BackupGroups(ListGroupsDto.GroupDto[] groups)
-    {
-        var json = JsonSerializer.Serialize(groups, new JsonSerializerOptions { WriteIndented = true });
-        await File.WriteAllTextAsync(GetBackupFilePath(BackupGroupsFilePath), json);
-    }
+    private static async Task<ListTicketsDto.TicketDto[]> GetTickets(ZendeskApiClient zendeskApiClient) =>
+        await LoadOrFetch(
+            BackupTicketsFilePath,
+            () => zendeskApiClient.GetTickets(100),
+            "Tickets",
+            ticket => $"Fetched {ticket.Length} tickets from Zendesk.");
 
-    private static async Task<ListUsersDto.UserDto[]> GetEmployees(ZendeskApiClient zendeskApiClient)
-    {
-        var employees = await TryGetEmployeesFromBackup();
-        if (employees is null)
-        {
-            AnsiConsole.MarkupLine("[yellow]No employees backup found, fetching from Zendesk.[/]");
-            employees = await zendeskApiClient.GetEmployees();
-            AnsiConsole.MarkupLine($"[green]Fetched {employees.Length} employees from Zendesk.[/]");
-            await BackupEmployees(employees);
-            AnsiConsole.MarkupLine("[green]Employees backup created.[/]");
-        }
-        else
-        {
-            AnsiConsole.MarkupLine("[green]Employees backup found, using it.[/]");
-        }
-        return employees;
-    }
-
-    private static async Task<ListUsersDto.UserDto[]?> TryGetEmployeesFromBackup()
-    {
-        var filePath = GetBackupFilePath(BackupEmployeesFilePath);
-        if (!File.Exists(filePath))
-        {
-            return null;
-        }
-        var json = await File.ReadAllTextAsync(filePath);
-        return JsonSerializer.Deserialize<ListUsersDto.UserDto[]>(json);
-    }
-
-    private static async Task BackupEmployees(ListUsersDto.UserDto[] employees)
-    {
-        var json = JsonSerializer.Serialize(employees, new JsonSerializerOptions { WriteIndented = true });
-        await File.WriteAllTextAsync(GetBackupFilePath(BackupEmployeesFilePath), json);
-    }
-
-    private static async Task<ListTicketsDto.TicketDto[]> GetTickets(ZendeskApiClient zendeskApiClient)
-    {
-        var tickets = await TryGetTicketsFromBackup();
-        if (tickets is null)
-        {
-            AnsiConsole.MarkupLine("[yellow]No tickets backup found, fetching from Zendesk.[/]");
-            tickets = await zendeskApiClient.GetTickets(100);
-            AnsiConsole.MarkupLine($"[green]Fetched {tickets.Length} tickets from Zendesk.[/]");
-            await BackupTickets(tickets);
-            AnsiConsole.MarkupLine("[green]Tickets backup created.[/]");
-        }
-        else
-        {
-            AnsiConsole.MarkupLine("[green]Tickets backup found, using it.[/]");
-        }
-        return tickets;
-    }
-
-    private static async Task<ListTicketsDto.TicketDto[]?> TryGetTicketsFromBackup()
-    {
-        var filePath = GetBackupFilePath(BackupTicketsFilePath);
-        if (!File.Exists(filePath))
-        {
-            return null;
-        }
-        var json = await File.ReadAllTextAsync(filePath);
-        return JsonSerializer.Deserialize<ListTicketsDto.TicketDto[]>(json);
-    }
-
-    private static async Task BackupTickets(ListTicketsDto.TicketDto[] tickets)
-    {
-        var json = JsonSerializer.Serialize(tickets, new JsonSerializerOptions { WriteIndented = true });
-        await File.WriteAllTextAsync(GetBackupFilePath(BackupTicketsFilePath), json);
-    }
-    
-    private static async Task<ListTicketCommentsDto.CommentDto[]> GetComments(ZendeskApiClient zendeskApiClient, long ticketId)
-    {
-        var comments = await TryGetCommentsFromBackup(ticketId);
-        if (comments is null)
-        {
-            AnsiConsole.MarkupLine($"[yellow]No comments backup found for ticket {ticketId}, fetching from Zendesk.[/]");
-            comments = await zendeskApiClient.GetTicketComments(ticketId);
-            AnsiConsole.MarkupLine($"[green]Fetched {comments.Length} comments from Zendesk for ticket {ticketId}.[/]");
-            await BackupComments(comments, ticketId);
-            AnsiConsole.MarkupLine($"[green]Comments backup created for ticket {ticketId}.[/]");
-        }
-        else
-        {
-            AnsiConsole.MarkupLine($"[green]Comments backup found for ticket {ticketId}, using it.[/]");
-        }
-        return comments;
-    }
-
-    private static async Task<ListTicketCommentsDto.CommentDto[]?> TryGetCommentsFromBackup(long ticketId)
-    {
-        var fileName = string.Format(BackupCommentsFilePath, ticketId);
-        var filePath = GetBackupFilePath(fileName);
-        if (!File.Exists(filePath))
-        {
-            return null;
-        }
-        var json = await File.ReadAllTextAsync(filePath);
-        return JsonSerializer.Deserialize<ListTicketCommentsDto.CommentDto[]>(json);
-    }
-
-    private static async Task BackupComments(ListTicketCommentsDto.CommentDto[] comments, long ticketId)
-    {
-        var fileName = string.Format(BackupCommentsFilePath, ticketId);
-        var json = JsonSerializer.Serialize(comments, new JsonSerializerOptions { WriteIndented = true });
-        await File.WriteAllTextAsync(GetBackupFilePath(fileName), json);
-    }
+    private static async Task<ListTicketCommentsDto.CommentDto[]> GetComments(ZendeskApiClient zendeskApiClient, long ticketId) =>
+        await LoadOrFetch(
+            string.Format(BackupCommentsFilePath, ticketId),
+            () => zendeskApiClient.GetTicketComments(ticketId),
+            $"Comments for ticket {ticketId}",
+            comment => $"Fetched {comment.Length} comments from Zendesk for ticket {ticketId}.");
 
     private static string GetBackupFilePath(string fileName)
     {
@@ -181,5 +66,38 @@ internal class ZendeskTicketImporter(Options options)
             Directory.CreateDirectory(tempDirectory);
         }
         return Path.Combine(tempDirectory, fileName);
+    }
+
+    private static async Task<T?> TryLoadFromBackup<T>(string filePath)
+    {
+        if (!File.Exists(filePath))
+        {
+            return default;
+        }
+        var json = await File.ReadAllTextAsync(filePath);
+        return JsonSerializer.Deserialize<T>(json);
+    }
+
+    private static async Task BackupToFile<T>(string filePath, T data)
+    {
+        var json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
+        await File.WriteAllTextAsync(filePath, json);
+    }
+
+    private static async Task<T> LoadOrFetch<T>(string filename, Func<Task<T>> fetchFromApi, string entityDescription, Func<T, string> fetchedMessage)
+    {
+        var filePath = GetBackupFilePath(filename);
+        var existing = await TryLoadFromBackup<T>(filePath);
+        if (existing is not null)
+        {
+            AnsiConsole.MarkupLine($"[green]{entityDescription} backup found, using it.[/]");
+            return existing;
+        }
+        AnsiConsole.MarkupLine($"[yellow]No {entityDescription} backup found, fetching from Zendesk.[/]");
+        var data = await fetchFromApi();
+        AnsiConsole.MarkupLine($"[green]{fetchedMessage(data)}[/]");
+        await BackupToFile(filePath, data);
+        AnsiConsole.MarkupLine($"[green]{entityDescription} backup created.[/]");
+        return data;
     }
 }
