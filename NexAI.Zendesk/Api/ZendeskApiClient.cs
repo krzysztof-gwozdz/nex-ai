@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Json;
 using System.Text.Json;
 using NexAI.Config;
+using NexAI.Zendesk.Api.Dtos;
 
 namespace NexAI.Zendesk.Api;
 
@@ -19,8 +20,8 @@ public class ZendeskApiClient
         _httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {zendeskOptions.AuthorizationToken}");
     }
 
-    public async Task<ListGroupsDto.GroupDto[]> GetGroups() =>
-        await GetPagedItems<ListGroupsDto, ListGroupsDto.GroupDto>(
+    public async Task<GroupDto[]> GetGroups() =>
+        await GetPagedItems<ListGroupsDto, GroupDto>(
             "/api/v2/groups",
             dto => dto.Groups,
             null);
@@ -28,8 +29,8 @@ public class ZendeskApiClient
     public async Task<int> GetTicketCount() =>
         await GetCount("/api/v2/tickets/count");
 
-    public async Task<ListTicketsDto.TicketDto[]> GetTickets(int? limit = null) =>
-        await GetPagedItems<ListTicketsDto, ListTicketsDto.TicketDto>(
+    public async Task<TicketDto[]> GetTickets(int? limit = null) =>
+        await GetPagedItems<ListTicketsDto, TicketDto>(
             "/api/v2/tickets",
             dto => dto.Tickets,
             limit);
@@ -37,14 +38,14 @@ public class ZendeskApiClient
     public async Task<int> GetEmployeesCount() =>
         await GetCount("/api/v2/users/count?role[]=agent&role[]=admin");
 
-    public async Task<ListUsersDto.UserDto[]> GetEmployees(int? limit = null) =>
-        await GetPagedItems<ListUsersDto, ListUsersDto.UserDto>(
+    public async Task<UserDto[]> GetEmployees(int? limit = null) =>
+        await GetPagedItems<ListUsersDto, UserDto>(
             "/api/v2/users?role[]=agent&role[]=admin",
             dto => dto.Users,
             limit);
 
-    public async Task<ListTicketCommentsDto.CommentDto[]> GetTicketComments(long ticketId, int? limit = null) =>
-        await GetPagedItems<ListTicketCommentsDto, ListTicketCommentsDto.CommentDto>(
+    public async Task<CommentDto[]> GetTicketComments(long ticketId, int? limit = null) =>
+        await GetPagedItems<ListTicketCommentsDto, CommentDto>(
             $"/api/v2/tickets/{ticketId}/comments",
             dto => dto.Comments,
             limit);

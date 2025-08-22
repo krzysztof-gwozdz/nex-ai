@@ -1,6 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using NexAI.Zendesk;
 using NexAI.Zendesk.Api;
+using NexAI.Zendesk.Api.Dtos;
 
 namespace NexAI.DataImporter.Zendesk;
 
@@ -21,7 +22,7 @@ public static partial class ZendeskTicketMapper
     [GeneratedRegex(@"!\[.*?\]\([^)]+\)", RegexOptions.Singleline)]
     private static partial Regex ImageUrlRegex();
 
-    public static ZendeskTicket Map(ListTicketsDto.TicketDto ticket, ListTicketCommentsDto.CommentDto[] comments, ListUsersDto.UserDto[] employees)
+    public static ZendeskTicket Map(TicketDto ticket, CommentDto[] comments, UserDto[] employees)
     {
         var description = NormalizeDescription(ticket.Description);
         var zendeskTicket = new ZendeskTicket(
@@ -72,7 +73,7 @@ public static partial class ZendeskTicketMapper
         return comment;
     }
 
-    private static string NormalizeAuthor(ListTicketCommentsDto.CommentDto comment, ListUsersDto.UserDto[] employees) =>
+    private static string NormalizeAuthor(CommentDto comment, UserDto[] employees) =>
         employees.FirstOrDefault(userDto => userDto.Id == comment.AuthorId)?.Name ?? "<EXTERNAL AUTHOR>";
 
     private static DateTime NormalizeCreateAt(string? createdAt) =>

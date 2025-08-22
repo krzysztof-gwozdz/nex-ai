@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace NexAI.Zendesk.Api;
+namespace NexAI.Zendesk.Api.Dtos;
 
 public record CountsDto(
     [property: JsonPropertyName("count")]

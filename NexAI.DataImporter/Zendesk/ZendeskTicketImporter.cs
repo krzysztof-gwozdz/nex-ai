@@ -2,6 +2,7 @@
 using NexAI.Config;
 using NexAI.Zendesk;
 using NexAI.Zendesk.Api;
+using NexAI.Zendesk.Api.Dtos;
 using Spectre.Console;
 
 namespace NexAI.DataImporter.Zendesk;
@@ -30,34 +31,51 @@ internal class ZendeskTicketImporter(Options options)
         return zendeskTickets.ToArray();
     }
 
-    private static async Task<ListGroupsDto.GroupDto[]> GetGroups(ZendeskApiClient zendeskApiClient) =>
+    private static async Task<GroupDto[]> GetGroups(ZendeskApiClient zendeskApiClient) =>
         await LoadOrFetch(
             BackupGroupsFilePath,
             zendeskApiClient.GetGroups,
             "Groups",
             group => $"Fetched {group.Length} groups from Zendesk.");
 
-    private static async Task<ListUsersDto.UserDto[]> GetEmployees(ZendeskApiClient zendeskApiClient) =>
+    private static async Task<UserDto[]> GetEmployees(ZendeskApiClient zendeskApiClient) =>
         await LoadOrFetch(
             BackupEmployeesFilePath,
             () => zendeskApiClient.GetEmployees(),
             "Employees",
             user => $"Fetched {user.Length} employees from Zendesk.");
 
-    private static async Task<ListTicketsDto.TicketDto[]> GetTickets(ZendeskApiClient zendeskApiClient) =>
+    private static async Task<TicketDto[]> GetTickets(ZendeskApiClient zendeskApiClient) =>
         await LoadOrFetch(
             BackupTicketsFilePath,
             () => zendeskApiClient.GetTickets(100),
             "Tickets",
             ticket => $"Fetched {ticket.Length} tickets from Zendesk.");
 
-    private static async Task<ListTicketCommentsDto.CommentDto[]> GetComments(ZendeskApiClient zendeskApiClient, long ticketId) =>
+    private static async Task<CommentDto[]> GetComments(ZendeskApiClient zendeskApiClient, long ticketId) =>
         await LoadOrFetch(
             string.Format(BackupCommentsFilePath, ticketId),
             () => zendeskApiClient.GetTicketComments(ticketId),
             $"Comments for ticket {ticketId}",
             comment => $"Fetched {comment.Length} comments from Zendesk for ticket {ticketId}.");
 
+    private static async Task<T> LoadOrFetch<T>(string filename, Func<Task<T>> fetchFromApi, string entityDescription, Func<T, string> fetchedMessage)
+    {
+        var filePath = GetBackupFilePath(filename);
+        var existing = await TryLoadFromBackup<T>(filePath);
+        if (existing is not null)
+        {
+            AnsiConsole.MarkupLine($"[green]{entityDescription} backup found, using it.[/]");
+            return existing;
+        }
+        AnsiConsole.MarkupLine($"[yellow]No {entityDescription} backup found, fetching from Zendesk.[/]");
+        var data = await fetchFromApi();
+        AnsiConsole.MarkupLine($"[green]{fetchedMessage(data)}[/]");
+        await BackupToFile(filePath, data);
+        AnsiConsole.MarkupLine($"[green]{entityDescription} backup created.[/]");
+        return data;
+    }
+    
     private static string GetBackupFilePath(string fileName)
     {
         var tempDirectory = Path.Combine(Path.GetTempPath(), "nexai", "zendesk");
@@ -82,22 +100,5 @@ internal class ZendeskTicketImporter(Options options)
     {
         var json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
         await File.WriteAllTextAsync(filePath, json);
-    }
-
-    private static async Task<T> LoadOrFetch<T>(string filename, Func<Task<T>> fetchFromApi, string entityDescription, Func<T, string> fetchedMessage)
-    {
-        var filePath = GetBackupFilePath(filename);
-        var existing = await TryLoadFromBackup<T>(filePath);
-        if (existing is not null)
-        {
-            AnsiConsole.MarkupLine($"[green]{entityDescription} backup found, using it.[/]");
-            return existing;
-        }
-        AnsiConsole.MarkupLine($"[yellow]No {entityDescription} backup found, fetching from Zendesk.[/]");
-        var data = await fetchFromApi();
-        AnsiConsole.MarkupLine($"[green]{fetchedMessage(data)}[/]");
-        await BackupToFile(filePath, data);
-        AnsiConsole.MarkupLine($"[green]{entityDescription} backup created.[/]");
-        return data;
     }
 }
