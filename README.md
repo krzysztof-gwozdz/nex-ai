@@ -47,6 +47,11 @@ flowchart TD
 
 # Versions
 
+### 0.0.9
+
+- Clean up/normalizing data imported from Zendesk.
+- Polish search results.
+
 ### 0.0.8
 
 - Data importer improvements.
