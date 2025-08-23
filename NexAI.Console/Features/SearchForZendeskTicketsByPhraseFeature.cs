@@ -31,30 +31,34 @@ public class SearchForZendeskTicketsByPhraseFeature(Options options)
 
     private async Task GetSimilarZendeskTicketsByPhrase(string userMessage, int limit)
     {
-        var similarTickets = await new FindSimilarZendeskTicketsByPhraseQuery(options).Handle(userMessage, limit);
-        var zendeskTickets = await new GetZendeskTicketsByNumbersQuery(options).Handle(similarTickets.Select(ticket => ticket.Number).ToArray());
+        var searchResult = await new FindSimilarZendeskTicketsByPhraseQuery(options).Handle(userMessage, limit);
         AnsiConsole.MarkupLine("[bold Aquamarine1]Similar tickets (embedding):[/]");
-        if (zendeskTickets.Length == 0)
+        if (searchResult.Length == 0)
         {
             AnsiConsole.MarkupLine("[yellow]No similar tickets found.[/]");
         }
         else
         {
-            AnsiConsole.MarkupLine($"[bold]Found {zendeskTickets.Length} tickets:[/]");
-            var table = new Table().AddColumn("Number").AddColumn("Title").AddColumn("Description").AddColumn("Similarity");
-            var ticketsWithSimilarities = zendeskTickets
-                .Select(ticket => new
+            AnsiConsole.MarkupLine($"[bold]Found {searchResult.Length} tickets:[/]");
+            var table = new Table().AddColumn("Number").AddColumn("Title").AddColumn("Description").AddColumn("Score");
+            var ticketsWithSimilarities = searchResult
+                .Select(result => new
                 {
-                    ticket.Number,
-                    ticket.Title,
-                    ticket.Description,
-                    similarTickets.FirstOrDefault(similar => similar.Number == ticket.Number)?.Similarity
+                    result.ZendeskTicket.Number,
+                    result.ZendeskTicket.Title,
+                    result.ZendeskTicket.Description,
+                    result.Score
                 })
-                .OrderByDescending(ticket => ticket.Similarity)
+                .OrderByDescending(ticket => ticket.Score)
                 .ToList();
             foreach (var ticket in ticketsWithSimilarities)
             {
-                table.AddRow(ticket.Number, ticket.Title.EscapeMarkup(), ticket.Description[..50].EscapeMarkup(), ticket.Similarity?.ToString("P1") ?? "N/A");
+                table.AddRow(
+                    ticket.Number, 
+                ticket.Title.EscapeMarkup(), 
+                ticket.Description[..50].EscapeMarkup(), 
+                ticket.Score.ToString("P1")
+                );
             }
 
             AnsiConsole.Write(table);
@@ -63,19 +67,24 @@ public class SearchForZendeskTicketsByPhraseFeature(Options options)
 
     private async Task GetZendeskTicketsByPhrase(string userMessage, int limit)
     {
-        var zendeskTickets = await new FindZendeskTicketsThatContainPhraseQuery(options).Handle(userMessage, limit);
+        var searchResult = await new FindZendeskTicketsThatContainPhraseQuery(options).Handle(userMessage, limit);
         AnsiConsole.MarkupLine("[bold Aquamarine1]Tickets that contain phrase (full text search):[/]");
-        if (zendeskTickets.Count == 0)
+        if (searchResult.Length == 0)
         {
             AnsiConsole.MarkupLine("[yellow]No similar tickets found.[/]");
         }
         else
         {
-            AnsiConsole.MarkupLine($"[bold]Found {zendeskTickets.Count} tickets:[/]");
+            AnsiConsole.MarkupLine($"[bold]Found {searchResult.Length} tickets:[/]");
             var table = new Table().AddColumn("Number").AddColumn("Title").AddColumn("Description").AddColumn("Score");
-            foreach (var (ticket, score) in zendeskTickets)
+            foreach (var result in searchResult)
             {
-                table.AddRow(ticket.Number.EscapeMarkup(), ticket.Title.EscapeMarkup(), ticket.Description[..50].EscapeMarkup(), score.ToString("0.00"));
+                table.AddRow(
+                    result.ZendeskTicket.Number.EscapeMarkup(),
+                    result.ZendeskTicket.Title.EscapeMarkup(),
+                    result.ZendeskTicket.Description[..50].EscapeMarkup(),
+                    result.Score.ToString("0.00")
+                );
             }
 
             AnsiConsole.Write(table);

@@ -4,7 +4,7 @@ namespace NexAI.Zendesk.Queries;
 
 public class FindSimilarZendeskTicketsByNumberQuery(Options options)
 {
-    public async Task<List<SimilarTicket>> Handle(string number, int limit)
+    public async Task<SearchResult[]> Handle(string number, int limit)
     {
         var getZendeskTicketByNumberQuery = new GetZendeskTicketByNumberQuery(options);
         var zendeskTicket = await getZendeskTicketByNumberQuery.Handle(number);
@@ -13,8 +13,8 @@ public class FindSimilarZendeskTicketsByNumberQuery(Options options)
         var findSimilarTicketsByPhraseQuery = new FindSimilarZendeskTicketsByPhraseQuery(options);
         var similarTickets = await findSimilarTicketsByPhraseQuery.Handle(zendeskTicket.CombinedContent(), limit + 1);
         return similarTickets
-            .Where(ticket => ticket.Number != number)
+            .Where(ticket => ticket.ZendeskTicket.Number != number)
             .Take(limit)
-            .ToList();
+            .ToArray();
     }
 }

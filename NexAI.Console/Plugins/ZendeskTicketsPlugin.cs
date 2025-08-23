@@ -27,7 +27,7 @@ public class ZendeskTicketsPlugin(Options options)
 
     [KernelFunction("find_similar_zendesk_ticket_by_number")]
     [Description("Finds similar tickets based on the ticket number.")]
-    public async Task<List<SimilarTicket>> FindSimilarTicketsToSpecificTicketQuery(string number, int limit)
+    public async Task<SearchResult[]> FindSimilarTicketsToSpecificTicketQuery(string number, int limit)
     {
         AnsiConsole.MarkupLine($"[yellow]Using tool find_similar_tickets_by_number. Finding similar tickets for number: {number} with limit: {limit}[/]");
         return await new FindSimilarZendeskTicketsByNumberQuery(options).Handle(number, limit);
@@ -35,7 +35,7 @@ public class ZendeskTicketsPlugin(Options options)
 
     [KernelFunction("find_similar_zendesk_tickets_by_phrase")]
     [Description("Finds similar tickets based on a phrase. It uses embedding to find similar tickets.")]
-    public async Task<List<SimilarTicket>> FindSimilarTicketsByPhrase(string phrase, int limit)
+    public async Task<SearchResult[]> FindSimilarTicketsByPhrase(string phrase, int limit)
     {
         AnsiConsole.MarkupLine($"[yellow]Using tool find_similar_tickets_by_phrase. Finding similar tickets for phrase: {phrase} with limit: {limit}[/]");
         return await new FindSimilarZendeskTicketsByPhraseQuery(options).Handle(phrase, limit);
@@ -43,7 +43,7 @@ public class ZendeskTicketsPlugin(Options options)
     
     [KernelFunction("find_zendesk_tickets_by_phrase")]
     [Description("Finds tickets based on a phrase. It uses full-text search to find tickets.")]
-    public async Task<Dictionary<ZendeskTicket, double>> FindZendeskTicketsByPhrase(string phrase, int limit)
+    public async Task<SearchResult[]> FindZendeskTicketsByPhrase(string phrase, int limit)
     {
         AnsiConsole.MarkupLine($"[yellow]Using tool find_zendesk_tickets_by_phrase. Finding tickets for phrase: {phrase} with limit: {limit}[/]");
         return await new FindZendeskTicketsThatContainPhraseQuery(options).Handle(phrase, limit);

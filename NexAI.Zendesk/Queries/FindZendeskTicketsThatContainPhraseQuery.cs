@@ -8,7 +8,7 @@ public class FindZendeskTicketsThatContainPhraseQuery(Options options)
 {
     private readonly MongoDbOptions _mongoDbOptions = options.Get<MongoDbOptions>();
 
-    public async Task<Dictionary<ZendeskTicket, double>> Handle(string phrase, int limit)
+    public async Task<SearchResult[]> Handle(string phrase, int limit)
     {
         var clientSettings = MongoClientSettings.FromUrl(new(_mongoDbOptions.ConnectionString));
         var client = new MongoClient(clientSettings);
@@ -29,6 +29,6 @@ public class FindZendeskTicketsThatContainPhraseQuery(Options options)
             .Sort(sort)
             .ToListAsync();
         
-        return results.Select(document => (document.ToZendeskTicket(), document.Score)).ToDictionary(x => x.Item1, x => x.Item2);
+        return results.Select(document => SearchResult.FullTextSearchResult(document.ToZendeskTicket(), document.Score)).ToArray();
     }
 }
