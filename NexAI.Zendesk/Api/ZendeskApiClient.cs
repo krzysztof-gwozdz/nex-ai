@@ -33,7 +33,7 @@ public class ZendeskApiClient
     {
         var timestamp = ((DateTimeOffset)startTime).ToUnixTimeSeconds();
         var tickets = new List<TicketDto>();
-        var endOfStream = false;
+        bool endOfStream;
         do
         {
             var endpoint = $"/api/v2/incremental/tickets?exclude_deleted=true&start_time={timestamp}";

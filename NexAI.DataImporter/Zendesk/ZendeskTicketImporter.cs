@@ -31,42 +31,41 @@ internal class ZendeskTicketImporter(Options options)
         return zendeskTickets.ToArray();
     }
 
-    private static async Task<GroupDto[]> GetGroupsFromApiOrBackup(ZendeskApiClient zendeskApiClient) =>
+    private async Task<GroupDto[]> GetGroupsFromApiOrBackup(ZendeskApiClient zendeskApiClient) =>
         await GetFromApiOrBackup(
             BackupGroupsFilePath,
             zendeskApiClient.GetGroups,
             "Groups",
             group => $"Fetched {group.Length} groups from Zendesk.");
 
-    private static async Task<UserDto[]> GetEmployeesFromApiOrBackup(ZendeskApiClient zendeskApiClient) =>
+    private async Task<UserDto[]> GetEmployeesFromApiOrBackup(ZendeskApiClient zendeskApiClient) =>
         await GetFromApiOrBackup(
             BackupEmployeesFilePath,
             () => zendeskApiClient.GetEmployees(),
             "Employees",
             user => $"Fetched {user.Length} employees from Zendesk.");
 
-    private static async Task<TicketDto[]> GetTicketsFromApiOrBackup(ZendeskApiClient zendeskApiClient) =>
+    private async Task<TicketDto[]> GetTicketsFromApiOrBackup(ZendeskApiClient zendeskApiClient) =>
         await GetFromApiOrBackup(
             BackupTicketsFilePath,
             () => zendeskApiClient.GetTickets(new DateTime(2025, 1, 1)),
             "Tickets",
             ticket => $"Fetched {ticket.Length} tickets from Zendesk.");
 
-    private static async Task<CommentDto[]> GetCommentsFromApiOrBackup(ZendeskApiClient zendeskApiClient, long ticketId) =>
+    private async Task<CommentDto[]> GetCommentsFromApiOrBackup(ZendeskApiClient zendeskApiClient, long ticketId) =>
         await GetFromApiOrBackup(
             string.Format(BackupCommentsFilePath, ticketId),
             () => zendeskApiClient.GetTicketComments(ticketId),
             $"Comments for ticket {ticketId}",
             comment => $"Fetched {comment.Length} comments from Zendesk for ticket {ticketId}.");
 
-    private static async Task<T> GetFromApiOrBackup<T>(string filename, Func<Task<T>> fetchFromApi, string entityDescription, Func<T, string> fetchedMessage)
+    private async Task<T> GetFromApiOrBackup<T>(string filename, Func<Task<T>> fetchFromApi, string entityDescription, Func<T, string> fetchedMessage)
     {
         var filePath = GetBackupFilePath(filename);
-        var existing = await TryLoadFromBackup<T>(filePath);
-        if (existing is not null)
+        if (options.Get<DataImporterOptions>().UseBackup && await TryLoadFromBackup<T>(filePath) is {} backup)
         {
             AnsiConsole.MarkupLine($"[green]{entityDescription} backup found, using it.[/]");
-            return existing;
+            return backup;
         }
         AnsiConsole.MarkupLine($"[yellow]No {entityDescription} backup found, fetching from Zendesk.[/]");
         var data = await fetchFromApi();
