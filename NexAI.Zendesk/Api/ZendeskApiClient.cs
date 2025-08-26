@@ -29,6 +29,28 @@ public class ZendeskApiClient
     public async Task<int> GetTicketCount() =>
         await GetCount("/api/v2/tickets/count");
 
+    public async Task<TicketDto[]> GetTickets(DateTime startTime)
+    {
+        var timestamp = ((DateTimeOffset)startTime).ToUnixTimeSeconds();
+        var tickets = new List<TicketDto>();
+        var endOfStream = false;
+        do
+        {
+            var endpoint = $"/api/v2/incremental/tickets?exclude_deleted=true&start_time={timestamp}";
+            var response = await _httpClient.GetAsync(endpoint);
+            if (!response.IsSuccessStatusCode)
+                throw new($"Failed to get items from {endpoint}: {response.ReasonPhrase}");
+            var dto = await ParseContentToDto<IncrementalTicketExportDto>(response);
+            if (dto.Tickets is not null)
+            {
+                tickets.AddRange(dto.Tickets);
+            }
+            endOfStream = dto.EndOfStream ?? false;
+            timestamp = dto.EndTime ?? long.MaxValue;
+        } while (!endOfStream);
+        return tickets.DistinctBy(ticket => ticket.Id).ToArray();
+    }
+
     public async Task<TicketDto[]> GetTickets(int? limit = null) =>
         await GetPagedItems<ListTicketsDto, TicketDto>(
             "/api/v2/tickets",

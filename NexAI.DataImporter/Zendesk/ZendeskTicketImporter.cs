@@ -48,7 +48,7 @@ internal class ZendeskTicketImporter(Options options)
     private static async Task<TicketDto[]> GetTicketsFromApiOrBackup(ZendeskApiClient zendeskApiClient) =>
         await GetFromApiOrBackup(
             BackupTicketsFilePath,
-            () => zendeskApiClient.GetTickets(100),
+            () => zendeskApiClient.GetTickets(new DateTime(2025, 1, 1)),
             "Tickets",
             ticket => $"Fetched {ticket.Length} tickets from Zendesk.");
 
