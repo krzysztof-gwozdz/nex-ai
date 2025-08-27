@@ -27,7 +27,7 @@ internal class ZendeskTicketSampleDataImporter
 
         AnsiConsole.MarkupLine($"[green]Successfully imported {zendeskTickets.Length} Zendesk tickets.[/]");
         zendeskTickets = zendeskTickets
-            .Select(ticket => ticket.Id == Guid.Empty ? ticket with { Id = Guid.NewGuid() } : ticket)
+            .Select(ticket => ticket.Id == Guid.Empty ? ticket with { Id = ZendeskTicketId.New() } : ticket)
             .ToArray();
         return zendeskTickets;
     }

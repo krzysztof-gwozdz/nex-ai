@@ -8,7 +8,7 @@ public record ZendeskTicketMongoDbDocument
     {
     }
 
-    public ZendeskTicketMongoDbDocument(Guid id, string number, string title, string description, DateTime createdAt, DateTime? updateAt, MessageDocument[] messages) : this()
+    public ZendeskTicketMongoDbDocument(ZendeskTicketId id, string number, string title, string description, DateTime createdAt, DateTime? updateAt, MessageDocument[] messages) : this()
     {
         Id = id;
         Number = number;
@@ -58,7 +58,7 @@ public record ZendeskTicketMongoDbDocument
 
     public ZendeskTicket ToZendeskTicket() =>
         new(
-            Id,
+            new(Id),
             Number,
             Title,
             Description,

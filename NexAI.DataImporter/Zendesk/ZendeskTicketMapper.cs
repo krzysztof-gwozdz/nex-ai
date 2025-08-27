@@ -25,7 +25,7 @@ public static partial class ZendeskTicketMapper
     public static ZendeskTicket Map(TicketDto ticket, CommentDto[] comments, UserDto[] employees)
     {
         var zendeskTicket = new ZendeskTicket(
-            Guid.CreateVersion7(),
+            ZendeskTicketId.New(),
             NormalizeId(ticket.Id),
             NormalizeTitle(ticket.Subject),
             NormalizeDescription(ticket.Description),

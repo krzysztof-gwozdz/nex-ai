@@ -3,12 +3,12 @@ using Qdrant.Client.Grpc;
 
 namespace NexAI.Zendesk;
 
-public record ZendeskTicketQdrantPoint(Guid Id, string Number, ReadOnlyMemory<float> Content)
+public record ZendeskTicketQdrantPoint(ZendeskTicketId Id, string Number, ReadOnlyMemory<float> Content)
 {
     public PointStruct ToPointStruct() =>
         new()
         {
-            Id = Id,
+            Id = Id.Value,
             Vectors = new() { Vector = Content.ToArray() },
             Payload =
             {
