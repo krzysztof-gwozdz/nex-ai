@@ -1,10 +1,24 @@
-using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace NexAI.Zendesk;
 
 public record ZendeskTicketMongoDbDocument
 {
+    private ZendeskTicketMongoDbDocument()
+    {
+    }
+
+    public ZendeskTicketMongoDbDocument(Guid id, string number, string title, string description, DateTime createdAt, DateTime? updateAt, MessageDocument[] messages) : this()
+    {
+        Id = id;
+        Number = number;
+        Title = title;
+        Description = description;
+        CreatedAt = createdAt;
+        UpdateAt = updateAt;
+        Messages = messages;
+    }
+
     [BsonId]
     [BsonElement("_id")]
     public Guid Id { get; init; }
@@ -17,6 +31,12 @@ public record ZendeskTicketMongoDbDocument
 
     [BsonElement("description")]
     public string Description { get; init; } = string.Empty;
+
+    [BsonElement("createdAt")]
+    public DateTime CreatedAt { get; init; }
+
+    [BsonElement("createdAt")]
+    public DateTime? UpdateAt { get; init; }
 
     [BsonElement("messages")]
     public MessageDocument[] Messages { get; init; } = [];
@@ -42,21 +62,24 @@ public record ZendeskTicketMongoDbDocument
             Number,
             Title,
             Description,
+            CreatedAt,
+            UpdateAt,
             Messages.Select(message => new ZendeskTicket.ZendeskTicketMessage(message.Content, message.Author, message.CreatedAt)).ToArray()
         );
 
     public static ZendeskTicketMongoDbDocument Create(ZendeskTicket zendeskTicket) =>
-        new()
-        {
-            Id = zendeskTicket.Id,
-            Number = zendeskTicket.Number,
-            Title = zendeskTicket.Title,
-            Description = zendeskTicket.Description,
-            Messages = zendeskTicket.Messages.Select(message => new MessageDocument
+        new(
+            zendeskTicket.Id,
+            zendeskTicket.Number,
+            zendeskTicket.Title,
+            zendeskTicket.Description,
+            zendeskTicket.CreatedAt,
+            zendeskTicket.UpdatedAt,
+            zendeskTicket.Messages.Select(message => new MessageDocument
             {
                 Content = message.Content,
                 Author = message.Author,
                 CreatedAt = message.CreatedAt
             }).ToArray()
-        };
+        );
 }

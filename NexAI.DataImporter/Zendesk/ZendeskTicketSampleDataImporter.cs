@@ -1,5 +1,4 @@
 using System.Text.Json;
-using NexAI.Config;
 using NexAI.Zendesk;
 using Spectre.Console;
 

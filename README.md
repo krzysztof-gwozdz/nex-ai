@@ -13,16 +13,18 @@ flowchart TD
     D --> E
     E --> F("Get Comments")
     F --> G("Map to internal model")
-    G --> H1["Id"] & I1["Number"] & J1["Title"] & K1["Description"] & L1["Messages"]
+    G --> H1["Id"] & I1["Number"] & J1["Title"] & K1["Description"] & M1["CreatedAt"] & N1["UpdatedAt"] & L1["Messages"]
     H1 --> H2("Generate Guid")
     I1 --> I2("Get ticket.Id")   
-    J1 --> J2("Get ticket.Subject or ticket.Description[..50]")
+    J1 --> J2("Get ticket.Subject")
     J2 --> J3("Normalize Text")   
     K1 --> K2("Get ticket.Description")
     K2 --> K3("Mask Email Addresses")
     K3 --> K4("Mask Phone Numbers")
     K4 --> K5("Mask Image Urls")
     K5 --> K6("Normalize Text")
+    M1 --> M2("Get ticket.CreatedAt")
+    N1 --> N2("Get ticket.UpdatedAt")
     L1 --> L2("Get Comments from API")
     L2 --> L3{"For every comment"}
     L3 --> L41["Content"]
@@ -42,6 +44,8 @@ flowchart TD
     I2 --> Z1
     J3 --> Z1
     K6 --> Z1
+    M2 --> Z1
+    N2 --> Z1
     L4 --> Z1
 ```
 

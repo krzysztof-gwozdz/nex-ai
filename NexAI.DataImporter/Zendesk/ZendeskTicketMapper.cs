@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Text.RegularExpressions;
 using NexAI.Zendesk;
-using NexAI.Zendesk.Api;
 using NexAI.Zendesk.Api.Dtos;
 
 namespace NexAI.DataImporter.Zendesk;
@@ -25,16 +24,17 @@ public static partial class ZendeskTicketMapper
 
     public static ZendeskTicket Map(TicketDto ticket, CommentDto[] comments, UserDto[] employees)
     {
-        var description = NormalizeDescription(ticket.Description);
         var zendeskTicket = new ZendeskTicket(
             Guid.CreateVersion7(),
             NormalizeId(ticket.Id),
-            NormalizeTitle(ticket.Subject, description),
-            description,
+            NormalizeTitle(ticket.Subject),
+            NormalizeDescription(ticket.Description),
+            NormalizeCreatedAt(ticket.CreatedAt),
+            NormalizeUpdatedAt(ticket.UpdatedAt),
             comments.Select(comment => new ZendeskTicket.ZendeskTicketMessage(
                     NormalizeCommentBody(comment.PlainBody),
                     NormalizeAuthor(comment, employees),
-                    NormalizeCreateAt(comment.CreatedAt)
+                    NormalizeCreatedAt(comment.CreatedAt)
                 )
             ).ToArray()
         );
@@ -44,11 +44,11 @@ public static partial class ZendeskTicketMapper
     private static string NormalizeId(long? id) =>
         id is null or < 0 ? throw new("Could not parse Id") : id.Value.ToString();
 
-    private static string NormalizeTitle(string? subject, string? description)
+    private static string NormalizeTitle(string? subject)
     {
         if (string.IsNullOrWhiteSpace(subject))
         {
-            return string.IsNullOrWhiteSpace(description) ? "<MISSING TITLE>" : description[..Math.Min(description.Length, 50)];
+            return "<MISSING TITLE>";
         }
         subject = subject.NormalizeText();
         return subject;
@@ -75,10 +75,13 @@ public static partial class ZendeskTicketMapper
     }
 
     private static string NormalizeAuthor(CommentDto comment, UserDto[] employees) =>
-        employees.FirstOrDefault(userDto => userDto.Id == comment.AuthorId)?.Name ?? "<EXTERNAL AUTHOR>";
+        employees.FirstOrDefault(userDto => userDto.Id == comment.AuthorId)?.Name ?? "<NON-EMPLOYEE>";
 
-    private static DateTime NormalizeCreateAt(string? createdAt) =>
+    private static DateTime NormalizeCreatedAt(string? createdAt) =>
         DateTime.TryParse(createdAt, out var result) ? result : throw new("Could not parse Created At");
+    
+    private static DateTime? NormalizeUpdatedAt(string? updatedAt) =>
+        updatedAt is null ? null : DateTime.TryParse(updatedAt, out var result) ? result : throw new("Could not Updated At");
 
     private static string NormalizeText(this string text) =>
         text.NormalizeNewLines()
