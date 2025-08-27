@@ -20,14 +20,26 @@ public class ZendeskApiClient
         _httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {zendeskOptions.AuthorizationToken}");
     }
 
+    public async Task<int> GetEmployeesCount() =>
+        await GetCount("/api/v2/users/count?role[]=agent&role[]=admin");
+    
+    public async Task<int> GetGroupsCount() =>
+        await GetCount("/api/v2/Groups/count");
+
+    public async Task<int> GetTicketsCount() =>
+        await GetCount("/api/v2/tickets/count");
+
+    public async Task<UserDto[]> GetEmployees(int? limit = null) =>
+        await GetPagedItems<ListUsersDto, UserDto>(
+            "/api/v2/users?role[]=agent&role[]=admin",
+            dto => dto.Users,
+            limit);
+    
     public async Task<GroupDto[]> GetGroups() =>
         await GetPagedItems<ListGroupsDto, GroupDto>(
             "/api/v2/groups",
             dto => dto.Groups,
             null);
-
-    public async Task<int> GetTicketCount() =>
-        await GetCount("/api/v2/tickets/count");
 
     public async Task<TicketDto[]> GetTickets(DateTime startTime)
     {
@@ -55,15 +67,6 @@ public class ZendeskApiClient
         await GetPagedItems<ListTicketsDto, TicketDto>(
             "/api/v2/tickets",
             dto => dto.Tickets,
-            limit);
-
-    public async Task<int> GetEmployeesCount() =>
-        await GetCount("/api/v2/users/count?role[]=agent&role[]=admin");
-
-    public async Task<UserDto[]> GetEmployees(int? limit = null) =>
-        await GetPagedItems<ListUsersDto, UserDto>(
-            "/api/v2/users?role[]=agent&role[]=admin",
-            dto => dto.Users,
             limit);
 
     public async Task<CommentDto[]> GetTicketComments(long ticketId, int? limit = null) =>

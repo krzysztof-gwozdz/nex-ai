@@ -13,6 +13,8 @@ internal class ZendeskTicketImporter(Options options)
     private const string BackupEmployeesFilePath = "zendesk_api_backup_employees.json";
     private const string BackupTicketsFilePath = "zendesk_api_backup_tickets.json";
     private const string BackupCommentsFilePath = "zendesk_api_backup_{0}_comments.json";
+    
+    private readonly DateTime _ticketStartDateTime = new(2025, 1, 1);
 
     public async Task<ZendeskTicket[]> Import()
     {
@@ -48,7 +50,7 @@ internal class ZendeskTicketImporter(Options options)
     private async Task<TicketDto[]> GetTicketsFromApiOrBackup(ZendeskApiClient zendeskApiClient) =>
         await GetFromApiOrBackup(
             BackupTicketsFilePath,
-            () => zendeskApiClient.GetTickets(new DateTime(2025, 1, 1)),
+            () => zendeskApiClient.GetTickets(_ticketStartDateTime),
             "Tickets",
             ticket => $"Fetched {ticket.Length} tickets from Zendesk.");
 
