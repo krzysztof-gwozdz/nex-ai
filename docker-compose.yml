@@ -23,6 +23,16 @@ services:
       - mongodb_config:/data/configdb
     restart: unless-stopped
   
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: nexai-rabbitmq
+    ports:
+      - "5672:5672"     # AMQP
+      - "15672:15672"   # Management UI
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    restart: unless-stopped
+  
   ollama:
     image: ollama/ollama:latest
     container_name: ollama
@@ -43,4 +53,5 @@ volumes:
   qdrant_data:
   mongodb_data:
   mongodb_config:
+  rabbitmq_data:
   ollama_data:
