@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexAI.AzureDevOps", "NexAI.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexAI.LLMs", "NexAI.LLMs\NexAI.LLMs.csproj", "{845C423B-B35A-43FF-AFDF-C0D158F00918}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexAI.RabbitMQ", "NexAI.RabbitMQ\NexAI.RabbitMQ.csproj", "{3E1A22C0-2CE7-4952-8635-B2DF3DAF97FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,5 +63,9 @@ Global
 		{845C423B-B35A-43FF-AFDF-C0D158F00918}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{845C423B-B35A-43FF-AFDF-C0D158F00918}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{845C423B-B35A-43FF-AFDF-C0D158F00918}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E1A22C0-2CE7-4952-8635-B2DF3DAF97FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E1A22C0-2CE7-4952-8635-B2DF3DAF97FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E1A22C0-2CE7-4952-8635-B2DF3DAF97FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E1A22C0-2CE7-4952-8635-B2DF3DAF97FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
