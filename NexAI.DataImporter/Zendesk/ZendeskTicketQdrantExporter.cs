@@ -46,12 +46,19 @@ public class ZendeskTicketQdrantExporter(Options options)
         var collectionInfo = await client.GetCollectionInfoAsync(ZendeskTicketCollections.QdrantCollectionName);
         if (collectionInfo.VectorsCount == 0)
         {
-            var points = new List<PointStruct>();
             foreach (var zendeskTicket in zendeskTickets)
             {
-                points.Add((await ZendeskTicketQdrantPoint.Create(zendeskTicket, _textEmbedder)).ToPointStruct());
+                var points = new List<PointStruct>
+                {
+                    await ZendeskTicketQdrantPoint.Create(zendeskTicket, _textEmbedder),
+                    await ZendeskTicketTitleAndDescriptionQdrantPoint.Create(zendeskTicket, _textEmbedder)
+                };
+                foreach (var message in zendeskTicket.Messages)
+                {
+                    points.Add(await ZendeskTicketMessageQdrantPoint.Create(zendeskTicket.Id, message, _textEmbedder));
+                }
+                await client.UpsertAsync(ZendeskTicketCollections.QdrantCollectionName, points);
             }
-            await client.UpsertAsync(ZendeskTicketCollections.QdrantCollectionName, points);
             AnsiConsole.MarkupLine("[green]Successfully exported Zendesk tickets into Qdrant.[/]");
         }
         else
