@@ -17,7 +17,7 @@ public class ZendeskTicketQdrantExporter(Options options)
     public async Task Export(ZendeskTicket[] zendeskTickets)
     {
         AnsiConsole.MarkupLine("[yellow]Start exporting Zendesk tickets into Qdrant...[/]");
-        using var client = new QdrantClient(_qdrantOptions.Host, _qdrantOptions.Port);
+        using var client = new QdrantClient(new QdrantGrpcClient(_qdrantOptions.Host, _qdrantOptions.Port, _qdrantOptions.ApiKey));
         await CreateSchema(client);
         await InsertData(zendeskTickets, client);
     }

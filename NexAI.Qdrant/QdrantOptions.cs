@@ -10,4 +10,7 @@ public record QdrantOptions : IOptions
 
     [Required(AllowEmptyStrings = false)]
     public int Port { get; init; }
+
+    [Required(AllowEmptyStrings = false)]
+    public string ApiKey { get; init; } = null!;
 }

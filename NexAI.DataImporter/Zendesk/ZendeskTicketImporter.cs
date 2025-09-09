@@ -66,10 +66,10 @@ internal class ZendeskTicketImporter(Options options)
         var filePath = GetBackupFilePath(filename);
         if (options.Get<DataImporterOptions>().UseBackup && await TryLoadFromBackup<T>(filePath) is {} backup)
         {
-            AnsiConsole.MarkupLine($"[green]{entityDescription} backup found, using it.[/]");
+            AnsiConsole.MarkupLine($"[blue]{entityDescription} backup found, using it.[/]");
             return backup;
         }
-        AnsiConsole.MarkupLine($"[yellow]No {entityDescription} backup found, fetching from Zendesk.[/]");
+        AnsiConsole.MarkupLine("[green]Fetching from Zendesk.[/]");
         var data = await fetchFromApi();
         AnsiConsole.MarkupLine($"[green]{fetchedMessage(data)}[/]");
         await BackupToFile(filePath, data);
