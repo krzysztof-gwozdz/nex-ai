@@ -1,30 +1,43 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Driver;
 using NexAI.Config;
 using NexAI.MongoDb;
 using NexAI.Zendesk;
 using Spectre.Console;
 
-namespace NexAI.DataImporter.Zendesk;
+namespace NexAI.DataProcessor.Zendesk;
 
 public class ZendeskTicketMongoDbExporter(Options options)
 {
-    private readonly DataImporterOptions _dataImporterOptions = options.Get<DataImporterOptions>();
+    private readonly DataProcessorOptions _dataProcessorOptions = options.Get<DataProcessorOptions>();
     private readonly MongoDbOptions _mongoDbOptions = options.Get<MongoDbOptions>();
 
-    public async Task Export(ZendeskTicket[] zendeskTickets)
+    public async Task CreateSchema()
     {
-        AnsiConsole.MarkupLine("[yellow]Start exporting Zendesk tickets into MongoDb...[/]");
         var clientSettings = MongoClientSettings.FromUrl(new(_mongoDbOptions.ConnectionString));
         var client = new MongoClient(clientSettings);
         var database = client.GetDatabase(_mongoDbOptions.Database);
         await CreateSchema(database);
-        await InsertData(zendeskTickets, database);
+        BsonSerializer.TryRegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
+    }
+
+    public async Task Export(ZendeskTicket zendeskTicket)
+    {
+        var clientSettings = MongoClientSettings.FromUrl(new(_mongoDbOptions.ConnectionString));
+        var client = new MongoClient(clientSettings);
+        var database = client.GetDatabase(_mongoDbOptions.Database);
+        var collection = database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketCollections.MongoDbCollectionName);
+        var document = ZendeskTicketMongoDbDocument.Create(zendeskTicket);
+        await collection.InsertOneAsync(document);
+        AnsiConsole.MarkupLine("[green]Successfully exported Zendesk tickets into MongoDb.[/]");
     }
 
     private async Task CreateSchema(IMongoDatabase database)
     {
         var existingCollections = await (await database.ListCollectionNamesAsync()).ToListAsync();
-        if (_dataImporterOptions.Recreate && existingCollections.Contains(ZendeskTicketCollections.MongoDbCollectionName))
+        if (_dataProcessorOptions.Recreate && existingCollections.Contains(ZendeskTicketCollections.MongoDbCollectionName))
         {
             await database.DropCollectionAsync(ZendeskTicketCollections.MongoDbCollectionName);
             AnsiConsole.MarkupLine("[red]Deleted collection for Zendesk tickets in MongoDb.[/]");
@@ -49,20 +62,5 @@ public class ZendeskTicketMongoDbExporter(Options options)
             .Text(zendeskTicket => zendeskTicket.Messages.Select(message => message.Content));
         var indexModel = new CreateIndexModel<ZendeskTicketMongoDbDocument>(indexKeys);
         await collection.Indexes.CreateOneAsync(indexModel);
-    }
-
-    private static async Task InsertData(ZendeskTicket[] zendeskTickets, IMongoDatabase database)
-    {
-        var collection = database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketCollections.MongoDbCollectionName);
-        if (await collection.EstimatedDocumentCountAsync() == 0)
-        {
-            var documents = zendeskTickets.Select(ZendeskTicketMongoDbDocument.Create);
-            await collection.InsertManyAsync(documents);
-            AnsiConsole.MarkupLine("[green]Successfully exported Zendesk tickets into MongoDb.[/]");
-        }
-        else
-        {
-            AnsiConsole.MarkupLine("[yellow]Zendesk tickets already exported into MongoDb. Skipping export.[/]");
-        }
     }
 }

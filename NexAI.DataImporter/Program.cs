@@ -8,6 +8,7 @@ try
     Console.OutputEncoding = System.Text.Encoding.UTF8;
     AnsiConsole.Write(new FigletText("Nex AI - Data Importer").Color(Color.Red1));
     var options = new Options(GetConfiguration());
+    await new NexAI.DataImporter.RabbitMQ(options).CreateStructure();
     var zendeskTicketUpdater = new ZendeskTicketUpdater(options);
     await zendeskTicketUpdater.Update();
 }

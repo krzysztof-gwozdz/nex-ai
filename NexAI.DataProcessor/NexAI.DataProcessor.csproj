@@ -17,8 +17,8 @@
         <None Update="Zendesk\sample-tickets.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Update="appsettings.data_importer.json">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <None Update="appsettings.data_processor.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 
@@ -27,7 +27,7 @@
         <ProjectReference Include="..\NexAI.LLMs\NexAI.LLMs.csproj"/>
         <ProjectReference Include="..\NexAI.MongoDb\NexAI.MongoDb.csproj"/>
         <ProjectReference Include="..\NexAI.Qdrant\NexAI.Qdrant.csproj"/>
-        <ProjectReference Include="..\NexAI.RabbitMQ\NexAI.RabbitMQ.csproj" />
+        <ProjectReference Include="..\NexAI.RabbitMQ\NexAI.RabbitMQ.csproj"/>
         <ProjectReference Include="..\NexAI.Zendesk\NexAI.Zendesk.csproj"/>
     </ItemGroup>
 
