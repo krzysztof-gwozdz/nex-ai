@@ -8,14 +8,14 @@ public record ZendeskTicketMongoDbDocument
     {
     }
 
-    public ZendeskTicketMongoDbDocument(ZendeskTicketId id, string number, string title, string description, DateTime createdAt, DateTime? updateAt, MessageDocument[] messages) : this()
+    public ZendeskTicketMongoDbDocument(ZendeskTicketId id, string number, string title, string description, DateTime createdAt, DateTime? updatedAt, MessageDocument[] messages) : this()
     {
         Id = id;
         Number = number;
         Title = title;
         Description = description;
         CreatedAt = createdAt;
-        UpdateAt = updateAt;
+        UpdatedAt = updatedAt;
         Messages = messages;
     }
 
@@ -35,8 +35,8 @@ public record ZendeskTicketMongoDbDocument
     [BsonElement("createdAt")]
     public DateTime CreatedAt { get; init; }
 
-    [BsonElement("createdAt")]
-    public DateTime? UpdateAt { get; init; }
+    [BsonElement("updatedAt")]
+    public DateTime? UpdatedAt { get; init; }
 
     [BsonElement("messages")]
     public MessageDocument[] Messages { get; init; } = [];
@@ -63,7 +63,7 @@ public record ZendeskTicketMongoDbDocument
             Title,
             Description,
             CreatedAt,
-            UpdateAt,
+            UpdatedAt,
             Messages.Select(message => new ZendeskTicket.ZendeskTicketMessage(message.Content, message.Author, message.CreatedAt)).ToArray()
         );
 

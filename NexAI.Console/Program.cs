@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Text;
+using Microsoft.Extensions.Configuration;
 using NexAI.Config;
 using NexAI.Console;
 using NexAI.Console.Features;
@@ -6,7 +7,7 @@ using Spectre.Console;
 
 try
 {
-    Console.OutputEncoding = System.Text.Encoding.UTF8;
+    Console.OutputEncoding = Encoding.UTF8;
     AnsiConsole.Write(new FigletText("Nex AI").Color(Color.Aquamarine1));
     var options = new Options(GetConfiguration());
 
