@@ -18,7 +18,21 @@ public class ZendeskTicketQdrantExporter(Options options)
     {
         AnsiConsole.MarkupLine("[yellow]Start exporting Zendesk tickets into Qdrant...[/]");
         using var client = new QdrantClient(new QdrantGrpcClient(_qdrantOptions.Host, _qdrantOptions.Port, _qdrantOptions.ApiKey));
-        await CreateSchema(client);
+        if (_dataProcessorOptions.Recreate && await client.CollectionExistsAsync(ZendeskTicketCollections.QdrantCollectionName))
+        {
+            await client.DeleteCollectionAsync(ZendeskTicketCollections.QdrantCollectionName);
+            AnsiConsole.MarkupLine("[red]Deleted collection for Zendesk tickets in Qdrant.[/]");
+        }
+
+        if (!await client.CollectionExistsAsync(ZendeskTicketCollections.QdrantCollectionName))
+        {
+            await client.CreateCollectionAsync(ZendeskTicketCollections.QdrantCollectionName, new VectorParams { Size = _textEmbedder.EmbeddingDimension, Distance = Distance.Dot });
+            AnsiConsole.MarkupLine("[green]Created schema for Zendesk tickets in Qdrant.[/]");
+        }
+        else
+        {
+            AnsiConsole.MarkupLine("[yellow]Collection for Zendesk tickets already exists in Qdrant. Skipping schema creation.[/]");
+        }
     }
 
     public async Task Export(ZendeskTicket zendeskTicket)
@@ -35,24 +49,5 @@ public class ZendeskTicketQdrantExporter(Options options)
         }
         await client.UpsertAsync(ZendeskTicketCollections.QdrantCollectionName, points);
         AnsiConsole.MarkupLine("[green]Successfully exported Zendesk tickets into Qdrant.[/]");
-    }
-
-    private async Task CreateSchema(QdrantClient client)
-    {
-        if (_dataProcessorOptions.Recreate && await client.CollectionExistsAsync(ZendeskTicketCollections.QdrantCollectionName))
-        {
-            await client.DeleteCollectionAsync(ZendeskTicketCollections.QdrantCollectionName);
-            AnsiConsole.MarkupLine("[red]Deleted collection for Zendesk tickets in Qdrant.[/]");
-        }
-
-        if (!await client.CollectionExistsAsync(ZendeskTicketCollections.QdrantCollectionName))
-        {
-            await client.CreateCollectionAsync(ZendeskTicketCollections.QdrantCollectionName, new VectorParams { Size = _textEmbedder.EmbeddingDimension, Distance = Distance.Dot });
-            AnsiConsole.MarkupLine("[green]Created schema for Zendesk tickets in Qdrant.[/]");
-        }
-        else
-        {
-            AnsiConsole.MarkupLine("[yellow]Collection for Zendesk tickets already exists in Qdrant. Skipping schema creation.[/]");
-        }
     }
 }

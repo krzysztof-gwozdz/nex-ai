@@ -16,26 +16,10 @@ public class ZendeskTicketMongoDbExporter(Options options)
 
     public async Task CreateSchema()
     {
+        RegisterGuidSerializer();
         var clientSettings = MongoClientSettings.FromUrl(new(_mongoDbOptions.ConnectionString));
         var client = new MongoClient(clientSettings);
         var database = client.GetDatabase(_mongoDbOptions.Database);
-        await CreateSchema(database);
-        BsonSerializer.TryRegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
-    }
-
-    public async Task Export(ZendeskTicket zendeskTicket)
-    {
-        var clientSettings = MongoClientSettings.FromUrl(new(_mongoDbOptions.ConnectionString));
-        var client = new MongoClient(clientSettings);
-        var database = client.GetDatabase(_mongoDbOptions.Database);
-        var collection = database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketCollections.MongoDbCollectionName);
-        var document = ZendeskTicketMongoDbDocument.Create(zendeskTicket);
-        await collection.InsertOneAsync(document);
-        AnsiConsole.MarkupLine("[green]Successfully exported Zendesk tickets into MongoDb.[/]");
-    }
-
-    private async Task CreateSchema(IMongoDatabase database)
-    {
         var existingCollections = await (await database.ListCollectionNamesAsync()).ToListAsync();
         if (_dataProcessorOptions.Recreate && existingCollections.Contains(ZendeskTicketCollections.MongoDbCollectionName))
         {
@@ -51,6 +35,29 @@ public class ZendeskTicketMongoDbExporter(Options options)
         else
         {
             AnsiConsole.MarkupLine("[yellow]Collection for Zendesk tickets already exists in MongoDb. Skipping schema creation.[/]");
+        }
+    }
+
+    public async Task Export(ZendeskTicket zendeskTicket)
+    {
+        var clientSettings = MongoClientSettings.FromUrl(new(_mongoDbOptions.ConnectionString));
+        var client = new MongoClient(clientSettings);
+        var database = client.GetDatabase(_mongoDbOptions.Database);
+        var collection = database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketCollections.MongoDbCollectionName);
+        var document = ZendeskTicketMongoDbDocument.Create(zendeskTicket);
+        await collection.InsertOneAsync(document);
+        AnsiConsole.MarkupLine("[green]Successfully exported Zendesk tickets into MongoDb.[/]");
+    }
+
+    private static void RegisterGuidSerializer()
+    {
+        try
+        {
+            BsonSerializer.TryRegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
+        }
+        catch
+        {
+            // ignored
         }
     }
 
