@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using NexAI.Config;
 using NexAI.DataProcessor;
 using NexAI.DataProcessor.Zendesk;
@@ -19,6 +20,7 @@ try
     using var host = Host.CreateDefaultBuilder(args)
         .ConfigureServices((_, services) =>
         {
+            services.AddLogging(loggingBuilder => loggingBuilder.AddConsole());
             services.AddSingleton(options);
             services.AddHostedService<JsonConsumerService>();
             services.AddHostedService<MongoDbConsumerService>();

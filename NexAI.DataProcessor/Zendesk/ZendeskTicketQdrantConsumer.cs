@@ -1,10 +1,11 @@
-﻿using NexAI.Config;
+﻿using Microsoft.Extensions.Logging;
+using NexAI.Config;
 using NexAI.RabbitMQ;
 using NexAI.Zendesk;
 
 namespace NexAI.DataProcessor.Zendesk;
 
-public class ZendeskTicketQdrantConsumer(Options options) : RabbitMQConsumer<ZendeskTicket>(options, "qdrant")
+public class ZendeskTicketQdrantConsumer(ILogger logger, Options options) : RabbitMQConsumer<ZendeskTicket>(logger, options, "qdrant")
 {
     protected override async Task HandleMessage(ZendeskTicket zendeskTicket)
     {

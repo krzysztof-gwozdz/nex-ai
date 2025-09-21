@@ -1,10 +1,11 @@
-﻿using NexAI.Config;
+﻿using Microsoft.Extensions.Logging;
+using NexAI.Config;
 using NexAI.RabbitMQ;
 using NexAI.Zendesk;
 
 namespace NexAI.DataProcessor.Zendesk;
 
-public class ZendeskTicketMongoDbConsumer(Options options) : RabbitMQConsumer<ZendeskTicket>(options, "mongodb")
+public class ZendeskTicketMongoDbConsumer(ILogger logger, Options options) : RabbitMQConsumer<ZendeskTicket>(logger, options, "mongodb")
 {
     protected override async Task HandleMessage(ZendeskTicket zendeskTicket)
     {
