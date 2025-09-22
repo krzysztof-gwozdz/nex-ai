@@ -1,16 +1,14 @@
-﻿using NexAI.Config;
-using NexAI.RabbitMQ;
+﻿using NexAI.RabbitMQ;
 using RabbitMQ.Client;
 
 namespace NexAI.DataImporter;
 
-public class RabbitMQ(Options options)
+public class RabbitMQStructure(RabbitMQClient rabbitMQClient)
 {
     public const string ExchangeName = "data_importer";
     
-    public async Task CreateStructure()
+    public async Task Create()
     {
-        var rabbitMQClient = new RabbitMQClient(options.Get<RabbitMQOptions>());
         await using var connection = await rabbitMQClient.ConnectionFactory.CreateConnectionAsync();
         await using var channel = await connection.CreateChannelAsync();
     

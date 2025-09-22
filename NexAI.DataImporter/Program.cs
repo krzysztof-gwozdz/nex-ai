@@ -1,16 +1,33 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using NexAI.Config;
+using NexAI.DataImporter;
 using NexAI.DataImporter.Zendesk;
+using NexAI.RabbitMQ;
+using NexAI.Zendesk.Api;
 using Spectre.Console;
 
 try
 {
     Console.OutputEncoding = System.Text.Encoding.UTF8;
     AnsiConsole.Write(new FigletText("Nex AI - Data Importer").Color(Color.Red1));
-    var options = new Options(GetConfiguration());
-    await new NexAI.DataImporter.RabbitMQ(options).CreateStructure();
-    var zendeskTicketUpdater = new ZendeskTicketUpdater(options);
-    await zendeskTicketUpdater.Update();
+
+    using var host = Host.CreateDefaultBuilder(args)
+        .ConfigureServices((_, services) =>
+        {
+            services.AddLogging(loggingBuilder => loggingBuilder.AddConsole());
+            services.AddSingleton(new Options(GetConfiguration()));
+            services.AddSingleton<RabbitMQClient>();
+            services.AddSingleton<RabbitMQStructure>();
+            services.AddSingleton<ZendeskApiClient>();
+            services.AddSingleton<ZendeskTicketImporter>();
+        })
+        .Build();
+
+    await host.Services.GetRequiredService<RabbitMQStructure>().Create();
+    await host.Services.GetRequiredService<ZendeskTicketImporter>().Import();
 }
 catch (Exception e)
 {

@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Json;
 using System.Text.Json;
+using Microsoft.Extensions.Logging;
 using NexAI.Config;
 using NexAI.Zendesk.Api.Dtos;
 
@@ -7,10 +8,12 @@ namespace NexAI.Zendesk.Api;
 
 public class ZendeskApiClient
 {
+    private readonly ILogger _logger;
     private readonly HttpClient _httpClient;
 
-    public ZendeskApiClient(Options options)
+    public ZendeskApiClient(ILogger<ZendeskApiClient> logger, Options options)
     {
+        _logger = logger;
         var zendeskOptions = options.Get<ZendeskOptions>();
         _httpClient = new()
         {
@@ -22,7 +25,7 @@ public class ZendeskApiClient
 
     public async Task<int> GetEmployeesCount() =>
         await GetCount("/api/v2/users/count?role[]=agent&role[]=admin");
-    
+
     public async Task<int> GetGroupsCount() =>
         await GetCount("/api/v2/Groups/count");
 
@@ -34,7 +37,7 @@ public class ZendeskApiClient
             "/api/v2/users?role[]=agent&role[]=admin",
             dto => dto.Users,
             limit);
-    
+
     public async Task<GroupDto[]> GetGroups() =>
         await GetPagedItems<ListGroupsDto, GroupDto>(
             "/api/v2/groups",
@@ -48,10 +51,12 @@ public class ZendeskApiClient
         bool endOfStream;
         do
         {
-            var endpoint = $"/api/v2/incremental/tickets?exclude_deleted=true&start_time={timestamp}";
+            var endpoint = $"/api/v2/incremental/tickets/cursor?exclude_deleted=true&start_time={timestamp}";
             var response = await _httpClient.GetAsync(endpoint);
             if (!response.IsSuccessStatusCode)
+            {
                 throw new($"Failed to get items from {endpoint}: {response.ReasonPhrase}");
+            }
             var dto = await ParseContentToDto<IncrementalTicketExportDto>(response);
             if (dto.Tickets is not null)
             {
@@ -77,6 +82,7 @@ public class ZendeskApiClient
 
     private async Task<int> GetCount(string endpoint)
     {
+        _logger.LogInformation("Fetching page count from {endpoint}", endpoint);
         var response = await _httpClient.GetAsync(endpoint);
         if (!response.IsSuccessStatusCode)
             throw new($"Failed to get items from {endpoint}: {response.ReasonPhrase}");
@@ -93,10 +99,13 @@ public class ZendeskApiClient
         while (hasMorePages)
         {
             var separator = endpoint.Contains('?') ? "&" : "?";
-            var response = await _httpClient.GetAsync($"{endpoint}{separator}page={page}");
+            var url = $"{endpoint}{separator}page={page}";
+            _logger.LogInformation("Fetching page {Page} from {Url}", page, url);
+            var response = await _httpClient.GetAsync(url);
             if (!response.IsSuccessStatusCode)
+            {
                 throw new($"Failed to get items from {endpoint}: {response.ReasonPhrase}");
-
+            }
             var dto = await ParseContentToDto<TDto>(response);
             var items = getItems(dto);
             if (items is not null)
