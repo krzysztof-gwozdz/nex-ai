@@ -1,15 +1,13 @@
 ﻿using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
-using NexAI.Config;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
 namespace NexAI.RabbitMQ;
 
-public abstract class RabbitMQConsumer<TMessage>(ILogger logger, Options options, string queueName) : IAsyncDisposable
+public class RabbitMQConsumer<TMessage>(ILogger logger, RabbitMQClient rabbitMQClient, Func<TMessage, Task> handleMessage, string queueName) : IAsyncDisposable
 {
-    private readonly RabbitMQClient _client = new(options.Get<RabbitMQOptions>());
     private IConnection? _connection;
     private IChannel? _channel;
 
@@ -28,7 +26,7 @@ public abstract class RabbitMQConsumer<TMessage>(ILogger logger, Options options
     public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         logger.LogInformation("Connecting to '{queueName}' queue.", queueName);
-        _connection = await _client.ConnectionFactory.CreateConnectionAsync(cancellationToken);
+        _connection = await rabbitMQClient.ConnectionFactory.CreateConnectionAsync(cancellationToken);
         _channel = await _connection.CreateChannelAsync(cancellationToken: cancellationToken);
         var consumer = new AsyncEventingBasicConsumer(_channel);
         consumer.ReceivedAsync += async (_, deliverEventArgs) =>
@@ -38,7 +36,7 @@ public abstract class RabbitMQConsumer<TMessage>(ILogger logger, Options options
                 var body = deliverEventArgs.Body.ToArray();
                 var messageString = Encoding.UTF8.GetString(body);
                 var message = JsonSerializer.Deserialize<TMessage>(messageString) ?? throw new($"Failed to deserialize message from '{queueName}' queue.");
-                await HandleMessage(message);
+                await handleMessage(message);
                 await _channel.BasicAckAsync(deliverEventArgs.DeliveryTag, multiple: false, cancellationToken: cancellationToken);
             }
             catch(Exception exception)
@@ -52,6 +50,4 @@ public abstract class RabbitMQConsumer<TMessage>(ILogger logger, Options options
         await using var _ = cancellationToken.Register(() => taskCompletionSource.TrySetResult());
         await taskCompletionSource.Task;
     }
-
-    protected abstract Task HandleMessage(TMessage message);
 }

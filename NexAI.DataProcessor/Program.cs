@@ -3,8 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NexAI.Config;
-using NexAI.DataProcessor;
+using NexAI.DataProcessor.ConsumerServices;
 using NexAI.DataProcessor.Zendesk;
+using NexAI.RabbitMQ;
 using Spectre.Console;
 
 try
@@ -22,6 +23,7 @@ try
         {
             services.AddLogging(loggingBuilder => loggingBuilder.AddConsole());
             services.AddSingleton(options);
+            services.AddSingleton<RabbitMQClient>();
             services.AddHostedService<JsonConsumerService>();
             services.AddHostedService<MongoDbConsumerService>();
             services.AddHostedService<QdrantConsumerService>();
