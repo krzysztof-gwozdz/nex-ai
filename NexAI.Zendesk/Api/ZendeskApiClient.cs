@@ -23,36 +23,39 @@ public class ZendeskApiClient
         _httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {zendeskOptions.AuthorizationToken}");
     }
 
-    public async Task<int> GetEmployeesCount() =>
-        await GetCount("/api/v2/users/count?role[]=agent&role[]=admin");
+    public async Task<int> GetEmployeesCount(CancellationToken cancellationToken) =>
+        await GetCount("/api/v2/users/count?role[]=agent&role[]=admin", cancellationToken);
 
-    public async Task<int> GetGroupsCount() =>
-        await GetCount("/api/v2/Groups/count");
+    public async Task<int> GetGroupsCount(CancellationToken cancellationToken) =>
+        await GetCount("/api/v2/Groups/count", cancellationToken);
 
-    public async Task<int> GetTicketsCount() =>
-        await GetCount("/api/v2/tickets/count");
+    public async Task<int> GetTicketsCount(CancellationToken cancellationToken) =>
+        await GetCount("/api/v2/tickets/count", cancellationToken);
 
-    public async Task<UserDto[]> GetEmployees(int? limit = null) =>
+    public async Task<UserDto[]> GetEmployees(int? limit, CancellationToken cancellationToken) =>
         await GetPagedItems<ListUsersDto, UserDto>(
             "/api/v2/users?role[]=agent&role[]=admin",
             dto => dto.Users,
-            limit);
+            limit,
+            cancellationToken);
 
-    public async Task<GroupDto[]> GetGroups() =>
+    public async Task<GroupDto[]> GetGroups(int? limit, CancellationToken cancellationToken) =>
         await GetPagedItems<ListGroupsDto, GroupDto>(
             "/api/v2/groups",
             dto => dto.Groups,
-            null);
+            limit,
+            cancellationToken);
 
-    public async Task<TicketDto[]> GetTickets(DateTime startTime)
+    public async Task<TicketDto[]> GetTickets(DateTime startTime, CancellationToken cancellationToken)
     {
         var timestamp = ((DateTimeOffset)startTime).ToUnixTimeSeconds();
         var tickets = new List<TicketDto>();
         bool endOfStream;
         do
         {
-            var endpoint = $"/api/v2/incremental/tickets/cursor?exclude_deleted=true&start_time={timestamp}";
-            var response = await _httpClient.GetAsync(endpoint);
+            var endpoint = $"/api/v2/incremental/tickets?exclude_deleted=true&start_time={timestamp}";
+            _logger.LogInformation("Fetching page from {endpoint} ({time:dd/MM/yyyy})", endpoint, DateTimeOffset.FromUnixTimeSeconds(timestamp));
+            var response = await _httpClient.GetAsync(endpoint, cancellationToken);
             if (!response.IsSuccessStatusCode)
             {
                 throw new($"Failed to get items from {endpoint}: {response.ReasonPhrase}");
@@ -62,35 +65,38 @@ public class ZendeskApiClient
             {
                 tickets.AddRange(dto.Tickets);
             }
+            _logger.LogInformation("Fetched {Count} tickets in total.", tickets.Count);
             endOfStream = dto.EndOfStream ?? false;
             timestamp = dto.EndTime ?? long.MaxValue;
         } while (!endOfStream);
         return tickets.DistinctBy(ticket => ticket.Id).ToArray();
     }
 
-    public async Task<TicketDto[]> GetTickets(int? limit = null) =>
+    public async Task<TicketDto[]> GetTickets(int? limit, CancellationToken cancellationToken) =>
         await GetPagedItems<ListTicketsDto, TicketDto>(
             "/api/v2/tickets",
             dto => dto.Tickets,
-            limit);
+            limit,
+            cancellationToken);
 
-    public async Task<CommentDto[]> GetTicketComments(long ticketId, int? limit = null) =>
+    public async Task<CommentDto[]> GetTicketComments(long ticketId, int? limit, CancellationToken cancellationToken) =>
         await GetPagedItems<ListTicketCommentsDto, CommentDto>(
             $"/api/v2/tickets/{ticketId}/comments",
             dto => dto.Comments,
-            limit);
+            limit,
+            cancellationToken);
 
-    private async Task<int> GetCount(string endpoint)
+    private async Task<int> GetCount(string endpoint, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Fetching page count from {endpoint}", endpoint);
-        var response = await _httpClient.GetAsync(endpoint);
+        var response = await _httpClient.GetAsync(endpoint, cancellationToken);
         if (!response.IsSuccessStatusCode)
             throw new($"Failed to get items from {endpoint}: {response.ReasonPhrase}");
         var countsDto = await ParseContentToDto<CountsDto>(response);
         return countsDto.Count?.Value ?? 0;
     }
 
-    private async Task<TItem[]> GetPagedItems<TDto, TItem>(string endpoint, Func<TDto, TItem[]?> getItems, int? limit) where TDto : PagedDto
+    private async Task<TItem[]> GetPagedItems<TDto, TItem>(string endpoint, Func<TDto, TItem[]?> getItems, int? limit, CancellationToken cancellationToken) where TDto : PagedDto
     {
         var allItems = new List<TItem>();
         var page = 1;
@@ -101,7 +107,7 @@ public class ZendeskApiClient
             var separator = endpoint.Contains('?') ? "&" : "?";
             var url = $"{endpoint}{separator}page={page}";
             _logger.LogInformation("Fetching page {Page} from {Url}", page, url);
-            var response = await _httpClient.GetAsync(url);
+            var response = await _httpClient.GetAsync(url, cancellationToken);
             if (!response.IsSuccessStatusCode)
             {
                 throw new($"Failed to get items from {endpoint}: {response.ReasonPhrase}");

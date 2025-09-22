@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Collections.Concurrent;
 using NexAI.Config;
 using NexAI.RabbitMQ;
 using NexAI.Zendesk;
@@ -17,55 +18,65 @@ internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, RabbitMQ
 
     private readonly DateTime _ticketStartDateTime = new(2025, 1, 1);
 
-    public async Task Import()
+    public async Task Import(CancellationToken cancellationToken = default)
     {
         AnsiConsole.MarkupLine("[yellow]Importing sample Zendesk tickets from JSON...[/]");
-        var groups = await GetGroupsFromApiOrBackup();
-        var employees = await GetEmployeesFromApiOrBackup();
-        var tickets = await GetTicketsFromApiOrBackup(_ticketStartDateTime);
-        var zendeskTickets = new List<ZendeskTicket>();
-        foreach (var ticket in tickets)
+        var groups = await GetGroupsFromApiOrBackup(cancellationToken);
+        var employees = await GetEmployeesFromApiOrBackup(cancellationToken);
+        var tickets = await GetTicketsFromApiOrBackup(_ticketStartDateTime, cancellationToken);
+        for (var i = 0; i < tickets.Length; i += 100)
         {
-            var comments = await GetCommentsFromApiOrBackup(ticket.Id!.Value);
-            zendeskTickets.Add(ZendeskTicketMapper.Map(ticket, comments, employees));
+            var zendeskTicket = new ConcurrentBag<ZendeskTicket>();
+            await Parallel.ForEachAsync(
+                tickets.Skip(i).Take(100).ToArray(),
+                new ParallelOptions { MaxDegreeOfParallelism = 10 },
+                async (ticket, prallelCancellationToken) =>
+                {
+                    var comments = await GetCommentsFromApiOrBackup(ticket.Id!.Value, prallelCancellationToken);
+                    var mapped = ZendeskTicketMapper.Map(ticket, comments, employees);
+                    zendeskTicket.Add(mapped);
+                });
+            await rabbitMQClient.Send(RabbitMQStructure.ExchangeName, zendeskTicket.ToArray());
         }
-        AnsiConsole.MarkupLine($"[green]Successfully imported {zendeskTickets.Count} Zendesk tickets.[/]");
-        AnsiConsole.MarkupLine("[darkgoldenrod]Sending Zendesk ticket to RabbitMQStructure...[/]");
-        await rabbitMQClient.Send(RabbitMQStructure.ExchangeName, zendeskTickets);
+        AnsiConsole.MarkupLine($"[green]Successfully imported {tickets.Length} Zendesk tickets.[/]");
     }
 
-    private async Task<GroupDto[]> GetGroupsFromApiOrBackup() =>
+    private async Task<GroupDto[]> GetGroupsFromApiOrBackup(CancellationToken cancellationToken) =>
         await GetFromApiOrBackup(
             BackupGroupsFilePath,
-            zendeskApiClient.GetGroups,
+            () => zendeskApiClient.GetGroups(null, cancellationToken),
             "Groups",
-            group => $"Fetched {group.Length} groups from Zendesk.");
+            group => $"Fetched {group.Length} groups from Zendesk.",
+            cancellationToken);
 
-    private async Task<UserDto[]> GetEmployeesFromApiOrBackup() =>
+    private async Task<UserDto[]> GetEmployeesFromApiOrBackup(CancellationToken cancellationToken) =>
         await GetFromApiOrBackup(
             BackupEmployeesFilePath,
-            () => zendeskApiClient.GetEmployees(),
+            () => zendeskApiClient.GetEmployees(null, cancellationToken),
             "Employees",
-            user => $"Fetched {user.Length} employees from Zendesk.");
+            user => $"Fetched {user.Length} employees from Zendesk.",
+            cancellationToken);
 
-    private async Task<TicketDto[]> GetTicketsFromApiOrBackup(DateTime startTime) =>
+    private async Task<TicketDto[]> GetTicketsFromApiOrBackup(DateTime startTime, CancellationToken cancellationToken) =>
         await GetFromApiOrBackup(
             string.Format(BackupTicketsFilePath, startTime),
-            () => zendeskApiClient.GetTickets(startTime),
+            () => zendeskApiClient.GetTickets(startTime, cancellationToken),
             "Tickets",
-            ticket => $"Fetched {ticket.Length} tickets from Zendesk.");
+            ticket => $"Fetched {ticket.Length} tickets from Zendesk.",
+            cancellationToken);
 
-    private async Task<CommentDto[]> GetCommentsFromApiOrBackup(long ticketId) =>
+    private async Task<CommentDto[]> GetCommentsFromApiOrBackup(long ticketId, CancellationToken cancellationToken) =>
         await GetFromApiOrBackup(
             string.Format(BackupCommentsFilePath, ticketId),
-            () => zendeskApiClient.GetTicketComments(ticketId),
+            () => zendeskApiClient.GetTicketComments(ticketId, null, cancellationToken),
             $"Comments for ticket {ticketId}",
-            comment => $"Fetched {comment.Length} comments from Zendesk for ticket {ticketId}.");
+            comment => $"Fetched {comment.Length} comments from Zendesk for ticket {ticketId}.",
+            cancellationToken);
 
-    private async Task<T[]> GetFromApiOrBackup<T>(string filename, Func<Task<T[]>> fetchFromApi, string entityDescription, Func<T[], string> fetchedMessage)
+    private async Task<T[]> GetFromApiOrBackup<T>(string filename, Func<Task<T[]>> fetchFromApi, string entityDescription, Func<T[], string> fetchedMessage, CancellationToken cancellationToken)
     {
         var filePath = GetBackupFilePath(filename);
-        if (options.Get<DataImporterOptions>().UseBackup && await TryLoadFromBackup<T[]>(filePath) is { } backup)
+        if (options.Get<DataImporterOptions>().UseBackup && await TryLoadFromBackup<T[]>(filePath, cancellationToken) is { } backup)
         {
             AnsiConsole.MarkupLine($"[blue]Found backup for {entityDescription}. Loading {backup.Length} from backup file[/]");
             return backup;
@@ -88,13 +99,13 @@ internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, RabbitMQ
         return Path.Combine(tempDirectory, fileName);
     }
 
-    private static async Task<T?> TryLoadFromBackup<T>(string filePath)
+    private static async Task<T?> TryLoadFromBackup<T>(string filePath, CancellationToken cancellationToken)
     {
         if (!File.Exists(filePath))
         {
             return default;
         }
-        var json = await File.ReadAllTextAsync(filePath);
+        var json = await File.ReadAllTextAsync(filePath, cancellationToken);
         return JsonSerializer.Deserialize<T>(json);
     }
 
