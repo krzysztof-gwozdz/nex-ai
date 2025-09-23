@@ -21,7 +21,6 @@ internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, RabbitMQ
     public async Task Import(CancellationToken cancellationToken = default)
     {
         AnsiConsole.MarkupLine("[yellow]Importing sample Zendesk tickets from JSON...[/]");
-        var groups = await GetGroupsFromApiOrBackup(cancellationToken);
         var employees = await GetEmployeesFromApiOrBackup(cancellationToken);
         var tickets = await GetTicketsFromApiOrBackup(_ticketStartDateTime, cancellationToken);
         for (var i = 0; i < tickets.Length; i += 100)
@@ -30,9 +29,9 @@ internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, RabbitMQ
             await Parallel.ForEachAsync(
                 tickets.Skip(i).Take(100).ToArray(),
                 new ParallelOptions { MaxDegreeOfParallelism = 10 },
-                async (ticket, prallelCancellationToken) =>
+                async (ticket, parallelCancellationToken) =>
                 {
-                    var comments = await GetCommentsFromApiOrBackup(ticket.Id!.Value, prallelCancellationToken);
+                    var comments = await GetCommentsFromApiOrBackup(ticket.Id!.Value, parallelCancellationToken);
                     var mapped = ZendeskTicketMapper.Map(ticket, comments, employees);
                     zendeskTicket.Add(mapped);
                 });

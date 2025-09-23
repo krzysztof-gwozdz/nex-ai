@@ -6,3 +6,4 @@ riderModule.iml
 **.local.json
 *.user
 appsettings.local.json
+.idea/.idea.NexAI/.idea/copilot.*

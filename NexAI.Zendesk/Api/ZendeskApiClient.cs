@@ -27,7 +27,7 @@ public class ZendeskApiClient
         await GetCount("/api/v2/users/count?role[]=agent&role[]=admin", cancellationToken);
 
     public async Task<int> GetGroupsCount(CancellationToken cancellationToken) =>
-        await GetCount("/api/v2/Groups/count", cancellationToken);
+        await GetCount("/api/v2/groups/count", cancellationToken);
 
     public async Task<int> GetTicketsCount(CancellationToken cancellationToken) =>
         await GetCount("/api/v2/tickets/count", cancellationToken);
@@ -45,6 +45,9 @@ public class ZendeskApiClient
             dto => dto.Groups,
             limit,
             cancellationToken);
+
+    public async Task<TicketDto> GetTicket(string id, CancellationToken cancellationToken) =>
+        (await Get<GetTicketDto>($"/api/v2/tickets/{id}", cancellationToken)).Ticket ?? throw new($"Ticket with id {id} not found.");
 
     public async Task<TicketDto[]> GetTickets(DateTime startTime, CancellationToken cancellationToken)
     {
@@ -94,6 +97,16 @@ public class ZendeskApiClient
             throw new($"Failed to get items from {endpoint}: {response.ReasonPhrase}");
         var countsDto = await ParseContentToDto<CountsDto>(response);
         return countsDto.Count?.Value ?? 0;
+    }
+
+    private async Task<TDto> Get<TDto>(string endpoint, CancellationToken cancellationToken)
+    {
+        _logger.LogInformation("Fetching data from {endpoint}", endpoint);
+        var response = await _httpClient.GetAsync(endpoint, cancellationToken);
+        if (!response.IsSuccessStatusCode)
+            throw new($"Failed to get items from {endpoint}: {response.ReasonPhrase}");
+        var dto = await ParseContentToDto<TDto>(response);
+        return dto;
     }
 
     private async Task<TItem[]> GetPagedItems<TDto, TItem>(string endpoint, Func<TDto, TItem[]?> getItems, int? limit, CancellationToken cancellationToken) where TDto : PagedDto
