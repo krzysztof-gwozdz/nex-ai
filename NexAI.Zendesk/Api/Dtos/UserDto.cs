@@ -3,10 +3,10 @@
 namespace NexAI.Zendesk.Api.Dtos;
 
 public record UserDto(
-    [property: JsonPropertyName("id")]
-    long? Id,
     [property: JsonPropertyName("url")]
     string? Url,
+    [property: JsonPropertyName("id")]
+    long? Id,
     [property: JsonPropertyName("name")]
     string? Name,
     [property: JsonPropertyName("email")]

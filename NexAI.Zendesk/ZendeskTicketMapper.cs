@@ -1,9 +1,8 @@
 ﻿using System.Net;
 using System.Text.RegularExpressions;
-using NexAI.Zendesk;
 using NexAI.Zendesk.Api.Dtos;
 
-namespace NexAI.DataImporter.Zendesk;
+namespace NexAI.Zendesk;
 
 public static partial class ZendeskTicketMapper
 {
@@ -14,10 +13,10 @@ public static partial class ZendeskTicketMapper
     private static partial Regex ZeroWidthCharsRegex();
 
     [GeneratedRegex(@"\b[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}\b")]
-    private static partial Regex EmailRegex();
+    private static partial Regex EmailAddressRegex();
 
     [GeneratedRegex(@"(?<!\w)(?=(?:.*\d){9,})(?:\+?\d{1,3}[\s.-]?)?(?:\(?\d{2,4}\)?[\s.-]?){2,4}\d{2,4}\b")]
-    private static partial Regex PhoneRegex();
+    private static partial Regex PhoneNumberRegex();
 
     [GeneratedRegex(@"!\[.*?\]\([^)]+\)", RegexOptions.Singleline)]
     private static partial Regex ImageUrlRegex();
@@ -26,9 +25,14 @@ public static partial class ZendeskTicketMapper
     {
         var zendeskTicket = new ZendeskTicket(
             ZendeskTicketId.New(),
-            NormalizeId(ticket.Id),
+            NormalizeNumber(ticket.Id),
             NormalizeTitle(ticket.Subject),
             NormalizeDescription(ticket.Description),
+            NormalizeUrl(ticket.Url),
+            NormalizeCategory(ticket.CustomFields),
+            NormalizeStatus(ticket.Status),
+            NormalizeCountry(ticket.CustomFields),
+            NormalizeMerchantId(ticket.CustomFields),
             NormalizeCreatedAt(ticket.CreatedAt),
             NormalizeUpdatedAt(ticket.UpdatedAt),
             comments.Select(comment => new ZendeskTicket.ZendeskTicketMessage(
@@ -41,45 +45,57 @@ public static partial class ZendeskTicketMapper
         return zendeskTicket;
     }
 
-    private static string NormalizeId(long? id) =>
+    private static string NormalizeNumber(long? id) =>
         id is null or < 0 ? throw new("Could not parse Id") : id.Value.ToString();
 
     private static string NormalizeTitle(string? subject)
     {
-        if (string.IsNullOrWhiteSpace(subject))
-        {
-            return "<MISSING TITLE>";
-        }
-        subject = subject.NormalizeText();
-        return subject;
+        var title = subject?.NormalizeText();
+        return string.IsNullOrWhiteSpace(title) ? "<MISSING TITLE>" : title;
     }
 
     private static string NormalizeDescription(string? description)
     {
-        if (string.IsNullOrWhiteSpace(description))
-        {
-            return "<MISSING DESCRIPTION>";
-        }
-        description = description.NormalizeText().MaskEmailAddresses().MaskPhoneNumbers().MaskImageUrls();
-        return WebUtility.HtmlDecode(description);
+        description = description?.NormalizeText().MaskEmailAddresses().MaskPhoneNumbers().MaskImageUrls();
+        return string.IsNullOrWhiteSpace(description) ? "<MISSING DESCRIPTION>" : WebUtility.HtmlDecode(description);
     }
+
+    private static string NormalizeUrl(string? url) =>
+        string.IsNullOrWhiteSpace(url) ? "<MISSING URL>" : url;
+
+    private static string NormalizeCategory(TicketDto.CustomField[]? customFields)
+    {
+        var category = customFields?.FirstOrDefault(customField => customField.Id == 23426028)?.Value?.ToString();
+        return string.IsNullOrWhiteSpace(category) ? "<MISSING CATEGORY>" : category;
+    }
+
+    private static string NormalizeCountry(TicketDto.CustomField[]? customFields)
+    {
+        var country = customFields?.FirstOrDefault(customField => customField.Id == 360000060007)?.Value?.ToString();
+        return string.IsNullOrWhiteSpace(country) ? "<MISSING COUNTRY>" : country;
+    }
+
+    private static string NormalizeMerchantId(TicketDto.CustomField[]? customFields)
+    {
+        var merchantId = customFields?.FirstOrDefault(customField => customField.Id == 21072413)?.Value?.ToString();
+        return string.IsNullOrWhiteSpace(merchantId) ? "<MISSING MERCHANT ID>" : merchantId;
+    }
+
+    private static string NormalizeStatus(string? status) =>
+        string.IsNullOrWhiteSpace(status) ? "<MISSING STATUS>" : status;
 
     private static string NormalizeCommentBody(string? commentBody)
     {
-        if (string.IsNullOrWhiteSpace(commentBody))
-        {
-            return "<MISSING COMMENT>";
-        }
-        commentBody = commentBody.NormalizeText().MaskEmailAddresses().MaskPhoneNumbers().MaskImageUrls();
-        return commentBody;
+        var commentContent = commentBody?.NormalizeText().MaskEmailAddresses().MaskPhoneNumbers().MaskImageUrls();
+        return string.IsNullOrWhiteSpace(commentContent) ? "<MISSING COMMENT>" : commentContent;
     }
 
     private static string NormalizeAuthor(CommentDto comment, UserDto[] employees) =>
-        employees.FirstOrDefault(userDto => userDto.Id == comment.AuthorId)?.Name ?? "<NON-EMPLOYEE>";
+        comment.AuthorId is null or < 0 ? "<UNKNOWN AUTHOR>" : employees.FirstOrDefault(userDto => userDto.Id == comment.AuthorId)?.Name ?? "<NON-EMPLOYEE>";
 
     private static DateTime NormalizeCreatedAt(string? createdAt) =>
         DateTime.TryParse(createdAt, out var result) ? result : throw new("Could not parse Created At");
-    
+
     private static DateTime? NormalizeUpdatedAt(string? updatedAt) =>
         updatedAt is null ? null : DateTime.TryParse(updatedAt, out var result) ? result : throw new("Could not Updated At");
 
@@ -95,10 +111,10 @@ public static partial class ZendeskTicketMapper
         ZeroWidthCharsRegex().Replace(text, "");
 
     private static string MaskEmailAddresses(this string text) =>
-        EmailRegex().Replace(text, "<EMAIL ADDRESS>");
+        EmailAddressRegex().Replace(text, "<EMAIL ADDRESS>");
 
     private static string MaskPhoneNumbers(this string text) =>
-        PhoneRegex().Replace(text, "<PHONE NUMBER>");
+        PhoneNumberRegex().Replace(text, "<PHONE NUMBER>");
 
     private static string MaskImageUrls(this string text) =>
         ImageUrlRegex().Replace(text, "<IMAGE URL>");

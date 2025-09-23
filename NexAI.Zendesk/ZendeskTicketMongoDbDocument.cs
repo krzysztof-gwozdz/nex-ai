@@ -8,12 +8,17 @@ public record ZendeskTicketMongoDbDocument
     {
     }
 
-    public ZendeskTicketMongoDbDocument(ZendeskTicketId id, string number, string title, string description, DateTime createdAt, DateTime? updatedAt, MessageDocument[] messages) : this()
+    public ZendeskTicketMongoDbDocument(ZendeskTicketId id, string number, string title, string description, string url, string category, string status, string country, string merchantId, DateTime createdAt, DateTime? updatedAt, MessageDocument[] messages) : this()
     {
         Id = id;
         Number = number;
         Title = title;
         Description = description;
+        Url = url;
+        Category = category;
+        Status = status;
+        Country = country;
+        MerchantId = merchantId;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
         Messages = messages;
@@ -31,6 +36,21 @@ public record ZendeskTicketMongoDbDocument
 
     [BsonElement("description")]
     public string Description { get; init; } = string.Empty;
+
+    [BsonElement("url")]
+    public string Url { get; init; } = string.Empty;
+
+    [BsonElement("category")]
+    public string Category { get; init; } = string.Empty;
+
+    [BsonElement("status")]
+    public string Status { get; init; } = string.Empty;
+
+    [BsonElement("country")]
+    public string Country { get; init; } = string.Empty;
+
+    [BsonElement("merchantId")]
+    public string MerchantId { get; init; } = string.Empty;
 
     [BsonElement("createdAt")]
     public DateTime CreatedAt { get; init; }
@@ -62,6 +82,11 @@ public record ZendeskTicketMongoDbDocument
             Number,
             Title,
             Description,
+            Url,
+            Category,
+            Status,
+            Country,
+            MerchantId,
             CreatedAt,
             UpdatedAt,
             Messages.Select(message => new ZendeskTicket.ZendeskTicketMessage(message.Content, message.Author, message.CreatedAt)).ToArray()
@@ -73,6 +98,11 @@ public record ZendeskTicketMongoDbDocument
             zendeskTicket.Number,
             zendeskTicket.Title,
             zendeskTicket.Description,
+            zendeskTicket.Url,
+            zendeskTicket.Category,
+            zendeskTicket.Status,
+            zendeskTicket.Country,
+            zendeskTicket.MerchantId,
             zendeskTicket.CreatedAt,
             zendeskTicket.UpdatedAt,
             zendeskTicket.Messages.Select(message => new MessageDocument
