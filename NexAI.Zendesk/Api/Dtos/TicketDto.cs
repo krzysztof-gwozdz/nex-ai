@@ -60,7 +60,7 @@ public record TicketDto(
     [property: JsonPropertyName("tags")]
     string[]? Tags,
     [property: JsonPropertyName("custom_fields")]
-    object[]? CustomFields,
+    TicketDto.CustomField[]? CustomFields,
     [property: JsonPropertyName("satisfaction_rating")]
     object? SatisfactionRating,
     [property: JsonPropertyName("sharing_agreement_ids")]
@@ -112,4 +112,11 @@ public record TicketDto(
     [property: JsonPropertyName("via_id")]
     long? ViaId,
     [property: JsonPropertyName("voice_comment")]
-    object? VoiceComment);
+    object? VoiceComment)
+{
+    public record CustomField(
+        [property: JsonPropertyName("id")]
+        long? Id,
+        [property: JsonPropertyName("value")]
+        object? Value);
+}
