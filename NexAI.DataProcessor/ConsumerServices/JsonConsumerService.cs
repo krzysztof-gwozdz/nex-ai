@@ -7,4 +7,4 @@ using NexAI.Zendesk;
 namespace NexAI.DataProcessor.ConsumerServices;
 
 public class JsonConsumerService(ILogger<JsonConsumerService> logger, RabbitMQClient rabbitMQClient, Options options)
-    : RabbitMQConsumerService<ZendeskTicket>(new(logger, rabbitMQClient, zendeskTicket => new ZendeskTicketJsonExporter(options).Export(zendeskTicket), "json"));
+    : RabbitMQConsumerService<ZendeskTicket>(new(logger, rabbitMQClient, zendeskTicket => new ZendeskTicketJsonExporter(options).Export(zendeskTicket), "nexai.zendesk_tickets.json"));

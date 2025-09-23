@@ -7,4 +7,4 @@ using NexAI.Zendesk;
 namespace NexAI.DataProcessor.ConsumerServices;
 
 public class MongoDbConsumerService(ILogger<MongoDbConsumerService> logger, RabbitMQClient rabbitMQClient, Options options)
-    : RabbitMQConsumerService<ZendeskTicket>(new(logger, rabbitMQClient, zendeskTicket => new ZendeskTicketMongoDbExporter(options).Export(zendeskTicket), "mongodb"));
+    : RabbitMQConsumerService<ZendeskTicket>(new(logger, rabbitMQClient, zendeskTicket => new ZendeskTicketMongoDbExporter(options).Export(zendeskTicket), "nexai.zendesk_tickets.mongodb"));

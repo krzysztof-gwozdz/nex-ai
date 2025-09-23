@@ -7,4 +7,4 @@ using NexAI.Zendesk;
 namespace NexAI.DataProcessor.ConsumerServices;
 
 public class QdrantConsumerService(ILogger<QdrantConsumerService> logger, RabbitMQClient rabbitMQClient, Options options)
-    : RabbitMQConsumerService<ZendeskTicket>(new(logger, rabbitMQClient, zendeskTicket => new ZendeskTicketQdrantExporter(options).Export(zendeskTicket), "qdrant"));
+    : RabbitMQConsumerService<ZendeskTicket>(new(logger, rabbitMQClient, zendeskTicket => new ZendeskTicketQdrantExporter(options).Export(zendeskTicket), "nexai.zendesk_tickets.qdrant"));

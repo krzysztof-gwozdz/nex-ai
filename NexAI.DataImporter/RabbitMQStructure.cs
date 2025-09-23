@@ -5,7 +5,7 @@ namespace NexAI.DataImporter;
 
 public class RabbitMQStructure(RabbitMQClient rabbitMQClient)
 {
-    public const string ExchangeName = "data_importer";
+    public const string ExchangeName = "nexai.zendesk_tickets";
     
     public async Task Create()
     {
@@ -13,11 +13,11 @@ public class RabbitMQStructure(RabbitMQClient rabbitMQClient)
         await using var channel = await connection.CreateChannelAsync();
     
         await channel.ExchangeDeclareAsync(exchange: ExchangeName, type: ExchangeType.Fanout, durable: true, autoDelete: false);
-        await channel.QueueDeclareAsync("mongodb", durable: true, exclusive: false, autoDelete: false);
-        await channel.QueueBindAsync("mongodb", ExchangeName, "");
-        await channel.QueueDeclareAsync("qdrant", durable: true, exclusive: false, autoDelete: false);
-        await channel.QueueBindAsync("qdrant", ExchangeName, "");
-        await channel.QueueDeclareAsync("json", durable: true, exclusive: false, autoDelete: false);
-        await channel.QueueBindAsync("json", ExchangeName, "");
+        await channel.QueueDeclareAsync("nexai.zendesk_tickets.mongodb", durable: true, exclusive: false, autoDelete: false);
+        await channel.QueueBindAsync("nexai.zendesk_tickets.mongodb", ExchangeName, "");
+        await channel.QueueDeclareAsync("nexai.zendesk_tickets.qdrant", durable: true, exclusive: false, autoDelete: false);
+        await channel.QueueBindAsync("nexai.zendesk_tickets.qdrant", ExchangeName, "");
+        await channel.QueueDeclareAsync("nexai.zendesk_tickets.json", durable: true, exclusive: false, autoDelete: false);
+        await channel.QueueBindAsync("nexai.zendesk_tickets.json", ExchangeName, "");
     }
 }
