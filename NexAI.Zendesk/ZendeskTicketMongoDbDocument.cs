@@ -65,6 +65,7 @@ public record ZendeskTicketMongoDbDocument
     [BsonElement("messages")]
     public MessageDocument[] Messages { get; init; } = [];
 
+    [BsonIgnore]
     [BsonElement("score")]
     public double Score { get; init; }
 
