@@ -23,6 +23,7 @@ public record ZendeskTicketMongoDbDocument
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
         Messages = messages;
+        FirstImportDate = DateTime.UtcNow;
     }
 
     [BsonId]
@@ -64,6 +65,9 @@ public record ZendeskTicketMongoDbDocument
 
     [BsonElement("messages")]
     public MessageDocument[] Messages { get; init; } = [];
+    
+    [BsonElement("firstImportDate")]
+    public DateTime FirstImportDate { get; init; }
 
     [BsonIgnore]
     [BsonElement("score")]
