@@ -9,20 +9,20 @@ namespace NexAI.Console.Plugins;
 
 public class ZendeskTicketsPlugin(Options options)
 {
-    [KernelFunction("get_zendesk_ticket_by_number")]
-    [Description("Retrieves a Zendesk ticket by its number.")]
-    public async Task<ZendeskTicket?> GetTicketByNumber(string number)
+    [KernelFunction("get_zendesk_ticket_by_external_id")]
+    [Description("Retrieves a Zendesk ticket by its external id.")]
+    public async Task<ZendeskTicket?> GetTicketByExternalId(string externalId)
     {
-        AnsiConsole.MarkupLine($"[yellow]Using tool get_zendesk_ticket_by_number. Retrieving Zendesk ticket with number: {number}[/]");
-        return await new GetZendeskTicketByNumberQuery(options).Handle(number);
+        AnsiConsole.MarkupLine($"[yellow]Using tool get_zendesk_ticket_by_external_id. Retrieving Zendesk ticket with external id: {externalId}[/]");
+        return await new GetZendeskTicketByExternalIdQuery(options).Handle(externalId);
     }
 
-    [KernelFunction("get_zendesk_tickets_by_numbers")]
-    [Description("Retrieves Zendesk tickets by their numbers.")]
-    public async Task<ZendeskTicket[]> GetTicketsByNumbers(string[] numbers)
+    [KernelFunction("get_zendesk_tickets_by_external_ids")]
+    [Description("Retrieves Zendesk tickets by their external ids.")]
+    public async Task<ZendeskTicket[]> GetTicketsByExternalIds(string[] externalIds)
     {
-        AnsiConsole.MarkupLine($"[yellow]Using tool get_zendesk_tickets_by_numbers. Retrieving Zendesk tickets with numbers: {string.Join(", ", numbers)}[/]");
-        return await new GetZendeskTicketsByNumbersQuery(options).Handle(numbers);
+        AnsiConsole.MarkupLine($"[yellow]Using tool get_zendesk_tickets_by_external_ids. Retrieving Zendesk tickets with external ids: {string.Join(", ", externalIds)}[/]");
+        return await new GetZendeskTicketsByExternalIdsQuery(options).Handle(externalIds);
     }
 
     [KernelFunction("find_similar_zendesk_tickets_by_phrase")]

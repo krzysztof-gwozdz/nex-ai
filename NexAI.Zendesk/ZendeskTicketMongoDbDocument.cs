@@ -27,7 +27,7 @@ public record ZendeskTicketMongoDbDocument
     {
         Id = id;
         Url = url;
-        Number = number;
+        ExternalId = externalId;
         Title = title;
         Description = description;
         Category = category;
@@ -45,12 +45,12 @@ public record ZendeskTicketMongoDbDocument
     [BsonId]
     [BsonElement("_id")]
     public Guid Id { get; init; }
+    
+    [BsonElement("externalId")]
+    public string ExternalId { get; init; } = string.Empty;
 
     [BsonElement("url")]
     public string Url { get; private set; } = string.Empty;
-
-    [BsonElement("number")]
-    public string Number { get; init; } = string.Empty;
 
     [BsonElement("title")]
     public string Title { get; private set; } = string.Empty;
@@ -118,7 +118,7 @@ public record ZendeskTicketMongoDbDocument
     public ZendeskTicket ToZendeskTicket() =>
         new(
             new(Id),
-            Number,
+            ExternalId,
             Title,
             Description,
             Url,
@@ -136,7 +136,7 @@ public record ZendeskTicketMongoDbDocument
         new(
             zendeskTicket.Id,
             zendeskTicket.Url,
-            zendeskTicket.Number,
+            zendeskTicket.ExternalId,
             zendeskTicket.Title,
             zendeskTicket.Description,
             zendeskTicket.Category,

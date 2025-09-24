@@ -44,11 +44,11 @@ public class ZendeskTicketMongoDbExporter(Options options)
         var client = new MongoClient(clientSettings);
         var database = client.GetDatabase(_mongoDbOptions.Database);
         var collection = database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketCollections.MongoDbCollectionName);
-        var document = await collection.Find(existingZendeskTicket => existingZendeskTicket.Id == zendeskTicket.Id || existingZendeskTicket.Number == zendeskTicket.Id).FirstOrDefaultAsync();
+        var document = await collection.Find(existingZendeskTicket => existingZendeskTicket.Id == zendeskTicket.Id || existingZendeskTicket.ExternalId == zendeskTicket.Id).FirstOrDefaultAsync();
         if (document is not null)
         {
             document.Update(zendeskTicket);
-            await collection.ReplaceOneAsync(existingZendeskTicket => existingZendeskTicket.Id == zendeskTicket.Id || existingZendeskTicket.Number == zendeskTicket.Id, document);
+            await collection.ReplaceOneAsync(existingZendeskTicket => existingZendeskTicket.Id == zendeskTicket.Id || existingZendeskTicket.ExternalId == zendeskTicket.Id, document);
             AnsiConsole.MarkupLine("[green]Successfully updated Zendesk tickets from MongoDb.[/]");
         }
         else

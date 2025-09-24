@@ -25,7 +25,7 @@ public static partial class ZendeskTicketMapper
     {
         var zendeskTicket = new ZendeskTicket(
             ZendeskTicketId.New(),
-            NormalizeNumber(ticket.Id),
+            NormalizeExternalId(ticket.Id),
             NormalizeTitle(ticket.Subject),
             NormalizeDescription(ticket.Description),
             NormalizeUrl(ticket.Url),
@@ -46,7 +46,7 @@ public static partial class ZendeskTicketMapper
         return zendeskTicket;
     }
 
-    private static string NormalizeNumber(long? id) =>
+    private static string NormalizeExternalId(long? id) =>
         id is null or < 0 ? throw new("Could not parse Id") : id.Value.ToString();
 
     private static string NormalizeTitle(string? subject)

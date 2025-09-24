@@ -7,7 +7,7 @@ namespace NexAI.Zendesk.Tests;
 public class ZendeskTicketMapperTests
 {
     [Fact]
-    public void Map_WithValidId_SetsNumberToStringValue()
+    public void Map_WithValidId_SetsExternalIdToStringValue()
     {
         // arrange
         var ticket = ValidTicketDto with { Id = 12345L };
@@ -16,7 +16,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.Number.Should().Be(ticket.Id!.Value.ToString());
+        result.ExternalId.Should().Be(ticket.Id!.Value.ToString());
     }
 
     [Fact]

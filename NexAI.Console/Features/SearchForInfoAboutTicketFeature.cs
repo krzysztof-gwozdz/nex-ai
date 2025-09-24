@@ -13,7 +13,7 @@ public class SearchForInfoAboutTicketFeature(Options options)
     {
         while (true)
         {
-            AnsiConsole.MarkupLine("[Aquamarine1]Welcome to Ticket Info Fetcher! Enter Zendesk ticket number. Type [bold]STOP[/] to exit.[/]");
+            AnsiConsole.MarkupLine("[Aquamarine1]Welcome to Ticket Info Fetcher! Enter Zendesk ticket id. Type [bold]STOP[/] to exit.[/]");
             var userMessage = AnsiConsole.Prompt(new TextPrompt<string>("> "));
             if (userMessage.ToUpper() == "STOP")
                 return;
@@ -33,21 +33,21 @@ public class SearchForInfoAboutTicketFeature(Options options)
 
     private async Task FetchZendeskTicketInfo(string userMessage)
     {
-        var zendeskTicket = await new GetZendeskTicketByNumberQuery(options).Handle(userMessage);
+        var zendeskTicket = await new GetZendeskTicketByExternalIdQuery(options).Handle(userMessage);
         if (zendeskTicket == null)
         {
-            AnsiConsole.MarkupLine("[red]No Zendesk ticket found with that number.[/]");
+            AnsiConsole.MarkupLine("[red]No Zendesk ticket found with that id.[/]");
             return;
         }
         DisplayZendeskTicket(zendeskTicket);
-        var azureDevOpsWorkItem = await new GetAzureDevopsWorkItemsRelatedToZendeskTicketQuery(options).Handle(zendeskTicket.Number, 10);
+        var azureDevOpsWorkItem = await new GetAzureDevopsWorkItemsRelatedToZendeskTicketQuery(options).Handle(zendeskTicket.ExternalId, 10);
         DisplayAzureDevOpsWorkItems(azureDevOpsWorkItem);
     }
 
     private static void DisplayZendeskTicket(ZendeskTicket zendeskTicket)
     {
         AnsiConsole.MarkupLine("[bold Aquamarine1]Found Zendesk ticket:[/]");
-        AnsiConsole.MarkupLine($"[bold]Number:[/] {zendeskTicket.Number}");
+        AnsiConsole.MarkupLine($"[bold]Id:[/] {zendeskTicket.ExternalId}");
         AnsiConsole.MarkupLine($"[bold]Title:[/] {zendeskTicket.Title.EscapeMarkup()}");
         AnsiConsole.MarkupLine($"[bold]Description:[/] {zendeskTicket.Description.EscapeMarkup()}");
         AnsiConsole.MarkupLine("[bold]Messages:[/]");

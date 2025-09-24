@@ -40,11 +40,11 @@ public class SearchForZendeskTicketsByPhraseFeature(Options options)
         else
         {
             AnsiConsole.MarkupLine($"[bold]Found {searchResult.Length} tickets:[/]");
-            var table = new Table().AddColumn("Number").AddColumn("Title").AddColumn("Description").AddColumn("Score");
+            var table = new Table().AddColumn("External Id").AddColumn("Title").AddColumn("Description").AddColumn("Score");
             var ticketsWithSimilarities = searchResult
                 .Select(result => new
                 {
-                    result.ZendeskTicket.Number,
+                    result.ZendeskTicket.ExternalId,
                     result.ZendeskTicket.Title,
                     result.ZendeskTicket.Description,
                     result.Score
@@ -54,10 +54,10 @@ public class SearchForZendeskTicketsByPhraseFeature(Options options)
             foreach (var ticket in ticketsWithSimilarities)
             {
                 table.AddRow(
-                    ticket.Number, 
-                ticket.Title.EscapeMarkup(), 
-                ticket.Description[..50].EscapeMarkup(), 
-                ticket.Score.ToString("P1")
+                    ticket.ExternalId,
+                    ticket.Title.EscapeMarkup(),
+                    ticket.Description[..50].EscapeMarkup(),
+                    ticket.Score.ToString("P1")
                 );
             }
 
@@ -76,11 +76,11 @@ public class SearchForZendeskTicketsByPhraseFeature(Options options)
         else
         {
             AnsiConsole.MarkupLine($"[bold]Found {searchResult.Length} tickets:[/]");
-            var table = new Table().AddColumn("Number").AddColumn("Title").AddColumn("Description").AddColumn("Score");
+            var table = new Table().AddColumn("External Id").AddColumn("Title").AddColumn("Description").AddColumn("Score");
             foreach (var result in searchResult)
             {
                 table.AddRow(
-                    result.ZendeskTicket.Number.EscapeMarkup(),
+                    result.ZendeskTicket.ExternalId.EscapeMarkup(),
                     result.ZendeskTicket.Title.EscapeMarkup(),
                     result.ZendeskTicket.Description[..50].EscapeMarkup(),
                     result.Score.ToString("0.00")

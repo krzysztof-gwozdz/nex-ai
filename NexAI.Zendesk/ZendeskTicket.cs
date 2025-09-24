@@ -2,7 +2,7 @@ namespace NexAI.Zendesk;
 
 public record ZendeskTicket(
     ZendeskTicketId Id, 
-    string Number, 
+    string ExternalId, 
     string Title, 
     string Description,
     string Url,
