@@ -15,9 +15,6 @@
     <ItemGroup>
         <Content Include="..\appsettings.json" CopyToOutputDirectory="PreserveNewest" Link="appsettings.json"/>
         <Content Include="..\appsettings.local.json" CopyToOutputDirectory="PreserveNewest" Link="appsettings.local.json" DependentUpon="appsettings.json"/>
-        <None Update="Zendesk\sample-tickets.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
         <None Update="appsettings.data_importer.json">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
