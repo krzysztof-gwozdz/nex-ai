@@ -8,7 +8,7 @@ public record ZendeskTicketMongoDbDocument
     {
     }
 
-    public ZendeskTicketMongoDbDocument(ZendeskTicketId id, string number, string title, string description, string url, string category, string status, string country, string merchantId, DateTime createdAt, DateTime? updatedAt, MessageDocument[] messages) : this()
+    public ZendeskTicketMongoDbDocument(ZendeskTicketId id, string number, string title, string description, string url, string category, string status, string country, string merchantId, string[] tags, DateTime createdAt, DateTime? updatedAt, MessageDocument[] messages) : this()
     {
         Id = id;
         Number = number;
@@ -19,6 +19,7 @@ public record ZendeskTicketMongoDbDocument
         Status = status;
         Country = country;
         MerchantId = merchantId;
+        Tags = tags;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
         Messages = messages;
@@ -51,6 +52,9 @@ public record ZendeskTicketMongoDbDocument
 
     [BsonElement("merchantId")]
     public string MerchantId { get; init; } = string.Empty;
+
+    [BsonElement("tags")]
+    public string[] Tags { get; init; } = [];
 
     [BsonElement("createdAt")]
     public DateTime CreatedAt { get; init; }
@@ -87,6 +91,7 @@ public record ZendeskTicketMongoDbDocument
             Status,
             Country,
             MerchantId,
+            Tags,
             CreatedAt,
             UpdatedAt,
             Messages.Select(message => new ZendeskTicket.ZendeskTicketMessage(message.Content, message.Author, message.CreatedAt)).ToArray()
@@ -103,6 +108,7 @@ public record ZendeskTicketMongoDbDocument
             zendeskTicket.Status,
             zendeskTicket.Country,
             zendeskTicket.MerchantId,
+            zendeskTicket.Tags,
             zendeskTicket.CreatedAt,
             zendeskTicket.UpdatedAt,
             zendeskTicket.Messages.Select(message => new MessageDocument

@@ -10,6 +10,7 @@ public record ZendeskTicket(
     string Status,
     string Country,
     string MerchantId,
+    string[] Tags,
     DateTime CreatedAt, 
     DateTime? UpdatedAt, 
     ZendeskTicket.ZendeskTicketMessage[] Messages)

@@ -499,12 +499,38 @@ public class ZendeskTicketMapperTests
         // assert
         result.MerchantId.Should().BeEmpty();
     }
+    
+    [Fact]
+    public void Map_WithTags_SetsTags()
+    {
+        // arrange
+        var ticket = ValidTicketDto with { Tags = ["tag1", "tag2"] };
 
+        // act
+        var result = ZendeskTicketMapper.Map(ticket, [], []);
+
+        // assert
+        result.Tags.Should().HaveCount(ticket.Tags!.Length).And.ContainInOrder(ticket.Tags);
+    }
+    
+    [Fact]
+    public void Map_WithNullTags_SetsTagsToEmptyList()
+    {
+        // arrange
+        var ticket = ValidTicketDto with { Tags = null};
+
+        // act
+        var result = ZendeskTicketMapper.Map(ticket, [], []);
+
+        // assert
+        result.Tags.Should().BeEmpty();
+    }
+    
     [Fact]
     public void Map_WithValidCreatedAt_SetsCreatedAtToParsedValue()
     {
         // arrange
-        var iso = "2024-05-01T12:34:56Z";
+        const string iso = "2024-05-01T12:34:56Z";
         var ticket = ValidTicketDto with { CreatedAt = iso };
 
         // act
