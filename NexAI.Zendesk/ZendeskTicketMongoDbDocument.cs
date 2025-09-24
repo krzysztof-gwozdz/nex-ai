@@ -8,13 +8,28 @@ public record ZendeskTicketMongoDbDocument
     {
     }
 
-    public ZendeskTicketMongoDbDocument(ZendeskTicketId id, string number, string title, string description, string url, string category, string status, string country, string merchantId, string[] tags, DateTime createdAt, DateTime? updatedAt, MessageDocument[] messages) : this()
+    public ZendeskTicketMongoDbDocument(
+        ZendeskTicketId id,
+        string url,
+        string number,
+        string title,
+        string description,
+        string category,
+        string status,
+        string country,
+        string merchantId,
+        string[] tags,
+        DateTime createdAt,
+        DateTime? updatedAt,
+        MessageDocument[] messages,
+        DateTime firstImportDate,
+        DateTime lastImportDate) : this()
     {
         Id = id;
+        Url = url;
         Number = number;
         Title = title;
         Description = description;
-        Url = url;
         Category = category;
         Status = status;
         Country = country;
@@ -23,66 +38,81 @@ public record ZendeskTicketMongoDbDocument
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
         Messages = messages;
-        FirstImportDate = DateTime.UtcNow;
+        FirstImportDate = firstImportDate;
+        LastImportDate = lastImportDate;
     }
 
     [BsonId]
     [BsonElement("_id")]
     public Guid Id { get; init; }
 
+    [BsonElement("url")]
+    public string Url { get; private set; } = string.Empty;
+
     [BsonElement("number")]
     public string Number { get; init; } = string.Empty;
 
     [BsonElement("title")]
-    public string Title { get; init; } = string.Empty;
+    public string Title { get; private set; } = string.Empty;
 
     [BsonElement("description")]
-    public string Description { get; init; } = string.Empty;
-
-    [BsonElement("url")]
-    public string Url { get; init; } = string.Empty;
+    public string Description { get; private set; } = string.Empty;
 
     [BsonElement("category")]
-    public string Category { get; init; } = string.Empty;
+    public string Category { get; private set; } = string.Empty;
 
     [BsonElement("status")]
-    public string Status { get; init; } = string.Empty;
+    public string Status { get; private set; } = string.Empty;
 
     [BsonElement("country")]
-    public string Country { get; init; } = string.Empty;
+    public string Country { get; private set; } = string.Empty;
 
     [BsonElement("merchantId")]
-    public string MerchantId { get; init; } = string.Empty;
+    public string MerchantId { get; private set; } = string.Empty;
 
     [BsonElement("tags")]
-    public string[] Tags { get; init; } = [];
+    public string[] Tags { get; private set; } = [];
 
     [BsonElement("createdAt")]
-    public DateTime CreatedAt { get; init; }
+    public DateTime CreatedAt { get; private set; }
 
     [BsonElement("updatedAt")]
-    public DateTime? UpdatedAt { get; init; }
+    public DateTime? UpdatedAt { get; private set; }
 
     [BsonElement("messages")]
-    public MessageDocument[] Messages { get; init; } = [];
-    
+    public MessageDocument[] Messages { get; private set; } = [];
+
     [BsonElement("firstImportDate")]
-    public DateTime FirstImportDate { get; init; }
+    public DateTime FirstImportDate { get; private set; }
+
+    [BsonElement("lastImportDate")]
+    public DateTime LastImportDate { get; private set; }
 
     [BsonIgnore]
     [BsonElement("score")]
-    public double Score { get; init; }
+    public double Score { get; private set; }
 
     public record MessageDocument
     {
         [BsonElement("content")]
-        public string Content { get; init; } = string.Empty;
+        public string Content { get; private set; } = string.Empty;
 
         [BsonElement("author")]
-        public string Author { get; init; } = string.Empty;
+        public string Author { get; private set; } = string.Empty;
 
         [BsonElement("createdAt")]
-        public DateTime CreatedAt { get; init; }
+        public DateTime CreatedAt { get; private set; }
+
+        public MessageDocument()
+        {
+        }
+
+        public MessageDocument(string content, string author, DateTime createdAt)
+        {
+            Content = content;
+            Author = author;
+            CreatedAt = createdAt;
+        }
     }
 
     public ZendeskTicket ToZendeskTicket() =>
@@ -105,10 +135,10 @@ public record ZendeskTicketMongoDbDocument
     public static ZendeskTicketMongoDbDocument Create(ZendeskTicket zendeskTicket) =>
         new(
             zendeskTicket.Id,
+            zendeskTicket.Url,
             zendeskTicket.Number,
             zendeskTicket.Title,
             zendeskTicket.Description,
-            zendeskTicket.Url,
             zendeskTicket.Category,
             zendeskTicket.Status,
             zendeskTicket.Country,
@@ -116,11 +146,34 @@ public record ZendeskTicketMongoDbDocument
             zendeskTicket.Tags,
             zendeskTicket.CreatedAt,
             zendeskTicket.UpdatedAt,
-            zendeskTicket.Messages.Select(message => new MessageDocument
-            {
-                Content = message.Content,
-                Author = message.Author,
-                CreatedAt = message.CreatedAt
-            }).ToArray()
+            zendeskTicket.Messages
+                .Select(message =>
+                    new MessageDocument(
+                        message.Content,
+                        message.Author,
+                        message.CreatedAt)
+                ).ToArray(),
+            DateTime.UtcNow,
+            DateTime.UtcNow
         );
+
+    public void Update(ZendeskTicket zendeskTicket)
+    {
+        Title = zendeskTicket.Title;
+        Description = zendeskTicket.Description;
+        Category = zendeskTicket.Category;
+        Status = zendeskTicket.Status;
+        Country = zendeskTicket.Country;
+        MerchantId = zendeskTicket.MerchantId;
+        Tags = zendeskTicket.Tags;
+        UpdatedAt = zendeskTicket.UpdatedAt;
+        Messages = zendeskTicket.Messages
+            .Select(message =>
+                new MessageDocument(
+                    message.Content,
+                    message.Author,
+                    message.CreatedAt)
+            ).ToArray();
+        LastImportDate = DateTime.UtcNow;
+    }
 }

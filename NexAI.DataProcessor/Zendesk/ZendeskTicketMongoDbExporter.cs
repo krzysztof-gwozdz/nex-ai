@@ -44,9 +44,19 @@ public class ZendeskTicketMongoDbExporter(Options options)
         var client = new MongoClient(clientSettings);
         var database = client.GetDatabase(_mongoDbOptions.Database);
         var collection = database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketCollections.MongoDbCollectionName);
-        var document = ZendeskTicketMongoDbDocument.Create(zendeskTicket);
-        await collection.InsertOneAsync(document);
-        AnsiConsole.MarkupLine("[green]Successfully exported Zendesk tickets into MongoDb.[/]");
+        var document = await collection.Find(existingZendeskTicket => existingZendeskTicket.Id == zendeskTicket.Id || existingZendeskTicket.Number == zendeskTicket.Id).FirstOrDefaultAsync();
+        if (document is not null)
+        {
+            document.Update(zendeskTicket);
+            await collection.ReplaceOneAsync(existingZendeskTicket => existingZendeskTicket.Id == zendeskTicket.Id || existingZendeskTicket.Number == zendeskTicket.Id, document);
+            AnsiConsole.MarkupLine("[green]Successfully updated Zendesk tickets from MongoDb.[/]");
+        }
+        else
+        {
+            document = ZendeskTicketMongoDbDocument.Create(zendeskTicket);
+            await collection.InsertOneAsync(document);
+            AnsiConsole.MarkupLine("[green]Successfully added Zendesk tickets into MongoDb.[/]");
+        }
     }
 
     private static void RegisterGuidSerializer()
