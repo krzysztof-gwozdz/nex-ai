@@ -6,10 +6,10 @@ namespace NexAI.Zendesk;
 
 public static partial class ZendeskTicketMapper
 {
-    [GeneratedRegex("\n{2,}")]
+    [GeneratedRegex(@"(\r?\n){2,}")]
     private static partial Regex NewLinesRegex();
 
-    [GeneratedRegex("[\u200B-\u200D\uFEFF]")]
+    [GeneratedRegex("[\u200B-\u200D\uFEFF ]")]
     private static partial Regex ZeroWidthCharsRegex();
 
     [GeneratedRegex(@"\b[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}\b")]
@@ -66,19 +66,19 @@ public static partial class ZendeskTicketMapper
     private static string NormalizeCategory(TicketDto.CustomField[]? customFields)
     {
         var category = customFields?.FirstOrDefault(customField => customField.Id == 23426028)?.Value?.ToString();
-        return string.IsNullOrWhiteSpace(category) ? "<MISSING CATEGORY>" : category;
+        return string.IsNullOrWhiteSpace(category) ? string.Empty : category;
     }
 
     private static string NormalizeCountry(TicketDto.CustomField[]? customFields)
     {
         var country = customFields?.FirstOrDefault(customField => customField.Id == 360000060007)?.Value?.ToString();
-        return string.IsNullOrWhiteSpace(country) ? "<MISSING COUNTRY>" : country;
+        return string.IsNullOrWhiteSpace(country) ? string.Empty : country;
     }
 
     private static string NormalizeMerchantId(TicketDto.CustomField[]? customFields)
     {
         var merchantId = customFields?.FirstOrDefault(customField => customField.Id == 21072413)?.Value?.ToString();
-        return string.IsNullOrWhiteSpace(merchantId) ? "<MISSING MERCHANT ID>" : merchantId;
+        return string.IsNullOrWhiteSpace(merchantId) || merchantId == "0" || merchantId == "00" ? string.Empty : merchantId;
     }
 
     private static string NormalizeStatus(string? status) =>
@@ -87,7 +87,7 @@ public static partial class ZendeskTicketMapper
     private static string NormalizeCommentBody(string? commentBody)
     {
         var commentContent = commentBody?.NormalizeText().MaskEmailAddresses().MaskPhoneNumbers().MaskImageUrls();
-        return string.IsNullOrWhiteSpace(commentContent) ? "<MISSING COMMENT>" : commentContent;
+        return string.IsNullOrWhiteSpace(commentContent) ? string.Empty : commentContent;
     }
 
     private static string NormalizeAuthor(CommentDto comment, UserDto[] employees) =>
@@ -100,8 +100,8 @@ public static partial class ZendeskTicketMapper
         updatedAt is null ? null : DateTime.TryParse(updatedAt, out var result) ? result : throw new("Could not Updated At");
 
     private static string NormalizeText(this string text) =>
-        text.NormalizeNewLines()
-            .RemoveZeroWidthChars()
+        text.RemoveZeroWidthChars()
+            .NormalizeNewLines()
             .Trim();
 
     private static string NormalizeNewLines(this string text) =>

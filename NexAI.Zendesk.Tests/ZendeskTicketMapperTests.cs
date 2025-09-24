@@ -88,7 +88,7 @@ public class ZendeskTicketMapperTests
     public void Map_WithZerosWidthCharsSubject_SetsMissingTitlePlaceholder()
     {
         // arrange
-        var ticket = ValidTicketDto with { Subject = "\u200B\u200C\u200D\uFEFF" };
+        var ticket = ValidTicketDto with { Subject = "\u200B\u200C\u200D\uFEFF " };
 
         // act
         var result = ZendeskTicketMapper.Map(ticket, [], []);
@@ -140,7 +140,7 @@ public class ZendeskTicketMapperTests
     public void Map_WithZerosWidthCharsDescription_SetsMissingDescriptionPlaceholder()
     {
         // arrange
-        var ticket = ValidTicketDto with { Description = "\u200B\u200C\u200D\uFEFF" };
+        var ticket = ValidTicketDto with { Description = "\u200B\u200C\u200D\uFEFF " };
 
         // act
         var result = ZendeskTicketMapper.Map(ticket, [], []);
@@ -274,7 +274,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.Category.Should().Be("<MISSING CATEGORY>");
+        result.Category.Should().BeEmpty();
     }
 
     [Fact]
@@ -287,7 +287,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.Category.Should().Be("<MISSING CATEGORY>");
+        result.Category.Should().BeEmpty();
     }
 
     [Fact]
@@ -300,7 +300,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.Category.Should().Be("<MISSING CATEGORY>");
+        result.Category.Should().BeEmpty();
     }
 
     [Fact]
@@ -313,7 +313,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.Category.Should().Be("<MISSING CATEGORY>");
+        result.Category.Should().BeEmpty();
     }
 
     [Fact]
@@ -378,7 +378,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.Country.Should().Be("<MISSING COUNTRY>");
+        result.Country.Should().BeEmpty();
     }
 
     [Fact]
@@ -391,7 +391,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.Country.Should().Be("<MISSING COUNTRY>");
+        result.Country.Should().BeEmpty();
     }
 
     [Fact]
@@ -404,7 +404,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.Country.Should().Be("<MISSING COUNTRY>");
+        result.Country.Should().BeEmpty();
     }
 
     [Fact]
@@ -417,7 +417,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.Country.Should().Be("<MISSING COUNTRY>");
+        result.Country.Should().BeEmpty();
     }
 
     [Fact]
@@ -443,7 +443,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.MerchantId.Should().Be("<MISSING MERCHANT ID>");
+        result.MerchantId.Should().BeEmpty();
     }
 
     [Fact]
@@ -456,7 +456,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.MerchantId.Should().Be("<MISSING MERCHANT ID>");
+        result.MerchantId.Should().BeEmpty();
     }
 
     [Fact]
@@ -469,7 +469,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.MerchantId.Should().Be("<MISSING MERCHANT ID>");
+        result.MerchantId.Should().BeEmpty();
     }
 
     [Fact]
@@ -482,7 +482,22 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.MerchantId.Should().Be("<MISSING MERCHANT ID>");
+        result.MerchantId.Should().BeEmpty();
+    }
+
+    [Theory]
+    [InlineData("0")]
+    [InlineData("00")]
+    public void Map_WithCustomFieldsThatContainsMerchantIdWithInvalidValue_SetsMissingMerchantIdPlaceholder(string? merchantId)
+    {
+        // arrange
+        var ticket = ValidTicketDto with { CustomFields = [new(21072413, merchantId)] };
+
+        // act
+        var result = ZendeskTicketMapper.Map(ticket, [], []);
+
+        // assert
+        result.MerchantId.Should().BeEmpty();
     }
 
     [Fact]
@@ -584,7 +599,7 @@ public class ZendeskTicketMapperTests
     }
 
     [Fact]
-    public void Map_WithoutComments_CreateEmptyMessages()
+    public void Map_WithoutComments_SetsMissingCommentPlaceholder()
     {
         // arrange
         var ticket = ValidTicketDto;
@@ -609,7 +624,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, comments, employees);
 
         // assert
-        result.Messages[0].Content.Should().Be("<MISSING COMMENT>");
+        result.Messages[0].Content.Should().BeEmpty();
     }
 
     [Fact]
@@ -624,7 +639,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, comments, employees);
 
         // assert
-        result.Messages[0].Content.Should().Be("<MISSING COMMENT>");
+        result.Messages[0].Content.Should().BeEmpty();
     }
 
     [Fact]
@@ -632,14 +647,14 @@ public class ZendeskTicketMapperTests
     {
         // arrange
         var ticket = ValidTicketDto;
-        var comments = new[] { ValidCommentDto with { PlainBody = "\u200B\u200C\u200D\uFEFF" } };
+        var comments = new[] { ValidCommentDto with { PlainBody = "\u200B\u200C\u200D\uFEFF " } };
         var employees = new[] { ValidUserDto };
 
         // act
         var result = ZendeskTicketMapper.Map(ticket, comments, employees);
 
         // assert
-        result.Messages[0].Content.Should().Be("<MISSING COMMENT>");
+        result.Messages[0].Content.Should().BeEmpty();
     }
 
     [Theory]
