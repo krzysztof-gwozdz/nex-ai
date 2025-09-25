@@ -7,6 +7,20 @@ namespace NexAI.Zendesk.Tests;
 public class ZendeskTicketMapperTests
 {
     [Fact]
+    public void Map_GeneratesNewId()
+    {
+        // arrange
+        var ticket = ValidTicketDto;
+
+        // act
+        var result = ZendeskTicketMapper.Map(ticket, [], []);
+
+        // assert
+        result.Id.Value.Should().NotBeEmpty();
+        result.Id.Value.Version.Should().Be(7);
+    }
+
+    [Fact]
     public void Map_WithValidId_SetsExternalIdToStringValue()
     {
         // arrange
@@ -499,7 +513,7 @@ public class ZendeskTicketMapperTests
         // assert
         result.MerchantId.Should().BeEmpty();
     }
-    
+
     [Fact]
     public void Map_WithTags_SetsTags()
     {
@@ -512,12 +526,12 @@ public class ZendeskTicketMapperTests
         // assert
         result.Tags.Should().HaveCount(ticket.Tags!.Length).And.ContainInOrder(ticket.Tags);
     }
-    
+
     [Fact]
     public void Map_WithNullTags_SetsTagsToEmptyList()
     {
         // arrange
-        var ticket = ValidTicketDto with { Tags = null};
+        var ticket = ValidTicketDto with { Tags = null };
 
         // act
         var result = ZendeskTicketMapper.Map(ticket, [], []);
@@ -525,7 +539,7 @@ public class ZendeskTicketMapperTests
         // assert
         result.Tags.Should().BeEmpty();
     }
-    
+
     [Fact]
     public void Map_WithValidCreatedAt_SetsCreatedAtToParsedValue()
     {
@@ -622,6 +636,69 @@ public class ZendeskTicketMapperTests
         result.Messages[0].Author.Should().Be(employees[0].Name);
         result.Messages[0].Content.Should().Be(comments[0].PlainBody);
         result.Messages[0].CreatedAt.Should().Be(DateTime.Parse(comments[0].CreatedAt!));
+    }
+
+    [Fact]
+    public void Map_WithValidComments_GeneratesNewMessageId()
+    {
+        // arrange
+        var ticket = ValidTicketDto;
+        var comments = new[] { ValidCommentDto };
+        var employees = new[] { ValidUserDto };
+
+        // act
+        var result = ZendeskTicketMapper.Map(ticket, comments, employees);
+
+        // assert
+        result.Messages.Should().ContainSingle();
+        result.Messages[0].Id.Value.Should().NotBeEmpty();
+        result.Messages[0].Id.Value.Version.Should().Be(7);
+    }
+
+    [Fact]
+    public void Map_WithValidCommentsWithValidId_SetsMessageExternalIdToStringValue()
+    {
+        // arrange
+        var ticket = ValidTicketDto;
+        var comments = new[] { ValidCommentDto };
+        var employees = new[] { ValidUserDto };
+
+        // act
+        var result = ZendeskTicketMapper.Map(ticket, comments, employees);
+
+        // assert
+        result.Messages.Should().ContainSingle();
+        result.Messages[0].ExternalId.Should().Be(comments[0].Id.ToString());
+    }
+
+    [Fact]
+    public void Map_WithValidCommentsWithNullId_ThrowsException()
+    {
+        // arrange
+        var ticket = ValidTicketDto;
+        var comments = new[] { ValidCommentDto with { Id = null } };
+        var employees = new[] { ValidUserDto };
+
+        // act
+        var map = () => ZendeskTicketMapper.Map(ticket, comments, employees);
+
+        // assert
+        map.Should().Throw<Exception>().WithMessage("Could not parse Id");
+    }
+
+    [Fact]
+    public void Map_WithValidCommentsWithNegativeId_ThrowsException()
+    {
+        // arrange
+        var ticket = ValidTicketDto;
+        var comments = new[] { ValidCommentDto with { Id = -1 } };
+        var employees = new[] { ValidUserDto };
+
+        // act
+        var map = () => ZendeskTicketMapper.Map(ticket, comments, employees);
+
+        // assert
+        map.Should().Throw<Exception>().WithMessage("Could not parse Id");
     }
 
     [Fact]
@@ -768,7 +845,7 @@ public class ZendeskTicketMapperTests
         // assert
         result.Messages[0].Author.Should().Be("<UNKNOWN AUTHOR>");
     }
-    
+
     [Fact]
     public void Map_WithCommentWithAuthorThatDoesNotExist_SetsNonEmployeeCommentPlaceholder()
     {
@@ -875,9 +952,9 @@ public class ZendeskTicketMapperTests
 
     private static CommentDto ValidCommentDto =>
         new(
-            Id: 1,
+            Id: 10,
             Type: null,
-            AuthorId: 1,
+            AuthorId: 100,
             Body: "Test Comment",
             HtmlBody: "Test Comment",
             PlainBody: "Test Comment",
@@ -893,7 +970,7 @@ public class ZendeskTicketMapperTests
     private static UserDto ValidUserDto =>
         new(
             Url: null,
-            Id: 1,
+            Id: 100,
             Name: "Employee",
             Email: null,
             CreatedAt: "1970-01-01T00:00:00Z",

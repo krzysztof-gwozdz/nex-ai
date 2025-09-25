@@ -37,6 +37,8 @@ public static partial class ZendeskTicketMapper
             NormalizeCreatedAt(ticket.CreatedAt),
             NormalizeUpdatedAt(ticket.UpdatedAt),
             comments.Select(comment => new ZendeskTicket.ZendeskTicketMessage(
+                    ZendeskTicketMessageId.New(),
+                    NormalizeExternalId(comment.Id),
                     NormalizeCommentBody(comment.PlainBody),
                     NormalizeAuthor(comment, employees),
                     NormalizeCreatedAt(comment.CreatedAt)
@@ -84,7 +86,7 @@ public static partial class ZendeskTicketMapper
         var merchantId = customFields?.FirstOrDefault(customField => customField.Id == 21072413)?.Value?.ToString();
         return string.IsNullOrWhiteSpace(merchantId) || merchantId == "0" || merchantId == "00" ? string.Empty : merchantId;
     }
-    
+
     private static string[] NormalizeTags(string[]? tags) =>
         tags ?? [];
 

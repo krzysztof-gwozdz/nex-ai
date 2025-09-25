@@ -8,7 +8,7 @@ public record ZendeskTicketTitleAndDescriptionQdrantPoint(ZendeskTicketId Id, Re
     public static implicit operator PointStruct(ZendeskTicketTitleAndDescriptionQdrantPoint point) =>
         new()
         {
-            Id = Guid.NewGuid(),
+            Id = point.Id.Value,
             Vectors = new() { Vector = point.Content.ToArray() },
             Payload =
             {

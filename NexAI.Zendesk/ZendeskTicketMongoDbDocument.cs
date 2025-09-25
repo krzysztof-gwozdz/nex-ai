@@ -11,7 +11,7 @@ public record ZendeskTicketMongoDbDocument
     public ZendeskTicketMongoDbDocument(
         ZendeskTicketId id,
         string url,
-        string number,
+        string externalId,
         string title,
         string description,
         string category,
@@ -45,7 +45,7 @@ public record ZendeskTicketMongoDbDocument
     [BsonId]
     [BsonElement("_id")]
     public Guid Id { get; init; }
-    
+
     [BsonElement("externalId")]
     public string ExternalId { get; init; } = string.Empty;
 
@@ -94,6 +94,12 @@ public record ZendeskTicketMongoDbDocument
 
     public record MessageDocument
     {
+        [BsonElement("id")]
+        public Guid Id { get; init; }
+
+        [BsonElement("externalId")]
+        public string ExternalId { get; init; } = string.Empty;
+
         [BsonElement("content")]
         public string Content { get; private set; } = string.Empty;
 
@@ -107,8 +113,10 @@ public record ZendeskTicketMongoDbDocument
         {
         }
 
-        public MessageDocument(string content, string author, DateTime createdAt)
+        public MessageDocument(ZendeskTicketMessageId id, string externalId, string content, string author, DateTime createdAt) : this()
         {
+            Id = id;
+            ExternalId = externalId;
             Content = content;
             Author = author;
             CreatedAt = createdAt;
@@ -129,7 +137,7 @@ public record ZendeskTicketMongoDbDocument
             Tags,
             CreatedAt,
             UpdatedAt,
-            Messages.Select(message => new ZendeskTicket.ZendeskTicketMessage(message.Content, message.Author, message.CreatedAt)).ToArray()
+            Messages.Select(message => new ZendeskTicket.ZendeskTicketMessage(new(message.Id), message.ExternalId, message.Content, message.Author, message.CreatedAt)).ToArray()
         );
 
     public static ZendeskTicketMongoDbDocument Create(ZendeskTicket zendeskTicket) =>
@@ -149,6 +157,8 @@ public record ZendeskTicketMongoDbDocument
             zendeskTicket.Messages
                 .Select(message =>
                     new MessageDocument(
+                        message.Id,
+                        message.ExternalId,
                         message.Content,
                         message.Author,
                         message.CreatedAt)
@@ -170,6 +180,8 @@ public record ZendeskTicketMongoDbDocument
         Messages = zendeskTicket.Messages
             .Select(message =>
                 new MessageDocument(
+                    message.Id,
+                    message.ExternalId,
                     message.Content,
                     message.Author,
                     message.CreatedAt)

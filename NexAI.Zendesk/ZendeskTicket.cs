@@ -15,5 +15,5 @@ public record ZendeskTicket(
     DateTime? UpdatedAt, 
     ZendeskTicket.ZendeskTicketMessage[] Messages)
 {
-    public record ZendeskTicketMessage(string Content, string Author, DateTime CreatedAt);
+    public record ZendeskTicketMessage(ZendeskTicketMessageId Id, string ExternalId, string Content, string Author, DateTime CreatedAt);
 }
