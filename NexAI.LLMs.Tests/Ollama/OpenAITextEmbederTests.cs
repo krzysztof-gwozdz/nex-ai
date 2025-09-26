@@ -1,5 +1,4 @@
-﻿using NexAI.LLMs.Common;
-using NexAI.LLMs.Ollama;
+﻿using NexAI.LLMs.Ollama;
 
 namespace NexAI.LLMs.Tests.Ollama;
 
@@ -9,7 +8,7 @@ public class OllamaTextEmbedderTests : LLMTestBase
     public async Task GenerateEmbedding_ReturnEmbedding()
     {
         // arrange
-        var embedder = new OllamaTextEmbedder(GetOptions(LLM.Ollama));
+        var embedder = new OllamaTextEmbedder(GetOptions());
 
         // act
         var embedding = await embedder.GenerateEmbedding("TEST");

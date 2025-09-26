@@ -6,7 +6,6 @@ using MongoDB.Bson.Serialization.Serializers;
 using NexAI.Config;
 using NexAI.Console;
 using NexAI.Console.Features;
-using NexAI.LLMs.Common;
 using Spectre.Console;
 
 try

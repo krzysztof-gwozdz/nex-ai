@@ -1,5 +1,4 @@
-﻿using NexAI.LLMs.Common;
-using NexAI.LLMs.OpenAI;
+﻿using NexAI.LLMs.OpenAI;
 
 namespace NexAI.LLMs.Tests.OpenAI;
 
@@ -9,7 +8,7 @@ public class OpenAITextEmbedderTests : LLMTestBase
     public async Task GenerateEmbedding_ReturnEmbedding()
     {
         // arrange
-        var embedder = new OpenAITextEmbedder(GetOptions(LLM.OpenAI));
+        var embedder = new OpenAITextEmbedder(GetOptions());
 
         // act
         var embedding = await embedder.GenerateEmbedding("TEST");

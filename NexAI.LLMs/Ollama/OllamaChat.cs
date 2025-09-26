@@ -1,6 +1,6 @@
-﻿using NexAI.Config;
+﻿using System.Text.Json;
+using NexAI.Config;
 using OllamaSharp;
-using OllamaSharp.Models.Chat;
 
 namespace NexAI.LLMs.Ollama;
 
@@ -18,6 +18,14 @@ public class OllamaChat(Options options) : NexAI.LLMs.Common.Chat
         await foreach (var chunk in chat.SendAsync(message))
             response += chunk;
         return response;
+    }
+
+    public override async Task<TResponse> Ask<TResponse>(string systemMessage, string message)
+    {
+        var schema = GetSchema<TResponse>();
+        systemMessage += $"\nRespond in JSON format only that adheres to the following schema:\n{schema}";
+        var response = await Ask(systemMessage, message);
+        return JsonSerializer.Deserialize<TResponse>(response) ?? throw new JsonException($"Failed to deserialize response to {typeof(TResponse).Name}");
     }
 
     public override IAsyncEnumerable<string> AskStream(string systemMessage, string message)
