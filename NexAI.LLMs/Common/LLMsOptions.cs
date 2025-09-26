@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using NexAI.Config;
 
-namespace NexAI.LLMs;
+namespace NexAI.LLMs.Common;
 
 public class LLMsOptions : IOptions
 {

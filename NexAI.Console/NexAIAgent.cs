@@ -4,7 +4,9 @@ using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using NexAI.Config;
 using NexAI.Console.Plugins;
-using NexAI.LLMs;
+using NexAI.LLMs.Common;
+using NexAI.LLMs.Ollama;
+using NexAI.LLMs.OpenAI;
 using Spectre.Console;
 
 namespace NexAI.Console;
@@ -58,15 +60,15 @@ public class NexAIAgent
         var builder = Kernel.CreateBuilder();
         switch (mode)
         {
-            case "OpenAI":
+            case LLM.OpenAI:
                 var openAIOptions = options.Get<OpenAIOptions>();
-                builder.AddOpenAIChatCompletion(openAIOptions.ChatModel, openAIOptions.ApiKey, serviceId: "OpenAI");
-                AnsiConsole.MarkupLine($"[red]Using OpenAI model: {openAIOptions.ChatModel}[/]");
+                builder.AddOpenAIChatCompletion(openAIOptions.ChatModel, openAIOptions.ApiKey, serviceId: mode);
+                AnsiConsole.MarkupLine($"[red]Using {mode} model: {openAIOptions.ChatModel}[/]");
                 break;
-            case "Ollama":
+            case LLM.Ollama:
                 var ollamaOptions = options.Get<OllamaOptions>();
-                builder.AddOllamaChatCompletion(ollamaOptions.ChatModel, ollamaOptions.BaseAddress, serviceId: "Ollama");
-                AnsiConsole.MarkupLine($"[green]Using Ollama model: {ollamaOptions.ChatModel}[/]");
+                builder.AddOllamaChatCompletion(ollamaOptions.ChatModel, ollamaOptions.BaseAddress, serviceId: mode);
+                AnsiConsole.MarkupLine($"[green]Using {mode} model: {ollamaOptions.ChatModel}[/]");
                 break;
         }
         builder.Services.AddHttpClient();

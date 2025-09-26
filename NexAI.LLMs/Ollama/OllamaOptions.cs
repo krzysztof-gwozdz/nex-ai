@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using NexAI.Config;
 
-namespace NexAI.LLMs;
+namespace NexAI.LLMs.Ollama;
 
-public record OpenAIOptions : IOptions
+public record OllamaOptions : IOptions
 {
     [Required(AllowEmptyStrings = false)]
-    public string ApiKey { get; init; } = null!;
+    public Uri BaseAddress { get; init; } = null!;
 
     [Required(AllowEmptyStrings = false)]
     public string ChatModel { get; init; } = null!;

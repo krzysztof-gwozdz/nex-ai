@@ -1,4 +1,4 @@
-﻿using NexAI.LLMs;
+﻿using NexAI.LLMs.Common;
 using Qdrant.Client.Grpc;
 
 namespace NexAI.Zendesk;

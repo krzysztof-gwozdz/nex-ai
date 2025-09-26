@@ -1,7 +1,8 @@
 ﻿using NexAI.Config;
+using NexAI.LLMs.Common;
 using OpenAI.Embeddings;
 
-namespace NexAI.LLMs;
+namespace NexAI.LLMs.OpenAI;
 
 public class OpenAITextEmbedder(Options options) : TextEmbedder
 {

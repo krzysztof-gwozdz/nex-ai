@@ -1,5 +1,5 @@
 ﻿using NexAI.Config;
-using NexAI.LLMs;
+using NexAI.LLMs.Common;
 using NexAI.Qdrant;
 using Qdrant.Client;
 

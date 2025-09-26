@@ -1,7 +1,8 @@
 ﻿using NexAI.Config;
+using NexAI.LLMs.Common;
 using OllamaSharp;
 
-namespace NexAI.LLMs;
+namespace NexAI.LLMs.Ollama;
 
 public class OllamaTextEmbedder(Options options) : TextEmbedder
 {
