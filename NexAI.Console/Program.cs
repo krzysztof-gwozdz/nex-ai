@@ -1,19 +1,33 @@
 ﻿using System.Text;
 using Microsoft.Extensions.Configuration;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 using NexAI.Config;
 using NexAI.Console;
 using NexAI.Console.Features;
+using NexAI.LLMs.Common;
 using Spectre.Console;
 
 try
 {
     Console.OutputEncoding = Encoding.UTF8;
     AnsiConsole.Write(new FigletText("Nex AI").Color(Color.Aquamarine1));
+    
+    try
+    {
+        BsonSerializer.TryRegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
+    }
+    catch
+    {
+        // ignored
+    }
+    
     var options = new Options(GetConfiguration());
-
     var features = new[]
     {
         "Start Conversation with Nex AI",
+        "Summarize the Ticket",
         "Search for Tickets by Phrase",
         "Search for Azure Work Items by Phrase",
         "Search for Info About Ticket"
@@ -24,6 +38,9 @@ try
         case "Start Conversation with Nex AI":
             var agent = new NexAIAgent(options);
             await agent.StartConversation();
+            break;
+        case "Summarize the Ticket":
+            await new SummarizeZendeskTicketFeature(options).Run();
             break;
         case "Search for Tickets by Phrase":
             await new SearchForZendeskTicketsByPhraseFeature(options).Run(10);
