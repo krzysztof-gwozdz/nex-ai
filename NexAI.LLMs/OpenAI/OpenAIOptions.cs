@@ -14,5 +14,6 @@ public record OpenAIOptions : IOptions
     [Required(AllowEmptyStrings = false)]
     public string EmbeddingModel { get; init; } = null!;
     
+    [Required]
     public ulong EmbeddingDimension { get; init; }
 }

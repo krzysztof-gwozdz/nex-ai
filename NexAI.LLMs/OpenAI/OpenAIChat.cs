@@ -1,0 +1,42 @@
+﻿using NexAI.Config;
+using NexAI.LLMs.Common;
+using OpenAI.Chat;
+
+namespace NexAI.LLMs.OpenAI;
+
+public class OpenAIChat(Options options) : Chat
+{
+    private readonly ChatClient _chatClient = new(
+        options.Get<OpenAIOptions>().ChatModel,
+        options.Get<OpenAIOptions>().ApiKey
+    );
+
+    public override async Task<string> Ask(string systemMessage, string message)
+    {
+        List<ChatMessage> messages =
+        [
+            ChatMessage.CreateSystemMessage(systemMessage),
+            ChatMessage.CreateUserMessage(message)
+        ];
+        var result = await _chatClient.CompleteChatAsync(messages);
+        var response = result?.Value?.Content[0]?.Text ?? string.Empty;
+        return response;
+    }
+
+    public override async IAsyncEnumerable<string> AskStream(string systemMessage, string message)
+    {
+        List<ChatMessage> messages =
+        [
+            ChatMessage.CreateSystemMessage(systemMessage),
+            ChatMessage.CreateUserMessage(message)
+        ];
+        var result = _chatClient.CompleteChatStreamingAsync(messages);
+        await foreach (var completionUpdate in result)
+        {
+            if (completionUpdate.ContentUpdate.Count > 0)
+            {
+                yield return completionUpdate.ContentUpdate[0].Text;
+            }
+        }
+    }
+}

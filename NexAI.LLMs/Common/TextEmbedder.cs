@@ -14,6 +14,6 @@ public abstract class TextEmbedder
     {
         LLM.OpenAI => new OpenAITextEmbedder(options),
         LLM.Ollama => new OllamaTextEmbedder(options),
-        _ => throw new($"Unknown LLM mode: {options.Get<LLMsOptions>().Mode}")
+        _ => throw new($"Unknown LLM or unsupported mode: {options.Get<LLMsOptions>().Mode}")
     };
 }

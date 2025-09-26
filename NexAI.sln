@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexAI.DataProcessor", "NexA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexAI.Zendesk.Tests", "NexAI.Zendesk.Tests\NexAI.Zendesk.Tests.csproj", "{8A137554-E4EE-4F1B-B0C4-B4D365FDA7DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexAI.LLMs.Tests", "NexAI.LLMs.Tests\NexAI.LLMs.Tests.csproj", "{2C6FC6F1-8B79-4618-B91B-6F7F16A45775}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,5 +81,9 @@ Global
 		{8A137554-E4EE-4F1B-B0C4-B4D365FDA7DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A137554-E4EE-4F1B-B0C4-B4D365FDA7DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A137554-E4EE-4F1B-B0C4-B4D365FDA7DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C6FC6F1-8B79-4618-B91B-6F7F16A45775}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C6FC6F1-8B79-4618-B91B-6F7F16A45775}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C6FC6F1-8B79-4618-B91B-6F7F16A45775}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C6FC6F1-8B79-4618-B91B-6F7F16A45775}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
