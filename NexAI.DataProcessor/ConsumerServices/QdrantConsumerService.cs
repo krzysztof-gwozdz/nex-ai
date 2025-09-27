@@ -1,10 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
-using NexAI.Config;
 using NexAI.DataProcessor.Zendesk;
 using NexAI.RabbitMQ;
 using NexAI.Zendesk;
 
 namespace NexAI.DataProcessor.ConsumerServices;
 
-public class QdrantConsumerService(ILogger<QdrantConsumerService> logger, RabbitMQClient rabbitMQClient, Options options)
-    : RabbitMQConsumerService<ZendeskTicket>(new(logger, rabbitMQClient, zendeskTicket => new ZendeskTicketQdrantExporter(options).Export(zendeskTicket), "nexai.zendesk_tickets.qdrant"));
+public class QdrantConsumerService(ILogger<QdrantConsumerService> logger, RabbitMQClient rabbitMQClient, ZendeskTicketQdrantExporter zendeskTicketQdrantExporter)
+    : RabbitMQConsumerService<ZendeskTicket>(new(logger, rabbitMQClient, zendeskTicketQdrantExporter.CreateSchema, zendeskTicketQdrantExporter.Export,   "nexai.zendesk_tickets.qdrant"));

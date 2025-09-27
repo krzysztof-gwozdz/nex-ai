@@ -2,31 +2,27 @@
 using NexAI.LLMs.Common;
 using NexAI.Qdrant;
 using NexAI.Zendesk;
-using Qdrant.Client;
 using Qdrant.Client.Grpc;
 using Spectre.Console;
 
 namespace NexAI.DataProcessor.Zendesk;
 
-public class ZendeskTicketQdrantExporter(Options options)
+public class ZendeskTicketQdrantExporter(QdrantDbClient qdrantDbClient, TextEmbedder textEmbedder, Options options)
 {
     private readonly DataProcessorOptions _dataProcessorOptions = options.Get<DataProcessorOptions>();
-    private readonly QdrantOptions _qdrantOptions = options.Get<QdrantOptions>();
-    private readonly TextEmbedder _textEmbedder = TextEmbedder.GetInstance(options);
 
     public async Task CreateSchema()
     {
         AnsiConsole.MarkupLine("[yellow]Start exporting Zendesk tickets into Qdrant...[/]");
-        using var client = new QdrantClient(new QdrantGrpcClient(_qdrantOptions.Host, _qdrantOptions.Port, _qdrantOptions.ApiKey));
-        if (_dataProcessorOptions.Recreate && await client.CollectionExistsAsync(ZendeskTicketCollections.QdrantCollectionName))
+        if (_dataProcessorOptions.Recreate && await qdrantDbClient.CollectionExistsAsync(ZendeskTicketCollections.QdrantCollectionName))
         {
-            await client.DeleteCollectionAsync(ZendeskTicketCollections.QdrantCollectionName);
+            await qdrantDbClient.DeleteCollectionAsync(ZendeskTicketCollections.QdrantCollectionName);
             AnsiConsole.MarkupLine("[red]Deleted collection for Zendesk tickets in Qdrant.[/]");
         }
 
-        if (!await client.CollectionExistsAsync(ZendeskTicketCollections.QdrantCollectionName))
+        if (!await qdrantDbClient.CollectionExistsAsync(ZendeskTicketCollections.QdrantCollectionName))
         {
-            await client.CreateCollectionAsync(ZendeskTicketCollections.QdrantCollectionName, new VectorParams { Size = _textEmbedder.EmbeddingDimension, Distance = Distance.Dot });
+            await qdrantDbClient.CreateCollectionAsync(ZendeskTicketCollections.QdrantCollectionName, new VectorParams { Size = textEmbedder.EmbeddingDimension, Distance = Distance.Dot });
             AnsiConsole.MarkupLine("[green]Created schema for Zendesk tickets in Qdrant.[/]");
         }
         else
@@ -37,17 +33,16 @@ public class ZendeskTicketQdrantExporter(Options options)
 
     public async Task Export(ZendeskTicket zendeskTicket)
     {
-        using var client = new QdrantClient(new QdrantGrpcClient(_qdrantOptions.Host, _qdrantOptions.Port, _qdrantOptions.ApiKey));
         var points = new List<PointStruct>
         {
-            await ZendeskTicketQdrantPoint.Create(zendeskTicket, _textEmbedder),
-            await ZendeskTicketTitleAndDescriptionQdrantPoint.Create(zendeskTicket, _textEmbedder)
+            await ZendeskTicketQdrantPoint.Create(zendeskTicket, textEmbedder),
+            await ZendeskTicketTitleAndDescriptionQdrantPoint.Create(zendeskTicket, textEmbedder)
         };
         foreach (var message in zendeskTicket.Messages)
         {
-            points.Add(await ZendeskTicketMessageQdrantPoint.Create(zendeskTicket.Id, message, _textEmbedder));
+            points.Add(await ZendeskTicketMessageQdrantPoint.Create(zendeskTicket.Id, message, textEmbedder));
         }
-        await client.UpsertAsync(ZendeskTicketCollections.QdrantCollectionName, points);
+        await qdrantDbClient.UpsertAsync(ZendeskTicketCollections.QdrantCollectionName, points);
         AnsiConsole.MarkupLine("[green]Successfully exported Zendesk tickets into Qdrant.[/]");
     }
 }

@@ -1,15 +1,11 @@
-﻿using NexAI.Config;
+﻿namespace NexAI.AzureDevOps.Queries;
 
-namespace NexAI.AzureDevOps.Queries;
-
-public class GetAzureDevopsWorkItemsRelatedToZendeskTicketQuery(Options options)
+public class GetAzureDevopsWorkItemsRelatedToZendeskTicketQuery(AzureDevOpsClient azureDevOpsClient)
 {
-    private readonly AzureDevOpsClient _azureDevOpsClient = new(options);
-
     public async Task<AzureDevOpsWorkItem[]> Handle(string zendeskTicketId, int limit)
     {
-        var query = await _azureDevOpsClient.GetOrCreateQuery(GetQuery(zendeskTicketId), limit);
-        var workItems = await _azureDevOpsClient.GetWorkItems(query);
+        var query = await azureDevOpsClient.GetOrCreateQuery(GetQuery(zendeskTicketId), limit);
+        var workItems = await azureDevOpsClient.GetWorkItems(query);
         return workItems.Select(workItem => new AzureDevOpsWorkItem(workItem)).ToArray();
     }
 

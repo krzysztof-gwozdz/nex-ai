@@ -5,7 +5,11 @@ using Microsoft.Extensions.Logging;
 using NexAI.Config;
 using NexAI.DataProcessor.ConsumerServices;
 using NexAI.DataProcessor.Zendesk;
+using NexAI.LLMs;
+using NexAI.MongoDb;
+using NexAI.Qdrant;
 using NexAI.RabbitMQ;
+using NexAI.Zendesk;
 using Spectre.Console;
 
 try
@@ -14,16 +18,19 @@ try
     AnsiConsole.Write(new FigletText("Nex AI - Data Processor").Color(Color.Red3));
     var options = new Options(GetConfiguration());
 
-    await new ZendeskTicketJsonExporter(options).CreateSchema();
-    await new ZendeskTicketMongoDbExporter(options).CreateSchema();
-    await new ZendeskTicketQdrantExporter(options).CreateSchema();
-
     using var host = Host.CreateDefaultBuilder(args)
         .ConfigureServices((_, services) =>
         {
             services.AddLogging(loggingBuilder => loggingBuilder.AddConsole());
             services.AddSingleton(options);
-            services.AddSingleton<RabbitMQClient>();
+            services.AddMongoDb();
+            services.AddQdrant();
+            services.AddZendesk();
+            services.AddRabbitMQ();
+            services.AddLLM(options);
+            services.AddSingleton<ZendeskTicketJsonExporter>();
+            services.AddSingleton<ZendeskTicketMongoDbExporter>();
+            services.AddSingleton<ZendeskTicketQdrantExporter>();
             services.AddHostedService<JsonConsumerService>();
             services.AddHostedService<MongoDbConsumerService>();
             services.AddHostedService<QdrantConsumerService>();

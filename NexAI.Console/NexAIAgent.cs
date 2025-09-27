@@ -2,11 +2,18 @@
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
+using NexAI.AzureDevOps;
 using NexAI.Config;
+using NexAI.Console.Features;
 using NexAI.Console.Plugins;
+using NexAI.LLMs;
 using NexAI.LLMs.Common;
 using NexAI.LLMs.Ollama;
 using NexAI.LLMs.OpenAI;
+using NexAI.MongoDb;
+using NexAI.Qdrant;
+using NexAI.RabbitMQ;
+using NexAI.Zendesk;
 using Spectre.Console;
 
 namespace NexAI.Console;
@@ -73,6 +80,16 @@ public class NexAIAgent
         }
         builder.Services.AddHttpClient();
         builder.Services.AddSingleton(options);
+        builder.Services.AddAzureDevOps();
+        builder.Services.AddZendesk();
+        builder.Services.AddMongoDb();
+        builder.Services.AddQdrant();
+        builder.Services.AddRabbitMQ();
+        builder.Services.AddLLM(options);
+        builder.Services.AddSingleton<SummarizeZendeskTicketFeature>();
+        builder.Services.AddSingleton<SearchForZendeskTicketsByPhraseFeature>();
+        builder.Services.AddSingleton<SearchForAzureWorkItemsByPhraseFeature>();
+        builder.Services.AddSingleton<SearchForInfoAboutTicketFeature>();
         return builder;
     }
 

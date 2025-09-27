@@ -6,7 +6,12 @@ using RabbitMQ.Client.Events;
 
 namespace NexAI.RabbitMQ;
 
-public class RabbitMQConsumer<TMessage>(ILogger logger, RabbitMQClient rabbitMQClient, Func<TMessage, Task> handleMessage, string queueName) : IAsyncDisposable
+public class RabbitMQConsumer<TMessage>(
+    ILogger logger,
+    RabbitMQClient rabbitMQClient, 
+    Func<Task> init,
+    Func<TMessage, Task> handleMessage, 
+    string queueName) : IAsyncDisposable
 {
     private IConnection? _connection;
     private IChannel? _channel;
@@ -23,12 +28,17 @@ public class RabbitMQConsumer<TMessage>(ILogger logger, RabbitMQClient rabbitMQC
         }
     }
 
-    public async Task ExecuteAsync(CancellationToken cancellationToken)
+    public async Task Init(CancellationToken cancellationToken)
+    {
+        await init();
+    }
+
+    public async Task Execute(CancellationToken cancellationToken)
     {
         logger.LogInformation("Connecting to '{queueName}' queue.", queueName);
         _connection = await rabbitMQClient.ConnectionFactory.CreateConnectionAsync(cancellationToken);
         _channel = await _connection.CreateChannelAsync(cancellationToken: cancellationToken);
-        await _channel.BasicQosAsync(0, 10, false, cancellationToken);
+        await _channel.BasicQosAsync(0, 100, false, cancellationToken);
         var consumer = new AsyncEventingBasicConsumer(_channel);
         consumer.ReceivedAsync += async (_, deliverEventArgs) =>
         {

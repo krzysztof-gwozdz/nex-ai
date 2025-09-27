@@ -1,10 +1,11 @@
-﻿using NexAI.Config;
-using NexAI.Zendesk.Queries;
+﻿using NexAI.Zendesk.Queries;
 using Spectre.Console;
 
 namespace NexAI.Console.Features;
 
-public class SummarizeZendeskTicketFeature(Options options)
+public class SummarizeZendeskTicketFeature(
+    GetZendeskTicketByExternalIdQuery getZendeskTicketByExternalIdQuery,
+    StreamZendeskTicketSummaryQuery streamZendeskTicketSummaryQuery)
 {
     public async Task Run()
     {
@@ -29,14 +30,14 @@ public class SummarizeZendeskTicketFeature(Options options)
 
     private async Task SummarizeZendeskTicket(string userMessage)
     {
-        var zendeskTicket = await new GetZendeskTicketByExternalIdQuery(options).Handle(userMessage);
+        var zendeskTicket = await getZendeskTicketByExternalIdQuery.Handle(userMessage);
         if (zendeskTicket == null)
         {
             AnsiConsole.MarkupLine("[red]No Zendesk ticket found with that id.[/]");
             return;
         }
         AnsiConsole.MarkupLine("[bold Aquamarine1]Ticket Summary:[/]");
-        await foreach (var chunk in new StreamZendeskTicketSummaryQuery(options).Handle(zendeskTicket))
+        await foreach (var chunk in streamZendeskTicketSummaryQuery.Handle(zendeskTicket))
             AnsiConsole.Markup(chunk.EscapeMarkup());
     }
 }

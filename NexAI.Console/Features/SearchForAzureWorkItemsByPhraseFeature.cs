@@ -1,10 +1,9 @@
 ﻿using NexAI.AzureDevOps.Queries;
-using NexAI.Config;
 using Spectre.Console;
 
 namespace NexAI.Console.Features;
 
-public class SearchForAzureWorkItemsByPhraseFeature(Options options)
+public class SearchForAzureWorkItemsByPhraseFeature(GetAzureDevopsWorkItemsQuery getAzureDevopsWorkItemsQuery)
 {
     public async Task Run(int limit)
     {
@@ -30,7 +29,7 @@ public class SearchForAzureWorkItemsByPhraseFeature(Options options)
 
     private async Task GetAzureDevOpsWorkItemByPhrase(string phrase, int limit)
     {
-        var azureDevOpsWorkItems = await new GetAzureDevopsWorkItemsQuery(options).Handle(phrase, limit);
+        var azureDevOpsWorkItems = await getAzureDevopsWorkItemsQuery.Handle(phrase, limit);
         AnsiConsole.MarkupLine("[bold Aquamarine1]Work items that contain phrase:[/]");
         if (azureDevOpsWorkItems.Length == 0)
         {

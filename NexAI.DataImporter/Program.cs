@@ -6,7 +6,7 @@ using NexAI.Config;
 using NexAI.DataImporter;
 using NexAI.DataImporter.Zendesk;
 using NexAI.RabbitMQ;
-using NexAI.Zendesk.Api;
+using NexAI.Zendesk;
 using Spectre.Console;
 
 try
@@ -19,9 +19,9 @@ try
         {
             services.AddLogging(loggingBuilder => loggingBuilder.AddConsole());
             services.AddSingleton(new Options(GetConfiguration()));
-            services.AddSingleton<RabbitMQClient>();
+            services.AddRabbitMQ();
+            services.AddZendesk();
             services.AddSingleton<RabbitMQStructure>();
-            services.AddSingleton<ZendeskApiClient>();
             services.AddSingleton<ZendeskTicketImporter>();
         })
         .Build();

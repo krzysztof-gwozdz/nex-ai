@@ -1,10 +1,12 @@
-﻿using NexAI.Config;
-using NexAI.Zendesk.Queries;
+﻿using NexAI.Zendesk.Queries;
 using Spectre.Console;
 
 namespace NexAI.Console.Features;
 
-public class SearchForZendeskTicketsByPhraseFeature(Options options)
+public class SearchForZendeskTicketsByPhraseFeature(
+    FindSimilarZendeskTicketsByPhraseQuery findSimilarZendeskTicketsByPhraseQuery,
+    FindZendeskTicketsThatContainPhraseQuery findZendeskTicketsThatContainPhraseQuery
+)
 {
     public async Task Run(int limit)
     {
@@ -31,7 +33,7 @@ public class SearchForZendeskTicketsByPhraseFeature(Options options)
 
     private async Task GetSimilarZendeskTicketsByPhrase(string userMessage, int limit)
     {
-        var searchResult = await new FindSimilarZendeskTicketsByPhraseQuery(options).Handle(userMessage, limit);
+        var searchResult = await findSimilarZendeskTicketsByPhraseQuery.Handle(userMessage, limit);
         AnsiConsole.MarkupLine("[bold Aquamarine1]Similar tickets (embedding):[/]");
         if (searchResult.Length == 0)
         {
@@ -67,7 +69,7 @@ public class SearchForZendeskTicketsByPhraseFeature(Options options)
 
     private async Task GetZendeskTicketsByPhrase(string userMessage, int limit)
     {
-        var searchResult = await new FindZendeskTicketsThatContainPhraseQuery(options).Handle(userMessage, limit);
+        var searchResult = await findZendeskTicketsThatContainPhraseQuery.Handle(userMessage, limit);
         AnsiConsole.MarkupLine("[bold Aquamarine1]Tickets that contain phrase (full text search):[/]");
         if (searchResult.Length == 0)
         {

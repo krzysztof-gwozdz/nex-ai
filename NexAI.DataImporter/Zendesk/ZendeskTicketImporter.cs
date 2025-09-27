@@ -24,11 +24,12 @@ internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, RabbitMQ
         var employees = await GetEmployeesFromApiOrBackup(cancellationToken);
         var tickets = await GetTicketsFromApiOrBackup(_ticketStartDateTime, cancellationToken);
         var ticketsCount = 0;
-        for (var i = 0; i < tickets.Length; i += 100)
+        const int batchSize = 50;
+        for (var i = 0; i < tickets.Length; i += batchSize)
         {
             var zendeskTicket = new ConcurrentBag<ZendeskTicket>();
             await Parallel.ForEachAsync(
-                tickets.Skip(i).Take(100).ToArray(),
+                tickets.Skip(i).Take(batchSize).ToArray(),
                 new ParallelOptions { MaxDegreeOfParallelism = 10 },
                 async (ticket, parallelCancellationToken) =>
                 {

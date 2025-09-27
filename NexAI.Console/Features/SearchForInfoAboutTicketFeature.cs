@@ -1,13 +1,14 @@
 ﻿using NexAI.AzureDevOps;
 using NexAI.AzureDevOps.Queries;
-using NexAI.Config;
 using NexAI.Zendesk;
 using NexAI.Zendesk.Queries;
 using Spectre.Console;
 
 namespace NexAI.Console.Features;
 
-public class SearchForInfoAboutTicketFeature(Options options)
+public class SearchForInfoAboutTicketFeature(
+    GetZendeskTicketByExternalIdQuery getZendeskTicketByExternalIdQuery,
+    GetAzureDevopsWorkItemsRelatedToZendeskTicketQuery getAzureDevopsWorkItemsRelatedToZendeskTicketQuery)
 {
     public async Task Run()
     {
@@ -33,14 +34,14 @@ public class SearchForInfoAboutTicketFeature(Options options)
 
     private async Task FetchZendeskTicketInfo(string userMessage)
     {
-        var zendeskTicket = await new GetZendeskTicketByExternalIdQuery(options).Handle(userMessage);
+        var zendeskTicket = await getZendeskTicketByExternalIdQuery.Handle(userMessage);
         if (zendeskTicket == null)
         {
             AnsiConsole.MarkupLine("[red]No Zendesk ticket found with that id.[/]");
             return;
         }
         DisplayZendeskTicket(zendeskTicket);
-        var azureDevOpsWorkItem = await new GetAzureDevopsWorkItemsRelatedToZendeskTicketQuery(options).Handle(zendeskTicket.ExternalId, 10);
+        var azureDevOpsWorkItem = await getAzureDevopsWorkItemsRelatedToZendeskTicketQuery.Handle(zendeskTicket.ExternalId, 10);
         DisplayAzureDevOpsWorkItems(azureDevOpsWorkItem);
     }
 

@@ -1,7 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Serializers;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using NexAI.Config;
 using NexAI.MongoDb;
 using NexAI.Zendesk;
@@ -9,27 +6,22 @@ using Spectre.Console;
 
 namespace NexAI.DataProcessor.Zendesk;
 
-public class ZendeskTicketMongoDbExporter(Options options)
+public class ZendeskTicketMongoDbExporter(MongoDbClient mongoDbClient, Options options)
 {
     private readonly DataProcessorOptions _dataProcessorOptions = options.Get<DataProcessorOptions>();
-    private readonly MongoDbOptions _mongoDbOptions = options.Get<MongoDbOptions>();
 
     public async Task CreateSchema()
     {
-        RegisterGuidSerializer();
-        var clientSettings = MongoClientSettings.FromUrl(new(_mongoDbOptions.ConnectionString));
-        var client = new MongoClient(clientSettings);
-        var database = client.GetDatabase(_mongoDbOptions.Database);
-        var existingCollections = await (await database.ListCollectionNamesAsync()).ToListAsync();
+        var existingCollections = await (await mongoDbClient.Database.ListCollectionNamesAsync()).ToListAsync();
         if (_dataProcessorOptions.Recreate && existingCollections.Contains(ZendeskTicketCollections.MongoDbCollectionName))
         {
-            await database.DropCollectionAsync(ZendeskTicketCollections.MongoDbCollectionName);
+            await mongoDbClient.Database.DropCollectionAsync(ZendeskTicketCollections.MongoDbCollectionName);
             AnsiConsole.MarkupLine("[red]Deleted collection for Zendesk tickets in MongoDb.[/]");
         }
         if (!existingCollections.Contains(ZendeskTicketCollections.MongoDbCollectionName))
         {
-            await database.CreateCollectionAsync(ZendeskTicketCollections.MongoDbCollectionName);
-            await CreateFullTextIndex(database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketCollections.MongoDbCollectionName));
+            await mongoDbClient.Database.CreateCollectionAsync(ZendeskTicketCollections.MongoDbCollectionName);
+            await CreateFullTextIndex(mongoDbClient.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketCollections.MongoDbCollectionName));
             AnsiConsole.MarkupLine("[green]Created schema for Zendesk tickets in MongoDb.[/]");
         }
         else
@@ -40,9 +32,7 @@ public class ZendeskTicketMongoDbExporter(Options options)
 
     public async Task Export(ZendeskTicket zendeskTicket)
     {
-        var clientSettings = MongoClientSettings.FromUrl(new(_mongoDbOptions.ConnectionString));
-        var client = new MongoClient(clientSettings);
-        var database = client.GetDatabase(_mongoDbOptions.Database);
+        var database = mongoDbClient.Database;
         var collection = database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketCollections.MongoDbCollectionName);
         var document = await collection.Find(existingZendeskTicket => existingZendeskTicket.Id == zendeskTicket.Id || existingZendeskTicket.ExternalId == zendeskTicket.Id).FirstOrDefaultAsync();
         if (document is not null)
@@ -56,18 +46,6 @@ public class ZendeskTicketMongoDbExporter(Options options)
             document = ZendeskTicketMongoDbDocument.Create(zendeskTicket);
             await collection.InsertOneAsync(document);
             AnsiConsole.MarkupLine($"[green]Successfully added Zendesk ticket {zendeskTicket.ExternalId} into MongoDb.[/]");
-        }
-    }
-
-    private static void RegisterGuidSerializer()
-    {
-        try
-        {
-            BsonSerializer.TryRegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
-        }
-        catch
-        {
-            // ignored
         }
     }
 

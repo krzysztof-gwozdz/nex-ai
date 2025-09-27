@@ -1,19 +1,13 @@
 ﻿using MongoDB.Driver;
-using NexAI.Config;
 using NexAI.MongoDb;
 
 namespace NexAI.Zendesk.Queries;
 
-public class FindZendeskTicketsThatContainPhraseQuery(Options options)
+public class FindZendeskTicketsThatContainPhraseQuery(MongoDbClient mongoDbClient)
 {
-    private readonly MongoDbOptions _mongoDbOptions = options.Get<MongoDbOptions>();
-
     public async Task<SearchResult[]> Handle(string phrase, int limit)
     {
-        var clientSettings = MongoClientSettings.FromUrl(new(_mongoDbOptions.ConnectionString));
-        var client = new MongoClient(clientSettings);
-        var database = client.GetDatabase(_mongoDbOptions.Database);
-        var collection = database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketCollections.MongoDbCollectionName);
+        var collection = mongoDbClient.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketCollections.MongoDbCollectionName);
         var filter = Builders<ZendeskTicketMongoDbDocument>.Filter.Text(phrase);
 
         var projection = Builders<ZendeskTicketMongoDbDocument>.Projection

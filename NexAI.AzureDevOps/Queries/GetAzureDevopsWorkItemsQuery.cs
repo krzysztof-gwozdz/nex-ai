@@ -1,15 +1,11 @@
-﻿using NexAI.Config;
+﻿namespace NexAI.AzureDevOps.Queries;
 
-namespace NexAI.AzureDevOps.Queries;
-
-public class GetAzureDevopsWorkItemsQuery(Options options)
+public class GetAzureDevopsWorkItemsQuery(AzureDevOpsClient azureDevOpsClient)
 {
-    private readonly AzureDevOpsClient _azureDevOpsClient = new(options);
-
     public async Task<AzureDevOpsWorkItem[]> Handle(string phrase, int limit)
     {
-        var query = await _azureDevOpsClient.GetOrCreateQuery(GetQuery(phrase), limit);
-        var workItems = await _azureDevOpsClient.GetWorkItems(query);
+        var query = await azureDevOpsClient.GetOrCreateQuery(GetQuery(phrase), limit);
+        var workItems = await azureDevOpsClient.GetWorkItems(query);
         return workItems.Select(workItem => new AzureDevOpsWorkItem(workItem)).ToArray();
     }
 
