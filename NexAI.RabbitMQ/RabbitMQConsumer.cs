@@ -28,6 +28,7 @@ public class RabbitMQConsumer<TMessage>(ILogger logger, RabbitMQClient rabbitMQC
         logger.LogInformation("Connecting to '{queueName}' queue.", queueName);
         _connection = await rabbitMQClient.ConnectionFactory.CreateConnectionAsync(cancellationToken);
         _channel = await _connection.CreateChannelAsync(cancellationToken: cancellationToken);
+        await _channel.BasicQosAsync(0, 10, false, cancellationToken);
         var consumer = new AsyncEventingBasicConsumer(_channel);
         consumer.ReceivedAsync += async (_, deliverEventArgs) =>
         {
