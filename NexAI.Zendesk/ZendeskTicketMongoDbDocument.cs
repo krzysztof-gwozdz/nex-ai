@@ -14,10 +14,10 @@ public record ZendeskTicketMongoDbDocument
         string externalId,
         string title,
         string description,
-        string category,
+        string? category,
         string status,
-        string country,
-        string merchantId,
+        string? country,
+        string? merchantId,
         string[] tags,
         DateTime createdAt,
         DateTime? updatedAt,
@@ -59,16 +59,16 @@ public record ZendeskTicketMongoDbDocument
     public string Description { get; private set; } = string.Empty;
 
     [BsonElement("category")]
-    public string Category { get; private set; } = string.Empty;
+    public string? Category { get; private set; }
 
     [BsonElement("status")]
     public string Status { get; private set; } = string.Empty;
 
     [BsonElement("country")]
-    public string Country { get; private set; } = string.Empty;
+    public string? Country { get; private set; }
 
     [BsonElement("merchantId")]
-    public string MerchantId { get; private set; } = string.Empty;
+    public string? MerchantId { get; private set; }
 
     [BsonElement("tags")]
     public string[] Tags { get; private set; } = [];

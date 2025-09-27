@@ -288,7 +288,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.Category.Should().BeEmpty();
+        result.Category.Should().BeNull();
     }
 
     [Fact]
@@ -301,7 +301,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.Category.Should().BeEmpty();
+        result.Category.Should().BeNull();
     }
 
     [Fact]
@@ -314,7 +314,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.Category.Should().BeEmpty();
+        result.Category.Should().BeNull();
     }
 
     [Fact]
@@ -327,7 +327,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.Category.Should().BeEmpty();
+        result.Category.Should().BeNull();
     }
 
     [Fact]
@@ -392,7 +392,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.Country.Should().BeEmpty();
+        result.Country.Should().BeNull();
     }
 
     [Fact]
@@ -405,7 +405,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.Country.Should().BeEmpty();
+        result.Country.Should().BeNull();
     }
 
     [Fact]
@@ -418,7 +418,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.Country.Should().BeEmpty();
+        result.Country.Should().BeNull();
     }
 
     [Fact]
@@ -431,7 +431,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.Country.Should().BeEmpty();
+        result.Country.Should().BeNull();
     }
 
     [Fact]
@@ -457,7 +457,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.MerchantId.Should().BeEmpty();
+        result.MerchantId.Should().BeNull();
     }
 
     [Fact]
@@ -470,7 +470,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.MerchantId.Should().BeEmpty();
+        result.MerchantId.Should().BeNull();
     }
 
     [Fact]
@@ -483,7 +483,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.MerchantId.Should().BeEmpty();
+        result.MerchantId.Should().BeNull();
     }
 
     [Fact]
@@ -496,12 +496,13 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.MerchantId.Should().BeEmpty();
+        result.MerchantId.Should().BeNull();
     }
 
     [Theory]
     [InlineData("0")]
     [InlineData("00")]
+    [InlineData("1")]
     public void Map_WithCustomFieldsThatContainsMerchantIdWithInvalidValue_SetsMissingMerchantIdPlaceholder(string? merchantId)
     {
         // arrange
@@ -511,7 +512,7 @@ public class ZendeskTicketMapperTests
         var result = ZendeskTicketMapper.Map(ticket, [], []);
 
         // assert
-        result.MerchantId.Should().BeEmpty();
+        result.MerchantId.Should().BeNull();
     }
 
     [Fact]

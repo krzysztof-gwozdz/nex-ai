@@ -66,25 +66,25 @@ public static partial class ZendeskTicketMapper
     private static string NormalizeUrl(string? url) =>
         string.IsNullOrWhiteSpace(url) ? "<MISSING URL>" : url;
 
-    private static string NormalizeCategory(TicketDto.CustomField[]? customFields)
+    private static string? NormalizeCategory(TicketDto.CustomField[]? customFields)
     {
         var category = customFields?.FirstOrDefault(customField => customField.Id == 23426028)?.Value?.ToString();
-        return string.IsNullOrWhiteSpace(category) ? string.Empty : category;
+        return string.IsNullOrWhiteSpace(category) ? null : category;
     }
 
     private static string NormalizeStatus(string? status) =>
         string.IsNullOrWhiteSpace(status) ? "<MISSING STATUS>" : status;
 
-    private static string NormalizeCountry(TicketDto.CustomField[]? customFields)
+    private static string? NormalizeCountry(TicketDto.CustomField[]? customFields)
     {
         var country = customFields?.FirstOrDefault(customField => customField.Id == 360000060007)?.Value?.ToString();
-        return string.IsNullOrWhiteSpace(country) ? string.Empty : country;
+        return string.IsNullOrWhiteSpace(country) ? null : country;
     }
 
-    private static string NormalizeMerchantId(TicketDto.CustomField[]? customFields)
+    private static string? NormalizeMerchantId(TicketDto.CustomField[]? customFields)
     {
         var merchantId = customFields?.FirstOrDefault(customField => customField.Id == 21072413)?.Value?.ToString();
-        return string.IsNullOrWhiteSpace(merchantId) || merchantId == "0" || merchantId == "00" ? string.Empty : merchantId;
+        return string.IsNullOrWhiteSpace(merchantId) || merchantId == "0" || merchantId == "00" || merchantId == "1" ? null : merchantId;
     }
 
     private static string[] NormalizeTags(string[]? tags) =>
