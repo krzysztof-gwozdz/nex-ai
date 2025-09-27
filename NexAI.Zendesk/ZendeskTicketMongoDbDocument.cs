@@ -14,6 +14,7 @@ public record ZendeskTicketMongoDbDocument
         string externalId,
         string title,
         string description,
+        string? mainCategory,
         string? category,
         string status,
         string? country,
@@ -30,6 +31,7 @@ public record ZendeskTicketMongoDbDocument
         ExternalId = externalId;
         Title = title;
         Description = description;
+        MainCategory = mainCategory;
         Category = category;
         Status = status;
         Country = country;
@@ -57,6 +59,9 @@ public record ZendeskTicketMongoDbDocument
 
     [BsonElement("description")]
     public string Description { get; private set; } = string.Empty;
+
+    [BsonElement("mainCategory")]
+    public string? MainCategory { get; private set; }
 
     [BsonElement("category")]
     public string? Category { get; private set; }
@@ -130,6 +135,7 @@ public record ZendeskTicketMongoDbDocument
             Title,
             Description,
             Url,
+            MainCategory,
             Category,
             Status,
             Country,
@@ -147,6 +153,7 @@ public record ZendeskTicketMongoDbDocument
             zendeskTicket.ExternalId,
             zendeskTicket.Title,
             zendeskTicket.Description,
+            zendeskTicket.MainCategory,
             zendeskTicket.Category,
             zendeskTicket.Status,
             zendeskTicket.Country,

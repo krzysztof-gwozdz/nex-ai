@@ -6,16 +6,48 @@ public record ZendeskTicket(
     string Title,
     string Description,
     string Url,
-    string Category,
+    string? MainCategory,
+    string? Category,
     string Status,
-    string Country,
-    string MerchantId,
+    string? Country,
+    string? MerchantId,
     string[] Tags,
     DateTime CreatedAt,
     DateTime? UpdatedAt,
     ZendeskTicket.ZendeskTicketMessage[] Messages)
 {
     public record ZendeskTicketMessage(ZendeskTicketMessageId Id, string ExternalId, string Content, string Author, DateTime CreatedAt);
+
+    public static ZendeskTicket Create
+    (
+        string externalId,
+        string title,
+        string description,
+        string url,
+        string? category,
+        string status,
+        string? country,
+        string? merchantId,
+        string[] tags,
+        DateTime createdAt,
+        DateTime? updatedAt,
+        ZendeskTicketMessage[] messages
+    ) =>
+        new(
+            ZendeskTicketId.New(),
+            externalId,
+            title,
+            description,
+            url,
+            GetMainCategory(category),
+            category,
+            status,
+            country,
+            merchantId,
+            tags,
+            createdAt,
+            updatedAt,
+            messages);
 
     public bool IsRelevant =>
         !(Messages.Length == 1 ||
@@ -31,4 +63,7 @@ public record ZendeskTicket(
           ) ||
           Title.StartsWith("Sinch call answered on") ||
           Title.StartsWith("Escalated dispute with KlarnaDisputeId"));
+    
+    private static string? GetMainCategory(string? category) =>
+        category?.Split("__").FirstOrDefault();
 }
