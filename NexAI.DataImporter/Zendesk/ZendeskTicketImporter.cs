@@ -23,6 +23,7 @@ internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, RabbitMQ
         AnsiConsole.MarkupLine("[yellow]Importing sample Zendesk tickets from JSON...[/]");
         var employees = await GetEmployeesFromApiOrBackup(cancellationToken);
         var tickets = await GetTicketsFromApiOrBackup(_ticketStartDateTime, cancellationToken);
+        var ticketsCount = 0;
         for (var i = 0; i < tickets.Length; i += 100)
         {
             var zendeskTicket = new ConcurrentBag<ZendeskTicket>();
@@ -36,11 +37,13 @@ internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, RabbitMQ
                     if (mappedZendeskTicket.IsRelevant)
                     {
                         zendeskTicket.Add(mappedZendeskTicket);
+                        ticketsCount++;
+                        AnsiConsole.MarkupLine($"[green]Imported ticket {ticket.ExternalId}.[/]");
                     }
                 });
             await rabbitMQClient.Send(RabbitMQStructure.ExchangeName, zendeskTicket.ToArray());
         }
-        AnsiConsole.MarkupLine($"[green]Successfully imported {tickets.Length} Zendesk tickets.[/]");
+        AnsiConsole.MarkupLine($"[green]Imported {tickets.Length} Zendesk tickets. Only {ticketsCount} were relevant.[/]");
     }
 
     private async Task<GroupDto[]> GetGroupsFromApiOrBackup(CancellationToken cancellationToken) =>

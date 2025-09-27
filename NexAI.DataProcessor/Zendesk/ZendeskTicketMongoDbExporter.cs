@@ -49,13 +49,13 @@ public class ZendeskTicketMongoDbExporter(Options options)
         {
             document.Update(zendeskTicket);
             await collection.ReplaceOneAsync(existingZendeskTicket => existingZendeskTicket.Id == zendeskTicket.Id || existingZendeskTicket.ExternalId == zendeskTicket.Id, document);
-            AnsiConsole.MarkupLine("[green]Successfully updated Zendesk tickets from MongoDb.[/]");
+            AnsiConsole.MarkupLine($"[green]Successfully updated Zendesk ticket {zendeskTicket.ExternalId} from MongoDb.[/]");
         }
         else
         {
             document = ZendeskTicketMongoDbDocument.Create(zendeskTicket);
             await collection.InsertOneAsync(document);
-            AnsiConsole.MarkupLine("[green]Successfully added Zendesk tickets into MongoDb.[/]");
+            AnsiConsole.MarkupLine($"[green]Successfully added Zendesk ticket {zendeskTicket.ExternalId} into MongoDb.[/]");
         }
     }
 
