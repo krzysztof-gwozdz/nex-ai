@@ -32,8 +32,11 @@ internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, RabbitMQ
                 async (ticket, parallelCancellationToken) =>
                 {
                     var comments = await GetCommentsFromApiOrBackup(ticket.Id!.Value, parallelCancellationToken);
-                    var mapped = ZendeskTicketMapper.Map(ticket, comments, employees);
-                    zendeskTicket.Add(mapped);
+                    var mappedZendeskTicket = ZendeskTicketMapper.Map(ticket, comments, employees);
+                    if (mappedZendeskTicket.IsRelevant)
+                    {
+                        zendeskTicket.Add(mappedZendeskTicket);
+                    }
                 });
             await rabbitMQClient.Send(RabbitMQStructure.ExchangeName, zendeskTicket.ToArray());
         }
