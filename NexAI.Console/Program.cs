@@ -59,33 +59,14 @@ IConfigurationRoot GetConfiguration() => new ConfigurationBuilder()
 
 async Task Run(IServiceProvider services)
 {
-    var features = new[]
+    var options = new Dictionary<string, Func<Task>>
     {
-        "Start Conversation with Nex AI",
-        "Summarize the Ticket",
-        "Search for Tickets by Phrase",
-        "Search for Azure Work Items by Phrase",
-        "Search for Info About Ticket"
+        ["Start Conversation with Nex AI"] = async () => await services.GetRequiredService<NexAIAgent>().StartConversation(),
+        ["Summarize the Ticket"] = async () => await services.GetRequiredService<SummarizeZendeskTicketFeature>().Run(),
+        ["Search for Tickets by Phrase"] = async () => await services.GetRequiredService<SearchForZendeskTicketsByPhraseFeature>().Run(10),
+        ["Search for Azure Work Items by Phrase"] = async () => await services.GetRequiredService<SearchForAzureWorkItemsByPhraseFeature>().Run(10),
+        ["Search for Info About Ticket"] = async () => await services.GetRequiredService<SearchForInfoAboutTicketFeature>().Run(),
     };
-
-    switch (AnsiConsole.Prompt(new SelectionPrompt<string>().AddChoices(features).UseConverter(choice => choice)))
-    {
-        case "Start Conversation with Nex AI":
-            await services.GetRequiredService<NexAIAgent>().StartConversation();
-            return;
-        case "Summarize the Ticket":
-            await services.GetRequiredService<SummarizeZendeskTicketFeature>().Run();
-            return;
-        case "Search for Tickets by Phrase":
-            await services.GetRequiredService<SearchForZendeskTicketsByPhraseFeature>().Run(10);
-            return;
-        case "Search for Azure Work Items by Phrase":
-            await services.GetRequiredService<SearchForAzureWorkItemsByPhraseFeature>().Run(10);
-            return;
-        case "Search for Info About Ticket":
-            await services.GetRequiredService<SearchForInfoAboutTicketFeature>().Run();
-            return;
-        default:
-            throw new InvalidOperationException("Invalid feature selected.");
-    }
+    var selectedOption = AnsiConsole.Prompt(new SelectionPrompt<string>().AddChoices(options.Keys));
+    await options[selectedOption]();
 }
