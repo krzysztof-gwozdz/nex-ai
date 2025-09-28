@@ -16,6 +16,7 @@ public class RabbitMQConsumerService<TMessage>(RabbitMQConsumer<TMessage> rabbit
         {
             AnsiConsole.WriteException(ex);
         }
+        await base.StartAsync(cancellationToken);
     }
 
     protected override async Task ExecuteAsync(CancellationToken cancellationToken)
