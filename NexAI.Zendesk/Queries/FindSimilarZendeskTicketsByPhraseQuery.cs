@@ -12,7 +12,7 @@ public class FindSimilarZendeskTicketsByPhraseQuery(
     {
         var embedding = await textEmbedder.GenerateEmbedding(phrase);
         var searchResult = (await qdrantDbClient.SearchAsync(ZendeskTicketCollections.QdrantCollectionName, embedding, limit: (ulong)limit))
-            .Select(point => (Id: Guid.Parse(point.Id.Uuid), point.Score)).ToArray();
+            .Select(point => (Id: Guid.Parse(point.Payload["ticket_id"].StringValue), point.Score)).ToArray();
         var zendeskTickets = await getZendeskTicketsByIdsQuery
             .Handle(searchResult.Select(result => result.Id).ToArray());
         return zendeskTickets

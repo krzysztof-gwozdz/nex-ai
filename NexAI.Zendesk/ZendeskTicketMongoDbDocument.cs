@@ -93,7 +93,6 @@ public record ZendeskTicketMongoDbDocument
     [BsonElement("lastImportDate")]
     public DateTime LastImportDate { get; private set; }
 
-    [BsonIgnore]
     [BsonElement("score")]
     public double Score { get; private set; }
 
