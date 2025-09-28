@@ -40,7 +40,7 @@ public class ZendeskTicketQdrantExporter(QdrantDbClient qdrantDbClient, TextEmbe
         };
         foreach (var message in zendeskTicket.Messages)
         {
-            points.Add(await ZendeskTicketMessageQdrantPoint.Create(zendeskTicket.Id, message, textEmbedder));
+            points.Add(await ZendeskTicketMessageQdrantPoint.Create(zendeskTicket.Id, zendeskTicket.ExternalId, message, textEmbedder));
         }
         await qdrantDbClient.UpsertAsync(ZendeskTicketCollections.QdrantCollectionName, points);
         AnsiConsole.MarkupLine("[green]Successfully exported Zendesk tickets into Qdrant.[/]");
