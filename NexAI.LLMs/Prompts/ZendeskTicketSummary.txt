@@ -1,0 +1,16 @@
+Summarize the following Zendesk ticket into a concise summary that captures the main issue, key details, and any relevant context. 
+The summary should be clear and informative, suitable for a quick understanding of the ticket's content.
+It should be no longer than 4 sentences.
+Do not include any personal data or sensitive information.
+It should be in English.
+Do not ask questions. 
+Do not use emojis.
+Do not include headings.
+Only include information that is present in the ticket.
+If the ticket is empty or does not contain enough information to generate a summary, respond with: "No sufficient information to generate a summary."
+The ticket is in JSON format.
+Response format:
+{
+    "summary": "string",
+    "languages": ["string" /* detected languages in the ticket, e.g., English, Spanish */]
+}

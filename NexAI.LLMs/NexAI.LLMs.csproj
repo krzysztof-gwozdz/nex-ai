@@ -15,4 +15,11 @@
         <PackageReference Include="OpenAI" Version="2.4.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Prompts\ZendeskTicketSummary.txt" />
+      <Content Include="Prompts\ZendeskTicketSummary.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>

@@ -9,6 +9,9 @@ namespace NexAI.LLMs;
 public static class LLMExtensions
 {
     public static IServiceCollection AddLLM(this IServiceCollection services, Options options) =>
+        services.AddSingleton<PromptReader>().AddLLMSpecificServices(options);
+
+    private static IServiceCollection AddLLMSpecificServices(this IServiceCollection services, Options options) =>
         options.Get<LLMsOptions>().Mode switch
         {
             LLM.OpenAI => services.AddSingleton<TextEmbedder, OpenAITextEmbedder>().AddSingleton<Chat, OpenAIChat>(),
