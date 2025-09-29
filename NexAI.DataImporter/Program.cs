@@ -5,6 +5,8 @@ using Microsoft.Extensions.Logging;
 using NexAI.Config;
 using NexAI.DataImporter;
 using NexAI.DataImporter.Zendesk;
+using NexAI.MongoDb;
+using NexAI.Qdrant;
 using NexAI.RabbitMQ;
 using NexAI.Zendesk;
 using Spectre.Console;
@@ -19,8 +21,10 @@ try
         {
             services.AddLogging(loggingBuilder => loggingBuilder.AddConsole());
             services.AddSingleton(new Options(GetConfiguration()));
-            services.AddRabbitMQ();
             services.AddZendesk();
+            services.AddMongoDb();
+            services.AddQdrant();
+            services.AddRabbitMQ();
             services.AddSingleton<RabbitMQStructure>();
             services.AddSingleton<ZendeskTicketImporter>();
         })

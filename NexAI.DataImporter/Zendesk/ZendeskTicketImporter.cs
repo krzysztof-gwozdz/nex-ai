@@ -1,6 +1,8 @@
 ﻿using System.Text.Json;
 using System.Collections.Concurrent;
+using MongoDB.Driver;
 using NexAI.Config;
+using NexAI.MongoDb;
 using NexAI.RabbitMQ;
 using NexAI.Zendesk;
 using NexAI.Zendesk.Api;
@@ -9,20 +11,18 @@ using Spectre.Console;
 
 namespace NexAI.DataImporter.Zendesk;
 
-internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, RabbitMQClient rabbitMQClient, Options options)
+internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, RabbitMQClient rabbitMQClient, MongoDbClient mongoDbClient, Options options)
 {
     private const string BackupGroupsFilePath = "zendesk_api_backup_groups.json";
     private const string BackupEmployeesFilePath = "zendesk_api_backup_employees.json";
     private const string BackupTicketsFilePath = "zendesk_api_backup_tickets_{0:yyyyMMdd}.json";
     private const string BackupCommentsFilePath = "zendesk_api_backup_{0}_comments.json";
 
-    private readonly DateTime _ticketStartDateTime = new(2025, 1, 1);
-
     public async Task Import(CancellationToken cancellationToken)
     {
         AnsiConsole.MarkupLine("[yellow]Importing sample Zendesk tickets from JSON...[/]");
         var employees = await GetEmployeesFromApiOrBackup(cancellationToken);
-        var tickets = await GetTicketsFromApiOrBackup(_ticketStartDateTime, cancellationToken);
+        var tickets = await GetTicketsFromApiOrBackup(GetTicketStartDateTime(), cancellationToken);
         var ticketsCount = 0;
         const int batchSize = 100;
         for (var i = 0; i < tickets.Length; i += batchSize)
@@ -117,5 +117,22 @@ internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, RabbitMQ
     {
         var json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
         await File.WriteAllTextAsync(filePath, json);
+    }
+
+    private DateTime GetTicketStartDateTime()
+    {
+        var lastImportDate = mongoDbClient.Database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketCollections.MongoDbCollectionName)
+            .Find(FilterDefinition<ZendeskTicketMongoDbDocument>.Empty)
+            .SortByDescending(document => document.LastImportDate)
+            .Limit(1)
+            .SingleOrDefault()?.LastImportDate;
+        if (lastImportDate is null)
+        {
+            var startDate = options.Get<DataImporterOptions>().ZendeskTicketStartDate;
+            AnsiConsole.MarkupLine($"[yellow]No previous import found. Fetching tickets updated since configured start date {startDate:yyyy-MM-dd HH:mm:ss}.[/]");
+            return startDate;
+        }
+        AnsiConsole.MarkupLine($"[yellow]Fetching tickets updated since {lastImportDate:yyyy-MM-dd HH:mm:ss}.[/]");
+        return lastImportDate.Value;
     }
 }

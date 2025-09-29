@@ -34,18 +34,18 @@ public class ZendeskTicketMongoDbExporter(MongoDbClient mongoDbClient, Options o
     {
         var database = mongoDbClient.Database;
         var collection = database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketCollections.MongoDbCollectionName);
-        var document = await collection.Find(existingZendeskTicket => existingZendeskTicket.Id == zendeskTicket.Id || existingZendeskTicket.ExternalId == zendeskTicket.Id).FirstOrDefaultAsync(cancellationToken: cancellationToken);
+        var document = await collection.Find(existingZendeskTicket => existingZendeskTicket.Id == zendeskTicket.Id || existingZendeskTicket.ExternalId == zendeskTicket.ExternalId).FirstOrDefaultAsync(cancellationToken: cancellationToken);
         if (document is not null)
         {
             document.Update(zendeskTicket);
-            await collection.ReplaceOneAsync(existingZendeskTicket => existingZendeskTicket.Id == zendeskTicket.Id || existingZendeskTicket.ExternalId == zendeskTicket.Id, document, cancellationToken: cancellationToken);
-            AnsiConsole.MarkupLine($"[green]Successfully updated Zendesk ticket {zendeskTicket.ExternalId} from MongoDb.[/]");
+            await collection.ReplaceOneAsync(existingZendeskTicket => existingZendeskTicket.Id == zendeskTicket.Id || existingZendeskTicket.ExternalId == zendeskTicket.ExternalId, document, cancellationToken: cancellationToken);
+            AnsiConsole.MarkupLine($"[tan]Successfully updated Zendesk ticket {zendeskTicket.ExternalId} from MongoDb.[/]");
         }
         else
         {
             document = ZendeskTicketMongoDbDocument.Create(zendeskTicket);
             await collection.InsertOneAsync(document, cancellationToken: cancellationToken);
-            AnsiConsole.MarkupLine($"[green]Successfully added Zendesk ticket {zendeskTicket.ExternalId} into MongoDb.[/]");
+            AnsiConsole.MarkupLine($"[gold3_1]Successfully added Zendesk ticket {zendeskTicket.ExternalId} into MongoDb.[/]");
         }
     }
 
