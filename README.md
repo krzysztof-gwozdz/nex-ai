@@ -4,6 +4,14 @@ NexAI is an AI agent as a kind of '2.5 line of support.
 
 # Versions
 
+### 0.11.0
+
+- Store more info about Zendesk Tickets.
+- Improve Zendesk Tickets import and processing.
+- Add an option to summarize Ticket.
+- Switched do DI in the whole solution.
+- Add cancellation tokes.
+
 ### 0.10.0
 
 - Switch to the incremental export Zendesk tickets
