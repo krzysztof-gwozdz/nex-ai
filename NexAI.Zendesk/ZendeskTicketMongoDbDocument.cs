@@ -19,6 +19,7 @@ public record ZendeskTicketMongoDbDocument
         string status,
         string? country,
         string? merchantId,
+        string? level3Team,
         string[] tags,
         DateTime createdAt,
         DateTime? updatedAt,
@@ -36,6 +37,7 @@ public record ZendeskTicketMongoDbDocument
         Status = status;
         Country = country;
         MerchantId = merchantId;
+        Level3Team = level3Team;
         Tags = tags;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
@@ -74,6 +76,9 @@ public record ZendeskTicketMongoDbDocument
 
     [BsonElement("merchantId")]
     public string? MerchantId { get; private set; }
+    
+    [BsonElement("level3Team")]
+    public string? Level3Team { get; private set; }
 
     [BsonElement("tags")]
     public string[] Tags { get; private set; } = [];
@@ -139,6 +144,7 @@ public record ZendeskTicketMongoDbDocument
             Status,
             Country,
             MerchantId,
+            Level3Team,
             Tags,
             CreatedAt,
             UpdatedAt,
@@ -157,6 +163,7 @@ public record ZendeskTicketMongoDbDocument
             zendeskTicket.Status,
             zendeskTicket.Country,
             zendeskTicket.MerchantId,
+            zendeskTicket.Level3Team,
             zendeskTicket.Tags,
             zendeskTicket.CreatedAt,
             zendeskTicket.UpdatedAt,
@@ -181,6 +188,7 @@ public record ZendeskTicketMongoDbDocument
         Status = zendeskTicket.Status;
         Country = zendeskTicket.Country;
         MerchantId = zendeskTicket.MerchantId;
+        Level3Team = zendeskTicket.Level3Team;
         Tags = zendeskTicket.Tags;
         UpdatedAt = zendeskTicket.UpdatedAt;
         Messages = zendeskTicket.Messages

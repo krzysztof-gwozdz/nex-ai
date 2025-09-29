@@ -11,6 +11,7 @@ public record ZendeskTicket(
     string Status,
     string? Country,
     string? MerchantId,
+    string? Level3Team,
     string[] Tags,
     DateTime CreatedAt,
     DateTime? UpdatedAt,
@@ -44,6 +45,7 @@ public record ZendeskTicket(
             status,
             country,
             merchantId,
+            GetLevel3Team(tags),
             tags,
             createdAt,
             updatedAt,
@@ -63,7 +65,10 @@ public record ZendeskTicket(
           ) ||
           Title.StartsWith("Sinch call answered on") ||
           Title.StartsWith("Escalated dispute with KlarnaDisputeId"));
-    
+
     private static string? GetMainCategory(string? category) =>
         category?.Split("__").FirstOrDefault();
+
+    private static string? GetLevel3Team(string[] tags) =>
+        tags.FirstOrDefault(tag => tag.StartsWith("team_l3_"))?.Replace("team_l3_", "");
 }

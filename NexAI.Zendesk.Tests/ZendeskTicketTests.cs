@@ -35,7 +35,7 @@ public class ZendeskTicketTests
     [InlineData("test category", "test category")]
     [InlineData("test__category", "test")]
     [InlineData("test__category__subcategory", "test")]
-    public void Create_WithDifferentCategories_SetValidMainCategory(string? category, string? expectedMainCategory)
+    public void Create_SetValidMainCategory(string? category, string? expectedMainCategory)
     {
         // arrange
 
@@ -56,5 +56,33 @@ public class ZendeskTicketTests
 
         // assert
         zendeskTicket.MainCategory.Should().Be(expectedMainCategory);
+    }
+    
+    [Theory]
+    [InlineData(null)]
+    [InlineData("a", "team_l3_a")]
+    [InlineData("a", "team_l2_hackers", "team_l3_a")]
+    [InlineData("a", "team_l3_a", "team_l3_b")]
+    public void Create_SetValidLevel3Team(string? expectedLevel3Team, params string[] tags)
+    {
+        // arrange
+
+        // act
+        var zendeskTicket = ZendeskTicket.Create(
+            "test externalId",
+            "test title",
+            "test description",
+            "http://test.url",
+            "test category",
+            "open",
+            "test country",
+            "test merchantId",
+            tags,
+            DateTime.UtcNow,
+            null,
+            []);
+
+        // assert
+        zendeskTicket.Level3Team.Should().Be(expectedLevel3Team);
     }
 }
