@@ -24,25 +24,23 @@ internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, RabbitMQ
         var employees = await GetEmployeesFromApiOrBackup(cancellationToken);
         var tickets = await GetTicketsFromApiOrBackup(_ticketStartDateTime, cancellationToken);
         var ticketsCount = 0;
-        const int batchSize = 50;
+        const int batchSize = 100;
         for (var i = 0; i < tickets.Length; i += batchSize)
         {
-            var zendeskTicket = new ConcurrentBag<ZendeskTicket>();
-            await Parallel.ForEachAsync(
-                tickets.Skip(i).Take(batchSize).ToArray(),
-                new ParallelOptions { MaxDegreeOfParallelism = 10 },
+            var zendeskTickets = new ConcurrentBag<ZendeskTicket>();
+            await Parallel.ForEachAsync(tickets.Skip(i).Take(batchSize),
+                new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
                 async (ticket, parallelCancellationToken) =>
                 {
                     var comments = await GetCommentsFromApiOrBackup(ticket.Id!.Value, parallelCancellationToken);
                     var mappedZendeskTicket = ZendeskTicketMapper.Map(ticket, comments, employees);
                     if (mappedZendeskTicket.IsRelevant)
                     {
-                        zendeskTicket.Add(mappedZendeskTicket);
-                        ticketsCount++;
-                        AnsiConsole.MarkupLine($"[green]Imported ticket {ticket.ExternalId}.[/]");
+                        zendeskTickets.Add(mappedZendeskTicket);
+                        Interlocked.Increment(ref ticketsCount);
                     }
                 });
-            await rabbitMQClient.Send(RabbitMQStructure.ExchangeName, zendeskTicket.ToArray());
+            await rabbitMQClient.Send(RabbitMQStructure.ExchangeName, zendeskTickets.ToArray());
         }
         AnsiConsole.MarkupLine($"[green]Imported {tickets.Length} Zendesk tickets. Only {ticketsCount} were relevant.[/]");
     }

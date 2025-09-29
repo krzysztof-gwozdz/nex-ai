@@ -9,7 +9,7 @@ public class ZendeskTicketJsonExporter(Options options)
 {
     private const string FilePath = "zendesk_tickets.json";
 
-    public Task CreateSchema()
+    public Task CreateSchema(CancellationToken cancellationToken)
     {
         if (!File.Exists(FilePath) || options.Get<DataProcessorOptions>().Recreate)
         {
@@ -18,7 +18,7 @@ public class ZendeskTicketJsonExporter(Options options)
         return Task.CompletedTask;
     }
 
-    public async Task Export(ZendeskTicket zendeskTicket)
+    public async Task Export(ZendeskTicket zendeskTicket, CancellationToken cancellationToken)
     {
         if (!File.Exists(FilePath) || options.Get<DataProcessorOptions>().Recreate)
         {
@@ -27,7 +27,7 @@ public class ZendeskTicketJsonExporter(Options options)
                 Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
                 WriteIndented = true
             });
-            await File.AppendAllTextAsync(FilePath, json);
+            await File.AppendAllTextAsync(FilePath, json, cancellationToken);
         }
     }
 }

@@ -6,6 +6,12 @@ namespace NexAI.Zendesk;
 
 public record ZendeskTicketQdrantPoint(ZendeskTicketId Id, string ExternalId, ReadOnlyMemory<float> Content)
 {
+    public static async Task<PointStruct> Create(ZendeskTicket zendeskTicket, TextEmbedder textEmbedder) =>
+        new ZendeskTicketQdrantPoint(
+            zendeskTicket.Id,
+            zendeskTicket.ExternalId,
+            await textEmbedder.GenerateEmbedding(GetCombinedContent(zendeskTicket))
+        );
     public static implicit operator PointStruct(ZendeskTicketQdrantPoint point) =>
         new()
         {
@@ -18,13 +24,6 @@ public record ZendeskTicketQdrantPoint(ZendeskTicketId Id, string ExternalId, Re
                 ["external_id"] = point.ExternalId
             }
         };
-
-    public static async Task<ZendeskTicketQdrantPoint> Create(ZendeskTicket zendeskTicket, TextEmbedder textEmbedder) =>
-        new(
-            zendeskTicket.Id,
-            zendeskTicket.ExternalId,
-            await textEmbedder.GenerateEmbedding(GetCombinedContent(zendeskTicket))
-        );
 
     private static string GetCombinedContent(ZendeskTicket zendeskTicket)
     {

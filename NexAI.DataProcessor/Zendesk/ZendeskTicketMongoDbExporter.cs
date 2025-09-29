@@ -10,17 +10,17 @@ public class ZendeskTicketMongoDbExporter(MongoDbClient mongoDbClient, Options o
 {
     private readonly DataProcessorOptions _dataProcessorOptions = options.Get<DataProcessorOptions>();
 
-    public async Task CreateSchema()
+    public async Task CreateSchema(CancellationToken cancellationToken)
     {
-        var existingCollections = await (await mongoDbClient.Database.ListCollectionNamesAsync()).ToListAsync();
+        var existingCollections = await (await mongoDbClient.Database.ListCollectionNamesAsync(cancellationToken: cancellationToken)).ToListAsync(cancellationToken: cancellationToken);
         if (_dataProcessorOptions.Recreate && existingCollections.Contains(ZendeskTicketCollections.MongoDbCollectionName))
         {
-            await mongoDbClient.Database.DropCollectionAsync(ZendeskTicketCollections.MongoDbCollectionName);
+            await mongoDbClient.Database.DropCollectionAsync(ZendeskTicketCollections.MongoDbCollectionName, cancellationToken);
             AnsiConsole.MarkupLine("[red]Deleted collection for Zendesk tickets in MongoDb.[/]");
         }
         if (!existingCollections.Contains(ZendeskTicketCollections.MongoDbCollectionName))
         {
-            await mongoDbClient.Database.CreateCollectionAsync(ZendeskTicketCollections.MongoDbCollectionName);
+            await mongoDbClient.Database.CreateCollectionAsync(ZendeskTicketCollections.MongoDbCollectionName, cancellationToken: cancellationToken);
             await CreateFullTextIndex(mongoDbClient.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketCollections.MongoDbCollectionName));
             AnsiConsole.MarkupLine("[green]Created schema for Zendesk tickets in MongoDb.[/]");
         }
@@ -30,21 +30,21 @@ public class ZendeskTicketMongoDbExporter(MongoDbClient mongoDbClient, Options o
         }
     }
 
-    public async Task Export(ZendeskTicket zendeskTicket)
+    public async Task Export(ZendeskTicket zendeskTicket, CancellationToken cancellationToken)
     {
         var database = mongoDbClient.Database;
         var collection = database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketCollections.MongoDbCollectionName);
-        var document = await collection.Find(existingZendeskTicket => existingZendeskTicket.Id == zendeskTicket.Id || existingZendeskTicket.ExternalId == zendeskTicket.Id).FirstOrDefaultAsync();
+        var document = await collection.Find(existingZendeskTicket => existingZendeskTicket.Id == zendeskTicket.Id || existingZendeskTicket.ExternalId == zendeskTicket.Id).FirstOrDefaultAsync(cancellationToken: cancellationToken);
         if (document is not null)
         {
             document.Update(zendeskTicket);
-            await collection.ReplaceOneAsync(existingZendeskTicket => existingZendeskTicket.Id == zendeskTicket.Id || existingZendeskTicket.ExternalId == zendeskTicket.Id, document);
+            await collection.ReplaceOneAsync(existingZendeskTicket => existingZendeskTicket.Id == zendeskTicket.Id || existingZendeskTicket.ExternalId == zendeskTicket.Id, document, cancellationToken: cancellationToken);
             AnsiConsole.MarkupLine($"[green]Successfully updated Zendesk ticket {zendeskTicket.ExternalId} from MongoDb.[/]");
         }
         else
         {
             document = ZendeskTicketMongoDbDocument.Create(zendeskTicket);
-            await collection.InsertOneAsync(document);
+            await collection.InsertOneAsync(document, cancellationToken: cancellationToken);
             AnsiConsole.MarkupLine($"[green]Successfully added Zendesk ticket {zendeskTicket.ExternalId} into MongoDb.[/]");
         }
     }

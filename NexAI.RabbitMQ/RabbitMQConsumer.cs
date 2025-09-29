@@ -8,9 +8,9 @@ namespace NexAI.RabbitMQ;
 
 public class RabbitMQConsumer<TMessage>(
     ILogger logger,
-    RabbitMQClient rabbitMQClient, 
-    Func<Task> init,
-    Func<TMessage, Task> handleMessage, 
+    RabbitMQClient rabbitMQClient,
+    Func<CancellationToken, Task> init,
+    Func<TMessage, CancellationToken, Task> handleMessage,
     string queueName) : IAsyncDisposable
 {
     private IConnection? _connection;
@@ -30,7 +30,7 @@ public class RabbitMQConsumer<TMessage>(
 
     public async Task Init(CancellationToken cancellationToken)
     {
-        await init();
+        await init(cancellationToken);
     }
 
     public async Task Execute(CancellationToken cancellationToken)
@@ -38,23 +38,26 @@ public class RabbitMQConsumer<TMessage>(
         logger.LogInformation("Connecting to '{queueName}' queue.", queueName);
         _connection = await rabbitMQClient.ConnectionFactory.CreateConnectionAsync(cancellationToken);
         _channel = await _connection.CreateChannelAsync(cancellationToken: cancellationToken);
-        await _channel.BasicQosAsync(0, 100, false, cancellationToken);
+        await _channel.BasicQosAsync(0, 10, false, cancellationToken);
         var consumer = new AsyncEventingBasicConsumer(_channel);
         consumer.ReceivedAsync += async (_, deliverEventArgs) =>
         {
-            try
+            await Task.Run(async () =>
             {
-                var body = deliverEventArgs.Body.ToArray();
-                var messageString = Encoding.UTF8.GetString(body);
-                var message = JsonSerializer.Deserialize<TMessage>(messageString) ?? throw new($"Failed to deserialize message from '{queueName}' queue.");
-                await handleMessage(message);
-                await _channel.BasicAckAsync(deliverEventArgs.DeliveryTag, multiple: false, cancellationToken: cancellationToken);
-            }
-            catch(Exception exception)
-            {
-                logger.LogError(exception, "Failed to handle message from '{queueName}' queue.", queueName);
-                await _channel.BasicRejectAsync(deliverEventArgs.DeliveryTag, requeue: false, cancellationToken: cancellationToken);
-            }
+                try
+                {
+                    var body = deliverEventArgs.Body.ToArray();
+                    var messageString = Encoding.UTF8.GetString(body);
+                    var message = JsonSerializer.Deserialize<TMessage>(messageString) ?? throw new($"Failed to deserialize message from '{queueName}' queue.");
+                    await handleMessage(message, cancellationToken);
+                    await _channel.BasicAckAsync(deliverEventArgs.DeliveryTag, multiple: false, cancellationToken: cancellationToken);
+                }
+                catch (Exception exception)
+                {
+                    logger.LogError(exception, "Failed to handle message from '{queueName}' queue.", queueName);
+                    await _channel.BasicRejectAsync(deliverEventArgs.DeliveryTag, requeue: false, cancellationToken: cancellationToken);
+                }
+            }, cancellationToken);
         };
         await _channel.BasicConsumeAsync(queue: queueName, autoAck: false, consumer: consumer, cancellationToken: cancellationToken);
         var taskCompletionSource = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
