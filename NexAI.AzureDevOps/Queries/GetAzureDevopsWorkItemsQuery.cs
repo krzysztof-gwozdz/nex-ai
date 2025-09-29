@@ -2,9 +2,9 @@
 
 public class GetAzureDevopsWorkItemsQuery(AzureDevOpsClient azureDevOpsClient)
 {
-    public async Task<AzureDevOpsWorkItem[]> Handle(string phrase, int limit)
+    public async Task<AzureDevOpsWorkItem[]> Handle(string phrase, int limit, CancellationToken cancellationToken)
     {
-        var query = await azureDevOpsClient.GetOrCreateQuery(GetQuery(phrase), limit);
+        var query = await azureDevOpsClient.GetOrCreateQuery(GetQuery(phrase), limit, cancellationToken);
         var workItems = await azureDevOpsClient.GetWorkItems(query);
         return workItems.Select(workItem => new AzureDevOpsWorkItem(workItem)).ToArray();
     }

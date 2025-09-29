@@ -12,10 +12,11 @@ using NexAI.RabbitMQ;
 using NexAI.Zendesk;
 using Spectre.Console;
 
+Console.OutputEncoding = System.Text.Encoding.UTF8;
+AnsiConsole.Write(new FigletText("Nex AI - Data Processor").Color(Color.Red3));
+var cancellationTokenSource = new CancellationTokenSource();
 try
 {
-    Console.OutputEncoding = System.Text.Encoding.UTF8;
-    AnsiConsole.Write(new FigletText("Nex AI - Data Processor").Color(Color.Red3));
     var options = new Options(GetConfiguration());
 
     using var host = Host.CreateDefaultBuilder(args)
@@ -39,13 +40,12 @@ try
 
     Console.WriteLine("Starting consumers...");
     await host.RunAsync();
-    
 }
 catch (Exception e)
 {
     AnsiConsole.WriteException(e);
 }
-
+cancellationTokenSource.Cancel();
 Console.WriteLine("Press any key to exit...");
 Console.ReadKey();
 return;

@@ -5,11 +5,11 @@ namespace NexAI.Zendesk;
 
 public record ZendeskTicketTitleAndDescriptionQdrantPoint(ZendeskTicketId Id, string ExternalId, ReadOnlyMemory<float> Content)
 {
-    public static async Task<PointStruct> Create(ZendeskTicket zendeskTicket, TextEmbedder textEmbedder) =>
+    public static async Task<PointStruct> Create(ZendeskTicket zendeskTicket, TextEmbedder textEmbedder, CancellationToken cancellationToken) =>
         new ZendeskTicketTitleAndDescriptionQdrantPoint(
             zendeskTicket.Id,
             zendeskTicket.ExternalId,
-            await textEmbedder.GenerateEmbedding($"{zendeskTicket.Title} | {zendeskTicket.Description}")
+            await textEmbedder.GenerateEmbedding($"{zendeskTicket.Title} | {zendeskTicket.Description}", cancellationToken)
         );
     
     public static implicit operator PointStruct(ZendeskTicketTitleAndDescriptionQdrantPoint point) =>

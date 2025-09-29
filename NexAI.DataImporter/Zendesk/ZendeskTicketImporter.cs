@@ -18,7 +18,7 @@ internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, RabbitMQ
 
     private readonly DateTime _ticketStartDateTime = new(2025, 1, 1);
 
-    public async Task Import(CancellationToken cancellationToken = default)
+    public async Task Import(CancellationToken cancellationToken)
     {
         AnsiConsole.MarkupLine("[yellow]Importing sample Zendesk tickets from JSON...[/]");
         var employees = await GetEmployeesFromApiOrBackup(cancellationToken);
@@ -40,7 +40,7 @@ internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, RabbitMQ
                         Interlocked.Increment(ref ticketsCount);
                     }
                 });
-            await rabbitMQClient.Send(RabbitMQStructure.ExchangeName, zendeskTickets.ToArray());
+            await rabbitMQClient.Send(RabbitMQStructure.ExchangeName, zendeskTickets.ToArray(), cancellationToken);
         }
         AnsiConsole.MarkupLine($"[green]Imported {tickets.Length} Zendesk tickets. Only {ticketsCount} were relevant.[/]");
     }

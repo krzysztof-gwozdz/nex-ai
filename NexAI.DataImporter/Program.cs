@@ -9,11 +9,11 @@ using NexAI.RabbitMQ;
 using NexAI.Zendesk;
 using Spectre.Console;
 
+Console.OutputEncoding = System.Text.Encoding.UTF8;
+AnsiConsole.Write(new FigletText("Nex AI - Data Importer").Color(Color.Red1));
+var cancellationTokenSource = new CancellationTokenSource();
 try
 {
-    Console.OutputEncoding = System.Text.Encoding.UTF8;
-    AnsiConsole.Write(new FigletText("Nex AI - Data Importer").Color(Color.Red1));
-
     using var host = Host.CreateDefaultBuilder(args)
         .ConfigureServices((_, services) =>
         {
@@ -26,14 +26,14 @@ try
         })
         .Build();
 
-    await host.Services.GetRequiredService<RabbitMQStructure>().Create();
-    await host.Services.GetRequiredService<ZendeskTicketImporter>().Import();
+    await host.Services.GetRequiredService<RabbitMQStructure>().Create(cancellationTokenSource.Token);
+    await host.Services.GetRequiredService<ZendeskTicketImporter>().Import(cancellationTokenSource.Token);
 }
 catch (Exception e)
 {
     AnsiConsole.WriteException(e);
 }
-
+cancellationTokenSource.Cancel();
 Console.WriteLine("Press any key to exit...");
 Console.ReadKey();
 return;

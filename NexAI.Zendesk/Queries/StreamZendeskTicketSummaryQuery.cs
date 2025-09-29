@@ -6,10 +6,10 @@ namespace NexAI.Zendesk.Queries;
 
 public class StreamZendeskTicketSummaryQuery(Chat chat, Options options)
 {
-    public IAsyncEnumerable<string> Handle(ZendeskTicket zendeskTicket)
+    public IAsyncEnumerable<string> Handle(ZendeskTicket zendeskTicket, CancellationToken cancellationToken)
     {
         var systemPrompt = options.Get<LLMsOptions>().Prompts.ZendeskTicketSummary;
         var json = zendeskTicket.ToJson();
-        return chat.AskStream(systemPrompt, json ?? string.Empty);
+        return chat.AskStream(systemPrompt, json ?? string.Empty, cancellationToken);
     }
 }

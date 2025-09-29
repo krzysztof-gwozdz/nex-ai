@@ -5,11 +5,11 @@ namespace NexAI.LLMs.Common;
 
 public abstract class Chat
 {
-    public abstract Task<string> Ask(string systemMessage, string message);
+    public abstract Task<string> Ask(string systemMessage, string message, CancellationToken cancellationToken);
 
-    public abstract Task<TResponse> Ask<TResponse>(string systemMessage, string message);
+    public abstract Task<TResponse> Ask<TResponse>(string systemMessage, string message, CancellationToken cancellationToken);
 
-    public abstract IAsyncEnumerable<string> AskStream(string systemMessage, string message);
+    public abstract IAsyncEnumerable<string> AskStream(string systemMessage, string message, CancellationToken cancellationToken);
 
     protected static string GetSchema<TResponse>()
     {

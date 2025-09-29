@@ -5,7 +5,7 @@ namespace NexAI.Console.Features;
 
 public class SearchForAzureWorkItemsByPhraseFeature(GetAzureDevopsWorkItemsQuery getAzureDevopsWorkItemsQuery)
 {
-    public async Task Run(int limit)
+    public async Task Run(int limit, CancellationToken cancellationToken)
     {
         while (true)
         {
@@ -16,7 +16,7 @@ public class SearchForAzureWorkItemsByPhraseFeature(GetAzureDevopsWorkItemsQuery
             try
             {
                 AnsiConsole.Write(new Rule($"[bold]Searching for up to {limit} tickets for phrase: {userMessage.EscapeMarkup()}[/]"));
-                await GetAzureDevOpsWorkItemByPhrase(userMessage, limit);
+                await GetAzureDevOpsWorkItemByPhrase(userMessage, limit, cancellationToken);
             }
             catch (Exception ex)
             {
@@ -27,9 +27,9 @@ public class SearchForAzureWorkItemsByPhraseFeature(GetAzureDevopsWorkItemsQuery
         }
     }
 
-    private async Task GetAzureDevOpsWorkItemByPhrase(string phrase, int limit)
+    private async Task GetAzureDevOpsWorkItemByPhrase(string phrase, int limit, CancellationToken cancellationToken)
     {
-        var azureDevOpsWorkItems = await getAzureDevopsWorkItemsQuery.Handle(phrase, limit);
+        var azureDevOpsWorkItems = await getAzureDevopsWorkItemsQuery.Handle(phrase, limit, cancellationToken);
         AnsiConsole.MarkupLine("[bold Aquamarine1]Work items that contain phrase:[/]");
         if (azureDevOpsWorkItems.Length == 0)
         {

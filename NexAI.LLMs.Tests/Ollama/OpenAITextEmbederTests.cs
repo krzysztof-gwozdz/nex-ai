@@ -4,6 +4,8 @@ namespace NexAI.LLMs.Tests.Ollama;
 
 public class OllamaTextEmbedderTests : LLMTestBase
 {
+    private readonly CancellationTokenSource _cancellationTokenSource = new(TimeSpan.FromSeconds(60));
+    
     [Fact]
     public async Task GenerateEmbedding_ReturnEmbedding()
     {
@@ -11,7 +13,7 @@ public class OllamaTextEmbedderTests : LLMTestBase
         var embedder = new OllamaTextEmbedder(GetOptions());
 
         // act
-        var embedding = await embedder.GenerateEmbedding("TEST");
+        var embedding = await embedder.GenerateEmbedding("TEST", _cancellationTokenSource.Token);
 
         // assert
         embedding.Should().NotBeNull();

@@ -8,7 +8,7 @@ public class SearchForZendeskTicketsByPhraseFeature(
     FindZendeskTicketsThatContainPhraseQuery findZendeskTicketsThatContainPhraseQuery
 )
 {
-    public async Task Run(int limit)
+    public async Task Run(int limit, CancellationToken cancellationToken)
     {
         while (true)
         {
@@ -19,8 +19,8 @@ public class SearchForZendeskTicketsByPhraseFeature(
             try
             {
                 AnsiConsole.Write(new Rule($"[bold]Searching for up to {limit} tickets for phrase: {userMessage.EscapeMarkup()}[/]"));
-                await GetSimilarZendeskTicketsByPhrase(userMessage, limit);
-                await GetZendeskTicketsByPhrase(userMessage, limit);
+                await GetSimilarZendeskTicketsByPhrase(userMessage, limit, cancellationToken);
+                await GetZendeskTicketsByPhrase(userMessage, limit, cancellationToken);
             }
             catch (Exception ex)
             {
@@ -31,9 +31,9 @@ public class SearchForZendeskTicketsByPhraseFeature(
         }
     }
 
-    private async Task GetSimilarZendeskTicketsByPhrase(string userMessage, int limit)
+    private async Task GetSimilarZendeskTicketsByPhrase(string userMessage, int limit, CancellationToken cancellationToken)
     {
-        var searchResult = await findSimilarZendeskTicketsByPhraseQuery.Handle(userMessage, limit);
+        var searchResult = await findSimilarZendeskTicketsByPhraseQuery.Handle(userMessage, limit, cancellationToken);
         AnsiConsole.MarkupLine("[bold Aquamarine1]Similar tickets (embedding):[/]");
         if (searchResult.Length == 0)
         {
@@ -67,9 +67,9 @@ public class SearchForZendeskTicketsByPhraseFeature(
         }
     }
 
-    private async Task GetZendeskTicketsByPhrase(string userMessage, int limit)
+    private async Task GetZendeskTicketsByPhrase(string userMessage, int limit, CancellationToken cancellationToken)
     {
-        var searchResult = await findZendeskTicketsThatContainPhraseQuery.Handle(userMessage, limit);
+        var searchResult = await findZendeskTicketsThatContainPhraseQuery.Handle(userMessage, limit, cancellationToken);
         AnsiConsole.MarkupLine("[bold Aquamarine1]Tickets that contain phrase (full text search):[/]");
         if (searchResult.Length == 0)
         {

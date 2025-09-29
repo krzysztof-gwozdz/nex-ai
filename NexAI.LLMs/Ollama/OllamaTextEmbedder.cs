@@ -13,9 +13,9 @@ public class OllamaTextEmbedder(Options options) : TextEmbedder
     
     public override ulong EmbeddingDimension => options.Get<OllamaOptions>().EmbeddingDimension;
 
-    public override async Task<ReadOnlyMemory<float>> GenerateEmbedding(string text)
+    public override async Task<ReadOnlyMemory<float>> GenerateEmbedding(string text, CancellationToken cancellationToken)
     {
-        var embedding = await _apiClient.EmbedAsync(text);
+        var embedding = await _apiClient.EmbedAsync(text, cancellationToken: cancellationToken);
         return embedding.Embeddings.First().ToArray();
     }
 }

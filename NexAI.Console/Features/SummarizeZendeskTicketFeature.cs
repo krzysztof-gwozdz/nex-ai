@@ -7,7 +7,7 @@ public class SummarizeZendeskTicketFeature(
     GetZendeskTicketByExternalIdQuery getZendeskTicketByExternalIdQuery,
     StreamZendeskTicketSummaryQuery streamZendeskTicketSummaryQuery)
 {
-    public async Task Run()
+    public async Task Run(CancellationToken cancellationToken)
     {
         while (true)
         {
@@ -18,7 +18,7 @@ public class SummarizeZendeskTicketFeature(
             try
             {
                 AnsiConsole.Write(new Rule("[bold]Fetching data.[/]"));
-                await SummarizeZendeskTicket(userMessage);
+                await SummarizeZendeskTicket(userMessage, cancellationToken);
             }
             catch (Exception ex)
             {
@@ -28,16 +28,16 @@ public class SummarizeZendeskTicketFeature(
         }
     }
 
-    private async Task SummarizeZendeskTicket(string userMessage)
+    private async Task SummarizeZendeskTicket(string userMessage, CancellationToken cancellationToken)
     {
-        var zendeskTicket = await getZendeskTicketByExternalIdQuery.Handle(userMessage);
+        var zendeskTicket = await getZendeskTicketByExternalIdQuery.Handle(userMessage, cancellationToken);
         if (zendeskTicket == null)
         {
             AnsiConsole.MarkupLine("[red]No Zendesk ticket found with that id.[/]");
             return;
         }
         AnsiConsole.MarkupLine("[bold Aquamarine1]Ticket Summary:[/]");
-        await foreach (var chunk in streamZendeskTicketSummaryQuery.Handle(zendeskTicket))
+        await foreach (var chunk in streamZendeskTicketSummaryQuery.Handle(zendeskTicket, cancellationToken))
             AnsiConsole.Markup(chunk.EscapeMarkup());
     }
 }

@@ -10,7 +10,7 @@ public class SearchForInfoAboutTicketFeature(
     GetZendeskTicketByExternalIdQuery getZendeskTicketByExternalIdQuery,
     GetAzureDevopsWorkItemsRelatedToZendeskTicketQuery getAzureDevopsWorkItemsRelatedToZendeskTicketQuery)
 {
-    public async Task Run()
+    public async Task Run(CancellationToken cancellationToken)
     {
         while (true)
         {
@@ -21,7 +21,7 @@ public class SearchForInfoAboutTicketFeature(
             try
             {
                 AnsiConsole.Write(new Rule("[bold]Fetching data.[/]"));
-                await FetchZendeskTicketInfo(userMessage);
+                await FetchZendeskTicketInfo(userMessage, cancellationToken);
             }
             catch (Exception ex)
             {
@@ -32,16 +32,16 @@ public class SearchForInfoAboutTicketFeature(
         }
     }
 
-    private async Task FetchZendeskTicketInfo(string userMessage)
+    private async Task FetchZendeskTicketInfo(string userMessage, CancellationToken cancellationToken)
     {
-        var zendeskTicket = await getZendeskTicketByExternalIdQuery.Handle(userMessage);
+        var zendeskTicket = await getZendeskTicketByExternalIdQuery.Handle(userMessage, cancellationToken);
         if (zendeskTicket == null)
         {
             AnsiConsole.MarkupLine("[red]No Zendesk ticket found with that id.[/]");
             return;
         }
         DisplayZendeskTicket(zendeskTicket);
-        var azureDevOpsWorkItem = await getAzureDevopsWorkItemsRelatedToZendeskTicketQuery.Handle(zendeskTicket.ExternalId, 10);
+        var azureDevOpsWorkItem = await getAzureDevopsWorkItemsRelatedToZendeskTicketQuery.Handle(zendeskTicket.ExternalId, 10, cancellationToken);
         DisplayAzureDevOpsWorkItems(azureDevOpsWorkItem);
     }
 

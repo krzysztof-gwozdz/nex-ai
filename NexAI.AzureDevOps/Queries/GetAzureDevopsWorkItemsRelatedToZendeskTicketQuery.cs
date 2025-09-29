@@ -2,9 +2,9 @@
 
 public class GetAzureDevopsWorkItemsRelatedToZendeskTicketQuery(AzureDevOpsClient azureDevOpsClient)
 {
-    public async Task<AzureDevOpsWorkItem[]> Handle(string zendeskTicketId, int limit)
+    public async Task<AzureDevOpsWorkItem[]> Handle(string zendeskTicketId, int limit, CancellationToken cancellationToken)
     {
-        var query = await azureDevOpsClient.GetOrCreateQuery(GetQuery(zendeskTicketId), limit);
+        var query = await azureDevOpsClient.GetOrCreateQuery(GetQuery(zendeskTicketId), limit, cancellationToken);
         var workItems = await azureDevOpsClient.GetWorkItems(query);
         return workItems.Select(workItem => new AzureDevOpsWorkItem(workItem)).ToArray();
     }

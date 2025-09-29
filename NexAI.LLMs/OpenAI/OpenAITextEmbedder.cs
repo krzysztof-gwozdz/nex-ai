@@ -13,9 +13,9 @@ public class OpenAITextEmbedder(Options options) : TextEmbedder
     
     public override ulong EmbeddingDimension => options.Get<OpenAIOptions>().EmbeddingDimension;
 
-    public override async Task<ReadOnlyMemory<float>> GenerateEmbedding(string text)
+    public override async Task<ReadOnlyMemory<float>> GenerateEmbedding(string text, CancellationToken cancellationToken)
     {
-        var embedding = await _embeddingClient.GenerateEmbeddingAsync(text);
+        var embedding = await _embeddingClient.GenerateEmbeddingAsync(text, cancellationToken: cancellationToken);
         return embedding.Value.ToFloats();
     }
 }

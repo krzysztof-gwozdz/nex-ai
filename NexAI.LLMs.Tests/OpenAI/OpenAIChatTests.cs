@@ -4,6 +4,8 @@ namespace NexAI.LLMs.Tests.OpenAI;
 
 public class OpenAIChatTests : LLMTestBase
 {
+    private readonly CancellationTokenSource _cancellationTokenSource = new(TimeSpan.FromSeconds(60));
+    
     [Fact]
     public async Task Ask_ReturnResponse()
     {
@@ -11,7 +13,7 @@ public class OpenAIChatTests : LLMTestBase
         var chat = new OpenAIChat(GetOptions());
 
         // act
-        var answer = await chat.Ask("JUST SAY: TEST, nothing else.", "Hi");
+        var answer = await chat.Ask("JUST SAY: TEST, nothing else.", "Hi", _cancellationTokenSource.Token);
 
         // assert
         answer.Should().Be("TEST");
@@ -24,7 +26,7 @@ public class OpenAIChatTests : LLMTestBase
         var chat = new OpenAIChat(GetOptions());
 
         // act
-        var testObject = await chat.Ask<TestObject>("You are random data generator.", "Generate first and last name.");
+        var testObject = await chat.Ask<TestObject>("You are random data generator.", "Generate first and last name.", _cancellationTokenSource.Token);
 
         // assert
         testObject.FirstName.Should().NotBeEmpty();
@@ -39,7 +41,7 @@ public class OpenAIChatTests : LLMTestBase
 
         // act
         var answer = string.Empty;
-        var response = chat.AskStream("JUST SAY: TEST, nothing else.", "Hi");
+        var response = chat.AskStream("JUST SAY: TEST, nothing else.", "Hi", _cancellationTokenSource.Token);
         await foreach (var message in response)
         {
             answer += message;

@@ -38,7 +38,7 @@ public class NexAIAgent
         };
     }
 
-    public async Task StartConversation()
+    public async Task StartConversation(CancellationToken cancellationToken)
     {
         while (true)
         {
@@ -52,7 +52,7 @@ public class NexAIAgent
                 if (userMessage == "STOP")
                     return;
                 chatHistory.AddUserMessage(userMessage);
-                var result = await GetAIResponse(chatHistory);
+                var result = await GetAIResponse(chatHistory, cancellationToken);
                 var assistantResponse = result.Content ?? string.Empty;
                 AnsiConsole.MarkupLine($"[Aquamarine1]{assistantResponse.EscapeMarkup()}[/]");
                 chatHistory.AddMessage(result.Role, assistantResponse);
@@ -93,9 +93,9 @@ public class NexAIAgent
         return builder;
     }
 
-    private async Task<ChatMessageContent> GetAIResponse(ChatHistory chatHistory) =>
+    private async Task<ChatMessageContent> GetAIResponse(ChatHistory chatHistory, CancellationToken cancellationToken) =>
         await _chatCompletionService.GetChatMessageContentAsync(
             chatHistory,
             executionSettings: _openAIPromptExecutionSettings,
-            kernel: _kernel);
+            kernel: _kernel, cancellationToken: cancellationToken);
 }

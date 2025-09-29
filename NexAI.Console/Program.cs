@@ -14,12 +14,12 @@ using NexAI.RabbitMQ;
 using NexAI.Zendesk;
 using Spectre.Console;
 
+Console.OutputEncoding = Encoding.UTF8;
+AnsiConsole.Write(new FigletText("Nex AI").Color(Color.Aquamarine1));
+var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromMinutes(5));
 try
 {
-    Console.OutputEncoding = Encoding.UTF8;
-    AnsiConsole.Write(new FigletText("Nex AI").Color(Color.Aquamarine1));
     var options = new Options(GetConfiguration());
-
     using var host = Host.CreateDefaultBuilder(args)
         .ConfigureServices((_, services) =>
         {
@@ -46,7 +46,7 @@ catch (Exception e)
 {
     AnsiConsole.WriteException(e);
 }
-
+cancellationTokenSource.Cancel();
 Console.WriteLine("Press any key to exit...");
 Console.ReadKey();
 return;
@@ -61,11 +61,11 @@ async Task Run(IServiceProvider services)
 {
     var options = new Dictionary<string, Func<Task>>
     {
-        ["Start Conversation with Nex AI"] = async () => await services.GetRequiredService<NexAIAgent>().StartConversation(),
-        ["Summarize the Ticket"] = async () => await services.GetRequiredService<SummarizeZendeskTicketFeature>().Run(),
-        ["Search for Tickets by Phrase"] = async () => await services.GetRequiredService<SearchForZendeskTicketsByPhraseFeature>().Run(10),
-        ["Search for Azure Work Items by Phrase"] = async () => await services.GetRequiredService<SearchForAzureWorkItemsByPhraseFeature>().Run(10),
-        ["Search for Info About Ticket"] = async () => await services.GetRequiredService<SearchForInfoAboutTicketFeature>().Run(),
+        ["Start Conversation with Nex AI"] = async () => await services.GetRequiredService<NexAIAgent>().StartConversation(cancellationTokenSource.Token),
+        ["Summarize the Ticket"] = async () => await services.GetRequiredService<SummarizeZendeskTicketFeature>().Run(cancellationTokenSource.Token),
+        ["Search for Tickets by Phrase"] = async () => await services.GetRequiredService<SearchForZendeskTicketsByPhraseFeature>().Run(10, cancellationTokenSource.Token),
+        ["Search for Azure Work Items by Phrase"] = async () => await services.GetRequiredService<SearchForAzureWorkItemsByPhraseFeature>().Run(10, cancellationTokenSource.Token),
+        ["Search for Info About Ticket"] = async () => await services.GetRequiredService<SearchForInfoAboutTicketFeature>().Run(cancellationTokenSource.Token),
     };
     var selectedOption = AnsiConsole.Prompt(new SelectionPrompt<string>().AddChoices(options.Keys));
     await options[selectedOption]();

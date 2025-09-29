@@ -8,13 +8,13 @@ public class FindSimilarZendeskTicketsByPhraseQuery(
     TextEmbedder textEmbedder,
     GetZendeskTicketsByIdsQuery getZendeskTicketsByIdsQuery)
 {
-    public async Task<SearchResult[]> Handle(string phrase, int limit)
+    public async Task<SearchResult[]> Handle(string phrase, int limit, CancellationToken cancellationToken)
     {
-        var embedding = await textEmbedder.GenerateEmbedding(phrase);
-        var searchResult = (await qdrantDbClient.SearchAsync(ZendeskTicketCollections.QdrantCollectionName, embedding, limit: (ulong)limit))
+        var embedding = await textEmbedder.GenerateEmbedding(phrase, cancellationToken);
+        var searchResult = (await qdrantDbClient.SearchAsync(ZendeskTicketCollections.QdrantCollectionName, embedding, limit: (ulong)limit, cancellationToken: cancellationToken))
             .Select(point => (Id: Guid.Parse(point.Payload["ticket_id"].StringValue), point.Score)).ToArray();
         var zendeskTickets = await getZendeskTicketsByIdsQuery
-            .Handle(searchResult.Select(result => result.Id).ToArray());
+            .Handle(searchResult.Select(result => result.Id).ToArray(), cancellationToken);
         return zendeskTickets
             .Select(zendeskTicket => SearchResult.EmbeddingBasedSearchResult(zendeskTicket, searchResult.First(result => result.Id == zendeskTicket.Id).Score))
             .ToArray();

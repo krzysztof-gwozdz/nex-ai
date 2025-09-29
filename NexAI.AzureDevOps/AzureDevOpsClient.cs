@@ -18,8 +18,8 @@ public class AzureDevOpsClient
         _workItemTrackingHttpClient = connection.GetClient<WorkItemTrackingHttpClient>();
     }
 
-    public async Task<WorkItemQueryResult> GetOrCreateQuery(string query, int limit) => 
-        await _workItemTrackingHttpClient.QueryByWiqlAsync(new() { Query = query }, _azureDevOpsOptions.ProjectName, top: limit);
+    public async Task<WorkItemQueryResult> GetOrCreateQuery(string query, int limit, CancellationToken cancellationToken) => 
+        await _workItemTrackingHttpClient.QueryByWiqlAsync(new() { Query = query }, _azureDevOpsOptions.ProjectName, top: limit, cancellationToken: cancellationToken);
 
     public async Task<List<WorkItem>> GetWorkItems(WorkItemQueryResult query)
     {
