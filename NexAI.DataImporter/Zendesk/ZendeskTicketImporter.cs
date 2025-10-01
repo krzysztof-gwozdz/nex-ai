@@ -16,7 +16,7 @@ internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, RabbitMQ
     private const string BackupGroupsFilePath = "zendesk_api_backup_groups.json";
     private const string BackupEmployeesFilePath = "zendesk_api_backup_employees.json";
     private const string BackupTicketsFilePath = "zendesk_api_backup_tickets_{0:yyyyMMdd}.json";
-    private const string BackupCommentsFilePath = "zendesk_api_backup_{0}_comments.json";
+    private const string BackupCommentsFilePath = "zendesk_api_backup_{0}_{1}_comments.json";
 
     public async Task Import(CancellationToken cancellationToken)
     {
@@ -32,7 +32,7 @@ internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, RabbitMQ
                 new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
                 async (ticket, parallelCancellationToken) =>
                 {
-                    var comments = await GetCommentsFromApiOrBackup(ticket.Id!.Value, parallelCancellationToken);
+                    var comments = await GetCommentsFromApiOrBackup(ticket.Id!.Value, ticket.UpdatedAt, parallelCancellationToken);
                     var mappedZendeskTicket = ZendeskTicketMapper.Map(ticket, comments, employees);
                     if (mappedZendeskTicket.IsRelevant)
                     {
@@ -69,9 +69,9 @@ internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, RabbitMQ
             ticket => $"Fetched {ticket.Length} tickets from Zendesk.",
             cancellationToken);
 
-    private async Task<CommentDto[]> GetCommentsFromApiOrBackup(long ticketId, CancellationToken cancellationToken) =>
+    private async Task<CommentDto[]> GetCommentsFromApiOrBackup(long ticketId, string? updatedAt, CancellationToken cancellationToken) =>
         await GetFromApiOrBackup(
-            string.Format(BackupCommentsFilePath, ticketId),
+            string.Format(BackupCommentsFilePath, ticketId, updatedAt?.Replace(":", "-")),
             () => zendeskApiClient.GetTicketComments(ticketId, null, cancellationToken),
             $"Comments for ticket {ticketId}",
             comment => $"Fetched {comment.Length} comments from Zendesk for ticket {ticketId}.",
