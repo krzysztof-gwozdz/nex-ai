@@ -10,19 +10,14 @@ public class FindZendeskTicketsThatContainPhraseQuery(MongoDbClient mongoDbClien
         var collection = mongoDbClient.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketCollections.MongoDbCollectionName);
         var filter = Builders<ZendeskTicketMongoDbDocument>.Filter.Text(phrase);
 
-        var projection = Builders<ZendeskTicketMongoDbDocument>.Projection
-            .MetaTextScore("score");
-
-        var sort = Builders<ZendeskTicketMongoDbDocument>.Sort
-            .MetaTextScore("score");
-
         var results = await collection
             .Find(filter)
             .Limit(limit)
-            .Project<ZendeskTicketMongoDbDocument>(projection)
-            .Sort(sort)
+            .Project<ZendeskTicketMongoDbDocument>(Builders<ZendeskTicketMongoDbDocument>.Projection.MetaTextScore("score"))
+            .Sort(Builders<ZendeskTicketMongoDbDocument>.Sort.MetaTextScore("score"))
             .ToListAsync(cancellationToken: cancellationToken);
         
-        return results.Select(document => SearchResult.FullTextSearchResult(document.ToZendeskTicket(), document.Score)).ToArray();
+        var maxScore = results.Max(document => document.Score);
+        return results.Select(document => SearchResult.FullTextSearchResult(document.ToZendeskTicket(), document.Score/maxScore)).ToArray();
     }
 }
