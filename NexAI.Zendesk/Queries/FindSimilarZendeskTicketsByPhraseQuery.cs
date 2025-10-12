@@ -1,5 +1,6 @@
 ﻿using NexAI.LLMs.Common;
 using NexAI.Qdrant;
+using NexAI.Zendesk.QdrantDb;
 using Qdrant.Client.Grpc;
 
 namespace NexAI.Zendesk.Queries;
@@ -77,20 +78,20 @@ public class FindSimilarZendeskTicketsByPhraseQuery(
         var tasks = new[]
         {
             qdrantDbClient.SearchAsync(
-                ZendeskTicketCollections.QdrantCollectionName,
+                ZendeskTicketQdrantCollection.Name,
                 embedding,
                 filter: ticketFilter,
                 limit: (ulong)limit,
                 cancellationToken: cancellationToken),
             qdrantDbClient.SearchAsync(
-                ZendeskTicketCollections.QdrantCollectionName,
+                ZendeskTicketQdrantCollection.Name,
                 embedding,
                 filter: titleAndDescriptionFilter,
                 limit: (ulong)limit,
                 cancellationToken: cancellationToken
             ),
             qdrantDbClient.SearchAsync(
-                ZendeskTicketCollections.QdrantCollectionName,
+                ZendeskTicketQdrantCollection.Name,
                 embedding,
                 filter: messageFilter,
                 limit: (ulong)limit * 5,

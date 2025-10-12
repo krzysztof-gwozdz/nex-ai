@@ -2,6 +2,7 @@
 using NexAI.LLMs.Common;
 using NexAI.Qdrant;
 using NexAI.Zendesk;
+using NexAI.Zendesk.QdrantDb;
 using Qdrant.Client.Grpc;
 using Spectre.Console;
 
@@ -14,15 +15,15 @@ public class ZendeskTicketQdrantExporter(QdrantDbClient qdrantDbClient, TextEmbe
     public async Task CreateSchema(CancellationToken cancellationToken)
     {
         AnsiConsole.MarkupLine("[yellow]Start exporting Zendesk tickets into Qdrant...[/]");
-        if (_dataProcessorOptions.Recreate && await qdrantDbClient.CollectionExistsAsync(ZendeskTicketCollections.QdrantCollectionName, cancellationToken))
+        if (_dataProcessorOptions.Recreate && await qdrantDbClient.CollectionExistsAsync(ZendeskTicketQdrantCollection.Name, cancellationToken))
         {
-            await qdrantDbClient.DeleteCollectionAsync(ZendeskTicketCollections.QdrantCollectionName, cancellationToken: cancellationToken);
+            await qdrantDbClient.DeleteCollectionAsync(ZendeskTicketQdrantCollection.Name, cancellationToken: cancellationToken);
             AnsiConsole.MarkupLine("[red]Deleted collection for Zendesk tickets in Qdrant.[/]");
         }
 
-        if (!await qdrantDbClient.CollectionExistsAsync(ZendeskTicketCollections.QdrantCollectionName, cancellationToken))
+        if (!await qdrantDbClient.CollectionExistsAsync(ZendeskTicketQdrantCollection.Name, cancellationToken))
         {
-            await qdrantDbClient.CreateCollectionAsync(ZendeskTicketCollections.QdrantCollectionName, new VectorParams { Size = textEmbedder.EmbeddingDimension, Distance = Distance.Dot }, cancellationToken: cancellationToken);
+            await qdrantDbClient.CreateCollectionAsync(ZendeskTicketQdrantCollection.Name, new VectorParams { Size = textEmbedder.EmbeddingDimension, Distance = Distance.Dot }, cancellationToken: cancellationToken);
             AnsiConsole.MarkupLine("[green]Created schema for Zendesk tickets in Qdrant.[/]");
         }
         else
@@ -40,7 +41,7 @@ public class ZendeskTicketQdrantExporter(QdrantDbClient qdrantDbClient, TextEmbe
         };
         tasks.AddRange(zendeskTicket.Messages.Select(message => ZendeskTicketMessageQdrantPoint.Create(zendeskTicket, message, textEmbedder, cancellationToken)));
         var points = await Task.WhenAll(tasks);
-        await qdrantDbClient.UpsertAsync(ZendeskTicketCollections.QdrantCollectionName, points, cancellationToken: cancellationToken);
+        await qdrantDbClient.UpsertAsync(ZendeskTicketQdrantCollection.Name, points, cancellationToken: cancellationToken);
         AnsiConsole.MarkupLine($"[mediumpurple2]Successfully exported Zendesk ticket {zendeskTicket.ExternalId} into Qdrant.[/]");
     }
 }

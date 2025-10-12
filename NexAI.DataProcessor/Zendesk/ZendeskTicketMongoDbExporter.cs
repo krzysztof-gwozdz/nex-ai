@@ -2,6 +2,7 @@
 using NexAI.Config;
 using NexAI.MongoDb;
 using NexAI.Zendesk;
+using NexAI.Zendesk.MongoDb;
 using Spectre.Console;
 
 namespace NexAI.DataProcessor.Zendesk;
@@ -13,15 +14,15 @@ public class ZendeskTicketMongoDbExporter(MongoDbClient mongoDbClient, Options o
     public async Task CreateSchema(CancellationToken cancellationToken)
     {
         var existingCollections = await (await mongoDbClient.Database.ListCollectionNamesAsync(cancellationToken: cancellationToken)).ToListAsync(cancellationToken: cancellationToken);
-        if (_dataProcessorOptions.Recreate && existingCollections.Contains(ZendeskTicketCollections.MongoDbCollectionName))
+        if (_dataProcessorOptions.Recreate && existingCollections.Contains(ZendeskTicketMongoDbCollection.Name))
         {
-            await mongoDbClient.Database.DropCollectionAsync(ZendeskTicketCollections.MongoDbCollectionName, cancellationToken);
+            await mongoDbClient.Database.DropCollectionAsync(ZendeskTicketMongoDbCollection.Name, cancellationToken);
             AnsiConsole.MarkupLine("[red]Deleted collection for Zendesk tickets in MongoDb.[/]");
         }
-        if (!existingCollections.Contains(ZendeskTicketCollections.MongoDbCollectionName))
+        if (!existingCollections.Contains(ZendeskTicketMongoDbCollection.Name))
         {
-            await mongoDbClient.Database.CreateCollectionAsync(ZendeskTicketCollections.MongoDbCollectionName, cancellationToken: cancellationToken);
-            await CreateFullTextIndex(mongoDbClient.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketCollections.MongoDbCollectionName));
+            await mongoDbClient.Database.CreateCollectionAsync(ZendeskTicketMongoDbCollection.Name, cancellationToken: cancellationToken);
+            await CreateFullTextIndex(mongoDbClient.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketMongoDbCollection.Name));
             AnsiConsole.MarkupLine("[green]Created schema for Zendesk tickets in MongoDb.[/]");
         }
         else
@@ -33,7 +34,7 @@ public class ZendeskTicketMongoDbExporter(MongoDbClient mongoDbClient, Options o
     public async Task Export(ZendeskTicket zendeskTicket, CancellationToken cancellationToken)
     {
         var database = mongoDbClient.Database;
-        var collection = database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketCollections.MongoDbCollectionName);
+        var collection = database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketMongoDbCollection.Name);
         var document = await collection.Find(existingZendeskTicket => existingZendeskTicket.Id == zendeskTicket.Id || existingZendeskTicket.ExternalId == zendeskTicket.ExternalId).FirstOrDefaultAsync(cancellationToken: cancellationToken);
         if (document is not null)
         {

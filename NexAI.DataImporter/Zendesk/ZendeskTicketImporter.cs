@@ -7,6 +7,7 @@ using NexAI.RabbitMQ;
 using NexAI.Zendesk;
 using NexAI.Zendesk.Api;
 using NexAI.Zendesk.Api.Dtos;
+using NexAI.Zendesk.MongoDb;
 using Spectre.Console;
 
 namespace NexAI.DataImporter.Zendesk;
@@ -121,7 +122,7 @@ internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, RabbitMQ
 
     private DateTime GetTicketStartDateTime()
     {
-        var lastImportDate = mongoDbClient.Database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketCollections.MongoDbCollectionName)
+        var lastImportDate = mongoDbClient.Database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketMongoDbCollection.Name)
             .Find(FilterDefinition<ZendeskTicketMongoDbDocument>.Empty)
             .SortByDescending(document => document.LastImportDate)
             .Limit(1)
