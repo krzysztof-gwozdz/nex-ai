@@ -3,10 +3,10 @@
 namespace NexAI.Zendesk.Api.Dtos;
 
 public record GroupDto(
-    [property: JsonPropertyName("id")]
-    long Id,
     [property: JsonPropertyName("url")]
-    string Url,
+    string? Url,
+    [property: JsonPropertyName("id")]
+    long? Id,
     [property: JsonPropertyName("is_public")]
     bool? IsPublic,
     [property: JsonPropertyName("name")]
@@ -20,4 +20,4 @@ public record GroupDto(
     [property: JsonPropertyName("created_at")]
     string CreatedAt,
     [property: JsonPropertyName("updated_at")]
-    string UpdatedAt);
+    string? UpdatedAt);
