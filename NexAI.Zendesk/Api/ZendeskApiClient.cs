@@ -24,24 +24,31 @@ public class ZendeskApiClient
     }
 
     public async Task<int> GetEmployeesCount(CancellationToken cancellationToken) =>
-        await GetCount("/api/v2/users/count?role[]=agent&role[]=admin", cancellationToken);
+        await GetCount("/api/v2/users/count?role[]=agent&role[]=admin&exclude_deleted=true", cancellationToken);
 
     public async Task<int> GetGroupsCount(CancellationToken cancellationToken) =>
-        await GetCount("/api/v2/groups/count", cancellationToken);
+        await GetCount("/api/v2/groups/count?exclude_deleted=true", cancellationToken);
 
     public async Task<int> GetTicketsCount(CancellationToken cancellationToken) =>
-        await GetCount("/api/v2/tickets/count", cancellationToken);
+        await GetCount("/api/v2/tickets/count?exclude_deleted=true", cancellationToken);
 
     public async Task<UserDto[]> GetEmployees(int? limit, CancellationToken cancellationToken) =>
         await GetPagedItems<ListUsersDto, UserDto>(
-            "/api/v2/users?role[]=agent&role[]=admin",
+            "/api/v2/users?role[]=agent&role[]=admin&exclude_deleted=true",
             dto => dto.Users,
             limit,
             cancellationToken);
 
     public async Task<GroupDto[]> GetGroups(int? limit, CancellationToken cancellationToken) =>
         await GetPagedItems<ListGroupsDto, GroupDto>(
-            "/api/v2/groups",
+            "/api/v2/groups?exclude_deleted=true",
+            dto => dto.Groups,
+            limit,
+            cancellationToken);
+
+    public async Task<GroupDto[]> GetUserGroups(long userId, int? limit, CancellationToken cancellationToken) =>
+        await GetPagedItems<ListGroupsDto, GroupDto>(
+            $"/api/v2/users/{userId}/groups?exclude_deleted=true",
             dto => dto.Groups,
             limit,
             cancellationToken);
