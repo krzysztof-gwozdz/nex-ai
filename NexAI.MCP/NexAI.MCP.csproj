@@ -39,6 +39,7 @@
         <ProjectReference Include="..\NexAI.AzureDevOps\NexAI.AzureDevOps.csproj"/>
         <ProjectReference Include="..\NexAI.Config\NexAI.Config.csproj"/>
         <ProjectReference Include="..\NexAI.LLMs\NexAI.LLMs.csproj"/>
+        <ProjectReference Include="..\NexAI.Neo4j\NexAI.Neo4j.csproj" />
         <ProjectReference Include="..\NexAI.Qdrant\NexAI.Qdrant.csproj"/>
         <ProjectReference Include="..\NexAI.RabbitMQ\NexAI.RabbitMQ.csproj"/>
         <ProjectReference Include="..\NexAI.Zendesk\NexAI.Zendesk.csproj"/>

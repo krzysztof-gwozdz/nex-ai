@@ -26,6 +26,7 @@ There are no plans for further development of the application due to a change in
 - Ollama
 - OpenAI
 - MongoDB
+- Neo4j
 - Qdrant
 - RabbitMQ
 - Docker

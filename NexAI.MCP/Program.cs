@@ -7,6 +7,7 @@ using NexAI.Config;
 using NexAI.LLMs;
 using NexAI.MCP.Tools;
 using NexAI.MongoDb;
+using NexAI.Neo4j;
 using NexAI.Qdrant;
 using NexAI.RabbitMQ;
 using NexAI.Zendesk;
@@ -23,6 +24,7 @@ builder.Services
     .AddAzureDevOps()
     .AddZendesk()
     .AddMongoDb()
+    .AddNeo4j()
     .AddQdrant()
     .AddRabbitMQ()
     .AddLLM(options)

@@ -7,6 +7,7 @@ using NexAI.DataProcessor.ConsumerServices;
 using NexAI.DataProcessor.Zendesk;
 using NexAI.LLMs;
 using NexAI.MongoDb;
+using NexAI.Neo4j;
 using NexAI.Qdrant;
 using NexAI.RabbitMQ;
 using NexAI.Zendesk;
@@ -25,6 +26,7 @@ try
             services.AddLogging(loggingBuilder => loggingBuilder.AddConsole());
             services.AddSingleton(options);
             services.AddMongoDb();
+            services.AddNeo4j();
             services.AddQdrant();
             services.AddZendesk();
             services.AddRabbitMQ();

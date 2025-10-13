@@ -11,6 +11,7 @@ using NexAI.LLMs.Common;
 using NexAI.LLMs.Ollama;
 using NexAI.LLMs.OpenAI;
 using NexAI.MongoDb;
+using NexAI.Neo4j;
 using NexAI.Qdrant;
 using NexAI.RabbitMQ;
 using NexAI.Zendesk;
@@ -83,6 +84,7 @@ public class NexAIAgent
         builder.Services.AddAzureDevOps();
         builder.Services.AddZendesk();
         builder.Services.AddMongoDb();
+        builder.Services.AddNeo4j();
         builder.Services.AddQdrant();
         builder.Services.AddRabbitMQ();
         builder.Services.AddLLM(options);

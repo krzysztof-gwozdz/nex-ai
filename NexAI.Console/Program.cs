@@ -9,6 +9,7 @@ using NexAI.Console;
 using NexAI.Console.Features;
 using NexAI.LLMs;
 using NexAI.MongoDb;
+using NexAI.Neo4j;
 using NexAI.Qdrant;
 using NexAI.RabbitMQ;
 using NexAI.Zendesk;
@@ -29,6 +30,7 @@ try
             services.AddAzureDevOps();
             services.AddZendesk();
             services.AddMongoDb();
+            services.AddNeo4j();
             services.AddQdrant();
             services.AddRabbitMQ();
             services.AddLLM(options);

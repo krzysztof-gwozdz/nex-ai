@@ -25,6 +25,19 @@ services:
       - mongodb_config:/data/configdb
     restart: unless-stopped
 
+  neo4j:
+    image: neo4j:latest
+    container_name: nexai-neo4j
+    ports:
+      - "7474:7474" # HTTP
+      - "7687:7687" # Bolt
+    environment:
+      NEO4J_AUTH: admin/password
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+    restart: unless-stopped
+
   rabbitmq:
     image: rabbitmq:3-management
     container_name: nexai-rabbitmq
@@ -58,10 +71,12 @@ services:
       ollama pull mxbai-embed-large &&
       tail -f /dev/null
       "
-    profiles: ["ollama"]
+    profiles: [ "ollama" ]
 volumes:
   qdrant_data:
   mongodb_data:
   mongodb_config:
+  neo4j_data:
+  neo4j_logs:
   rabbitmq_data:
   ollama_data:
