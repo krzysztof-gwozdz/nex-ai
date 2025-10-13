@@ -12,7 +12,9 @@ public class SearchForAzureWorkItemsByPhraseFeature(GetAzureDevopsWorkItemsQuery
             AnsiConsole.MarkupLine("[Aquamarine1]Welcome to Work Item Search! Enter search phrase. Type [bold]STOP[/] to exit.[/]");
             var userMessage = AnsiConsole.Prompt(new TextPrompt<string>("> "));
             if (userMessage.ToUpper() == "STOP")
+            {
                 return;
+            }
             try
             {
                 AnsiConsole.Write(new Rule($"[bold]Searching for up to {limit} tickets for phrase: {userMessage.EscapeMarkup()}[/]"));

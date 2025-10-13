@@ -14,7 +14,9 @@ public class SummarizeZendeskTicketFeature(
             AnsiConsole.MarkupLine("[Aquamarine1]Welcome to Ticket Summarizer! Enter Zendesk ticket id. Type [bold]STOP[/] to exit.[/]");
             var userMessage = AnsiConsole.Prompt(new TextPrompt<string>("> "));
             if (userMessage.ToUpper() == "STOP")
+            {
                 return;
+            }
             try
             {
                 AnsiConsole.Write(new Rule("[bold]Fetching data.[/]"));
