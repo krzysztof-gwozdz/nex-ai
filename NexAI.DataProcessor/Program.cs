@@ -34,9 +34,15 @@ try
             services.AddSingleton<ZendeskTicketJsonExporter>();
             services.AddSingleton<ZendeskTicketMongoDbExporter>();
             services.AddSingleton<ZendeskTicketQdrantExporter>();
-            services.AddHostedService<JsonConsumerService>();
-            services.AddHostedService<MongoDbConsumerService>();
-            services.AddHostedService<QdrantConsumerService>();
+            services.AddSingleton<ZendeskUserNeo4jExporter>();
+            services.AddSingleton<ZendeskGroupNeo4jExporter>();
+            services.AddSingleton<ZendeskUserGroupsNeo4jExporter>();
+            services.AddHostedService<ZendeskTicketJsonConsumerService>();
+            services.AddHostedService<ZendeskTicketMongoDbConsumerService>();
+            services.AddHostedService<ZendeskTicketQdrantConsumerService>();
+            services.AddHostedService<ZendeskUserNeo4jDbConsumerService>();
+            services.AddHostedService<ZendeskGroupNeo4jDbConsumerService>();
+            services.AddHostedService<ZendeskUserGroupsNeo4jDbConsumerService>();
         })
         .Build();
 

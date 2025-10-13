@@ -2,7 +2,7 @@ namespace NexAI.Zendesk;
 
 public readonly record struct ZendeskUserId
 {
-    public Guid Value { get; }
+    public Guid Value { get; init; }
 
     public ZendeskUserId(Guid value)
     {

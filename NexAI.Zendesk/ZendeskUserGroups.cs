@@ -1,3 +1,3 @@
 namespace NexAI.Zendesk;
 
-public record ZendeskUserGroups(ZendeskUserId Id, ZendeskGroupId[] Groups);
+public record ZendeskUserGroups(ZendeskUserId UserId, ZendeskGroupId[] Groups);

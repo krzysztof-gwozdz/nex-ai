@@ -2,7 +2,7 @@
 
 public readonly record struct ZendeskTicketId
 {
-    public Guid Value { get; }
+    public Guid Value { get; init; }
 
     public ZendeskTicketId(Guid value)
     {

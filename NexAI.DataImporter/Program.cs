@@ -27,11 +27,13 @@ try
             services.AddRabbitMQ();
             services.AddSingleton<RabbitMQStructure>();
             services.AddSingleton<ZendeskTicketImporter>();
+            services.AddSingleton<ZendeskUserAndGroupsImporter>();
         })
         .Build();
 
     await host.Services.GetRequiredService<RabbitMQStructure>().Create(cancellationTokenSource.Token);
     await host.Services.GetRequiredService<ZendeskTicketImporter>().Import(cancellationTokenSource.Token);
+    await host.Services.GetRequiredService<ZendeskUserAndGroupsImporter>().Import(cancellationTokenSource.Token);
 }
 catch (Exception e)
 {

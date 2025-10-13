@@ -15,9 +15,9 @@ public class Neo4jDbClient
         driver = GraphDatabase.Driver(neo4jOptions.ConnectionString, AuthTokens.Basic(neo4jOptions.Username, neo4jOptions.Password));
     }
 
-    public async Task<IResultCursor> RunQuery(string database, string query, IDictionary<string, object> parameters, Action<TransactionConfigBuilder>? action = null)
+    public async Task ExecuteQuery(string query, IDictionary<string, object> parameters, Action<TransactionConfigBuilder>? action = null)
     {
-        await using var session = driver.AsyncSession(sessionConfigBuilder => sessionConfigBuilder.WithDatabase(database));
-        return await session.RunAsync(query, parameters, action);
+        await using var session = driver.AsyncSession(sessionConfigBuilder => sessionConfigBuilder.WithDatabase("neo4j"));
+        await session.RunAsync(query, parameters, action);
     }
 }
