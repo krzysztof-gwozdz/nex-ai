@@ -45,6 +45,10 @@ There are no plans for further development of the application due to a change in
 
 ## Versions
 
+### 0.13.0
+
+- Add Neo4j integration to store info about Zendesk user and groups
+
 ### 0.12.0
 
 - Improved prompts storing.
