@@ -31,7 +31,7 @@ public class NexAIAgent
         var builder = GetKernelBuilder(options, mode);
         _kernel = builder.Build();
         _kernel.Plugins.AddFromType<ZendeskTicketsPlugin>("ZendeskTickets", _kernel.Services);
-        _kernel.Plugins.AddFromType<AzureDevOpsIssuesPlugin>("AzureDevOpsIssues", _kernel.Services);
+        // _kernel.Plugins.AddFromType<AzureDevOpsIssuesPlugin>("AzureDevOpsIssues", _kernel.Services);
         _chatCompletionService = _kernel.GetRequiredService<IChatCompletionService>(mode);
         _openAIPromptExecutionSettings = new()
         {
@@ -88,6 +88,7 @@ public class NexAIAgent
         builder.Services.AddQdrant();
         builder.Services.AddRabbitMQ();
         builder.Services.AddLLM(options);
+        builder.Services.AddSingleton<GetInfoAboutZendeskUserAndGroupsFeature>();
         builder.Services.AddSingleton<SummarizeZendeskTicketFeature>();
         builder.Services.AddSingleton<SearchForZendeskTicketsByPhraseFeature>();
         builder.Services.AddSingleton<SearchForAzureWorkItemsByPhraseFeature>();

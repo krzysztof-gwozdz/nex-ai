@@ -10,7 +10,8 @@ public class ZendeskTicketsPlugin(
     GetZendeskTicketByExternalIdQuery getZendeskTicketByExternalIdQuery,
     GetZendeskTicketsByExternalIdsQuery getZendeskTicketsByExternalIdsQuery,
     FindSimilarZendeskTicketsByPhraseQuery findSimilarZendeskTicketsByPhraseQuery,
-    FindZendeskTicketsThatContainPhraseQuery findZendeskTicketsThatContainPhraseQuery)
+    FindZendeskTicketsThatContainPhraseQuery findZendeskTicketsThatContainPhraseQuery,
+    GetInfoAboutZendeskHierarchy getInfoAboutZendeskHierarchy)
 {
     [KernelFunction("get_zendesk_ticket_by_external_id")]
     [Description("Retrieves a Zendesk ticket by its external id.")]
@@ -35,12 +36,23 @@ public class ZendeskTicketsPlugin(
         AnsiConsole.MarkupLine($"[yellow]Using tool find_similar_tickets_by_phrase. Finding similar tickets for phrase: {phrase} with limit: {limit}[/]");
         return await findSimilarZendeskTicketsByPhraseQuery.Handle(phrase, limit, cancellationToken);
     }
-    
+
     [KernelFunction("find_zendesk_tickets_by_phrase")]
     [Description("Finds tickets based on a phrase. It uses full-text search to find tickets.")]
     public async Task<SearchResult[]> FindZendeskTicketsByPhrase(string phrase, int limit, CancellationToken cancellationToken)
     {
         AnsiConsole.MarkupLine($"[yellow]Using tool find_zendesk_tickets_by_phrase. Finding tickets for phrase: {phrase} with limit: {limit}[/]");
         return await findZendeskTicketsThatContainPhraseQuery.Handle(phrase, limit, cancellationToken);
+    }
+
+    [KernelFunction("get_info_about_zendesk_hierarchy")]
+    [Description("Gets information about the Zendesk hierarchy: users and groups. The input is a Cypher query to be executed against the Neo4j database." +
+                 "Cypher structure:" +
+                 "Nodes: User(id, externalId, name), Group(id, externalId, name)" +
+                 "Relationships: MEMBER_OF(from User to Group)")]
+    public async Task<string> GetInfoAboutZendeskHierarchy(string cypherQuery)
+    {
+        AnsiConsole.MarkupLine($"[yellow]Using tool get_info_about_zendesk_hierarchy. Retrieving Zendesk hierarchy information with Cypher query: {cypherQuery.EscapeMarkup()}[/]");
+        return await getInfoAboutZendeskHierarchy.Handle(cypherQuery);
     }
 }

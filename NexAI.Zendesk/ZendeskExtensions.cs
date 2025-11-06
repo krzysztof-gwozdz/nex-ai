@@ -11,10 +11,13 @@ public static class ZendeskExtensions
             .AddSingleton<ZendeskApiClient>()
             .AddSingleton<FindSimilarZendeskTicketsByPhraseQuery>()
             .AddSingleton<FindZendeskTicketsThatContainPhraseQuery>()
+            .AddSingleton<GetInfoAboutZendeskHierarchy>()
+            .AddSingleton<GetZendeskGroupByNameQuery>()
             .AddSingleton<GetZendeskTicketByExternalIdQuery>()
             .AddSingleton<GetZendeskTicketsByIdQuery>()
             .AddSingleton<GetZendeskTicketsByExternalIdsQuery>()
             .AddSingleton<GetZendeskTicketsByIdsQuery>()
             .AddSingleton<GetZendeskTicketSummaryQuery>()
+            .AddSingleton<GetZendeskUsersOfGroupQuery>()
             .AddSingleton<StreamZendeskTicketSummaryQuery>();
 }

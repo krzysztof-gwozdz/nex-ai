@@ -36,6 +36,7 @@ try
             services.AddLLM(options);
 
             services.AddSingleton<NexAIAgent>();
+            services.AddSingleton<GetInfoAboutZendeskUserAndGroupsFeature>();
             services.AddSingleton<SummarizeZendeskTicketFeature>();
             services.AddSingleton<SearchForZendeskTicketsByPhraseFeature>();
             services.AddSingleton<SearchForAzureWorkItemsByPhraseFeature>();
@@ -64,6 +65,7 @@ async Task Run(IServiceProvider services)
     var options = new Dictionary<string, Func<Task>>
     {
         ["Start Conversation with Nex AI"] = async () => await services.GetRequiredService<NexAIAgent>().StartConversation(cancellationTokenSource.Token),
+        ["Get info about zendesk user and groups"] = async () => await services.GetRequiredService<GetInfoAboutZendeskUserAndGroupsFeature>().Run(cancellationTokenSource.Token),
         ["Summarize the Ticket"] = async () => await services.GetRequiredService<SummarizeZendeskTicketFeature>().Run(cancellationTokenSource.Token),
         ["Search for Tickets by Phrase"] = async () => await services.GetRequiredService<SearchForZendeskTicketsByPhraseFeature>().Run(10, cancellationTokenSource.Token),
         ["Search for Azure Work Items by Phrase"] = async () => await services.GetRequiredService<SearchForAzureWorkItemsByPhraseFeature>().Run(10, cancellationTokenSource.Token),
