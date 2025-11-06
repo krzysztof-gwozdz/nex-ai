@@ -16,16 +16,15 @@ public class ZendeskUserNeo4jExporter(Neo4jDbClient neo4jDbClient)
     public async Task Export(ZendeskUser zendeskUser, CancellationToken cancellationToken)
     {
         const string query = @"
-            CREATE (user:User { 
-                id: $id, 
-                externalId: $externalId, 
-                name: $name
-            })";
+            MERGE (user:User { externalId: $externalId })
+            ON CREATE SET user.id = $id, user.name = $name, user.email = $email
+            ON MATCH SET user.name = $name, user.email = $email";
         var parameters = new Dictionary<string, object>
         {
             { "id", (string)zendeskUser.Id },
             { "externalId", zendeskUser.ExternalId },
-            { "name", zendeskUser.Name }
+            { "name", zendeskUser.Name },
+            { "email", zendeskUser.Email }
         };
         await neo4jDbClient.ExecuteQuery(query, parameters);
         AnsiConsole.MarkupLine($"[deepskyblue1]Successfully exported Zendesk user {zendeskUser.Id} into Neo4j.[/]");

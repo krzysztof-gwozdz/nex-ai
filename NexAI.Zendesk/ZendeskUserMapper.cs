@@ -8,7 +8,8 @@ public class ZendeskUserMapper
     {
         var zendeskUser = ZendeskUser.Create(
             NormalizeExternalId(user.Id),
-            NormalizeName(user.Name)
+            NormalizeName(user.Name),
+            NormalizeEmail(user.Email)
         );
         return zendeskUser;
     }
@@ -18,4 +19,7 @@ public class ZendeskUserMapper
 
     private static string NormalizeName(string? name) =>
         string.IsNullOrWhiteSpace(name) ? "<MISSING NAME>" : name;
+
+    private static string NormalizeEmail(string? email) =>
+        string.IsNullOrWhiteSpace(email) ? throw new("Could not parse Email") : email;
 }

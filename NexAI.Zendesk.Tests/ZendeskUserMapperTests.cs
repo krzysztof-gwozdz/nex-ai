@@ -98,12 +98,51 @@ public class ZendeskUserMapperTests
         result.Name.Should().Be("<MISSING NAME>");
     }
 
+    [Fact]
+    public void Map_WithValidEmail_SetsEmail()
+    {
+        // arrange
+        var user = ValidUserDto with { Email = "user@example.com" };
+
+        // act
+        var result = ZendeskUserMapper.Map(user);
+
+        // assert
+        result.Email.Should().Be("user@example.com");
+    }
+
+    [Fact]
+    public void Map_WithNullEmail_ThrowsException()
+    {
+        // arrange
+        var user = ValidUserDto with { Email = null };
+
+        // act
+        var map = () => ZendeskUserMapper.Map(user);
+
+        // assert
+        map.Should().Throw<Exception>().WithMessage("Could not parse Email");
+    }
+
+    [Fact]
+    public void Map_WithWhitespaceEmail_ThrowsException()
+    {
+        // arrange
+        var user = ValidUserDto with { Email = " \n\t  " };
+
+        // act
+        var map = () => ZendeskUserMapper.Map(user);
+
+        // assert
+        map.Should().Throw<Exception>().WithMessage("Could not parse Email");
+    }
+
     private static UserDto ValidUserDto =>
         new(
             Url: null,
             Id: 100,
             Name: "Employee",
-            Email: null,
+            Email: "employee@example.com",
             CreatedAt: "1970-01-01T00:00:00Z",
             UpdatedAt: null,
             TimeZone: null,
