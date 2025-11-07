@@ -14,25 +14,25 @@ public class GetZendeskGroupByNameQuery(Neo4jDbClient neo4jDbClient)
             RETURN group.id AS id, group.zendeskId AS zendeskId, group.name AS name
             LIMIT 1
         ";
-            var parameters = new Dictionary<string, object>
+        var parameters = new Dictionary<string, object>
+        {
+            { "groupName", zendeskGroupName }
+        };
+        await using var session = neo4jDbClient.Driver.AsyncSession(sessionConfigBuilder => sessionConfigBuilder.WithDatabase("neo4j"));
+        var group = await session.ExecuteReadAsync(async queryRunner =>
+        {
+            var cursor = await queryRunner.RunAsync(query, parameters);
+            var record = await cursor.SingleAsync();
+            if (record is null)
             {
-                { "groupName", zendeskGroupName }
-            };
-            await using var session = neo4jDbClient.Driver.AsyncSession(sessionConfigBuilder => sessionConfigBuilder.WithDatabase("neo4j"));
-            var group = await session.ExecuteReadAsync(async queryRunner =>
-            {
-                var cursor = await queryRunner.RunAsync(query, parameters);
-                var record = await cursor.SingleAsync();
-                if (record is null)
-                {
-                    return null;
-                }
-                var group = new ZendeskGroup(
-                    new(record["id"].As<Guid>()),
-                    record["zendeskId"].As<string>(),
-                    record["name"].As<string>());
-                return group;
-            });
+                return null;
+            }
+            var group = new ZendeskGroup(
+                new(record["id"].As<Guid>()),
+                record["zendeskId"].As<string>(),
+                record["name"].As<string>());
             return group;
-        }
+        });
+        return group;
+    }
 }
