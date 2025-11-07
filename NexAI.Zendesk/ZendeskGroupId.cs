@@ -1,5 +1,4 @@
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
+using NexAI.Config;
 
 namespace NexAI.Zendesk;
 
@@ -20,15 +19,4 @@ public readonly record struct ZendeskGroupId
     public static implicit operator Guid(ZendeskGroupId id) => id.Value;
 
     public static implicit operator string(ZendeskGroupId id) => id.Value.ToString();
-}
-
-public static class ArgumentExceptionExtensions
-{
-    public static void ThrowIfNullOrEmpty([NotNull] Guid? argument, [CallerArgumentExpression(nameof(argument))] string? paramName = null)
-    {
-        if (argument is null || argument == Guid.Empty)
-        {
-            throw new ArgumentException("Argument cannot be null or empty", paramName);
-        }
-    }
 }

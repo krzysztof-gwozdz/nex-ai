@@ -3,7 +3,7 @@ using Spectre.Console;
 
 namespace NexAI.Console.Features;
 
-public class GetInfoAboutZendeskUserAndGroupsFeature(GetInfoAboutZendeskHierarchy getInfoAboutZendeskHierarchy)
+public class GetInfoAboutZendeskUserAndGroupsFeature(GetInfoAboutZendeskHierarchyQuery getInfoAboutZendeskHierarchyQuery)
 {
     public async Task Run(CancellationToken cancellationToken)
     {
@@ -18,7 +18,7 @@ public class GetInfoAboutZendeskUserAndGroupsFeature(GetInfoAboutZendeskHierarch
             try
             {
                 AnsiConsole.Write(new Rule("[bold]Fetching data.[/]"));
-                var answer = await getInfoAboutZendeskHierarchy.Handle(userMessage);
+                var answer = await getInfoAboutZendeskHierarchyQuery.Handle(userMessage);
                 AnsiConsole.WriteLine(answer);
             }
             catch (Exception ex)

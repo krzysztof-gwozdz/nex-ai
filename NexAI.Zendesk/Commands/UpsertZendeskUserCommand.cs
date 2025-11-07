@@ -10,8 +10,8 @@ public class UpsertZendeskUserCommand(Neo4jDbClient neo4jDbClient)
     {
         const string query = @"
             MERGE (user:User { zendeskId: $zendeskId })
-            ON CREATE SET user.id = $id, user.name = $name, user.email = $email
-            ON MATCH SET user.name = $name, user.email = $email";
+            ON CREATE SET user.id = $id
+            SET user.name = $name, user.email = $email";
         var parameters = new Dictionary<string, object>
         {
             { "id", (string)zendeskUser.Id },

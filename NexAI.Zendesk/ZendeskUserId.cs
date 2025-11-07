@@ -1,3 +1,5 @@
+using NexAI.Config;
+
 namespace NexAI.Zendesk;
 
 public readonly record struct ZendeskUserId

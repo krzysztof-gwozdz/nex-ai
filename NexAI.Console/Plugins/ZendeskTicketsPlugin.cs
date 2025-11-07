@@ -11,7 +11,7 @@ public class ZendeskTicketsPlugin(
     GetZendeskTicketsByExternalIdsQuery getZendeskTicketsByExternalIdsQuery,
     FindSimilarZendeskTicketsByPhraseQuery findSimilarZendeskTicketsByPhraseQuery,
     FindZendeskTicketsThatContainPhraseQuery findZendeskTicketsThatContainPhraseQuery,
-    GetInfoAboutZendeskHierarchy getInfoAboutZendeskHierarchy)
+    GetInfoAboutZendeskHierarchyQuery getInfoAboutZendeskHierarchyQuery)
 {
     [KernelFunction("get_zendesk_ticket_by_external_id")]
     [Description("Retrieves a Zendesk ticket by its external id.")]
@@ -53,6 +53,6 @@ public class ZendeskTicketsPlugin(
     public async Task<string> GetInfoAboutZendeskHierarchy(string cypherQuery)
     {
         AnsiConsole.MarkupLine($"[yellow]Using tool get_info_about_zendesk_hierarchy. Retrieving Zendesk hierarchy information with Cypher query: {cypherQuery.EscapeMarkup()}[/]");
-        return await getInfoAboutZendeskHierarchy.Handle(cypherQuery);
+        return await getInfoAboutZendeskHierarchyQuery.Handle(cypherQuery);
     }
 }

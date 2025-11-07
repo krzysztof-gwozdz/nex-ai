@@ -6,9 +6,10 @@ namespace NexAI.DataProcessor.Zendesk;
 
 public class ZendeskGroupNeo4jExporter(UpsertZendeskGroupCommand upsertZendeskGroupCommand)
 {
-    public async Task CreateSchema(CancellationToken cancellationToken)
+    public Task CreateSchema(CancellationToken cancellationToken)
     {
         AnsiConsole.MarkupLine("[green]Current setup does not require schema creation for Zendesk tickets in Neo4j.[/]");
+        return Task.CompletedTask;
     }
 
     public async Task Export(ZendeskGroup zendeskGroup, CancellationToken cancellationToken)

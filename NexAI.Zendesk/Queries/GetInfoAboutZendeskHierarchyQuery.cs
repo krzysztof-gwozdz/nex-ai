@@ -6,7 +6,7 @@ using NexAI.Neo4j;
 
 namespace NexAI.Zendesk.Queries;
 
-public class GetInfoAboutZendeskHierarchy(Neo4jDbClient neo4jDbClient)
+public class GetInfoAboutZendeskHierarchyQuery(Neo4jDbClient neo4jDbClient)
 {
     public async Task<string> Handle(string cypherQuery)
     {

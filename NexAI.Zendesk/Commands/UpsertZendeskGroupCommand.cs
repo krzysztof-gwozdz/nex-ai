@@ -10,8 +10,8 @@ public class UpsertZendeskGroupCommand(Neo4jDbClient neo4jDbClient)
     {
         const string query = @"
             MERGE (group:Group { zendeskId: $zendeskId })
-            ON CREATE SET group.id = $id, group.name = $name
-            ON MATCH SET group.name = $name";
+            ON CREATE SET group.id = $id
+            SET group.name = $name";
         var parameters = new Dictionary<string, object>
         {
             { "id", (string)zendeskGroup.Id },

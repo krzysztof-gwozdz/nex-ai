@@ -10,7 +10,7 @@ public class ZendeskTicketsTools(
     GetZendeskTicketsByExternalIdsQuery getZendeskTicketsByExternalIdsQuery,
     FindSimilarZendeskTicketsByPhraseQuery findSimilarZendeskTicketsByPhraseQuery,
     FindZendeskTicketsThatContainPhraseQuery findZendeskTicketsThatContainPhraseQuery,
-    GetInfoAboutZendeskHierarchy getInfoAboutZendeskHierarchy)
+    GetInfoAboutZendeskHierarchyQuery getInfoAboutZendeskHierarchyQuery)
 {
     [McpServerTool(Name = "get_zendesk_ticket_by_external_id")]
     [Description("Retrieves a Zendesk ticket by its external id.")]
@@ -38,5 +38,5 @@ public class ZendeskTicketsTools(
                  "Nodes: User(id, zendeskId, name), Group(id, zendeskId, name)" +
                  "Relationships: MEMBER_OF(from User to Group)")]
     public async Task<string> GetInfoAboutZendeskHierarchy(string cypherQuery) =>
-        await getInfoAboutZendeskHierarchy.Handle(cypherQuery);
+        await getInfoAboutZendeskHierarchyQuery.Handle(cypherQuery);
 }

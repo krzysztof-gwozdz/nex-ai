@@ -4,7 +4,7 @@ using NexAI.Neo4j;
 
 namespace NexAI.Zendesk.Commands;
 
-public class UpsertMembersOfRelationCommand(Neo4jDbClient neo4jDbClient)
+public class UpsertZendeskMembersOfRelationshipCommand(Neo4jDbClient neo4jDbClient)
 {
     public async Task Handle(ZendeskUserGroups zendeskUserGroups)
     {
