@@ -48,7 +48,7 @@ public class ZendeskTicketsPlugin(
     [KernelFunction("get_info_about_zendesk_hierarchy")]
     [Description("Gets information about the Zendesk hierarchy: users and groups. The input is a Cypher query to be executed against the Neo4j database." +
                  "Cypher structure:" +
-                 "Nodes: User(id, externalId, name), Group(id, externalId, name)" +
+                 "Nodes: User(id, zendeskId, name), Group(id, zendeskId, name)" +
                  "Relationships: MEMBER_OF(from User to Group)")]
     public async Task<string> GetInfoAboutZendeskHierarchy(string cypherQuery)
     {

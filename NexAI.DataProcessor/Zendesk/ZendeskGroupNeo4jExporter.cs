@@ -18,13 +18,13 @@ public class ZendeskGroupNeo4jExporter(Neo4jDbClient neo4jDbClient)
         const string query = @"
             CREATE (group:Group { 
                 id: $id, 
-                externalId: $externalId, 
+                zendeskId: $zendeskId, 
                 name: $name
             })";
         var parameters = new Dictionary<string, object>
         {
             { "id", (string)zendeskGroup.Id },
-            { "externalId", zendeskGroup.ExternalId },
+            { "zendeskId", zendeskGroup.ExternalId },
             { "name", zendeskGroup.Name }
         };
         await neo4jDbClient.ExecuteQuery(query, parameters);

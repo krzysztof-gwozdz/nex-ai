@@ -11,7 +11,7 @@ public class GetZendeskGroupByNameQuery(Neo4jDbClient neo4jDbClient)
     {
         const string query = @" 
             MATCH (group:Group {name: $groupName})
-            RETURN group.id AS id, group.externalId AS externalId, group.name AS name
+            RETURN group.id AS id, group.zendeskId AS zendeskId, group.name AS name
             LIMIT 1
         ";
             var parameters = new Dictionary<string, object>
@@ -29,7 +29,7 @@ public class GetZendeskGroupByNameQuery(Neo4jDbClient neo4jDbClient)
                 }
                 var group = new ZendeskGroup(
                     new(record["id"].As<Guid>()),
-                    record["externalId"].As<string>(),
+                    record["zendeskId"].As<string>(),
                     record["name"].As<string>());
                 return group;
             });

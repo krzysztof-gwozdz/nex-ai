@@ -11,7 +11,7 @@ public class GetZendeskUsersOfGroupQuery(Neo4jDbClient neo4jDbClient)
     {
         const string query = @" 
             MATCH (group:Group {id: $groupId})<-[:MEMBER_OF]-(user:User) 
-            RETURN user.id AS id, user.externalId AS externalId, user.name AS name, user.email AS email
+            RETURN user.id AS id, user.zendeskId AS zendeskId, user.name AS name, user.email AS email
             LIMIT $limit
         ";
         var parameters = new Dictionary<string, object>
@@ -26,7 +26,7 @@ public class GetZendeskUsersOfGroupQuery(Neo4jDbClient neo4jDbClient)
             var users = await cursor.ToListAsync<ZendeskUser>(record =>
                 new(
                     new(record["id"].As<Guid>()),
-                    record["externalId"].As<string>(),
+                    record["zendeskId"].As<string>(),
                     record["name"].As<string>(),
                     record["email"].As<string>())
             );

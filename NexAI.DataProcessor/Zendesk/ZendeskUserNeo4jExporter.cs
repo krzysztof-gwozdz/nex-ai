@@ -16,13 +16,13 @@ public class ZendeskUserNeo4jExporter(Neo4jDbClient neo4jDbClient)
     public async Task Export(ZendeskUser zendeskUser, CancellationToken cancellationToken)
     {
         const string query = @"
-            MERGE (user:User { externalId: $externalId })
+            MERGE (user:User { zendeskId: $zendeskId })
             ON CREATE SET user.id = $id, user.name = $name, user.email = $email
             ON MATCH SET user.name = $name, user.email = $email";
         var parameters = new Dictionary<string, object>
         {
             { "id", (string)zendeskUser.Id },
-            { "externalId", zendeskUser.ExternalId },
+            { "zendeskId", zendeskUser.ExternalId },
             { "name", zendeskUser.Name },
             { "email", zendeskUser.Email }
         };
