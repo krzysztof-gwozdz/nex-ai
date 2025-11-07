@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexAI.MCP", "NexAI.MCP\NexA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexAI.Neo4j", "NexAI.Neo4j\NexAI.Neo4j.csproj", "{D5C9608E-FD71-47E5-B19F-91022E24FB4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexAI.Git", "NexAI.Git\NexAI.Git.csproj", "{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,5 +99,9 @@ Global
 		{D5C9608E-FD71-47E5-B19F-91022E24FB4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5C9608E-FD71-47E5-B19F-91022E24FB4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5C9608E-FD71-47E5-B19F-91022E24FB4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

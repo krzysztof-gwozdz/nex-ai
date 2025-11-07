@@ -26,6 +26,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\NexAI.Config\NexAI.Config.csproj"/>
+        <ProjectReference Include="..\NexAI.Git\NexAI.Git.csproj"/>
         <ProjectReference Include="..\NexAI.LLMs\NexAI.LLMs.csproj"/>
         <ProjectReference Include="..\NexAI.MongoDb\NexAI.MongoDb.csproj"/>
         <ProjectReference Include="..\NexAI.Neo4j\NexAI.Neo4j.csproj" />

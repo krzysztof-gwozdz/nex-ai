@@ -10,6 +10,7 @@ public class RabbitMQStructure(RabbitMQClient rabbitMQClient)
     public const string ZendeskGroupExchangeName = $"{Prefix}zendesk_groups";
     public const string ZendeskUserExchangeName = $"{Prefix}zendesk_users";
     public const string ZendeskUsersAndGroupsExchangeName = $"{Prefix}zendesk_users_groups";
+    public const string GitCommitExchangeName = $"{Prefix}git_commits";
 
     public async Task Create(CancellationToken cancellationToken)
     {
@@ -17,6 +18,7 @@ public class RabbitMQStructure(RabbitMQClient rabbitMQClient)
         await using var channel = await connection.CreateChannelAsync(cancellationToken: cancellationToken);
         await CreateZendeskTicketsExchangeWithQueues(channel, cancellationToken);
         await CreateZendeskUserAndGroupsExchangeWithQueues(channel, cancellationToken);
+        await CreateGitExchangeWithQueues(channel, cancellationToken);
     }
 
     private static async Task CreateZendeskTicketsExchangeWithQueues(IChannel channel, CancellationToken cancellationToken)
@@ -43,5 +45,12 @@ public class RabbitMQStructure(RabbitMQClient rabbitMQClient)
         await channel.ExchangeDeclareAsync(exchange: ZendeskUsersAndGroupsExchangeName, type: ExchangeType.Fanout, durable: true, autoDelete: false, cancellationToken: cancellationToken);
         await channel.QueueDeclareAsync($"{ZendeskUsersAndGroupsExchangeName}.neo4j", durable: true, exclusive: false, autoDelete: false, cancellationToken: cancellationToken);
         await channel.QueueBindAsync($"{ZendeskUsersAndGroupsExchangeName}.neo4j", ZendeskUsersAndGroupsExchangeName, "", cancellationToken: cancellationToken);
+    }
+
+    private static async Task CreateGitExchangeWithQueues(IChannel channel, CancellationToken cancellationToken)
+    {
+        await channel.ExchangeDeclareAsync(exchange: GitCommitExchangeName, type: ExchangeType.Fanout, durable: true, autoDelete: false, cancellationToken: cancellationToken);
+        await channel.QueueDeclareAsync($"{GitCommitExchangeName}.neo4j", durable: true, exclusive: false, autoDelete: false, cancellationToken: cancellationToken);
+        await channel.QueueBindAsync($"{GitCommitExchangeName}.neo4j", GitCommitExchangeName, "", cancellationToken: cancellationToken);
     }
 }

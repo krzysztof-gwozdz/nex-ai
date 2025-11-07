@@ -4,7 +4,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NexAI.Config;
 using NexAI.DataProcessor.ConsumerServices;
+using NexAI.DataProcessor.Git;
 using NexAI.DataProcessor.Zendesk;
+using NexAI.Git;
 using NexAI.LLMs;
 using NexAI.MongoDb;
 using NexAI.Neo4j;
@@ -29,6 +31,7 @@ try
             services.AddNeo4j();
             services.AddQdrant();
             services.AddZendesk();
+            services.AddGit();
             services.AddRabbitMQ();
             services.AddLLM(options);
             services.AddSingleton<ZendeskTicketJsonExporter>();
@@ -37,12 +40,14 @@ try
             services.AddSingleton<ZendeskUserNeo4jExporter>();
             services.AddSingleton<ZendeskGroupNeo4jExporter>();
             services.AddSingleton<ZendeskUserGroupsNeo4jExporter>();
-            services.AddHostedService<ZendeskTicketJsonConsumerService>();
-            services.AddHostedService<ZendeskTicketMongoDbConsumerService>();
-            services.AddHostedService<ZendeskTicketQdrantConsumerService>();
+            services.AddSingleton<GitCommitNeo4jExporter>();
+            // services.AddHostedService<ZendeskTicketJsonConsumerService>();
+            // services.AddHostedService<ZendeskTicketMongoDbConsumerService>();
+            // services.AddHostedService<ZendeskTicketQdrantConsumerService>();
             services.AddHostedService<ZendeskUserNeo4jDbConsumerService>();
+            services.AddHostedService<GitCommitNeo4jDbConsumerService>();
             services.AddHostedService<ZendeskGroupNeo4jDbConsumerService>();
-            services.AddHostedService<ZendeskUserGroupsNeo4jDbConsumerService>();
+            // services.AddHostedService<ZendeskUserGroupsNeo4jDbConsumerService>();
         })
         .Build();
 
