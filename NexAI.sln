@@ -6,6 +6,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_", "_", "{789FE3E4-67D1-46
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		README.md = README.md
+		Directory.Build.props = Directory.Build.props
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject

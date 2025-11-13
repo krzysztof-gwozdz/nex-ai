@@ -1,4 +1,3 @@
-using LibGit2Sharp;
 using NexAI.Config;
 using NexAI.Git;
 using NexAI.RabbitMQ;
