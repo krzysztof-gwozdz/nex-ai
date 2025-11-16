@@ -8,7 +8,9 @@
 
     <ItemGroup>
       <ProjectReference Include="..\NexAI.Config\NexAI.Config.csproj" />
+      <ProjectReference Include="..\NexAI.Git.Messages\NexAI.Git.Messages.csproj" />
       <ProjectReference Include="..\NexAI.Neo4j\NexAI.Neo4j.csproj" />
     </ItemGroup>
 
 </Project>
+

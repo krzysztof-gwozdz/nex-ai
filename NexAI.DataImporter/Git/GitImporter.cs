@@ -30,7 +30,8 @@ internal class GitImporter(GitRepositoryClient gitRepositoryClient, RabbitMQClie
         if (allCommits.Count > 0)
         {
             AnsiConsole.MarkupLine($"[yellow]Sending {allCommits.Count} commits to RabbitMQ...[/]");
-            await rabbitMQClient.Send(RabbitMQStructure.GitCommitExchangeName, allCommits.ToArray(), cancellationToken);
+            var gitCommitImportedEvents = allCommits.Select(commit => commit.ToGitCommitImportedEvent()).ToArray();
+            await rabbitMQClient.Send(RabbitMQStructure.GitCommitExchangeName, gitCommitImportedEvents, cancellationToken);
             AnsiConsole.MarkupLine($"[green]Sent {allCommits.Count} commits to RabbitMQ.[/]");
         }
     }

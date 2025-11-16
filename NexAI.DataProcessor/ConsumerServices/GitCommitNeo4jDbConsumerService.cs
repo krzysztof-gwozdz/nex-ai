@@ -2,10 +2,10 @@
 
 using Microsoft.Extensions.Logging;
 using NexAI.DataProcessor.Git;
-using NexAI.Git;
+using NexAI.Git.Messages;
 using NexAI.RabbitMQ;
 
 namespace NexAI.DataProcessor.ConsumerServices;
 
 public class GitCommitNeo4jDbConsumerService(ILogger<GitCommitNeo4jDbConsumerService> logger, RabbitMQClient rabbitMQClient, GitCommitNeo4jExporter gitCommitNeo4jExporter)
-    : RabbitMQConsumerService<GitCommit>(new(logger, rabbitMQClient, gitCommitNeo4jExporter.CreateSchema, gitCommitNeo4jExporter.Export, "nexai.git_commits.neo4j"));
+    : RabbitMQConsumerService<GitCommitImportedEvent>(new(logger, rabbitMQClient, gitCommitNeo4jExporter.CreateSchema, gitCommitNeo4jExporter.Export, "nexai.git_commits.neo4j"));

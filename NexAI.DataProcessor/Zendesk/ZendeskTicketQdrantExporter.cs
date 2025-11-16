@@ -2,6 +2,7 @@
 using NexAI.LLMs.Common;
 using NexAI.Qdrant;
 using NexAI.Zendesk;
+using NexAI.Zendesk.Messages;
 using NexAI.Zendesk.QdrantDb;
 using Qdrant.Client.Grpc;
 using Spectre.Console;
@@ -32,8 +33,9 @@ public class ZendeskTicketQdrantExporter(QdrantDbClient qdrantDbClient, TextEmbe
         }
     }
 
-    public async Task Export(ZendeskTicket zendeskTicket, CancellationToken cancellationToken)
+    public async Task Export(ZendeskTicketImportedEvent zendeskTicketImportedEvent, CancellationToken cancellationToken)
     {
+        var zendeskTicket = ZendeskTicket.FromZendeskTicketImportedEvent(zendeskTicketImportedEvent);
         var tasks = new List<Task<PointStruct>>
         {
             ZendeskTicketQdrantPoint.Create(zendeskTicket, textEmbedder, cancellationToken),

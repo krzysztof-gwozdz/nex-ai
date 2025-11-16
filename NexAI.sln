@@ -40,6 +40,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexAI.Git", "NexAI.Git\NexA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexAI.Git.Tests", "NexAI.Git.Tests\NexAI.Git.Tests.csproj", "{B2C3D4E5-F6A7-8901-BCDE-F12345678901}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexAI.Zendesk.Messages", "NexAI.Zendesk.Messages\NexAI.Zendesk.Messages.csproj", "{863B1085-7623-4908-A7F0-D36E3088F835}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexAI.Git.Messages", "NexAI.Git.Messages\NexAI.Git.Messages.csproj", "{C3A15849-401F-406F-8CE3-9AD7E57E61B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -110,5 +114,13 @@ Global
 		{B2C3D4E5-F6A7-8901-BCDE-F12345678901}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2C3D4E5-F6A7-8901-BCDE-F12345678901}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2C3D4E5-F6A7-8901-BCDE-F12345678901}.Release|Any CPU.Build.0 = Release|Any CPU
+		{863B1085-7623-4908-A7F0-D36E3088F835}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{863B1085-7623-4908-A7F0-D36E3088F835}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{863B1085-7623-4908-A7F0-D36E3088F835}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{863B1085-7623-4908-A7F0-D36E3088F835}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3A15849-401F-406F-8CE3-9AD7E57E61B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3A15849-401F-406F-8CE3-9AD7E57E61B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3A15849-401F-406F-8CE3-9AD7E57E61B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3A15849-401F-406F-8CE3-9AD7E57E61B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

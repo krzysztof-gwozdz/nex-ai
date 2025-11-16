@@ -2,6 +2,7 @@
 using NexAI.Config;
 using NexAI.MongoDb;
 using NexAI.Zendesk;
+using NexAI.Zendesk.Messages;
 using NexAI.Zendesk.MongoDb;
 using Spectre.Console;
 
@@ -31,8 +32,9 @@ public class ZendeskTicketMongoDbExporter(MongoDbClient mongoDbClient, Options o
         }
     }
 
-    public async Task Export(ZendeskTicket zendeskTicket, CancellationToken cancellationToken)
+    public async Task Export(ZendeskTicketImportedEvent zendeskTicketImportedEvent, CancellationToken cancellationToken)
     {
+        var zendeskTicket = ZendeskTicket.FromZendeskTicketImportedEvent(zendeskTicketImportedEvent);
         var database = mongoDbClient.Database;
         var collection = database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketMongoDbCollection.Name);
         var document = await collection.Find(existingZendeskTicket => existingZendeskTicket.Id == zendeskTicket.Id || existingZendeskTicket.ExternalId == zendeskTicket.ExternalId).FirstOrDefaultAsync(cancellationToken: cancellationToken);

@@ -1,3 +1,5 @@
+using NexAI.Zendesk.Messages;
+
 namespace NexAI.Zendesk;
 
 public record ZendeskTicket(
@@ -50,6 +52,54 @@ public record ZendeskTicket(
             createdAt,
             updatedAt,
             messages);
+
+    public static ZendeskTicket FromZendeskTicketImportedEvent(ZendeskTicketImportedEvent zendeskTicketImportedEvent) =>
+        new(
+            new(zendeskTicketImportedEvent.Id),
+            zendeskTicketImportedEvent.ExternalId,
+            zendeskTicketImportedEvent.Title,
+            zendeskTicketImportedEvent.Description,
+            zendeskTicketImportedEvent.Url,
+            zendeskTicketImportedEvent.MainCategory,
+            zendeskTicketImportedEvent.Category,
+            zendeskTicketImportedEvent.Status,
+            zendeskTicketImportedEvent.Country,
+            zendeskTicketImportedEvent.MerchantId,
+            zendeskTicketImportedEvent.Level3Team,
+            zendeskTicketImportedEvent.Tags,
+            zendeskTicketImportedEvent.CreatedAt,
+            zendeskTicketImportedEvent.UpdatedAt,
+            zendeskTicketImportedEvent.Messages.Select(message => new ZendeskTicketMessage(
+                new(message.Id),
+                message.ExternalId,
+                message.Content,
+                message.Author,
+                message.CreatedAt)).ToArray()
+        );
+
+    public ZendeskTicketImportedEvent ToZendeskTicketImportedEvent() =>
+        new(
+            Id.Value,
+            ExternalId,
+            Title,
+            Description,
+            Url,
+            MainCategory,
+            Category,
+            Status,
+            Country,
+            MerchantId,
+            Level3Team,
+            Tags,
+            CreatedAt,
+            UpdatedAt,
+            Messages.Select(message => new ZendeskTicketImportedEvent.ZendeskTicketMessage(
+                message.Id.Value,
+                message.ExternalId,
+                message.Content,
+                message.Author,
+                message.CreatedAt)).ToArray()
+        );
 
     public bool IsRelevant =>
         !(Messages.Length == 1 ||

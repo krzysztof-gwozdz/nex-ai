@@ -2,6 +2,7 @@
 
 using NexAI.Git;
 using NexAI.Git.Commands;
+using NexAI.Git.Messages;
 using Spectre.Console;
 
 namespace NexAI.DataProcessor.Git;
@@ -14,8 +15,9 @@ public class GitCommitNeo4jExporter(UpsertGitCommitCommand upsertGitCommitComman
         return Task.CompletedTask;
     }
 
-    public async Task Export(GitCommit gitCommit, CancellationToken cancellationToken)
+    public async Task Export(GitCommitImportedEvent gitCommitImportedEvent, CancellationToken cancellationToken)
     {
+        var gitCommit = GitCommit.FromGitCommitImportedEvent(gitCommitImportedEvent);
         await upsertGitCommitCommand.Handle(gitCommit);
         AnsiConsole.MarkupLine($"[gold3_1]Successfully exported Git commit {gitCommit.Sha}: \"{gitCommit.Name.EscapeMarkup()}\" into Neo4j.[/]");
     }

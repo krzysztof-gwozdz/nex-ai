@@ -2,6 +2,7 @@
 using System.Text.Json;
 using NexAI.Config;
 using NexAI.Zendesk;
+using NexAI.Zendesk.Messages;
 
 namespace NexAI.DataProcessor.Zendesk;
 
@@ -18,8 +19,9 @@ public class ZendeskTicketJsonExporter(Options options)
         return Task.CompletedTask;
     }
 
-    public async Task Export(ZendeskTicket zendeskTicket, CancellationToken cancellationToken)
+    public async Task Export(ZendeskTicketImportedEvent zendeskTicketImportedEvent, CancellationToken cancellationToken)
     {
+        var zendeskTicket = ZendeskTicket.FromZendeskTicketImportedEvent(zendeskTicketImportedEvent);
         if (!File.Exists(FilePath) || options.Get<DataProcessorOptions>().Recreate)
         {
             var json = JsonSerializer.Serialize(zendeskTicket, new JsonSerializerOptions

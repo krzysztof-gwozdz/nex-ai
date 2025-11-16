@@ -14,7 +14,6 @@ namespace NexAI.DataImporter.Zendesk;
 
 internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, RabbitMQClient rabbitMQClient, MongoDbClient mongoDbClient, Options options)
 {
-    private const string BackupGroupsFilePath = "zendesk_api_backup_groups.json";
     private const string BackupEmployeesFilePath = "zendesk_api_backup_employees.json";
     private const string BackupTicketsFilePath = "zendesk_api_backup_tickets_{0:yyyyMMdd}.json";
     private const string BackupCommentsFilePath = "zendesk_api_backup_{0}_{1}_comments.json";
@@ -41,18 +40,11 @@ internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, RabbitMQ
                         Interlocked.Increment(ref ticketsCount);
                     }
                 });
-            await rabbitMQClient.Send(RabbitMQStructure.ZendeskTicketExchangeName, zendeskTickets.ToArray(), cancellationToken);
+            var zendeskTicketImportedEvents = zendeskTickets.Select(zendeskTicket => zendeskTicket.ToZendeskTicketImportedEvent()).ToArray();
+            await rabbitMQClient.Send(RabbitMQStructure.ZendeskTicketExchangeName, zendeskTicketImportedEvents, cancellationToken);
         }
         AnsiConsole.MarkupLine($"[green]Imported {tickets.Length} Zendesk tickets. Only {ticketsCount} were relevant.[/]");
     }
-
-    private async Task<GroupDto[]> GetGroupsFromApiOrBackup(CancellationToken cancellationToken) =>
-        await GetFromApiOrBackup(
-            BackupGroupsFilePath,
-            () => zendeskApiClient.GetGroups(null, cancellationToken),
-            "Groups",
-            group => $"Fetched {group.Length} groups from Zendesk.",
-            cancellationToken);
 
     private async Task<UserDto[]> GetEmployeesFromApiOrBackup(CancellationToken cancellationToken) =>
         await GetFromApiOrBackup(

@@ -5,6 +5,7 @@
       <ProjectReference Include="..\NexAI.MongoDb\NexAI.MongoDb.csproj" />
       <ProjectReference Include="..\NexAI.Neo4j\NexAI.Neo4j.csproj" />
       <ProjectReference Include="..\NexAI.Qdrant\NexAI.Qdrant.csproj" />
+      <ProjectReference Include="..\NexAI.Zendesk.Messages\NexAI.Zendesk.Messages.csproj" />
     </ItemGroup>
 
 </Project>

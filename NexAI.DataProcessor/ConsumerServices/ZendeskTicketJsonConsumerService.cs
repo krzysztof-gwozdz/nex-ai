@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using NexAI.DataProcessor.Zendesk;
 using NexAI.RabbitMQ;
-using NexAI.Zendesk;
+using NexAI.Zendesk.Messages;
 
 namespace NexAI.DataProcessor.ConsumerServices;
 
 public class ZendeskTicketJsonConsumerService(ILogger<ZendeskTicketJsonConsumerService> logger, RabbitMQClient rabbitMQClient, ZendeskTicketJsonExporter zendeskTicketJsonExporter)
-    : RabbitMQConsumerService<ZendeskTicket>(new(logger, rabbitMQClient, zendeskTicketJsonExporter.CreateSchema, zendeskTicketJsonExporter.Export, "nexai.zendesk_tickets.json"));
+    : RabbitMQConsumerService<ZendeskTicketImportedEvent>(new(logger, rabbitMQClient, zendeskTicketJsonExporter.CreateSchema, zendeskTicketJsonExporter.Export, "nexai.zendesk_tickets.json"));

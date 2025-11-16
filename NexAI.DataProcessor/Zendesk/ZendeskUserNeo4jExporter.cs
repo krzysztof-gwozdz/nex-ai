@@ -1,5 +1,6 @@
 ﻿using NexAI.Zendesk;
 using NexAI.Zendesk.Commands;
+using NexAI.Zendesk.Messages;
 using Spectre.Console;
 
 namespace NexAI.DataProcessor.Zendesk;
@@ -12,8 +13,9 @@ public class ZendeskUserNeo4jExporter(UpsertZendeskUserCommand upsertZendeskUser
         return Task.CompletedTask;
     }
 
-    public async Task Export(ZendeskUser zendeskUser, CancellationToken cancellationToken)
+    public async Task Export(ZendeskUserImportedEvent zendeskUserImportedEvent, CancellationToken cancellationToken)
     {
+        var zendeskUser = ZendeskUser.FromZendeskUserImportedEvent(zendeskUserImportedEvent);
         await upsertZendeskUserCommand.Handle(zendeskUser);
         AnsiConsole.MarkupLine($"[deepskyblue1]Successfully exported Zendesk user {zendeskUser.Id} into Neo4j.[/]");
     }

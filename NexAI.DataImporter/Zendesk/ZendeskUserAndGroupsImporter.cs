@@ -27,7 +27,8 @@ internal class ZendeskUserAndGroupsImporter(ZendeskApiClient zendeskApiClient, R
         AnsiConsole.MarkupLine("[yellow]Importing Zendesk groups from API...[/]");
         var groups = await GetGroupsFromApiOrBackup(cancellationToken);
         var zendeskGroups = groups.Select(ZendeskGroupMapper.Map).ToArray();
-        await rabbitMQClient.Send(RabbitMQStructure.ZendeskGroupExchangeName, zendeskGroups, cancellationToken);
+        var zendeskGroupImportedEvents = zendeskGroups.Select(zendeskGroup => zendeskGroup.ToZendeskGroupImportedEvent()).ToArray();
+        await rabbitMQClient.Send(RabbitMQStructure.ZendeskGroupExchangeName, zendeskGroupImportedEvents, cancellationToken);
         AnsiConsole.MarkupLine($"[green]Imported {groups.Length} Zendesk groups.[/]");
         return zendeskGroups;
     }
@@ -37,7 +38,8 @@ internal class ZendeskUserAndGroupsImporter(ZendeskApiClient zendeskApiClient, R
         AnsiConsole.MarkupLine("[yellow]Importing Zendesk users from API...[/]");
         var employees = await GetEmployeesFromApiOrBackup(cancellationToken);
         var zendeskUsers = employees.Select(ZendeskUserMapper.Map).ToArray();
-        await rabbitMQClient.Send(RabbitMQStructure.ZendeskUserExchangeName, zendeskUsers, cancellationToken);
+        var zendeskUserImportedEvents = zendeskUsers.Select(zendeskUser => zendeskUser.ToZendeskUserImportedEvent()).ToArray();
+        await rabbitMQClient.Send(RabbitMQStructure.ZendeskUserExchangeName, zendeskUserImportedEvents, cancellationToken);
         AnsiConsole.MarkupLine($"[green]Imported {employees.Length} Zendesk users.[/]");
         return zendeskUsers;
     }
@@ -74,7 +76,8 @@ internal class ZendeskUserAndGroupsImporter(ZendeskApiClient zendeskApiClient, R
                     zendeskUserGroups.Add(new(zendeskUser.Id, zendeskUserGroupIds));
                     Interlocked.Increment(ref usersWithGroups);
                 });
-            await rabbitMQClient.Send(RabbitMQStructure.ZendeskUsersAndGroupsExchangeName, zendeskUserGroups.ToArray(), cancellationToken);
+            var zendeskUserGroupsImportedEvents = zendeskUserGroups.Select(zendeskUserGroup => zendeskUserGroup.ToZendeskUserGroupsImportedEvent()).ToArray();
+            await rabbitMQClient.Send(RabbitMQStructure.ZendeskUsersAndGroupsExchangeName, zendeskUserGroupsImportedEvents, cancellationToken);
         }
         AnsiConsole.MarkupLine($"[green]Imported {employees.Length} Zendesk users. Only {usersWithGroups} have groups.[/]");
     }

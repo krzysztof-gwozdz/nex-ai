@@ -1,5 +1,6 @@
 ﻿using NexAI.Zendesk;
 using NexAI.Zendesk.Commands;
+using NexAI.Zendesk.Messages;
 using Spectre.Console;
 
 namespace NexAI.DataProcessor.Zendesk;
@@ -12,8 +13,9 @@ public class ZendeskUserGroupsNeo4jExporter(UpsertZendeskMembersOfRelationshipCo
         return Task.CompletedTask;
     }
 
-    public async Task Export(ZendeskUserGroups zendeskUserGroups, CancellationToken cancellationToken)
+    public async Task Export(ZendeskUserGroupsImportedEvent zendeskUserGroupsImportedEvent, CancellationToken cancellationToken)
     {
+        var zendeskUserGroups = ZendeskUserGroups.FromZendeskUserGroupsImportedEvent(zendeskUserGroupsImportedEvent);
         await upsertZendeskMembersOfRelationshipCommand.Handle(zendeskUserGroups);
         AnsiConsole.MarkupLine($"[deepskyblue1]Successfully exported Zendesk user groups for user {zendeskUserGroups.UserId} into Neo4j.[/]");
     }
