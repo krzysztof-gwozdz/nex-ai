@@ -28,8 +28,6 @@ public class RabbitMQStructure(RabbitMQClient rabbitMQClient)
         await channel.QueueBindAsync($"{ZendeskTicketExchangeName}.mongodb", ZendeskTicketExchangeName, "", cancellationToken: cancellationToken);
         await channel.QueueDeclareAsync($"{ZendeskTicketExchangeName}.qdrant", durable: true, exclusive: false, autoDelete: false, cancellationToken: cancellationToken);
         await channel.QueueBindAsync($"{ZendeskTicketExchangeName}.qdrant", ZendeskTicketExchangeName, "", cancellationToken: cancellationToken);
-        await channel.QueueDeclareAsync($"{ZendeskTicketExchangeName}.json", durable: true, exclusive: false, autoDelete: false, cancellationToken: cancellationToken);
-        await channel.QueueBindAsync($"{ZendeskTicketExchangeName}.json", ZendeskTicketExchangeName, "", cancellationToken: cancellationToken);
     }
 
     private static async Task CreateZendeskUserAndGroupsExchangeWithQueues(IChannel channel, CancellationToken cancellationToken)

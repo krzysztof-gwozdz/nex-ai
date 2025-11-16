@@ -34,14 +34,12 @@ try
             services.AddGit();
             services.AddRabbitMQ();
             services.AddLLM(options);
-            services.AddSingleton<ZendeskTicketJsonExporter>();
             services.AddSingleton<ZendeskTicketMongoDbExporter>();
             services.AddSingleton<ZendeskTicketQdrantExporter>();
             services.AddSingleton<ZendeskUserNeo4jExporter>();
             services.AddSingleton<ZendeskGroupNeo4jExporter>();
             services.AddSingleton<ZendeskUserGroupsNeo4jExporter>();
             services.AddSingleton<GitCommitNeo4jExporter>();
-            // services.AddHostedService<ZendeskTicketJsonConsumerService>();
             // services.AddHostedService<ZendeskTicketMongoDbConsumerService>();
             // services.AddHostedService<ZendeskTicketQdrantConsumerService>();
             services.AddHostedService<ZendeskUserNeo4jDbConsumerService>();
