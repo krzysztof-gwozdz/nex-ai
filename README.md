@@ -16,12 +16,10 @@ Currently, the application allows for:
 - interacting with the data through a console application or an MCP server,
 - summarizing Zendesk tickets with LLM.
 
-There are no plans for further development of the application due to a change in the tools used for support management.
-
 ## Technologies
 
 - C# 13
-- .NET 9
+- .NET 10
 - Semantic Kernel
 - Ollama
 - OpenAI
@@ -29,6 +27,7 @@ There are no plans for further development of the application due to a change in
 - Neo4j
 - Qdrant
 - RabbitMQ
+- NServiceBus
 - Docker
 - xUnit
 
@@ -44,6 +43,12 @@ There are no plans for further development of the application due to a change in
 8. Run `NexAI.Console` project or use the MCP server from `NexAI.MCP`.
 
 ## Versions
+
+### 0.14.0
+
+- Extend data storid in Neo4j with git repository data.
+- Upgrade to .Net 10.
+- Migrate from custom solution to NserviceBus for message queuing.
 
 ### 0.13.0
 
