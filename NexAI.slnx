@@ -1,0 +1,26 @@
+<Solution>
+  <Folder Name="/_/">
+    <File Path=".gitignore" />
+    <File Path="Directory.Build.props" />
+    <File Path="docker-compose.yml" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="NexAI.AzureDevOps/NexAI.AzureDevOps.csproj" />
+  <Project Path="NexAI.Config/NexAI.Config.csproj" />
+  <Project Path="NexAI.Console/NexAI.Console.csproj" />
+  <Project Path="NexAI.DataImporter/NexAI.DataImporter.csproj" />
+  <Project Path="NexAI.DataProcessor/NexAI.DataProcessor.csproj" />
+  <Project Path="NexAI.Git.Messages/NexAI.Git.Messages.csproj" />
+  <Project Path="NexAI.Git.Tests/NexAI.Git.Tests.csproj" />
+  <Project Path="NexAI.Git/NexAI.Git.csproj" />
+  <Project Path="NexAI.LLMs.Tests/NexAI.LLMs.Tests.csproj" />
+  <Project Path="NexAI.LLMs/NexAI.LLMs.csproj" />
+  <Project Path="NexAI.MCP/NexAI.MCP.csproj" />
+  <Project Path="NexAI.MongoDb/NexAI.MongoDb.csproj" />
+  <Project Path="NexAI.Neo4j/NexAI.Neo4j.csproj" />
+  <Project Path="NexAI.Qdrant/NexAI.Qdrant.csproj" />
+  <Project Path="NexAI.RabbitMQ/NexAI.RabbitMQ.csproj" />
+  <Project Path="NexAI.Zendesk.Messages/NexAI.Zendesk.Messages.csproj" />
+  <Project Path="NexAI.Zendesk.Tests/NexAI.Zendesk.Tests.csproj" />
+  <Project Path="NexAI.Zendesk/NexAI.Zendesk.csproj" />
+</Solution>
