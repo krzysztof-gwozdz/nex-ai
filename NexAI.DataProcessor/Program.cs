@@ -3,9 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NexAI.Config;
-using NexAI.DataProcessor.ConsumerServices;
-using NexAI.DataProcessor.Git;
-using NexAI.DataProcessor.Zendesk;
+using NexAI.DataProcessor;
 using NexAI.Git;
 using NexAI.LLMs;
 using NexAI.MongoDb;
@@ -13,6 +11,8 @@ using NexAI.Neo4j;
 using NexAI.Qdrant;
 using NexAI.ServiceBus;
 using NexAI.Zendesk;
+using NexAI.Zendesk.MongoDb;
+using NexAI.Zendesk.QdrantDb;
 using Spectre.Console;
 
 Console.OutputEncoding = System.Text.Encoding.UTF8;
@@ -20,9 +20,10 @@ AnsiConsole.Write(new FigletText("Nex AI - Data Processor").Color(Color.Red3));
 var cancellationTokenSource = new CancellationTokenSource();
 try
 {
-    var options = new Options(GetConfiguration());
+    var options = new Options(GetConfiguration(new ConfigurationBuilder()).Build());
 
     using var host = Host.CreateDefaultBuilder(args)
+        .ConfigureAppConfiguration((_, config) => GetConfiguration(config))
         .ConfigureServices((_, services) =>
         {
             services.AddLogging(loggingBuilder => loggingBuilder.AddConsole());
@@ -32,24 +33,15 @@ try
             services.AddQdrant();
             services.AddZendesk();
             services.AddGit();
-            services.AddServiceBus();
             services.AddLLM(options);
-            services.AddSingleton<ZendeskTicketMongoDbExporter>();
-            services.AddSingleton<ZendeskTicketQdrantExporter>();
-            services.AddSingleton<ZendeskUserNeo4jExporter>();
-            services.AddSingleton<ZendeskGroupNeo4jExporter>();
-            services.AddSingleton<ZendeskUserGroupsNeo4jExporter>();
-            services.AddSingleton<GitCommitNeo4jExporter>();
-            // services.AddHostedService<ZendeskTicketMongoDbConsumerService>();
-            // services.AddHostedService<ZendeskTicketQdrantConsumerService>();
-            services.AddHostedService<ZendeskUserNeo4jDbConsumerService>();
-            services.AddHostedService<GitCommitNeo4jDbConsumerService>();
-            services.AddHostedService<ZendeskGroupNeo4jDbConsumerService>();
-            // services.AddHostedService<ZendeskUserGroupsNeo4jDbConsumerService>();
         })
+        .UseServiceBus("data_processor")
         .Build();
 
-    Console.WriteLine("Starting consumers...");
+    var dataProcessorOptions = options.Get<DataProcessorOptions>();
+    await host.Services.GetRequiredService<ZendeskMongoDbStructure>().Create(dataProcessorOptions.Recreate, cancellationTokenSource.Token);
+    await host.Services.GetRequiredService<ZendeskQdrantStructure>().Create(dataProcessorOptions.Recreate, cancellationTokenSource.Token);
+
     await host.RunAsync();
 }
 catch (Exception e)
@@ -61,9 +53,9 @@ Console.WriteLine("Press any key to exit...");
 Console.ReadKey();
 return;
 
-IConfigurationRoot GetConfiguration() => new ConfigurationBuilder()
-    .AddJsonFile("appsettings.json", optional: false)
-    .AddJsonFile("appsettings.data_processor.json", optional: false)
-    .AddJsonFile("appsettings.local.json", optional: true)
-    .AddEnvironmentVariables()
-    .Build();
+IConfigurationBuilder GetConfiguration(IConfigurationBuilder configurationBuilder) =>
+    configurationBuilder
+        .AddJsonFile("appsettings.json", optional: false)
+        .AddJsonFile("appsettings.data_processor.json", optional: false)
+        .AddJsonFile("appsettings.local.json", optional: true)
+        .AddEnvironmentVariables();

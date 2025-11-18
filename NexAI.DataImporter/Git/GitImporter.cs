@@ -1,24 +1,26 @@
 using NexAI.Config;
 using NexAI.Git;
-using NexAI.ServiceBus;
 using Spectre.Console;
 
 namespace NexAI.DataImporter.Git;
 
-internal class GitImporter(GitRepositoryClient gitRepositoryClient, RabbitMQClient rabbitMQClient, Options options)
+internal class GitImporter(GitRepositoryClient gitRepositoryClient, IMessageSession messageSession, Options options)
 {
-    public async Task Import(CancellationToken cancellationToken)
+    public async Task Import()
     {
         var gitOptions = options.Get<GitOptions>();
-        var allCommits = new List<GitCommit>();
-
+        var commitsCount = 0;
         foreach (var repositoryPath in gitOptions.RepositoryPaths)
         {
             AnsiConsole.MarkupLine($"[yellow]Importing commits from repository: {repositoryPath}[/]");
             try
             {
                 var commits = gitRepositoryClient.ExtractCommits(repositoryPath).ToList();
-                allCommits.AddRange(commits);
+                foreach (var commit in commits)
+                {
+                    await messageSession.Publish(commit.ToGitCommitImportedEvent());
+                    commitsCount++;
+                }
                 AnsiConsole.MarkupLine($"[green]Imported {commits.Count} commits from {repositoryPath}[/]");
             }
             catch (Exception ex)
@@ -26,13 +28,6 @@ internal class GitImporter(GitRepositoryClient gitRepositoryClient, RabbitMQClie
                 AnsiConsole.MarkupLine($"[red]Failed to import from {repositoryPath}: {ex.Message}[/]");
             }
         }
-
-        if (allCommits.Count > 0)
-        {
-            AnsiConsole.MarkupLine($"[yellow]Sending {allCommits.Count} commits to RabbitMQ...[/]");
-            var gitCommitImportedEvents = allCommits.Select(commit => commit.ToGitCommitImportedEvent()).ToArray();
-            await rabbitMQClient.Send(RabbitMQStructure.GitCommitExchangeName, gitCommitImportedEvents, cancellationToken);
-            AnsiConsole.MarkupLine($"[green]Sent {allCommits.Count} commits to RabbitMQ.[/]");
-        }
+        AnsiConsole.MarkupLine($"[green]Sent {commitsCount} commits to RabbitMQ.[/]");
     }
 }

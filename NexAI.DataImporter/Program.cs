@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NexAI.Config;
-using NexAI.DataImporter;
 using NexAI.DataImporter.Git;
 using NexAI.DataImporter.Zendesk;
 using NexAI.Git;
@@ -19,26 +18,25 @@ var cancellationTokenSource = new CancellationTokenSource();
 try
 {
     using var host = Host.CreateDefaultBuilder(args)
+        .ConfigureAppConfiguration((_, config) => GetConfiguration(config))
         .ConfigureServices((_, services) =>
         {
             services.AddLogging(loggingBuilder => loggingBuilder.AddConsole());
-            services.AddSingleton(new Options(GetConfiguration()));
+            services.AddSingleton(new Options(GetConfiguration(new ConfigurationBuilder()).Build()));
             services.AddZendesk();
             services.AddGit();
             services.AddMongoDb();
             services.AddQdrant();
-            services.AddRabbitMQ();
-            services.AddSingleton<RabbitMQStructure>();
             services.AddSingleton<ZendeskTicketImporter>();
             services.AddSingleton<ZendeskUserAndGroupsImporter>();
             services.AddSingleton<GitImporter>();
         })
+        .UseServiceBus("data_importer")
         .Build();
 
-    await host.Services.GetRequiredService<RabbitMQStructure>().Create(cancellationTokenSource.Token);
-    await host.Services.GetRequiredService<ZendeskTicketImporter>().Import(cancellationTokenSource.Token);
-    await host.Services.GetRequiredService<ZendeskUserAndGroupsImporter>().Import(cancellationTokenSource.Token);
-    await host.Services.GetRequiredService<GitImporter>().Import(cancellationTokenSource.Token);
+    await host.Services.GetRequiredService<GitImporter>().Import();
+    // await host.Services.GetRequiredService<ZendeskUserAndGroupsImporter>().Import(cancellationTokenSource.Token);
+    // await host.Services.GetRequiredService<ZendeskTicketImporter>().Import(cancellationTokenSource.Token);
 }
 catch (Exception e)
 {
@@ -49,9 +47,9 @@ Console.WriteLine("Press any key to exit...");
 Console.ReadKey();
 return;
 
-IConfigurationRoot GetConfiguration() => new ConfigurationBuilder()
-    .AddJsonFile("appsettings.json", optional: false)
-    .AddJsonFile("appsettings.data_importer.json", optional: false)
-    .AddJsonFile("appsettings.local.json", optional: true)
-    .AddEnvironmentVariables()
-    .Build();
+IConfigurationBuilder GetConfiguration(IConfigurationBuilder configurationBuilder) =>
+    configurationBuilder
+        .AddJsonFile("appsettings.json", optional: false)
+        .AddJsonFile("appsettings.data_importer.json", optional: false)
+        .AddJsonFile("appsettings.local.json", optional: true)
+        .AddEnvironmentVariables();

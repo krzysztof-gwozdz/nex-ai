@@ -16,4 +16,6 @@ public record RabbitMQOptions : IOptions
 
     [Required(AllowEmptyStrings = false)]
     public string Password { get; init; } = null!;
+
+    public string ConnectionString => $"host={Host}:{Port};username={Username};password={Password}";
 }

@@ -1,7 +1,5 @@
 ﻿using System.Text.Json;
-using System.Collections.Concurrent;
 using NexAI.Config;
-using NexAI.ServiceBus;
 using NexAI.Zendesk;
 using NexAI.Zendesk.Api;
 using NexAI.Zendesk.Api.Dtos;
@@ -9,7 +7,7 @@ using Spectre.Console;
 
 namespace NexAI.DataImporter.Zendesk;
 
-internal class ZendeskUserAndGroupsImporter(ZendeskApiClient zendeskApiClient, RabbitMQClient rabbitMQClient, Options options)
+internal class ZendeskUserAndGroupsImporter(ZendeskApiClient zendeskApiClient, IMessageSession messageSession, Options options)
 {
     private const string BackupGroupsFilePath = "zendesk_api_backup_groups.json";
     private const string BackupEmployeesFilePath = "zendesk_api_backup_employees.json";
@@ -27,8 +25,10 @@ internal class ZendeskUserAndGroupsImporter(ZendeskApiClient zendeskApiClient, R
         AnsiConsole.MarkupLine("[yellow]Importing Zendesk groups from API...[/]");
         var groups = await GetGroupsFromApiOrBackup(cancellationToken);
         var zendeskGroups = groups.Select(ZendeskGroupMapper.Map).ToArray();
-        var zendeskGroupImportedEvents = zendeskGroups.Select(zendeskGroup => zendeskGroup.ToZendeskGroupImportedEvent()).ToArray();
-        await rabbitMQClient.Send(RabbitMQStructure.ZendeskGroupExchangeName, zendeskGroupImportedEvents, cancellationToken);
+        foreach (var zendeskGroup in zendeskGroups)
+        {
+            await messageSession.Publish(zendeskGroup.ToZendeskGroupImportedEvent(), cancellationToken: cancellationToken);
+        }
         AnsiConsole.MarkupLine($"[green]Imported {groups.Length} Zendesk groups.[/]");
         return zendeskGroups;
     }
@@ -38,8 +38,10 @@ internal class ZendeskUserAndGroupsImporter(ZendeskApiClient zendeskApiClient, R
         AnsiConsole.MarkupLine("[yellow]Importing Zendesk users from API...[/]");
         var employees = await GetEmployeesFromApiOrBackup(cancellationToken);
         var zendeskUsers = employees.Select(ZendeskUserMapper.Map).ToArray();
-        var zendeskUserImportedEvents = zendeskUsers.Select(zendeskUser => zendeskUser.ToZendeskUserImportedEvent()).ToArray();
-        await rabbitMQClient.Send(RabbitMQStructure.ZendeskUserExchangeName, zendeskUserImportedEvents, cancellationToken);
+        foreach (var zendeskUser in zendeskUsers)
+        {
+            await messageSession.Publish(zendeskUser.ToZendeskUserImportedEvent(), cancellationToken: cancellationToken);
+        }
         AnsiConsole.MarkupLine($"[green]Imported {employees.Length} Zendesk users.[/]");
         return zendeskUsers;
     }
@@ -52,7 +54,6 @@ internal class ZendeskUserAndGroupsImporter(ZendeskApiClient zendeskApiClient, R
         const int batchSize = 100;
         for (var i = 0; i < employees.Length; i += batchSize)
         {
-            var zendeskUserGroups = new ConcurrentBag<ZendeskUserGroups>();
             await Parallel.ForEachAsync(employees.Skip(i).Take(batchSize),
                 new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
                 async (employee, parallelCancellationToken) =>
@@ -73,11 +74,10 @@ internal class ZendeskUserAndGroupsImporter(ZendeskApiClient zendeskApiClient, R
                         AnsiConsole.MarkupLine($"[red]User does not have any groups in Zendesk: {employee.Id} - {employee.Name}[/]");
                         return;
                     }
-                    zendeskUserGroups.Add(new(zendeskUser.Id, zendeskUserGroupIds));
+                    await messageSession.Publish(new ZendeskUserGroups(zendeskUser.Id, zendeskUserGroupIds).ToZendeskUserGroupsImportedEvent(), cancellationToken: parallelCancellationToken);
+
                     Interlocked.Increment(ref usersWithGroups);
                 });
-            var zendeskUserGroupsImportedEvents = zendeskUserGroups.Select(zendeskUserGroup => zendeskUserGroup.ToZendeskUserGroupsImportedEvent()).ToArray();
-            await rabbitMQClient.Send(RabbitMQStructure.ZendeskUsersAndGroupsExchangeName, zendeskUserGroupsImportedEvents, cancellationToken);
         }
         AnsiConsole.MarkupLine($"[green]Imported {employees.Length} Zendesk users. Only {usersWithGroups} have groups.[/]");
     }

@@ -1,9 +1,7 @@
 ﻿using System.Text.Json;
-using System.Collections.Concurrent;
 using MongoDB.Driver;
 using NexAI.Config;
 using NexAI.MongoDb;
-using NexAI.ServiceBus;
 using NexAI.Zendesk;
 using NexAI.Zendesk.Api;
 using NexAI.Zendesk.Api.Dtos;
@@ -12,7 +10,7 @@ using Spectre.Console;
 
 namespace NexAI.DataImporter.Zendesk;
 
-internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, RabbitMQClient rabbitMQClient, MongoDbClient mongoDbClient, Options options)
+internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, IMessageSession messageSession, MongoDbClient mongoDbClient, Options options)
 {
     private const string BackupEmployeesFilePath = "zendesk_api_backup_employees.json";
     private const string BackupTicketsFilePath = "zendesk_api_backup_tickets_{0:yyyyMMdd}.json";
@@ -27,7 +25,6 @@ internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, RabbitMQ
         const int batchSize = 100;
         for (var i = 0; i < tickets.Length; i += batchSize)
         {
-            var zendeskTickets = new ConcurrentBag<ZendeskTicket>();
             await Parallel.ForEachAsync(tickets.Skip(i).Take(batchSize),
                 new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
                 async (ticket, parallelCancellationToken) =>
@@ -36,12 +33,10 @@ internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, RabbitMQ
                     var mappedZendeskTicket = ZendeskTicketMapper.Map(ticket, comments, employees);
                     if (mappedZendeskTicket.IsRelevant)
                     {
-                        zendeskTickets.Add(mappedZendeskTicket);
+                        await messageSession.Publish(mappedZendeskTicket.ToZendeskTicketImportedEvent(), cancellationToken: parallelCancellationToken);
                         Interlocked.Increment(ref ticketsCount);
                     }
                 });
-            var zendeskTicketImportedEvents = zendeskTickets.Select(zendeskTicket => zendeskTicket.ToZendeskTicketImportedEvent()).ToArray();
-            await rabbitMQClient.Send(RabbitMQStructure.ZendeskTicketExchangeName, zendeskTicketImportedEvents, cancellationToken);
         }
         AnsiConsole.MarkupLine($"[green]Imported {tickets.Length} Zendesk tickets. Only {ticketsCount} were relevant.[/]");
     }

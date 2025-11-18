@@ -11,7 +11,6 @@ using NexAI.LLMs;
 using NexAI.MongoDb;
 using NexAI.Neo4j;
 using NexAI.Qdrant;
-using NexAI.ServiceBus;
 using NexAI.Zendesk;
 using Spectre.Console;
 
@@ -32,7 +31,6 @@ try
             services.AddMongoDb();
             services.AddNeo4j();
             services.AddQdrant();
-            services.AddServiceBus();
             services.AddLLM(options);
 
             services.AddSingleton<NexAIAgent>();
