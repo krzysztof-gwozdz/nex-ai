@@ -17,5 +17,5 @@ public record ZendeskTicketImportedEvent(
     DateTime? UpdatedAt,
     ZendeskTicketImportedEvent.ZendeskTicketMessage[] Messages)
 {
-    public record ZendeskTicketMessage(Guid Id, string ExternalId, string Content, string Author, DateTime CreatedAt);
+    public record ZendeskTicketMessage(Guid Id, string ExternalId, string Content, string Author, DateTime CreatedAt) : IEvent;
 }
