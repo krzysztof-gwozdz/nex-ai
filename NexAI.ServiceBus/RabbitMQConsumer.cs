@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-namespace NexAI.RabbitMQ;
+namespace NexAI.ServiceBus;
 
 public class RabbitMQConsumer<TMessage>(
     ILogger logger,

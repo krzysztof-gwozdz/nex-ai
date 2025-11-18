@@ -1,6 +1,6 @@
 using NexAI.Config;
 using NexAI.Git;
-using NexAI.RabbitMQ;
+using NexAI.ServiceBus;
 using Spectre.Console;
 
 namespace NexAI.DataImporter.Git;

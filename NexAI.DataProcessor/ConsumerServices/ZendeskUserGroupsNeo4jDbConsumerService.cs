@@ -2,7 +2,7 @@
 
 using Microsoft.Extensions.Logging;
 using NexAI.DataProcessor.Zendesk;
-using NexAI.RabbitMQ;
+using NexAI.ServiceBus;
 using NexAI.Zendesk.Messages;
 
 namespace NexAI.DataProcessor.ConsumerServices;

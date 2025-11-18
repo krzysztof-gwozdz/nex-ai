@@ -2,7 +2,7 @@
 using System.Text.Json;
 using NexAI.Config;
 
-namespace NexAI.RabbitMQ;
+namespace NexAI.ServiceBus;
 
 public class RabbitMQClient
 {

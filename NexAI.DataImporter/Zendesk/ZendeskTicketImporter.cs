@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using MongoDB.Driver;
 using NexAI.Config;
 using NexAI.MongoDb;
-using NexAI.RabbitMQ;
+using NexAI.ServiceBus;
 using NexAI.Zendesk;
 using NexAI.Zendesk.Api;
 using NexAI.Zendesk.Api.Dtos;

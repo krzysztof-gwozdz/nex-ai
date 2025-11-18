@@ -3,7 +3,7 @@
 using Microsoft.Extensions.Logging;
 using NexAI.DataProcessor.Git;
 using NexAI.Git.Messages;
-using NexAI.RabbitMQ;
+using NexAI.ServiceBus;
 
 namespace NexAI.DataProcessor.ConsumerServices;
 

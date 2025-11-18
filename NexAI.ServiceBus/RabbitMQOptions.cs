@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using NexAI.Config;
 
-namespace NexAI.RabbitMQ;
+namespace NexAI.ServiceBus;
 
 public record RabbitMQOptions : IOptions
 {

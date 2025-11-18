@@ -9,7 +9,7 @@ using NexAI.MCP.Tools;
 using NexAI.MongoDb;
 using NexAI.Neo4j;
 using NexAI.Qdrant;
-using NexAI.RabbitMQ;
+using NexAI.ServiceBus;
 using NexAI.Zendesk;
 
 var builder = Host.CreateApplicationBuilder(args);
@@ -26,7 +26,7 @@ builder.Services
     .AddMongoDb()
     .AddNeo4j()
     .AddQdrant()
-    .AddRabbitMQ()
+    .AddServiceBus()
     .AddLLM(options)
     .AddMcpServer()
     .WithStdioServerTransport()

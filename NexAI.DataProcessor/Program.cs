@@ -11,7 +11,7 @@ using NexAI.LLMs;
 using NexAI.MongoDb;
 using NexAI.Neo4j;
 using NexAI.Qdrant;
-using NexAI.RabbitMQ;
+using NexAI.ServiceBus;
 using NexAI.Zendesk;
 using Spectre.Console;
 
@@ -32,7 +32,7 @@ try
             services.AddQdrant();
             services.AddZendesk();
             services.AddGit();
-            services.AddRabbitMQ();
+            services.AddServiceBus();
             services.AddLLM(options);
             services.AddSingleton<ZendeskTicketMongoDbExporter>();
             services.AddSingleton<ZendeskTicketQdrantExporter>();

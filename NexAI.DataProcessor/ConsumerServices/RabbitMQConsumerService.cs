@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Hosting;
-using NexAI.RabbitMQ;
+using NexAI.ServiceBus;
 using Spectre.Console;
 
 namespace NexAI.DataProcessor.ConsumerServices;

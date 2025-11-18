@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Collections.Concurrent;
 using NexAI.Config;
-using NexAI.RabbitMQ;
+using NexAI.ServiceBus;
 using NexAI.Zendesk;
 using NexAI.Zendesk.Api;
 using NexAI.Zendesk.Api.Dtos;

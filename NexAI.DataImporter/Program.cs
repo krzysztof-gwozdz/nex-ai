@@ -9,7 +9,7 @@ using NexAI.DataImporter.Zendesk;
 using NexAI.Git;
 using NexAI.MongoDb;
 using NexAI.Qdrant;
-using NexAI.RabbitMQ;
+using NexAI.ServiceBus;
 using NexAI.Zendesk;
 using Spectre.Console;
 

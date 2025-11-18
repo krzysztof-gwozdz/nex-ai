@@ -1,4 +1,4 @@
-﻿using NexAI.RabbitMQ;
+﻿using NexAI.ServiceBus;
 using RabbitMQ.Client;
 
 namespace NexAI.DataImporter;

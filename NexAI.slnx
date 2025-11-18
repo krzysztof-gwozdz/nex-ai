@@ -19,7 +19,7 @@
   <Project Path="NexAI.MongoDb/NexAI.MongoDb.csproj" />
   <Project Path="NexAI.Neo4j/NexAI.Neo4j.csproj" />
   <Project Path="NexAI.Qdrant/NexAI.Qdrant.csproj" />
-  <Project Path="NexAI.RabbitMQ/NexAI.RabbitMQ.csproj" />
+  <Project Path="NexAI.ServiceBus/NexAI.ServiceBus.csproj" />
   <Project Path="NexAI.Zendesk.Messages/NexAI.Zendesk.Messages.csproj" />
   <Project Path="NexAI.Zendesk.Tests/NexAI.Zendesk.Tests.csproj" />
   <Project Path="NexAI.Zendesk/NexAI.Zendesk.csproj" />
