@@ -6,6 +6,7 @@
     <File Path="README.md" />
   </Folder>
   <Folder Name="/app/">
+    <Project Path="NexAI.Api/NexAI.Api.csproj" />
     <Project Path="NexAI.Console/NexAI.Console.csproj" />
     <Project Path="NexAI.DataImporter/NexAI.DataImporter.csproj" />
     <Project Path="NexAI.DataProcessor/NexAI.DataProcessor.csproj" />

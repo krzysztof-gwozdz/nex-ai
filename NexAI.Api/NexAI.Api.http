@@ -1,0 +1,27 @@
+@Api_HostAddress = http://localhost:5000
+
+GET {{Api_HostAddress}}/chat?systemMessage=you are a testr&message=what is 2+2?
+Accept: application/json
+
+###
+
+POST {{Api_HostAddress}}/agent
+Accept: application/json
+Content-Type: application/json
+
+{
+  "messages": [
+    {
+      "role": "user",
+      "content": "tell me a joke"
+    },
+    {
+      "role": "assistant",
+      "content": "Why don’t skeletons fight each other?  \nThey don’t have the guts!"
+    },
+    {
+      "role": "user",
+      "content": "another"
+    }
+  ]
+}
