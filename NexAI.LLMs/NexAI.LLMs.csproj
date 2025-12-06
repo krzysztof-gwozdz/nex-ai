@@ -5,7 +5,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="OllamaSharp" Version="5.4.11" />
+        <PackageReference Include="OllamaSharp" Version="5.4.12" />
         <PackageReference Include="OpenAI" Version="2.7.0" />
     </ItemGroup>
 
