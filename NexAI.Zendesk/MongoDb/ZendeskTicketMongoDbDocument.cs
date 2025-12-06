@@ -1,6 +1,6 @@
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace NexAI.Zendesk;
+namespace NexAI.Zendesk.MongoDb;
 
 public record ZendeskTicketMongoDbDocument
 {

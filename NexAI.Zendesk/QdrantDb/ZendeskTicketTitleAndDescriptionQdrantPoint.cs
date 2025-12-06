@@ -1,7 +1,7 @@
 ﻿using NexAI.LLMs.Common;
 using Qdrant.Client.Grpc;
 
-namespace NexAI.Zendesk;
+namespace NexAI.Zendesk.QdrantDb;
 
 public record ZendeskTicketTitleAndDescriptionQdrantPoint(ZendeskTicketId Id, string ExternalId, string? Level3Team, ReadOnlyMemory<float> Content)
 {

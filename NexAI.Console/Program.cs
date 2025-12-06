@@ -3,9 +3,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NexAI.Agents;
 using NexAI.AzureDevOps;
 using NexAI.Config;
-using NexAI.Console;
 using NexAI.Console.Features;
 using NexAI.LLMs;
 using NexAI.MongoDb;
@@ -39,6 +39,7 @@ try
             services.AddSingleton<SearchForZendeskTicketsByPhraseFeature>();
             services.AddSingleton<SearchForAzureWorkItemsByPhraseFeature>();
             services.AddSingleton<SearchForInfoAboutTicketFeature>();
+            services.AddSingleton<TalkWithNexAIAgentFeature>();
         })
         .Build();
     await Run(host.Services);
@@ -62,7 +63,7 @@ async Task Run(IServiceProvider services)
 {
     var options = new Dictionary<string, Func<Task>>
     {
-        ["Start Conversation with Nex AI"] = async () => await services.GetRequiredService<NexAIAgent>().StartConversation(cancellationTokenSource.Token),
+        ["Start Conversation with Nex AI"] = async () => await services.GetRequiredService<TalkWithNexAIAgentFeature>().Run(cancellationTokenSource.Token),
         ["Get info about zendesk user and groups"] = async () => await services.GetRequiredService<GetInfoAboutZendeskUserAndGroupsFeature>().Run(cancellationTokenSource.Token),
         ["Summarize the Ticket"] = async () => await services.GetRequiredService<SummarizeZendeskTicketFeature>().Run(cancellationTokenSource.Token),
         ["Search for Tickets by Phrase"] = async () => await services.GetRequiredService<SearchForZendeskTicketsByPhraseFeature>().Run(10, cancellationTokenSource.Token),

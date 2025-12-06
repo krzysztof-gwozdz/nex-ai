@@ -12,6 +12,7 @@
     <Project Path="NexAI.MCP/NexAI.MCP.csproj" />
   </Folder>
   <Folder Name="/core/">
+    <Project Path="NexAI.Agents/NexAI.Agents.csproj" />
     <Project Path="NexAI.AzureDevOps/NexAI.AzureDevOps.csproj" />
     <Project Path="NexAI.Config/NexAI.Config.csproj" />
     <Project Path="NexAI.Git.Messages/NexAI.Git.Messages.csproj" />
