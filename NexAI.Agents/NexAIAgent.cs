@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Runtime.CompilerServices;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
@@ -37,7 +38,7 @@ public class NexAIAgent
         };
     }
 
-    public void StartNewConversation(Message[]? messages = null)
+    public void StartNewChat(ChatMessage[]? messages = null)
     {
         _chatHistory.Clear();
         if (messages is not null)
@@ -57,13 +58,28 @@ public class NexAIAgent
     
     public async Task<string> GetResponse(CancellationToken cancellationToken)
     {
-        var response = await _chatCompletionService.GetChatMessageContentAsync(
+        var chatMessageContent = await _chatCompletionService.GetChatMessageContentAsync(
             _chatHistory,
             executionSettings: _openAIPromptExecutionSettings,
             kernel: _kernel, cancellationToken: cancellationToken);
-        var assistantResponse = response.Content ?? string.Empty;
-        _chatHistory.AddMessage(response.Role, assistantResponse);
-        return assistantResponse;
+        _chatHistory.Add(chatMessageContent);
+        return chatMessageContent.Content ?? string.Empty;
+    }
+    
+    public async IAsyncEnumerable<string> StreamResponse([EnumeratorCancellation] CancellationToken cancellationToken)
+    {
+        var response =  _chatCompletionService.GetStreamingChatMessageContentsAsync(
+            _chatHistory,
+            executionSettings: _openAIPromptExecutionSettings,
+            kernel: _kernel, cancellationToken: cancellationToken);
+        var message = string.Empty;
+        await foreach (var streamingChatMessageContent in response)
+        {
+            var assistantResponse = streamingChatMessageContent.Content ?? string.Empty;
+            message += assistantResponse;
+            yield return assistantResponse;
+        }
+        _chatHistory.AddAssistantMessage(message);
     }
 
     private static IKernelBuilder GetKernelBuilder(Options options, string mode)
@@ -90,6 +106,4 @@ public class NexAIAgent
         builder.Services.AddLLM(options);
         return builder;
     }
-    
-    public record Message(string Role, string Content);
 }

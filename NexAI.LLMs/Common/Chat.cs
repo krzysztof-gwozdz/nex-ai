@@ -11,6 +11,10 @@ public abstract class Chat
 
     public abstract IAsyncEnumerable<string> AskStream(string systemMessage, string message, CancellationToken cancellationToken);
 
+    public abstract Task<string> GetNextResponse(ChatMessage[] messages, CancellationToken cancellationToken);
+
+    public abstract IAsyncEnumerable<string> StreamNextResponse(ChatMessage[] messages, CancellationToken cancellationToken);
+
     protected static string GetSchema<TResponse>()
     {
         var schemaNode = JsonSerializerOptions.Default.GetJsonSchemaAsNode(typeof(TResponse));

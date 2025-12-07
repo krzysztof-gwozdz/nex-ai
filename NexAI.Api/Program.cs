@@ -25,6 +25,7 @@ builder.Services.AddQdrant();
 builder.Services.AddLLM(options);
 
 var app = builder.Build();
+app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.MapOpenApi();
 app.MapScalarApiReference();
 app.UseHttpsRedirection();

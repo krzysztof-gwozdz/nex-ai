@@ -12,7 +12,7 @@ public class TalkWithNexAIAgentFeature(NexAIAgent nexAIAgent)
             AnsiConsole.MarkupLine("[Aquamarine1]Welcome to Nex AI! Type your message below. Type [bold]RESET[/] to reset the conversation or [bold]STOP[/] to exit.[/]");
             while (true)
             {
-                nexAIAgent.StartNewConversation();
+                nexAIAgent.StartNewChat();
                 var userMessage = AnsiConsole.Prompt(new TextPrompt<string>(">"));
                 if (userMessage == "RESET")
                     break;

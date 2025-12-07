@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NexAI.Agents;
+using NexAI.LLMs.Common;
 
 namespace NexAI.Api.Controllers;
 
@@ -8,17 +9,16 @@ namespace NexAI.Api.Controllers;
 public class AgentController : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> Get(
-        [FromServices] NexAIAgent nexAIAgent,
-        [FromBody] AgentDto dto,
-        CancellationToken cancellationToken)
+    public async Task<IActionResult> Get([FromServices] NexAIAgent nexAIAgent, [FromBody] AgentRequest request, CancellationToken cancellationToken)
     {
-        nexAIAgent.StartNewConversation(dto.Messages.Select(message => new NexAIAgent.Message(message.Role, message.Content)).ToArray());
-        return Ok(await nexAIAgent.GetResponse(cancellationToken));
+        nexAIAgent.StartNewChat(request.Messages.Select(message => new ChatMessage(message.Role, message.Content)).ToArray());
+        return request.Stream
+            ? Ok(nexAIAgent.StreamResponse(cancellationToken))
+            : Ok(await nexAIAgent.GetResponse(cancellationToken));
     }
 }
 
-public record AgentDto(AgentDto.Message[] Messages)
+public record AgentRequest(AgentRequest.Message[] Messages, bool Stream = false)
 {
     public record Message(string Role, string Content);
 }

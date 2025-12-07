@@ -7,12 +7,17 @@ namespace NexAI.Api.Controllers;
 [Route("chat")]
 public class ChatController : ControllerBase
 {
-    [HttpGet]
-    public async Task<IActionResult> Get(
-        [FromServices] Chat chat,
-        [FromQuery] ChatDto dto,
-        CancellationToken cancellationToken) =>
-        Ok(await chat.Ask(dto.SystemMessage, dto.Message, cancellationToken));
+    [HttpPost]
+    public async Task<IActionResult> Get([FromServices] Chat chat, [FromBody] ChatRequest request, CancellationToken cancellationToken)
+    {
+        var messages = request.Messages.Select(message => new ChatMessage(message.Role, message.Content)).ToArray();
+        return request.Stream
+            ? Ok(chat.StreamNextResponse(messages, cancellationToken))
+            : Ok(await chat.GetNextResponse(messages, cancellationToken));
+    }
 }
 
-public record ChatDto(string SystemMessage, string Message);
+public record ChatRequest(ChatRequest.Message[] Messages, bool Stream = false)
+{
+    public record Message(string Role, string Content);
+}
