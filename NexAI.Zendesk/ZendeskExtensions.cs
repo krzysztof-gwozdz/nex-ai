@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using NexAI.Config;
 using NexAI.Zendesk.Api;
 using NexAI.Zendesk.Commands;
 using NexAI.Zendesk.MongoDb;
@@ -9,9 +10,18 @@ namespace NexAI.Zendesk;
 
 public static class ZendeskExtensions
 {
-    public static IServiceCollection AddZendesk(this IServiceCollection services) =>
+    public static IServiceCollection AddZendesk(this IServiceCollection services)
+    {
         services
-            .AddSingleton<ZendeskApiClient>()
+            .AddHttpClient<ZendeskApiClient>((serviceProvider, client) =>
+            {
+                var zendeskOptions = serviceProvider.GetRequiredService<Options>().Get<ZendeskOptions>();
+                client.BaseAddress = new(zendeskOptions.ApiBaseUrl);
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+                client.DefaultRequestHeaders.Add("Authorization", $"Basic {zendeskOptions.AuthorizationToken}");
+            });
+
+        return services
             .AddSingleton<ZendeskMongoDbStructure>()
             .AddSingleton<ZendeskQdrantStructure>()
             .AddSingleton<UpsertZendeskGroupCommand>()
@@ -28,4 +38,5 @@ public static class ZendeskExtensions
             .AddSingleton<GetZendeskTicketSummaryQuery>()
             .AddSingleton<GetZendeskUsersOfGroupQuery>()
             .AddSingleton<StreamZendeskTicketSummaryQuery>();
+    }
 }

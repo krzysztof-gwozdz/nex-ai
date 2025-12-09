@@ -1,28 +1,12 @@
 ﻿using System.Net.Http.Json;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
-using NexAI.Config;
 using NexAI.Zendesk.Api.Dtos;
 
 namespace NexAI.Zendesk.Api;
 
-public class ZendeskApiClient
+public class ZendeskApiClient(ILogger<ZendeskApiClient> logger, HttpClient httpClient)
 {
-    private readonly ILogger _logger;
-    private readonly HttpClient _httpClient;
-
-    public ZendeskApiClient(ILogger<ZendeskApiClient> logger, Options options)
-    {
-        _logger = logger;
-        var zendeskOptions = options.Get<ZendeskOptions>();
-        _httpClient = new()
-        {
-            BaseAddress = new(zendeskOptions.ApiBaseUrl)
-        };
-        _httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
-        _httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {zendeskOptions.AuthorizationToken}");
-    }
-
     public async Task<int> GetEmployeesCount(CancellationToken cancellationToken) =>
         await GetCount("/api/v2/users/count?role[]=agent&role[]=admin&exclude_deleted=true", cancellationToken);
 
@@ -64,8 +48,8 @@ public class ZendeskApiClient
         do
         {
             var endpoint = $"/api/v2/incremental/tickets?exclude_deleted=true&start_time={timestamp}";
-            _logger.LogInformation("Fetching page from {endpoint} ({time:dd/MM/yyyy})", endpoint, DateTimeOffset.FromUnixTimeSeconds(timestamp));
-            var response = await _httpClient.GetAsync(endpoint, cancellationToken);
+            logger.LogInformation("Fetching page from {endpoint} ({time:dd/MM/yyyy})", endpoint, DateTimeOffset.FromUnixTimeSeconds(timestamp));
+            var response = await httpClient.GetAsync(endpoint, cancellationToken);
             if (!response.IsSuccessStatusCode)
             {
                 throw new($"Failed to get items from {endpoint}: {response.ReasonPhrase}");
@@ -75,7 +59,7 @@ public class ZendeskApiClient
             {
                 tickets.AddRange(dto.Tickets);
             }
-            _logger.LogInformation("Fetched {Count} tickets in total.", tickets.Count);
+            logger.LogInformation("Fetched {Count} tickets in total.", tickets.Count);
             endOfStream = dto.EndOfStream ?? false;
             timestamp = dto.EndTime ?? long.MaxValue;
         } while (!endOfStream);
@@ -98,8 +82,8 @@ public class ZendeskApiClient
 
     private async Task<int> GetCount(string endpoint, CancellationToken cancellationToken)
     {
-        _logger.LogInformation("Fetching page count from {endpoint}", endpoint);
-        var response = await _httpClient.GetAsync(endpoint, cancellationToken);
+        logger.LogInformation("Fetching page count from {endpoint}", endpoint);
+        var response = await httpClient.GetAsync(endpoint, cancellationToken);
         if (!response.IsSuccessStatusCode)
             throw new($"Failed to get items from {endpoint}: {response.ReasonPhrase}");
         var countsDto = await ParseContentToDto<CountsDto>(response);
@@ -108,8 +92,8 @@ public class ZendeskApiClient
 
     private async Task<TDto> Get<TDto>(string endpoint, CancellationToken cancellationToken)
     {
-        _logger.LogInformation("Fetching data from {endpoint}", endpoint);
-        var response = await _httpClient.GetAsync(endpoint, cancellationToken);
+        logger.LogInformation("Fetching data from {endpoint}", endpoint);
+        var response = await httpClient.GetAsync(endpoint, cancellationToken);
         if (!response.IsSuccessStatusCode)
             throw new($"Failed to get items from {endpoint}: {response.ReasonPhrase}");
         var dto = await ParseContentToDto<TDto>(response);
@@ -126,8 +110,8 @@ public class ZendeskApiClient
         {
             var separator = endpoint.Contains('?') ? "&" : "?";
             var url = $"{endpoint}{separator}page={page}";
-            _logger.LogInformation("Fetching page {Page} from {Url}", page, url);
-            var response = await _httpClient.GetAsync(url, cancellationToken);
+            logger.LogInformation("Fetching page {Page} from {Url}", page, url);
+            var response = await httpClient.GetAsync(url, cancellationToken);
             if (!response.IsSuccessStatusCode)
             {
                 throw new($"Failed to get items from {endpoint}: {response.ReasonPhrase}");

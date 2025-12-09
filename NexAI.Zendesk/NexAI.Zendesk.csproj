@@ -1,6 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="10.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
       <ProjectReference Include="..\NexAI.LLMs\NexAI.LLMs.csproj" />
       <ProjectReference Include="..\NexAI.MongoDb\NexAI.MongoDb.csproj" />
       <ProjectReference Include="..\NexAI.Neo4j\NexAI.Neo4j.csproj" />
