@@ -17,8 +17,7 @@ public class Neo4jTestBase : IAsyncLifetime
 
     public async Task InitializeAsync()
     {
-        _neo4jContainer = new Neo4jBuilder()
-            .WithImage("neo4j:latest")
+        _neo4jContainer = new Neo4jBuilder("neo4j:latest")
             .WithEnvironment("NEO4J_AUTH", "neo4j/password")
             .Build();
 

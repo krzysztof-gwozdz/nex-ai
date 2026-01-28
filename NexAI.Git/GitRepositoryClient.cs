@@ -2,7 +2,7 @@ using LibGit2Sharp;
 
 namespace NexAI.Git;
 
-public class GitRepositoryClient()
+public class GitRepositoryClient
 {
     public IEnumerable<GitCommit> ExtractCommits(string repositoryPath)
     {
