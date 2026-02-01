@@ -1,7 +1,6 @@
 ﻿using System.Text.Json;
 using MongoDB.Driver;
 using NexAI.Config;
-using NexAI.MongoDb;
 using NexAI.Zendesk;
 using NexAI.Zendesk.Api;
 using NexAI.Zendesk.Api.Dtos;
@@ -10,7 +9,7 @@ using Spectre.Console;
 
 namespace NexAI.DataImporter.Zendesk;
 
-internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, IMessageSession messageSession, MongoDbClient mongoDbClient, Options options)
+internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, IMessageSession messageSession, ZendeskTicketMongoDbCollection zendeskTicketMongoDbCollection, Options options)
 {
     private const string BackupEmployeesFilePath = "zendesk_api_backup_employees.json";
     private const string BackupTicketsFilePath = "zendesk_api_backup_tickets_{0:yyyyMMdd}.json";
@@ -109,7 +108,7 @@ internal class ZendeskTicketImporter(ZendeskApiClient zendeskApiClient, IMessage
 
     private DateTime GetTicketStartDateTime()
     {
-        var lastImportDate = mongoDbClient.Database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketMongoDbCollection.Name)
+        var lastImportDate = zendeskTicketMongoDbCollection.Collection
             .Find(FilterDefinition<ZendeskTicketMongoDbDocument>.Empty)
             .SortByDescending(document => document.LastImportDate)
             .Limit(1)

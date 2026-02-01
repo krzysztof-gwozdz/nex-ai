@@ -24,6 +24,7 @@ public static class ZendeskExtensions
         return services
             .AddSingleton<ZendeskMongoDbStructure>()
             .AddSingleton<ZendeskQdrantStructure>()
+            .AddSingleton<ZendeskTicketMongoDbCollection>()
             .AddSingleton<UpsertZendeskGroupCommand>()
             .AddSingleton<UpsertZendeskMembersOfRelationshipCommand>()
             .AddSingleton<UpsertZendeskUserCommand>()

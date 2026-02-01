@@ -1,5 +1,4 @@
 ﻿using MongoDB.Driver;
-using NexAI.MongoDb;
 using NexAI.Zendesk;
 using NexAI.Zendesk.Messages;
 using NexAI.Zendesk.MongoDb;
@@ -7,13 +6,12 @@ using Spectre.Console;
 
 namespace NexAI.DataProcessor.Zendesk;
 
-public class ZendeskTicketImportedToMongoDbEventHandler(MongoDbClient mongoDbClient) : IHandleMessages<ZendeskTicketImportedEvent>
+public class ZendeskTicketImportedToMongoDbEventHandler(ZendeskTicketMongoDbCollection zendeskTicketMongoDbCollection) : IHandleMessages<ZendeskTicketImportedEvent>
 {
     public async Task Handle(ZendeskTicketImportedEvent message, IMessageHandlerContext context)
     {
         var zendeskTicket = ZendeskTicket.FromZendeskTicketImportedEvent(message);
-        var database = mongoDbClient.Database;
-        var collection = database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketMongoDbCollection.Name);
+        var collection = zendeskTicketMongoDbCollection.Collection;
         var document = await collection.Find(existingZendeskTicket => existingZendeskTicket.Id == zendeskTicket.Id || existingZendeskTicket.ExternalId == zendeskTicket.ExternalId).FirstOrDefaultAsync(cancellationToken: context.CancellationToken);
         if (document is not null)
         {

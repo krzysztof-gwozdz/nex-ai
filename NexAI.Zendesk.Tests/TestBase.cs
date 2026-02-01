@@ -17,6 +17,7 @@ public class TestBase : IAsyncLifetime
     private MongoDbTestContainer _mongoDbTestContainer = null!;
     protected Neo4jDbClient Neo4jDbClient { get; private set; } = null!;
     protected MongoDbClient MongoDbClient { get; private set; } = null!;
+    protected ZendeskTicketMongoDbCollection ZendeskTicketMongoDbCollection { get; private set; } = null!;
 
     public async Task InitializeAsync()
     {
@@ -31,13 +32,13 @@ public class TestBase : IAsyncLifetime
         var options = new Options(configuration);
         Neo4jDbClient = new(options);
         MongoDbClient = new MongoDbClient(options);
+        ZendeskTicketMongoDbCollection = new ZendeskTicketMongoDbCollection(MongoDbClient);
     }
 
     public async Task DisposeAsync()
     {
         await Neo4jDbClient.CleanDatabase();
-        var collection = MongoDbClient.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketMongoDbCollection.Name);
-        await collection.DeleteManyAsync(FilterDefinition<ZendeskTicketMongoDbDocument>.Empty);
+        await ZendeskTicketMongoDbCollection.Collection.DeleteManyAsync(FilterDefinition<ZendeskTicketMongoDbDocument>.Empty);
         Neo4jDbClient.Driver.Dispose();
         await _neo4jTestContainer.DisposeAsync();
         await _mongoDbTestContainer.DisposeAsync();
