@@ -22,6 +22,7 @@
     <Project Path="NexAI.LLMs.Tests/NexAI.LLMs.Tests.csproj" />
     <Project Path="NexAI.LLMs/NexAI.LLMs.csproj" />
     <Project Path="NexAI.ServiceBus/NexAI.ServiceBus.csproj" />
+    <Project Path="NexAI.Tests/NexAI.Tests.csproj" />
     <Project Path="NexAI.Zendesk.Messages/NexAI.Zendesk.Messages.csproj" />
     <Project Path="NexAI.Zendesk.Tests/NexAI.Zendesk.Tests.csproj" />
     <Project Path="NexAI.Zendesk/NexAI.Zendesk.csproj" />

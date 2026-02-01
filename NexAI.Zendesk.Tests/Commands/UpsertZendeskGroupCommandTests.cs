@@ -1,17 +1,17 @@
 using FluentAssertions;
 using Neo4j.Driver;
+using NexAI.Tests;
 using NexAI.Zendesk.Commands;
 using Xunit;
 
 namespace NexAI.Zendesk.Tests.Commands;
 
-public class UpsertZendeskGroupCommandTests : Neo4jTestBase
+public class UpsertZendeskGroupCommandTests : TestBase
 {
     [Fact]
     public async Task Handle_WithNewGroup_CreatesGroupInNeo4j()
     {
         // arrange
-        await CleanDatabaseAsync();
         var groupId = ZendeskGroupId.New();
         var zendeskGroup = new ZendeskGroup(groupId, "group-123", "Test Group");
         var command = new UpsertZendeskGroupCommand(Neo4jDbClient);
@@ -20,7 +20,7 @@ public class UpsertZendeskGroupCommandTests : Neo4jTestBase
         await command.Handle(zendeskGroup);
 
         // assert
-        var groupRecord = await GetNode("Group", "zendeskId", "group-123");
+        var groupRecord = await Neo4jDbClient.GetNode("Group", "zendeskId", "group-123");
         groupRecord.Should().NotBeNull();
         var groupNode = (INode)groupRecord["n"];
         ((string)groupNode["id"]).Should().Be(groupId.ToString());
@@ -32,7 +32,6 @@ public class UpsertZendeskGroupCommandTests : Neo4jTestBase
     public async Task Handle_WithExistingGroup_UpdatesGroupInNeo4j()
     {
         // arrange
-        await CleanDatabaseAsync();
         var groupId = ZendeskGroupId.New();
         var zendeskGroup = new ZendeskGroup(groupId, "group-123", "Test Group");
         var command = new UpsertZendeskGroupCommand(Neo4jDbClient);
@@ -45,7 +44,7 @@ public class UpsertZendeskGroupCommandTests : Neo4jTestBase
         await command.Handle(updatedGroup);
 
         // assert
-        var groupRecord = await GetNode("Group", "zendeskId", "group-123");
+        var groupRecord = await Neo4jDbClient.GetNode("Group", "zendeskId", "group-123");
         groupRecord.Should().NotBeNull();
         var groupNode = (INode)groupRecord["n"];
         ((string)groupNode["id"]).Should().Be(groupId.ToString());
@@ -56,7 +55,6 @@ public class UpsertZendeskGroupCommandTests : Neo4jTestBase
     public async Task Handle_WithMultipleGroups_CreatesAllGroupsInNeo4j()
     {
         // arrange
-        await CleanDatabaseAsync();
         var groupId1 = ZendeskGroupId.New();
         var groupId2 = ZendeskGroupId.New();
         var group1 = new ZendeskGroup(groupId1, "group-123", "Group 1");
@@ -68,8 +66,8 @@ public class UpsertZendeskGroupCommandTests : Neo4jTestBase
         await command.Handle(group2);
 
         // assert
-        var groupRecord1 = await GetNode("Group", "zendeskId", "group-123");
-        var groupRecord2 = await GetNode("Group", "zendeskId", "group-456");
+        var groupRecord1 = await Neo4jDbClient.GetNode("Group", "zendeskId", "group-123");
+        var groupRecord2 = await Neo4jDbClient.GetNode("Group", "zendeskId", "group-456");
         groupRecord1.Should().NotBeNull();
         groupRecord2.Should().NotBeNull();
         var groupNode1 = (INode)groupRecord1["n"];

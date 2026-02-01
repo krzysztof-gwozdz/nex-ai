@@ -1,17 +1,17 @@
 using FluentAssertions;
 using Neo4j.Driver;
 using NexAI.Git.Commands;
+using NexAI.Tests;
 using Xunit;
 
 namespace NexAI.Git.Tests.Commands;
 
-public class UpsertGitCommitCommandTests : Neo4jTestBase
+public class UpsertGitCommitCommandTests : TestBase
 {
     [Fact]
     public async Task Handle_WithNewCommit_CreatesCommitInNeo4j()
     {
         // arrange
-        await CleanDatabaseAsync();
         var commitId = GitCommitId.New();
         var authorId = GitAuthorId.New();
         var author = new GitAuthor(authorId, "Test Author", "test@example.com");
@@ -22,7 +22,7 @@ public class UpsertGitCommitCommandTests : Neo4jTestBase
         await command.Handle(gitCommit);
 
         // assert
-        var commitRecord = await GetNode("Commit", "sha", "abc123");
+        var commitRecord = await Neo4jDbClient.GetNode("Commit", "sha", "abc123");
         commitRecord.Should().NotBeNull();
         var commitNode = (INode)commitRecord["n"];
         ((string)commitNode["id"]).Should().Be(commitId.ToString());
@@ -35,7 +35,6 @@ public class UpsertGitCommitCommandTests : Neo4jTestBase
     public async Task Handle_WithExistingCommit_UpdatesCommitInNeo4j()
     {
         // arrange
-        await CleanDatabaseAsync();
         var commitId = GitCommitId.New();
         var authorId = GitAuthorId.New();
         var author = new GitAuthor(authorId, "Test Author", "test@example.com");
@@ -50,7 +49,7 @@ public class UpsertGitCommitCommandTests : Neo4jTestBase
         await command.Handle(updatedCommit);
 
         // assert
-        var commitRecord = await GetNode("Commit", "sha", "abc123");
+        var commitRecord = await Neo4jDbClient.GetNode("Commit", "sha", "abc123");
         commitRecord.Should().NotBeNull();
         var commitNode = (INode)commitRecord["n"];
         ((string)commitNode["id"]).Should().Be(commitId.ToString());
@@ -62,7 +61,6 @@ public class UpsertGitCommitCommandTests : Neo4jTestBase
     public async Task Handle_WithMultipleCommits_CreatesAllCommitsInNeo4j()
     {
         // arrange
-        await CleanDatabaseAsync();
         var commitId1 = GitCommitId.New();
         var commitId2 = GitCommitId.New();
         var authorId1 = GitAuthorId.New();
@@ -78,8 +76,8 @@ public class UpsertGitCommitCommandTests : Neo4jTestBase
         await command.Handle(commit2);
 
         // assert
-        var commitRecord1 = await GetNode("Commit", "sha", "abc123");
-        var commitRecord2 = await GetNode("Commit", "sha", "def456");
+        var commitRecord1 = await Neo4jDbClient.GetNode("Commit", "sha", "abc123");
+        var commitRecord2 = await Neo4jDbClient.GetNode("Commit", "sha", "def456");
         commitRecord1.Should().NotBeNull();
         commitRecord2.Should().NotBeNull();
         var commitNode1 = (INode)commitRecord1["n"];

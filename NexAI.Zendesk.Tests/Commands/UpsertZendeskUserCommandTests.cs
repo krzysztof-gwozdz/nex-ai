@@ -1,17 +1,17 @@
 using FluentAssertions;
 using Neo4j.Driver;
+using NexAI.Tests;
 using NexAI.Zendesk.Commands;
 using Xunit;
 
 namespace NexAI.Zendesk.Tests.Commands;
 
-public class UpsertZendeskUserCommandTests : Neo4jTestBase
+public class UpsertZendeskUserCommandTests : TestBase
 {
     [Fact]
     public async Task Handle_WithNewUser_CreatesUserInNeo4j()
     {
         // arrange
-        await CleanDatabaseAsync();
         var userId = ZendeskUserId.New();
         var zendeskUser = new ZendeskUser(userId, "12345", "Test User", "test@example.com");
         var command = new UpsertZendeskUserCommand(Neo4jDbClient);
@@ -20,7 +20,7 @@ public class UpsertZendeskUserCommandTests : Neo4jTestBase
         await command.Handle(zendeskUser);
 
         // assert
-        var userRecord = await GetNode("User", "zendeskId", "12345");
+        var userRecord = await Neo4jDbClient.GetNode("User", "zendeskId", "12345");
         userRecord.Should().NotBeNull();
         var userNode = (INode)userRecord["n"];
         ((string)userNode["id"]).Should().Be(userId.ToString());
@@ -33,7 +33,6 @@ public class UpsertZendeskUserCommandTests : Neo4jTestBase
     public async Task Handle_WithExistingUser_UpdatesUserInNeo4j()
     {
         // arrange
-        await CleanDatabaseAsync();
         var userId = ZendeskUserId.New();
         var zendeskUser = new ZendeskUser(userId, "12345", "Test User", "test@example.com");
         var command = new UpsertZendeskUserCommand(Neo4jDbClient);
@@ -46,7 +45,7 @@ public class UpsertZendeskUserCommandTests : Neo4jTestBase
         await command.Handle(updatedUser);
 
         // assert
-        var userRecord = await GetNode("User", "zendeskId", "12345");
+        var userRecord = await Neo4jDbClient.GetNode("User", "zendeskId", "12345");
         userRecord.Should().NotBeNull();
         var userNode = (INode)userRecord["n"];
         ((string)userNode["id"]).Should().Be(userId.ToString());
@@ -58,7 +57,6 @@ public class UpsertZendeskUserCommandTests : Neo4jTestBase
     public async Task Handle_WithMultipleUsers_CreatesAllUsersInNeo4j()
     {
         // arrange
-        await CleanDatabaseAsync();
         var userId1 = ZendeskUserId.New();
         var userId2 = ZendeskUserId.New();
         var user1 = new ZendeskUser(userId1, "12345", "User 1", "user1@example.com");
@@ -70,8 +68,8 @@ public class UpsertZendeskUserCommandTests : Neo4jTestBase
         await command.Handle(user2);
 
         // assert
-        var userRecord1 = await GetNode("User", "zendeskId", "12345");
-        var userRecord2 = await GetNode("User", "zendeskId", "67890");
+        var userRecord1 = await Neo4jDbClient.GetNode("User", "zendeskId", "12345");
+        var userRecord2 = await Neo4jDbClient.GetNode("User", "zendeskId", "67890");
         userRecord1.Should().NotBeNull();
         userRecord2.Should().NotBeNull();
         var userNode1 = (INode)userRecord1["n"];

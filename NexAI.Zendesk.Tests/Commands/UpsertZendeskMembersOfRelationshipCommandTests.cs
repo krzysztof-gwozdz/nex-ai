@@ -1,17 +1,16 @@
 using FluentAssertions;
-using Neo4j.Driver;
+using NexAI.Tests;
 using NexAI.Zendesk.Commands;
 using Xunit;
 
 namespace NexAI.Zendesk.Tests.Commands;
 
-public class UpsertMembersOfRelationCommandTests : Neo4jTestBase
+public class UpsertZendeskMembersOfRelationshipCommandTests : TestBase
 {
     [Fact]
     public async Task Handle_WithUserAndGroups_CreatesMemberOfRelationsInNeo4j()
     {
         // arrange
-        await CleanDatabaseAsync();
         var userId = ZendeskUserId.New();
         var groupId1 = ZendeskGroupId.New();
         var groupId2 = ZendeskGroupId.New();
@@ -33,8 +32,8 @@ public class UpsertMembersOfRelationCommandTests : Neo4jTestBase
         await command.Handle(zendeskUserGroups);
 
         // assert
-        var relationship1Record = await GetRelationship("User", "id", userId.ToString(), "MEMBER_OF", "Group", "id", groupId1.ToString());
-        var relationship2Record = await GetRelationship("User", "id", userId.ToString(), "MEMBER_OF", "Group", "id", groupId2.ToString());
+        var relationship1Record = await Neo4jDbClient.GetRelationship("User", "id", userId.ToString(), "MEMBER_OF", "Group", "id", groupId1.ToString());
+        var relationship2Record = await Neo4jDbClient.GetRelationship("User", "id", userId.ToString(), "MEMBER_OF", "Group", "id", groupId2.ToString());
         relationship1Record.Should().NotBeNull();
         relationship2Record.Should().NotBeNull();
     }
@@ -43,7 +42,6 @@ public class UpsertMembersOfRelationCommandTests : Neo4jTestBase
     public async Task Handle_WithMultipleCalls_DoesNotCreateDuplicateRelations()
     {
         // arrange
-        await CleanDatabaseAsync();
         var userId = ZendeskUserId.New();
         var groupId = ZendeskGroupId.New();
 
@@ -64,23 +62,14 @@ public class UpsertMembersOfRelationCommandTests : Neo4jTestBase
         await command.Handle(zendeskUserGroups);
 
         // assert - should only have one relationship
-        await using var session = Driver.AsyncSession(sessionConfigBuilder => sessionConfigBuilder.WithDatabase("neo4j"));
-        var result = await session.RunAsync(
-            "MATCH (u:User {id: $userId})-[r:MEMBER_OF]->(g:Group {id: $groupId}) RETURN count(r) as count",
-            new Dictionary<string, object>
-            {
-                { "userId", userId.ToString() },
-                { "groupId", groupId.ToString() }
-            });
-        var records = await result.ToListAsync();
-        records.Should().HaveCount(1);
+        var relationshipRecord = await Neo4jDbClient.GetRelationship("User", "id", userId.ToString(), "MEMBER_OF", "Group", "id", groupId.ToString());
+        relationshipRecord.Should().NotBeNull();
     }
 
     [Fact]
     public async Task Handle_WithUpdatedGroups_UpdatesRelationsInNeo4j()
     {
         // arrange
-        await CleanDatabaseAsync();
         var userId = ZendeskUserId.New();
         var groupId1 = ZendeskGroupId.New();
         var groupId2 = ZendeskGroupId.New();
@@ -105,11 +94,11 @@ public class UpsertMembersOfRelationCommandTests : Neo4jTestBase
         await command.Handle(new(userId, [groupId2, groupId3]));
 
         // assert
-        var relationship1Record = await GetRelationship("User", "id", userId.ToString(), "MEMBER_OF", "Group", "id", groupId1.ToString());
+        var relationship1Record = await Neo4jDbClient.GetRelationship("User", "id", userId.ToString(), "MEMBER_OF", "Group", "id", groupId1.ToString());
         relationship1Record.Should().BeNull("User should no longer be member of group1");
-        var relationship2Record = await GetRelationship("User", "id", userId.ToString(), "MEMBER_OF", "Group", "id", groupId2.ToString());
+        var relationship2Record = await Neo4jDbClient.GetRelationship("User", "id", userId.ToString(), "MEMBER_OF", "Group", "id", groupId2.ToString());
         relationship2Record.Should().NotBeNull("User should still be member of group2");
-        var relationship3Record = await GetRelationship("User", "id", userId.ToString(), "MEMBER_OF", "Group", "id", groupId3.ToString());
+        var relationship3Record = await Neo4jDbClient.GetRelationship("User", "id", userId.ToString(), "MEMBER_OF", "Group", "id", groupId3.ToString());
         relationship3Record.Should().NotBeNull("User should be member of group3");
     }
 }
