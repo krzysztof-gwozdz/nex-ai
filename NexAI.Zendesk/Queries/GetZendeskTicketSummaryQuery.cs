@@ -1,4 +1,4 @@
-﻿using MongoDB.Bson;
+﻿using System.Text.Json;
 using NexAI.LLMs;
 using NexAI.LLMs.Common;
 
@@ -9,7 +9,7 @@ public class GetZendeskTicketSummaryQuery(Chat chat, PromptReader promptReader)
     public async Task<string> Handle(ZendeskTicket zendeskTicket, CancellationToken cancellationToken)
     {
         var systemPrompt = promptReader.Read("ZendeskTicketSummary");
-        var json = zendeskTicket.ToJson();
+        var json = JsonSerializer.Serialize(zendeskTicket, new JsonSerializerOptions { WriteIndented = true });
         return await chat.Ask(systemPrompt, json ?? string.Empty, cancellationToken);
     }
 }
