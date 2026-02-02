@@ -16,8 +16,8 @@ public class GetZendeskUsersOfGroupQuery(Neo4jDbClient neo4jDbClient)
         ";
         var parameters = new Dictionary<string, object>
         {
-            { "$groupId", (string)zendeskGroupId },
-            { "$limit", limit }
+            { "groupId", (string)zendeskGroupId },
+            { "limit", limit }
         };
         await using var session = neo4jDbClient.Driver.AsyncSession(sessionConfigBuilder => sessionConfigBuilder.WithDatabase("neo4j"));
         var users = await session.ExecuteReadAsync(async queryRunner =>
@@ -25,7 +25,7 @@ public class GetZendeskUsersOfGroupQuery(Neo4jDbClient neo4jDbClient)
             var cursor = await queryRunner.RunAsync(query, parameters);
             var users = await cursor.ToListAsync<ZendeskUser>(record =>
                 new(
-                    new(record["id"].As<Guid>()),
+                    new(Guid.Parse(record["id"].As<string>())),
                     record["zendeskId"].As<string>(),
                     record["name"].As<string>(),
                     record["email"].As<string>())

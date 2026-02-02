@@ -23,12 +23,8 @@ public class GetZendeskGroupByNameQuery(Neo4jDbClient neo4jDbClient)
         {
             var cursor = await queryRunner.RunAsync(query, parameters);
             var record = await cursor.SingleAsync();
-            if (record is null)
-            {
-                return null;
-            }
             var group = new ZendeskGroup(
-                new(record["id"].As<Guid>()),
+                new(Guid.Parse(record["id"].As<string>())),
                 record["zendeskId"].As<string>(),
                 record["name"].As<string>());
             return group;

@@ -44,13 +44,11 @@ public class GetInfoAboutZendeskHierarchyQuery(Neo4jDbClient neo4jDbClient)
         {
             INode node => new
             {
-                id = node.ElementId,
                 labels = node.Labels,
                 properties = node.Properties
             },
             IRelationship relationship => new
             {
-                id = relationship.ElementId,
                 type = relationship.Type,
                 startNodeId = relationship.StartNodeElementId,
                 endNodeId = relationship.EndNodeElementId,
