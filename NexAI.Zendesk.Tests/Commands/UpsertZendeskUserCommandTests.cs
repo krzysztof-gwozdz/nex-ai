@@ -6,7 +6,7 @@ using Xunit;
 
 namespace NexAI.Zendesk.Tests.Commands;
 
-public class UpsertZendeskUserCommandTests : TestBase
+public class UpsertZendeskUserCommandTests : Neo4jDbBasedTest
 {
     [Fact]
     public async Task Handle_WithNewUser_CreatesUserInNeo4j()

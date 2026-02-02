@@ -6,7 +6,7 @@ using Xunit;
 
 namespace NexAI.Zendesk.Tests.Commands;
 
-public class UpsertZendeskGroupCommandTests : TestBase
+public class UpsertZendeskGroupCommandTests : Neo4jDbBasedTest
 {
     [Fact]
     public async Task Handle_WithNewGroup_CreatesGroupInNeo4j()

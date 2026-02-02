@@ -6,7 +6,7 @@ using Xunit;
 
 namespace NexAI.Git.Tests.Commands;
 
-public class UpsertGitCommitCommandTests : TestBase
+public class UpsertGitCommitCommandTests : Neo4jDbBasedTest
 {
     [Fact]
     public async Task Handle_WithNewCommit_CreatesCommitInNeo4j()

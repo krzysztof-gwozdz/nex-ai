@@ -5,7 +5,7 @@ using Xunit;
 
 namespace NexAI.Zendesk.Tests.Commands;
 
-public class UpsertZendeskMembersOfRelationshipCommandTests : TestBase
+public class UpsertZendeskMembersOfRelationshipCommandTests : Neo4jDbBasedTest
 {
     [Fact]
     public async Task Handle_WithUserAndGroups_CreatesMemberOfRelationsInNeo4j()
