@@ -3,7 +3,7 @@ using Xunit;
 
 namespace NexAI.Zendesk.Tests;
 
-public class ZendeskTicketIdTests
+public class ZendeskTicketMessageIdTests
 {
     [Fact]
     public void Constructor_WithValidGuid_AssignsValue()
@@ -12,7 +12,7 @@ public class ZendeskTicketIdTests
         var guid = Guid.NewGuid();
 
         // act
-        var id = new ZendeskTicketId(guid);
+        var id = new ZendeskTicketMessageId(guid);
 
         // assert
         id.Value.Should().Be(guid);
@@ -22,7 +22,7 @@ public class ZendeskTicketIdTests
     public void Constructor_WithEmptyGuid_Throws()
     {
         // arrange
-        var act = () => new ZendeskTicketId(Guid.Empty);
+        var act = () => new ZendeskTicketMessageId(Guid.Empty);
 
         // act & assert
         act.Should().Throw<ArgumentException>()
@@ -33,7 +33,7 @@ public class ZendeskTicketIdTests
     public void New_ReturnsIdWithNonEmptyGuid()
     {
         // act
-        var id = ZendeskTicketId.New();
+        var id = ZendeskTicketMessageId.New();
 
         // assert
         id.Value.Should().NotBe(Guid.Empty);
@@ -43,8 +43,8 @@ public class ZendeskTicketIdTests
     public void New_EachCall_GeneratesDifferentId()
     {
         // arrange & act
-        var id1 = ZendeskTicketId.New();
-        var id2 = ZendeskTicketId.New();
+        var id1 = ZendeskTicketMessageId.New();
+        var id2 = ZendeskTicketMessageId.New();
 
         // assert
         id1.Value.Should().NotBe(id2.Value);
@@ -55,7 +55,7 @@ public class ZendeskTicketIdTests
     {
         // arrange
         var guid = Guid.NewGuid();
-        var id = new ZendeskTicketId(guid);
+        var id = new ZendeskTicketMessageId(guid);
 
         // act
         var result = id.ToString();
@@ -69,7 +69,7 @@ public class ZendeskTicketIdTests
     {
         // arrange
         var guid = Guid.NewGuid();
-        var id = new ZendeskTicketId(guid);
+        var id = new ZendeskTicketMessageId(guid);
 
         // act
         Guid result = id;
@@ -83,7 +83,7 @@ public class ZendeskTicketIdTests
     {
         // arrange
         var guid = Guid.NewGuid();
-        var id = new ZendeskTicketId(guid);
+        var id = new ZendeskTicketMessageId(guid);
 
         // act
         string result = id;
@@ -97,8 +97,8 @@ public class ZendeskTicketIdTests
     {
         // arrange
         var guid = Guid.NewGuid();
-        var id1 = new ZendeskTicketId(guid);
-        var id2 = new ZendeskTicketId(guid);
+        var id1 = new ZendeskTicketMessageId(guid);
+        var id2 = new ZendeskTicketMessageId(guid);
 
         // act & assert
         id1.Should().Be(id2);
@@ -109,8 +109,8 @@ public class ZendeskTicketIdTests
     public void Equal_DifferentValues_ProducesEqualRecords()
     {
         // arrange
-        var id1 = new ZendeskTicketId(Guid.NewGuid());
-        var id2 = new ZendeskTicketId(Guid.NewGuid());
+        var id1 = new ZendeskTicketMessageId(Guid.NewGuid());
+        var id2 = new ZendeskTicketMessageId(Guid.NewGuid());
 
         // act & assert
         id1.Should().NotBe(id2);

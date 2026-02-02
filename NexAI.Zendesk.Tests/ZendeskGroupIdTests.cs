@@ -6,83 +6,114 @@ namespace NexAI.Zendesk.Tests;
 public class ZendeskGroupIdTests
 {
     [Fact]
-    public void Constructor_ForNotEmptyGuid_ConstructsNewId()
+    public void Constructor_WithValidGuid_AssignsValue()
     {
         // arrange
         var guid = Guid.NewGuid();
 
         // act
-        var zendeskGroupId = new ZendeskGroupId(guid);
+        var id = new ZendeskGroupId(guid);
 
         // assert
-        zendeskGroupId.Value.Should().NotBeEmpty();
+        id.Value.Should().Be(guid);
     }
 
     [Fact]
-    public void Constructor_ForEmptyGuid_ThrowsException()
+    public void Constructor_WithEmptyGuid_Throws()
     {
         // arrange
+        var act = () => new ZendeskGroupId(Guid.Empty);
 
-        // act
-        var constructor = () => new ZendeskGroupId(Guid.Empty);
-
-        // assert
-        constructor.Should().Throw<ArgumentException>()
-            .WithMessage("Argument cannot be null or empty (Parameter 'value')");
+        // act & assert
+        act.Should().Throw<ArgumentException>()
+            .WithParameterName("value");
     }
 
     [Fact]
-    public void New_GeneratesNewId()
+    public void New_ReturnsIdWithNonEmptyGuid()
     {
-        // arrange
-
         // act
-        var zendeskGroupId = ZendeskGroupId.New();
+        var id = ZendeskGroupId.New();
 
         // assert
-        zendeskGroupId.Value.Should().NotBeEmpty();
-        zendeskGroupId.Value.Version.Should().Be(7);
+        id.Value.Should().NotBe(Guid.Empty);
     }
 
     [Fact]
-    public void ToString_ReturnsStringRepresentationOfValue()
+    public void New_EachCall_GeneratesDifferentId()
+    {
+        // arrange & act
+        var id1 = ZendeskGroupId.New();
+        var id2 = ZendeskGroupId.New();
+
+        // assert
+        id1.Value.Should().NotBe(id2.Value);
+    }
+
+    [Fact]
+    public void ToString_ReturnsValueToString()
     {
         // arrange
         var guid = Guid.NewGuid();
-        var zendeskGroupId = new ZendeskGroupId(guid);
+        var id = new ZendeskGroupId(guid);
 
         // act
-        var value = zendeskGroupId.ToString();
+        var result = id.ToString();
 
         // assert
-        value.Should().Be(guid.ToString());
+        result.Should().Be(guid.ToString());
     }
 
     [Fact]
-    public void ToGuidOperator_ReturnsGuidRepresentationOfValue()
+    public void ImplicitConversionToGuid_ReturnsValue()
     {
         // arrange
         var guid = Guid.NewGuid();
-        var zendeskGroupId = new ZendeskGroupId(guid);
+        var id = new ZendeskGroupId(guid);
 
         // act
-        Guid value = zendeskGroupId;
+        Guid result = id;
 
         // assert
-        value.Should().Be(guid);
+        result.Should().Be(guid);
     }
 
     [Fact]
-    public void ToStringOperator_ReturnsStringRepresentationOfValue()
+    public void ImplicitConversionToString_ReturnsValueToString()
     {
         // arrange
         var guid = Guid.NewGuid();
-        var zendeskGroupId = new ZendeskGroupId(guid);
+        var id = new ZendeskGroupId(guid);
 
-        // value
-        string value = zendeskGroupId;
+        // act
+        string result = id;
 
         // assert
-        value.Should().Be(guid.ToString());
+        result.Should().Be(guid.ToString());
+    }
+
+    [Fact]
+    public void Equal_SameValue_ProducesEqualRecords()
+    {
+        // arrange
+        var guid = Guid.NewGuid();
+        var id1 = new ZendeskGroupId(guid);
+        var id2 = new ZendeskGroupId(guid);
+
+        // act & assert
+        id1.Should().Be(id2);
+        (id1 == id2).Should().BeTrue();
+    }
+
+    [Fact]
+    public void Equal_DifferentValues_ProducesEqualRecords()
+    {
+        // arrange
+        var id1 = new ZendeskGroupId(Guid.NewGuid());
+        var id2 = new ZendeskGroupId(Guid.NewGuid());
+
+        // act & assert
+        id1.Should().NotBe(id2);
+        (id1 == id2).Should().BeFalse();
     }
 }

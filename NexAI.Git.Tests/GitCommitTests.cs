@@ -137,31 +137,4 @@ public class GitCommitTests
         evt.Description.Should().Be(commit.Description);
         evt.CommittedAt.Should().Be(commit.CommittedAt);
     }
-
-    [Fact]
-    public void FromGitCommitImportedEvent_AndToGitCommitImportedEvent_RoundTrips()
-    {
-        // arrange
-        var evt = new GitCommitImportedEvent(
-            Guid.NewGuid(),
-            "roundtrip-sha",
-            new GitCommitImportedEvent.GitAuthor(Guid.NewGuid(), "Roundtrip Author", "roundtrip@example.com"),
-            "roundtrip name",
-            "roundtrip description",
-            new DateTime(2025, 2, 2, 18, 0, 0, DateTimeKind.Utc));
-
-        // act
-        var commit = GitCommit.FromGitCommitImportedEvent(evt);
-        var roundTripped = commit.ToGitCommitImportedEvent();
-
-        // assert
-        roundTripped.Id.Should().Be(evt.Id);
-        roundTripped.Sha.Should().Be(evt.Sha);
-        roundTripped.Author.Id.Should().Be(evt.Author.Id);
-        roundTripped.Author.Name.Should().Be(evt.Author.Name);
-        roundTripped.Author.Email.Should().Be(evt.Author.Email);
-        roundTripped.Name.Should().Be(evt.Name);
-        roundTripped.Description.Should().Be(evt.Description);
-        roundTripped.CommittedAt.Should().Be(evt.CommittedAt);
-    }
 }

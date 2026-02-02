@@ -1,7 +1,17 @@
-﻿namespace NexAI.Zendesk;
+﻿using NexAI.Config;
 
-public readonly record struct ZendeskTicketMessageId(Guid Value)
+namespace NexAI.Zendesk;
+
+public readonly record struct ZendeskTicketMessageId
 {
+    public Guid Value { get; init; }
+
+    public ZendeskTicketMessageId(Guid value)
+    {
+        ArgumentExceptionExtensions.ThrowIfNullOrEmpty(value);
+        Value = value;
+    }
+    
     public static ZendeskTicketMessageId New() => new(Guid.CreateVersion7());
 
     public override string ToString() => Value.ToString();
