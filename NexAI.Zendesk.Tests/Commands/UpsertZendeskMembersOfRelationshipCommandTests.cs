@@ -1,11 +1,12 @@
 using FluentAssertions;
-using NexAI.Tests;
+using NexAI.Tests.Neo4j;
 using NexAI.Zendesk.Commands;
 using Xunit;
 
 namespace NexAI.Zendesk.Tests.Commands;
 
-public class UpsertZendeskMembersOfRelationshipCommandTests : Neo4jDbBasedTest
+[Collection("Neo4j")]
+public class UpsertZendeskMembersOfRelationshipCommandTests(Neo4jTestFixture fixture) : Neo4jDbBasedTest(fixture)
 {
     [Fact]
     public async Task Handle_WithUserAndGroups_CreatesMemberOfRelationsInNeo4j()

@@ -1,13 +1,15 @@
 using FluentAssertions;
+using NexAI.Tests.Neo4j;
 using NexAI.Zendesk.Commands;
 using NexAI.Zendesk.Queries;
 using Xunit;
 
 namespace NexAI.Zendesk.Tests.Queries;
 
-public class GetInfoAboutZendeskHierarchyQueryTests : Neo4jDbBasedTest
+[Collection("Neo4j")]
+public class GetInfoAboutZendeskHierarchyQueryTests(Neo4jTestFixture fixture) : Neo4jDbBasedTest(fixture)
 {
-    [Fact]
+  [Fact]
     public async Task Handle_WithHierarchyData_ReturnsQueryResult()
     {
         // arrange

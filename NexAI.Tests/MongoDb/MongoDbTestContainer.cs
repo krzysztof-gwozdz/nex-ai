@@ -3,7 +3,7 @@
 using System.Globalization;
 using Testcontainers.MongoDb;
 
-namespace NexAI.Tests;
+namespace NexAI.Tests.MongoDb;
 
 public sealed class MongoDbTestContainer : IAsyncDisposable
 {

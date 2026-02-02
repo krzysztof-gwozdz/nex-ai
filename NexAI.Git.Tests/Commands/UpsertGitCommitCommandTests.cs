@@ -1,12 +1,13 @@
 using FluentAssertions;
 using Neo4j.Driver;
 using NexAI.Git.Commands;
-using NexAI.Tests;
+using NexAI.Tests.Neo4j;
 using Xunit;
 
 namespace NexAI.Git.Tests.Commands;
 
-public class UpsertGitCommitCommandTests : Neo4jDbBasedTest
+[Collection("Neo4j")]
+public class UpsertGitCommitCommandTests(Neo4jTestFixture fixture) : Neo4jDbBasedTest(fixture)
 {
     [Fact]
     public async Task Handle_WithNewCommit_CreatesCommitInNeo4j()

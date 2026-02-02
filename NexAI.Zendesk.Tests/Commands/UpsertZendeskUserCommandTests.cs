@@ -1,12 +1,13 @@
 using FluentAssertions;
 using Neo4j.Driver;
-using NexAI.Tests;
+using NexAI.Tests.Neo4j;
 using NexAI.Zendesk.Commands;
 using Xunit;
 
 namespace NexAI.Zendesk.Tests.Commands;
 
-public class UpsertZendeskUserCommandTests : Neo4jDbBasedTest
+[Collection("Neo4j")]
+public class UpsertZendeskUserCommandTests(Neo4jTestFixture fixture) : Neo4jDbBasedTest(fixture)
 {
     [Fact]
     public async Task Handle_WithNewUser_CreatesUserInNeo4j()

@@ -1,11 +1,13 @@
 using FluentAssertions;
+using NexAI.Tests.Neo4j;
 using NexAI.Zendesk.Commands;
 using NexAI.Zendesk.Queries;
 using Xunit;
 
 namespace NexAI.Zendesk.Tests.Queries;
 
-public class GetZendeskGroupByNameQueryTests : Neo4jDbBasedTest
+[Collection("Neo4j")]
+public class GetZendeskGroupByNameQueryTests(Neo4jTestFixture fixture) : Neo4jDbBasedTest(fixture)
 {
     [Fact]
     public async Task Handle_WithExistingGroupName_ReturnsMatchingGroup()

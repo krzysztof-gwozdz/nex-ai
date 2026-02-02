@@ -3,7 +3,7 @@
 using Neo4j.Driver;
 using NexAI.Neo4j;
 
-namespace NexAI.Tests;
+namespace NexAI.Tests.Neo4j;
 
 public static class Neo4jDbClientExtensions
 {
