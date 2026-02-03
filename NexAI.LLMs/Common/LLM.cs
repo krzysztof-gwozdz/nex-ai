@@ -4,4 +4,5 @@ public static class LLM
 {
     public const string OpenAI = "OpenAI";
     public const string Ollama = "Ollama";
+    public const string Fake = "Fake";
 }

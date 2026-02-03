@@ -19,7 +19,7 @@ public sealed class AgentTests(NexAIApiApplicationFactory factory) : TestsBase(f
         // assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var body = await GetResponse<string>(response);
-        body.Should().Be("Fake agent response");
+        body.Should().Be("I'm sorry, I can't help with that.");
     }
 
     [Fact]
@@ -36,6 +36,6 @@ public sealed class AgentTests(NexAIApiApplicationFactory factory) : TestsBase(f
         var chunks = await GetResponse<string[]>(response);
         chunks.Should().NotBeNull();
         var combined = string.Concat(chunks);
-        combined.Should().Be("Fake agent response");
+        combined.Should().Be("I'm sorry, I can't help with that.");
     }
 }

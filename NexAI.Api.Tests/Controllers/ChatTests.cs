@@ -19,7 +19,7 @@ public sealed class ChatTests(NexAIApiApplicationFactory factory) : TestsBase(fa
         // assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var body = await GetResponse<string>(response);
-        body.Should().Be("Fake chat response");
+        body.Should().Be("I'm sorry, I can't help with that.");
     }
 
     [Fact]
@@ -36,6 +36,6 @@ public sealed class ChatTests(NexAIApiApplicationFactory factory) : TestsBase(fa
         var chunks = await GetResponse<string[]>(response);
         chunks.Should().NotBeNull();
         var combined = string.Concat(chunks);
-        combined.Should().Be("Fake chat response");
+        combined.Should().Be("I'm sorry, I can't help with that.");
     }
 }

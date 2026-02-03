@@ -36,7 +36,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddLogging(loggingBuilder => loggingBuilder.AddConsole());
 builder.Services.AddSingleton(options);
 
-builder.Services.AddSingleton<INexAIAgent, NexAIAgent>();
+builder.Services.AddAgents(options);
 builder.Services.AddAzureDevOps();
 builder.Services.AddZendesk();
 builder.Services.AddMongoDb();

@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace NexAI.Api.Tests;
 
-public abstract class TestsBase(NexAIApiApplicationFactory factory): IClassFixture<NexAIApiApplicationFactory>
+public abstract class TestsBase(NexAIApiApplicationFactory factory) : IClassFixture<NexAIApiApplicationFactory>
 {
     private readonly HttpClient _client = factory.CreateClient();
 
@@ -19,7 +19,7 @@ public abstract class TestsBase(NexAIApiApplicationFactory factory): IClassFixtu
     protected async Task<TResponse> GetResponse<TResponse>(HttpResponseMessage response) where TResponse : class
     {
         var content = await response.Content.ReadAsStringAsync();
-       return typeof(TResponse) == typeof(string)
+        return typeof(TResponse) == typeof(string)
             ? (content as TResponse)!
             : JsonSerializer.Deserialize<TResponse>(content)
               ?? throw new JsonException($"Failed to deserialize response to {typeof(TResponse).Name}");
