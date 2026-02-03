@@ -36,7 +36,7 @@ public class GetInfoAboutZendeskHierarchyQueryTests(Neo4jTestFixture fixture) : 
         await upsertMembersCommand.Handle(new ZendeskUserGroups(user22.Id, [group2.Id]));
 
         var query = new GetInfoAboutZendeskHierarchyQuery(Neo4jDbClient);
-        const string cypherQuery = "MATCH (group:Group)<-[:MEMBER_OF]-(user:User) RETURN group, user";
+        const string cypherQuery = "MATCH (group:Group)<-[member_of:MEMBER_OF]-(user:User) RETURN group, user, member_of";
 
         // act
         var result = await query.Handle(cypherQuery);
@@ -60,8 +60,13 @@ public class GetInfoAboutZendeskHierarchyQueryTests(Neo4jTestFixture fixture) : 
         ""zendeskId"": ""{user11.ExternalId}"",
         ""email"": ""{user11.Email}""
       }}
+    }},
+    ""member_of"": {{
+      ""type"": ""MEMBER_OF"",
+      ""properties"": {{}}
     }}
-  }}, {{
+  }},
+  {{
     ""group"": {{
       ""labels"": [""Group""],
       ""properties"": {{
@@ -78,8 +83,13 @@ public class GetInfoAboutZendeskHierarchyQueryTests(Neo4jTestFixture fixture) : 
         ""zendeskId"": ""{user12.ExternalId}"",
         ""email"": ""{user12.Email}""
       }}
+    }},
+    ""member_of"": {{
+      ""type"": ""MEMBER_OF"",
+      ""properties"": {{}}
     }}
-  }}, {{
+  }}, 
+  {{
     ""group"": {{
       ""labels"": [""Group""],
       ""properties"": {{
@@ -96,8 +106,13 @@ public class GetInfoAboutZendeskHierarchyQueryTests(Neo4jTestFixture fixture) : 
         ""zendeskId"": ""{user21.ExternalId}"",
         ""email"": ""{user21.Email}""
       }}
+    }},
+    ""member_of"": {{
+      ""type"": ""MEMBER_OF"",
+      ""properties"": {{}}
     }}
-  }}, {{
+  }}, 
+  {{
     ""group"": {{
       ""labels"": [""Group""],
       ""properties"": {{
@@ -114,6 +129,10 @@ public class GetInfoAboutZendeskHierarchyQueryTests(Neo4jTestFixture fixture) : 
         ""zendeskId"": ""{user22.ExternalId}"",
         ""email"": ""{user22.Email}""
       }}
+    }},
+    ""member_of"": {{
+      ""type"": ""MEMBER_OF"",
+      ""properties"": {{}}
     }}
   }}
 ]

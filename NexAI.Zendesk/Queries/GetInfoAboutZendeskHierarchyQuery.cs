@@ -50,8 +50,6 @@ public class GetInfoAboutZendeskHierarchyQuery(Neo4jDbClient neo4jDbClient)
             IRelationship relationship => new
             {
                 type = relationship.Type,
-                startNodeId = relationship.StartNodeElementId,
-                endNodeId = relationship.EndNodeElementId,
                 properties = relationship.Properties
             },
             IPath path => new
