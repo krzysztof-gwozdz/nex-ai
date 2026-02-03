@@ -1,7 +1,7 @@
-﻿// ReSharper disable InconsistentNaming
+// ReSharper disable InconsistentNaming
 
-using Neo4j.Driver;
 using NexAI.Neo4j;
+using NexAI.Zendesk.Neo4j;
 
 namespace NexAI.Zendesk.Queries;
 
@@ -19,19 +19,7 @@ public class GetZendeskUsersOfGroupQuery(Neo4jDbClient neo4jDbClient)
             { "groupId", (string)zendeskGroupId },
             { "limit", limit }
         };
-        await using var session = neo4jDbClient.Driver.AsyncSession(sessionConfigBuilder => sessionConfigBuilder.WithDatabase("neo4j"));
-        var users = await session.ExecuteReadAsync(async queryRunner =>
-        {
-            var cursor = await queryRunner.RunAsync(query, parameters);
-            var users = await cursor.ToListAsync<ZendeskUser>(record =>
-                new(
-                    new(Guid.Parse(record["id"].As<string>())),
-                    record["zendeskId"].As<string>(),
-                    record["name"].As<string>(),
-                    record["email"].As<string>())
-            );
-            return users;
-        });
-        return users?.ToArray() ?? [];
+        var mapper = new ZendeskUserNeo4jRecordMapper();
+        return await neo4jDbClient.GetMany(query, parameters, mapper);
     }
 }

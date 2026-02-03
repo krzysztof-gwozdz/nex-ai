@@ -55,15 +55,15 @@ public class GetZendeskGroupByNameQueryTests(Neo4jTestFixture fixture) : Neo4jDb
     }
 
     [Fact]
-    public async Task Handle_WithNonExistentGroupName_Throws()
+    public async Task Handle_WithNonExistentGroupName_ReturnsNull()
     {
         // arrange
         var query = new GetZendeskGroupByNameQuery(Neo4jDbClient);
 
         // act
-        var act = () => query.Handle("Non Existent Group");
+        var result = await query.Handle("Non Existent Group");
 
         // assert
-        await act.Should().ThrowAsync<InvalidOperationException>();
+        result.Should().BeNull();
     }
 }

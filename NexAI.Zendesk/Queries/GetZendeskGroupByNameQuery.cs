@@ -2,6 +2,7 @@
 
 using Neo4j.Driver;
 using NexAI.Neo4j;
+using NexAI.Zendesk.Neo4j;
 
 namespace NexAI.Zendesk.Queries;
 
@@ -18,17 +19,7 @@ public class GetZendeskGroupByNameQuery(Neo4jDbClient neo4jDbClient)
         {
             { "groupName", zendeskGroupName }
         };
-        await using var session = neo4jDbClient.Driver.AsyncSession(sessionConfigBuilder => sessionConfigBuilder.WithDatabase("neo4j"));
-        var group = await session.ExecuteReadAsync(async queryRunner =>
-        {
-            var cursor = await queryRunner.RunAsync(query, parameters);
-            var record = await cursor.SingleAsync();
-            var group = new ZendeskGroup(
-                new(Guid.Parse(record["id"].As<string>())),
-                record["zendeskId"].As<string>(),
-                record["name"].As<string>());
-            return group;
-        });
-        return group;
+        var mapper = new ZendeskGroupNeo4jRecordMapper();
+        return await neo4jDbClient.GetOne(query, parameters, mapper);
     }
 }

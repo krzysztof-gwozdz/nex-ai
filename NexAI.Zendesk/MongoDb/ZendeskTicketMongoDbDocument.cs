@@ -54,7 +54,7 @@ public record ZendeskTicketMongoDbDocument
     public string ExternalId { get; init; } = string.Empty;
 
     [BsonElement("url")]
-    public string Url { get; private set; } = string.Empty;
+    public string Url { get; init; } = string.Empty;
 
     [BsonElement("title")]
     public string Title { get; private set; } = string.Empty;
@@ -63,7 +63,7 @@ public record ZendeskTicketMongoDbDocument
     public string Description { get; private set; } = string.Empty;
 
     [BsonElement("mainCategory")]
-    public string? MainCategory { get; private set; }
+    public string? MainCategory { get; init; }
 
     [BsonElement("category")]
     public string? Category { get; private set; }
@@ -84,7 +84,7 @@ public record ZendeskTicketMongoDbDocument
     public string[] Tags { get; private set; } = [];
 
     [BsonElement("createdAt")]
-    public DateTime CreatedAt { get; private set; }
+    public DateTime CreatedAt { get; init; }
 
     [BsonElement("updatedAt")]
     public DateTime? UpdatedAt { get; private set; }
@@ -99,7 +99,7 @@ public record ZendeskTicketMongoDbDocument
     public DateTime LastImportDate { get; private set; }
 
     [BsonElement("score")]
-    public double Score { get; private set; }
+    public double Score { get; init; }
 
     public record MessageDocument
     {
