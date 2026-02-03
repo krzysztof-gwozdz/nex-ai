@@ -1,4 +1,5 @@
 using NexAI.Agents;
+using NexAI.Api.HealthChecks;
 using NexAI.AzureDevOps;
 using NexAI.Config;
 using NexAI.LLMs;
@@ -42,6 +43,7 @@ builder.Services.AddMongoDb();
 builder.Services.AddNeo4j();
 builder.Services.AddQdrant();
 builder.Services.AddLLM(options);
+builder.Services.AddHealthChecks(builder.Environment.ApplicationName);
 
 var app = builder.Build();
 app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
@@ -49,6 +51,7 @@ app.MapOpenApi();
 app.MapScalarApiReference();
 app.UseHttpsRedirection();
 app.MapControllers();
+app.UseHealthChecks();
 app.Run();
 
 IConfigurationRoot GetConfiguration() => new ConfigurationBuilder()

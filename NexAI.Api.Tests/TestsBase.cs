@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Text.Json;
 
 namespace NexAI.Api.Tests;
@@ -6,7 +6,9 @@ namespace NexAI.Api.Tests;
 public abstract class TestsBase(NexAIApiApplicationFactory factory): IClassFixture<NexAIApiApplicationFactory>
 {
     private readonly HttpClient _client = factory.CreateClient();
-    
+
+    protected Task<HttpResponseMessage> Get(string url) => _client.GetAsync(url);
+
     protected async Task<HttpResponseMessage> Post<TRequest>(string url, TRequest request)
     {
         var json = JsonSerializer.Serialize(request, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });

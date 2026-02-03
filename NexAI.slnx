@@ -7,6 +7,7 @@
   </Folder>
   <Folder Name="/app/">
     <Project Path="NexAI.Api/NexAI.Api.csproj" />
+    <Project Path="NexAI.Api.Tests/NexAI.Api.Tests.csproj" />
     <Project Path="NexAI.Console/NexAI.Console.csproj" />
     <Project Path="NexAI.DataImporter/NexAI.DataImporter.csproj" />
     <Project Path="NexAI.DataProcessor/NexAI.DataProcessor.csproj" />
@@ -24,7 +25,6 @@
     <Project Path="NexAI.ServiceBus/NexAI.ServiceBus.csproj" />
     <Project Path="NexAI.Tests/NexAI.Tests.csproj" />
     <Project Path="NexAI.Zendesk.Messages/NexAI.Zendesk.Messages.csproj" />
-    <Project Path="NexAI.Api.Tests/NexAI.Api.Tests.csproj" />
     <Project Path="NexAI.Zendesk.Tests/NexAI.Zendesk.Tests.csproj" />
     <Project Path="NexAI.Zendesk/NexAI.Zendesk.csproj" />
   </Folder>

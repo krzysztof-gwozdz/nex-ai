@@ -1,6 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <ItemGroup>
+        <PackageReference Include="AspNetCore.HealthChecks.UI" Version="9.0.0" />
+        <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="9.0.0" />
+        <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="9.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.2" />
         <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.0" />
         <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.15.0" />
@@ -19,6 +22,7 @@
         <ProjectReference Include="..\NexAI.AzureDevOps\NexAI.AzureDevOps.csproj" />
         <ProjectReference Include="..\NexAI.Config\NexAI.Config.csproj"/>
         <ProjectReference Include="..\NexAI.LLMs\NexAI.LLMs.csproj" />
+        <ProjectReference Include="..\NexAI.MongoDb\NexAI.MongoDb.csproj" />
         <ProjectReference Include="..\NexAI.Neo4j\NexAI.Neo4j.csproj" />
         <ProjectReference Include="..\NexAI.Qdrant\NexAI.Qdrant.csproj"/>
         <ProjectReference Include="..\NexAI.Zendesk\NexAI.Zendesk.csproj"/>
