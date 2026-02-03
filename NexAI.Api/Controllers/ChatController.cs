@@ -8,7 +8,7 @@ namespace NexAI.Api.Controllers;
 public class ChatController : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> Get([FromServices] Chat chat, [FromBody] ChatRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Post([FromServices] Chat chat, [FromBody] ChatRequest request, CancellationToken cancellationToken)
     {
         var messages = request.Messages.Select(message => new ChatMessage(message.Role, message.Content)).ToArray();
         return request.Stream

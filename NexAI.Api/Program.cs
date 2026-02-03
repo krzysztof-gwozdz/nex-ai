@@ -16,7 +16,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddLogging(loggingBuilder => loggingBuilder.AddConsole());
 builder.Services.AddSingleton(options);
 
-builder.Services.AddSingleton<NexAIAgent>();
+builder.Services.AddSingleton<INexAIAgent, NexAIAgent>();
 builder.Services.AddAzureDevOps();
 builder.Services.AddZendesk();
 builder.Services.AddMongoDb();
@@ -37,3 +37,7 @@ IConfigurationRoot GetConfiguration() => new ConfigurationBuilder()
     .AddJsonFile("appsettings.local.json", optional: true)
     .AddEnvironmentVariables()
     .Build();
+    
+#pragma warning disable ASP0027
+public partial class Program; // used in tests
+#pragma warning restore ASP0027

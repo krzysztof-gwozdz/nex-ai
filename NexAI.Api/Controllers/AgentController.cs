@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using NexAI.Agents;
 using NexAI.LLMs.Common;
 
@@ -9,7 +9,7 @@ namespace NexAI.Api.Controllers;
 public class AgentController : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> Get([FromServices] NexAIAgent nexAIAgent, [FromBody] AgentRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Post([FromServices] INexAIAgent nexAIAgent, [FromBody] AgentRequest request, CancellationToken cancellationToken)
     {
         nexAIAgent.StartNewChat(request.Messages.Select(message => new ChatMessage(message.Role, message.Content)).ToArray());
         return request.Stream

@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
@@ -17,7 +17,7 @@ using NexAI.Zendesk;
 
 namespace NexAI.Agents;
 
-public class NexAIAgent
+public class NexAIAgent : INexAIAgent
 {
     private readonly Kernel _kernel;
     private readonly IChatCompletionService _chatCompletionService;

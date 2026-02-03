@@ -1,6 +1,4 @@
-using FluentAssertions;
 using NexAI.Git.Messages;
-using Xunit;
 
 namespace NexAI.Git.Tests;
 
