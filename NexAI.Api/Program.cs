@@ -6,11 +6,30 @@ using NexAI.MongoDb;
 using NexAI.Neo4j;
 using NexAI.Qdrant;
 using NexAI.Zendesk;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using Scalar.AspNetCore;
 
 var options = new Options(GetConfiguration());
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddOpenTelemetry()
+    .ConfigureResource(resource => resource.AddService(builder.Environment.ApplicationName))
+    .WithTracing(tracerProviderBuilder => tracerProviderBuilder
+        .AddAspNetCoreInstrumentation()
+        .AddHttpClientInstrumentation()
+        .AddOtlpExporter())
+    .WithMetrics(meterProviderBuilder => meterProviderBuilder
+        .AddAspNetCoreInstrumentation()
+        .AddOtlpExporter());
+
+builder.Logging.AddOpenTelemetry(openTelemetryLoggerOptions => openTelemetryLoggerOptions
+    .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(builder.Environment.ApplicationName))
+    .AddOtlpExporter());
+
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddLogging(loggingBuilder => loggingBuilder.AddConsole());
@@ -37,7 +56,7 @@ IConfigurationRoot GetConfiguration() => new ConfigurationBuilder()
     .AddJsonFile("appsettings.local.json", optional: true)
     .AddEnvironmentVariables()
     .Build();
-    
+
 #pragma warning disable ASP0027
 public partial class Program; // used in tests
 #pragma warning restore ASP0027
