@@ -1,8 +1,6 @@
-using FluentAssertions;
 using Neo4j.Driver;
 using NexAI.Tests.Neo4j;
 using NexAI.Zendesk.Commands;
-using Xunit;
 
 namespace NexAI.Zendesk.Tests.Commands;
 

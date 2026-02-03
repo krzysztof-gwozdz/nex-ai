@@ -1,7 +1,6 @@
 ﻿// ReSharper disable InconsistentNaming
 
 using NexAI.Tests.Neo4j;
-using Xunit;
 
 namespace NexAI.Zendesk.Tests.CollectionDefinitions;
 

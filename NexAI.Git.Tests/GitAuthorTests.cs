@@ -1,6 +1,3 @@
-using FluentAssertions;
-using Xunit;
-
 namespace NexAI.Git.Tests;
 
 public class GitAuthorTests

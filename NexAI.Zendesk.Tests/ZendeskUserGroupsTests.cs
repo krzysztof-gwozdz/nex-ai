@@ -1,6 +1,4 @@
-using FluentAssertions;
 using NexAI.Zendesk.Messages;
-using Xunit;
 
 namespace NexAI.Zendesk.Tests;
 

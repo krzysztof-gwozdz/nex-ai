@@ -1,9 +1,7 @@
 using System.Text.Json;
-using FluentAssertions;
 using NexAI.LLMs;
 using NexAI.Zendesk.Queries;
 using NexAI.Zendesk.Tests.Builders;
-using Xunit;
 
 namespace NexAI.Zendesk.Tests.Queries;
 

@@ -1,8 +1,6 @@
-using FluentAssertions;
 using Neo4j.Driver;
 using NexAI.Git.Commands;
 using NexAI.Tests.Neo4j;
-using Xunit;
 
 namespace NexAI.Git.Tests.Commands;
 

@@ -1,7 +1,4 @@
-﻿using FluentAssertions;
-using Xunit;
-
-namespace NexAI.Zendesk.Tests;
+﻿namespace NexAI.Zendesk.Tests;
 
 public class ZendeskGroupIdTests
 {

@@ -1,5 +1,3 @@
-using NexAI.Zendesk;
-
 namespace NexAI.Zendesk.Tests.Builders;
 
 public class ZendeskTicketBuilder

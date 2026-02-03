@@ -1,6 +1,4 @@
-﻿using FluentAssertions;
-using NexAI.Zendesk.Api.Dtos;
-using Xunit;
+﻿using NexAI.Zendesk.Api.Dtos;
 
 namespace NexAI.Zendesk.Tests;
 

@@ -1,7 +1,5 @@
-using FluentAssertions;
 using FluentAssertions.Extensions;
 using LibGit2Sharp;
-using Xunit;
 
 namespace NexAI.Git.Tests;
 

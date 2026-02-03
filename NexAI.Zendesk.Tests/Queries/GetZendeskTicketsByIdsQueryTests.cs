@@ -1,9 +1,7 @@
-using FluentAssertions;
 using NexAI.Tests.MongoDb;
 using NexAI.Zendesk.MongoDb;
 using NexAI.Zendesk.Queries;
 using NexAI.Zendesk.Tests.Builders;
-using Xunit;
 
 namespace NexAI.Zendesk.Tests.Queries;
 

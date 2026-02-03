@@ -1,6 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
 
-using Neo4j.Driver;
 using NexAI.Neo4j;
 using NexAI.Zendesk.Neo4j;
 
