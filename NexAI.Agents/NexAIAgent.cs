@@ -23,6 +23,7 @@ public class NexAIAgent : INexAIAgent
     private readonly IChatCompletionService _chatCompletionService;
     private readonly OpenAIPromptExecutionSettings _openAIPromptExecutionSettings;
     private readonly ChatHistory _chatHistory = new();
+    public ConversationId  ConversationId { get; private set; }
 
     public NexAIAgent(Options options)
     {
@@ -38,8 +39,9 @@ public class NexAIAgent : INexAIAgent
         };
     }
 
-    public void StartNewChat(ChatMessage[]? messages = null)
+    public void StartNewChat(ConversationId conversationId, ChatMessage[]? messages = null)
     {
+        ConversationId = conversationId;
         _chatHistory.Clear();
         if (messages is not null)
         {
@@ -50,13 +52,13 @@ public class NexAIAgent : INexAIAgent
         }
     }
 
-    public async Task<string> Ask(string userMessage, CancellationToken cancellationToken)
+    public async Task<string> Ask(ConversationId conversationId, string userMessage, CancellationToken cancellationToken)
     {
         _chatHistory.AddUserMessage(userMessage);
-        return await GetResponse(cancellationToken);
+        return await GetResponse(conversationId, cancellationToken);
     }
     
-    public async Task<string> GetResponse(CancellationToken cancellationToken)
+    public async Task<string> GetResponse(ConversationId conversationId, CancellationToken cancellationToken)
     {
         var chatMessageContent = await _chatCompletionService.GetChatMessageContentAsync(
             _chatHistory,
@@ -66,7 +68,7 @@ public class NexAIAgent : INexAIAgent
         return chatMessageContent.Content ?? string.Empty;
     }
     
-    public async IAsyncEnumerable<string> StreamResponse([EnumeratorCancellation] CancellationToken cancellationToken)
+    public async IAsyncEnumerable<string> StreamResponse(ConversationId conversationId, [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         var response =  _chatCompletionService.GetStreamingChatMessageContentsAsync(
             _chatHistory,

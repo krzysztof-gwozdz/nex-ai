@@ -15,7 +15,7 @@ public class FakeChatTests : LLMTestBase
         var chat = new FakeChat();
 
         // act
-        var answer = await chat.Ask("JUST SAY: TEST, nothing else.", "Hi", _cancellationTokenSource.Token);
+        var answer = await chat.Ask(ConversationId.New(), "JUST SAY: TEST, nothing else.", "Hi", _cancellationTokenSource.Token);
 
         // assert
         answer.Should().Be("TEST");
@@ -28,7 +28,7 @@ public class FakeChatTests : LLMTestBase
         var chat = new FakeChat();
 
         // act
-        var ask = async () => await chat.Ask<TestObject>("You are random data generator.", "Generate first and last name.", _cancellationTokenSource.Token);
+        var ask = async () => await chat.Ask<TestObject>(ConversationId.New(), "You are random data generator.", "Generate first and last name.", _cancellationTokenSource.Token);
 
         // assert
         await ask.Should().ThrowExactlyAsync<NotSupportedException>();
@@ -42,7 +42,7 @@ public class FakeChatTests : LLMTestBase
 
         // act
         var answer = string.Empty;
-        var response = chat.AskStream("JUST SAY: TEST, nothing else.", "Hi", _cancellationTokenSource.Token);
+        var response = chat.AskStream(ConversationId.New(), "JUST SAY: TEST, nothing else.", "Hi", _cancellationTokenSource.Token);
         await foreach (var message in response)
         {
             answer += message;
@@ -51,7 +51,7 @@ public class FakeChatTests : LLMTestBase
         // assert
         answer.Should().Be("TEST");
     }
-    
+
     [Fact]
     public async Task GetNextResponse_ReturnResponse()
     {
@@ -60,7 +60,7 @@ public class FakeChatTests : LLMTestBase
         var messages = new[] { new ChatMessage("system", "JUST SAY: TEST, nothing else."), new ChatMessage("user", "Hi") };
 
         // act
-        var answer = await chat.GetNextResponse(messages, _cancellationTokenSource.Token);
+        var answer = await chat.GetNextResponse(ConversationId.New(), messages, _cancellationTokenSource.Token);
 
         // assert
         answer.Should().Be("TEST");
@@ -75,7 +75,7 @@ public class FakeChatTests : LLMTestBase
 
         // act
         var answer = string.Empty;
-        var response = chat.StreamNextResponse(messages, _cancellationTokenSource.Token);
+        var response = chat.StreamNextResponse(ConversationId.New(), messages, _cancellationTokenSource.Token);
         await foreach (var message in response)
         {
             answer += message;

@@ -6,12 +6,12 @@ namespace NexAI.Api.Tests.Controllers;
 public sealed class AgentTests(NexAIApiApplicationFactory factory) : TestsBase(factory)
 {
     private const string Url = "/agent";
-    
+
     [Fact]
     public async Task Post_WithValidBodyAndStreamOff_ReturnsOkAndExpectedContent()
     {
         // arrange
-        var request = new AgentRequest([new AgentRequest.Message("user", "hello")], Stream: false);
+        var request = new AgentRequest(Guid.NewGuid(), [new AgentRequest.Message("user", "hello")], Stream: false);
 
         // act
         var response = await Post(Url, request);
@@ -26,7 +26,7 @@ public sealed class AgentTests(NexAIApiApplicationFactory factory) : TestsBase(f
     public async Task Post_WithValidBodyAndStreamOn_ReturnsOkAndExpectedContent()
     {
         // arrange
-        var request = new AgentRequest([new AgentRequest.Message("user", "hello")], Stream: true);
+        var request = new AgentRequest(Guid.NewGuid(), [new AgentRequest.Message("user", "hello")], Stream: true);
 
         // act
         var response = await Post(Url, request);

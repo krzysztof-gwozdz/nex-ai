@@ -10,6 +10,6 @@ public class StreamZendeskTicketSummaryQuery(Chat chat, PromptReader promptReade
     {
         var systemPrompt = promptReader.Read("ZendeskTicketSummary");
         var json = JsonSerializer.Serialize(zendeskTicket, new JsonSerializerOptions { WriteIndented = true });
-        return chat.AskStream(systemPrompt, json ?? string.Empty, cancellationToken);
+        return chat.AskStream(ConversationId.New(), systemPrompt, json, cancellationToken);
     }
 }

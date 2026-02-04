@@ -11,14 +11,14 @@ public class AgentController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Post([FromServices] INexAIAgent nexAIAgent, [FromBody] AgentRequest request, CancellationToken cancellationToken)
     {
-        nexAIAgent.StartNewChat(request.Messages.Select(message => new ChatMessage(message.Role, message.Content)).ToArray());
+        nexAIAgent.StartNewChat(new ConversationId(request.ConversationId), request.Messages.Select(message => new ChatMessage(message.Role, message.Content)).ToArray());
         return request.Stream
-            ? Ok(nexAIAgent.StreamResponse(cancellationToken))
-            : Ok(await nexAIAgent.GetResponse(cancellationToken));
+            ? Ok(nexAIAgent.StreamResponse(new ConversationId(request.ConversationId), cancellationToken))
+            : Ok(await nexAIAgent.GetResponse(new ConversationId(request.ConversationId), cancellationToken));
     }
 }
 
-public record AgentRequest(AgentRequest.Message[] Messages, bool Stream = false)
+public record AgentRequest(Guid ConversationId, AgentRequest.Message[] Messages, bool Stream = false)
 {
     public record Message(string Role, string Content);
 }

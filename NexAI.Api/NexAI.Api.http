@@ -5,13 +5,14 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "stream": false,
+  "conversationId": "A0000000-0000-0000-0000-00000000000A",
   "messages": [
     {
       "role": "user",
       "content": "tell me a joke"
     }
-  ]
+  ],
+  "stream": false
 }
 
 
@@ -22,7 +23,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "stream": true,
+  "conversationId": "B0000000-0000-0000-0000-00000000000B",
   "messages": [
     {
       "role": "user",
@@ -36,5 +37,6 @@ Content-Type: application/json
       "role": "user",
       "content": "another joke"
     }
-  ]
+  ],
+  "stream": false
 }

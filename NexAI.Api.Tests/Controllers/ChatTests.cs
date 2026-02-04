@@ -6,12 +6,12 @@ namespace NexAI.Api.Tests.Controllers;
 public sealed class ChatTests(NexAIApiApplicationFactory factory) : TestsBase(factory)
 {
     private const string Url = "/chat";
-    
+
     [Fact]
     public async Task Post_WithValidBodyAndStreamOff_ReturnsOkAndExpectedContent()
     {
         // arrange
-        var request = new ChatRequest([new ChatRequest.Message("user", "hello")], Stream: false);
+        var request = new NewChatRequest(Guid.NewGuid(), [new NewChatRequest.Message("user", "hello")], Stream: false);
 
         // act
         var response = await Post(Url, request);
@@ -26,7 +26,7 @@ public sealed class ChatTests(NexAIApiApplicationFactory factory) : TestsBase(fa
     public async Task Post_WithValidBodyAndStreamOn_ReturnsOkAndExpectedContent()
     {
         // arrange
-        var request = new ChatRequest([new ChatRequest.Message("user", "hello")], Stream: true);
+        var request = new NewChatRequest(Guid.NewGuid(), [new NewChatRequest.Message("user", "hello")], Stream: true);
 
         // act
         var response = await Post(Url, request);

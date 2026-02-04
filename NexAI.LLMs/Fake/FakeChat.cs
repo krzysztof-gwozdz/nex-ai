@@ -18,13 +18,13 @@ public class FakeChat : Chat
         "What do you call a fish with no eyes? A fsh.",
     ];
 
-    public override Task<string> Ask(string systemMessage, string message, CancellationToken cancellationToken) => 
+    public override Task<string> Ask(ConversationId conversationId, string systemMessage, string message, CancellationToken cancellationToken) => 
         Task.FromResult(GetResponse(systemMessage, message));
 
-    public override Task<TResponse> Ask<TResponse>(string systemMessage, string message, CancellationToken cancellationToken) => 
+    public override Task<TResponse> Ask<TResponse>(ConversationId conversationId, string systemMessage, string message, CancellationToken cancellationToken) => 
         throw new NotSupportedException();
 
-    public override async IAsyncEnumerable<string> AskStream(string systemMessage, string message, [EnumeratorCancellation] CancellationToken cancellationToken)
+    public override async IAsyncEnumerable<string> AskStream(ConversationId conversationId, string systemMessage, string message, [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         var chunks = GetResponse(systemMessage, message).Split(' ');
         foreach (var chunk in chunks)
@@ -35,10 +35,10 @@ public class FakeChat : Chat
         }
     }
 
-    public override Task<string> GetNextResponse(ChatMessage[] messages, CancellationToken cancellationToken) =>
+    public override Task<string> GetNextResponse(ConversationId conversationId, ChatMessage[] messages, CancellationToken cancellationToken) =>
         Task.FromResult(GetResponse(messages.FirstOrDefault(message => message.Role == "system")?.Content, messages.LastOrDefault(message => message.Role == "user")?.Content));
 
-    public override async IAsyncEnumerable<string> StreamNextResponse(ChatMessage[] messages, [EnumeratorCancellation] CancellationToken cancellationToken)
+    public override async IAsyncEnumerable<string> StreamNextResponse(ConversationId conversationId, ChatMessage[] messages, [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         var chunks = GetResponse(messages.FirstOrDefault(message => message.Role == "system")?.Content, messages.LastOrDefault(message => message.Role == "user")?.Content).Split(' ');
         foreach (var chunk in chunks)

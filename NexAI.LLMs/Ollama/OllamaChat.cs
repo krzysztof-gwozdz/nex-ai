@@ -14,7 +14,7 @@ public class OllamaChat(Options options) : NexAI.LLMs.Common.Chat
         options.Get<OllamaOptions>().ChatModel
     );
 
-    public override async Task<string> Ask(string systemMessage, string message, CancellationToken cancellationToken)
+    public override async Task<string> Ask(ConversationId conversationId, string systemMessage, string message, CancellationToken cancellationToken)
     {
         var chat = new Chat(_apiClient, systemMessage);
         var response = string.Empty;
@@ -23,21 +23,21 @@ public class OllamaChat(Options options) : NexAI.LLMs.Common.Chat
         return response;
     }
 
-    public override async Task<TResponse> Ask<TResponse>(string systemMessage, string message, CancellationToken cancellationToken)
+    public override async Task<TResponse> Ask<TResponse>(ConversationId conversationId, string systemMessage, string message, CancellationToken cancellationToken)
     {
         var schema = GetSchema<TResponse>();
         systemMessage += $"\nRespond in JSON format only that adheres to the following schema:\n{schema}";
-        var response = await Ask(systemMessage, message, cancellationToken);
+        var response = await Ask(conversationId, systemMessage, message, cancellationToken);
         return JsonSerializer.Deserialize<TResponse>(response) ?? throw new JsonException($"Failed to deserialize response to {typeof(TResponse).Name}");
     }
 
-    public override IAsyncEnumerable<string> AskStream(string systemMessage, string message, CancellationToken cancellationToken)
+    public override IAsyncEnumerable<string> AskStream(ConversationId conversationId, string systemMessage, string message, CancellationToken cancellationToken)
     {
         var chat = new Chat(_apiClient, systemMessage);
         return chat.SendAsync(message, cancellationToken);
     }
 
-    public override async Task<string> GetNextResponse(ChatMessage[] messages, CancellationToken cancellationToken)
+    public override async Task<string> GetNextResponse(ConversationId conversationId, ChatMessage[] messages, CancellationToken cancellationToken)
     {
         var allMessages = messages.Select(ToOllamaChatMessage).ToList();
         var lastMessage = allMessages.Last();
@@ -52,7 +52,7 @@ public class OllamaChat(Options options) : NexAI.LLMs.Common.Chat
         return response;
     }
 
-    public override IAsyncEnumerable<string> StreamNextResponse(ChatMessage[] messages, CancellationToken cancellationToken)
+    public override IAsyncEnumerable<string> StreamNextResponse(ConversationId conversationId, ChatMessage[] messages, CancellationToken cancellationToken)
     {
         var allMessages = messages.Select(ToOllamaChatMessage).ToList();
         var lastMessage = allMessages.Last();
