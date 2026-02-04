@@ -4,48 +4,6 @@ namespace NexAI.Zendesk.MongoDb;
 
 public record ZendeskTicketMongoDbDocument
 {
-    private ZendeskTicketMongoDbDocument()
-    {
-    }
-
-    public ZendeskTicketMongoDbDocument(
-        ZendeskTicketId id,
-        string url,
-        string externalId,
-        string title,
-        string description,
-        string? mainCategory,
-        string? category,
-        string status,
-        string? country,
-        string? merchantId,
-        string? level3Team,
-        string[] tags,
-        DateTime createdAt,
-        DateTime? updatedAt,
-        MessageDocument[] messages,
-        DateTime firstImportDate,
-        DateTime lastImportDate) : this()
-    {
-        Id = id;
-        Url = url;
-        ExternalId = externalId;
-        Title = title;
-        Description = description;
-        MainCategory = mainCategory;
-        Category = category;
-        Status = status;
-        Country = country;
-        MerchantId = merchantId;
-        Level3Team = level3Team;
-        Tags = tags;
-        CreatedAt = createdAt;
-        UpdatedAt = updatedAt;
-        Messages = messages;
-        FirstImportDate = firstImportDate;
-        LastImportDate = lastImportDate;
-    }
-
     [BsonId]
     [BsonElement("_id")]
     public Guid Id { get; init; }
@@ -90,7 +48,7 @@ public record ZendeskTicketMongoDbDocument
     public DateTime? UpdatedAt { get; private set; }
 
     [BsonElement("messages")]
-    public MessageDocument[] Messages { get; private set; } = [];
+    public MessageMongoDbDocument[] Messages { get; private set; } = [];
 
     [BsonElement("firstImportDate")]
     public DateTime FirstImportDate { get; private set; }
@@ -101,7 +59,7 @@ public record ZendeskTicketMongoDbDocument
     [BsonElement("score")]
     public double Score { get; init; }
 
-    public record MessageDocument
+    public record MessageMongoDbDocument
     {
         [BsonElement("id")]
         public Guid Id { get; init; }
@@ -118,11 +76,11 @@ public record ZendeskTicketMongoDbDocument
         [BsonElement("createdAt")]
         public DateTime CreatedAt { get; private set; }
 
-        public MessageDocument()
+        private MessageMongoDbDocument()
         {
         }
 
-        public MessageDocument(ZendeskTicketMessageId id, string externalId, string content, string author, DateTime createdAt) : this()
+        public MessageMongoDbDocument(ZendeskTicketMessageId id, string externalId, string content, string author, DateTime createdAt) : this()
         {
             Id = id;
             ExternalId = externalId;
@@ -130,6 +88,48 @@ public record ZendeskTicketMongoDbDocument
             Author = author;
             CreatedAt = createdAt;
         }
+    }
+    
+    private ZendeskTicketMongoDbDocument()
+    {
+    }
+
+    public ZendeskTicketMongoDbDocument(
+        ZendeskTicketId id,
+        string url,
+        string externalId,
+        string title,
+        string description,
+        string? mainCategory,
+        string? category,
+        string status,
+        string? country,
+        string? merchantId,
+        string? level3Team,
+        string[] tags,
+        DateTime createdAt,
+        DateTime? updatedAt,
+        MessageMongoDbDocument[] messages,
+        DateTime firstImportDate,
+        DateTime lastImportDate) : this()
+    {
+        Id = id;
+        Url = url;
+        ExternalId = externalId;
+        Title = title;
+        Description = description;
+        MainCategory = mainCategory;
+        Category = category;
+        Status = status;
+        Country = country;
+        MerchantId = merchantId;
+        Level3Team = level3Team;
+        Tags = tags;
+        CreatedAt = createdAt;
+        UpdatedAt = updatedAt;
+        Messages = messages;
+        FirstImportDate = firstImportDate;
+        LastImportDate = lastImportDate;
     }
 
     public ZendeskTicket ToZendeskTicket() =>
@@ -169,7 +169,7 @@ public record ZendeskTicketMongoDbDocument
             zendeskTicket.UpdatedAt,
             zendeskTicket.Messages
                 .Select(message =>
-                    new MessageDocument(
+                    new MessageMongoDbDocument(
                         message.Id,
                         message.ExternalId,
                         message.Content,
@@ -193,7 +193,7 @@ public record ZendeskTicketMongoDbDocument
         UpdatedAt = zendeskTicket.UpdatedAt;
         Messages = zendeskTicket.Messages
             .Select(message =>
-                new MessageDocument(
+                new MessageMongoDbDocument(
                     message.Id,
                     message.ExternalId,
                     message.Content,

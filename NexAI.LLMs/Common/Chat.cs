@@ -7,7 +7,7 @@ public abstract class Chat
 {
     public abstract Task<string> Ask(ConversationId conversationId, string systemMessage, string message, CancellationToken cancellationToken);
 
-    public abstract Task<TResponse> Ask<TResponse>(ConversationId conversationId, string systemMessage, string message, CancellationToken cancellationToken);
+    public abstract Task<TResponse> Ask<TResponse>(ConversationId conversationId, string systemMessage, string message, CancellationToken cancellationToken) where TResponse : class;
 
     public abstract IAsyncEnumerable<string> AskStream(ConversationId conversationId, string systemMessage, string message, CancellationToken cancellationToken);
 
