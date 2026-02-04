@@ -17,7 +17,7 @@ public class ZendeskMongoDbStructure(ILogger<ZendeskMongoDbStructure> logger, Mo
         if (!existingCollections.Contains(ZendeskTicketMongoDbCollection.Name))
         {
             await mongoDbClient.Database.CreateCollectionAsync(ZendeskTicketMongoDbCollection.Name, cancellationToken: cancellationToken);
-            await CreateFullTextIndex(mongoDbClient.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketMongoDbCollection.Name));
+            await CreateFullTextIndex(mongoDbClient.Database.GetCollection<ZendeskTicketMongoDbDocument>(ZendeskTicketMongoDbCollection.Name));
             logger.LogInformation("[green]Created schema for Zendesk tickets in MongoDb.[/]");
         }
         else

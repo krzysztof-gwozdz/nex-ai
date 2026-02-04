@@ -19,9 +19,6 @@ public class MongoDbClient
     
     public IMongoDatabase Database { get; }
 
-    public IMongoCollection<TDocument> GetCollection<TDocument>(string collectionName) => 
-        Database.GetCollection<TDocument>(collectionName);
-
     private static void RegisterGuidSerializer()
     {
         try

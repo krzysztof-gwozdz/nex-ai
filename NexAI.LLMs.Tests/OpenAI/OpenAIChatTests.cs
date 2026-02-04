@@ -1,4 +1,5 @@
-﻿using NexAI.LLMs.OpenAI;
+﻿using NexAI.LLMs.Common;
+using NexAI.LLMs.OpenAI;
 
 namespace NexAI.LLMs.Tests.OpenAI;
 
@@ -42,6 +43,39 @@ public class OpenAIChatTests : LLMTestBase
         // act
         var answer = string.Empty;
         var response = chat.AskStream("JUST SAY: TEST, nothing else.", "Hi", _cancellationTokenSource.Token);
+        await foreach (var message in response)
+        {
+            answer += message;
+        }
+
+        // assert
+        answer.Should().Be("TEST");
+    }
+    
+    [Fact]
+    public async Task GetNextResponse_ReturnResponse()
+    {
+        // arrange
+        var chat = new OpenAIChat(GetOptions());
+        var messages = new[] { new ChatMessage("system", "JUST SAY: TEST, nothing else."), new ChatMessage("user", "Hi") };
+
+        // act
+        var answer = await chat.GetNextResponse(messages, _cancellationTokenSource.Token);
+
+        // assert
+        answer.Should().Be("TEST");
+    }
+
+    [Fact]
+    public async Task StreamNextResponse_ReturnResponse()
+    {
+        // arrange
+        var chat = new OpenAIChat(GetOptions());
+        var messages = new[] { new ChatMessage("system", "JUST SAY: TEST, nothing else."), new ChatMessage("user", "Hi") };
+
+        // act
+        var answer = string.Empty;
+        var response = chat.StreamNextResponse(messages, _cancellationTokenSource.Token);
         await foreach (var message in response)
         {
             answer += message;
