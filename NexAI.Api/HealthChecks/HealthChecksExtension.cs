@@ -26,19 +26,19 @@ public static class HealthChecksExtension
             new HealthCheckOptions
             {
                 ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-            });
+            }).ShortCircuit();
         app.MapHealthChecks("/health/live",
             new HealthCheckOptions
             {
                 Predicate = reg => reg.Tags.Contains("live"),
                 ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-            });
+            }).ShortCircuit();
         app.MapHealthChecks("/health/ready",
             new HealthCheckOptions
             {
                 Predicate = reg => reg.Tags.Contains("ready"),
                 ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-            });
+            }).ShortCircuit();
         return app;
     }
 }

@@ -21,10 +21,19 @@ builder.Services.AddOpenTelemetry()
     .ConfigureResource(resource => resource.AddService(builder.Environment.ApplicationName))
     .WithTracing(tracerProviderBuilder => tracerProviderBuilder
         .AddAspNetCoreInstrumentation()
+        .AddAspNetCoreInstrumentation(traceInstrumentationOptions =>
+        {
+            traceInstrumentationOptions.Filter = context =>
+            {
+                var path = context.Request.Path.Value;
+                return path is null || !path.StartsWith("/health", StringComparison.OrdinalIgnoreCase);
+            };
+        })
         .AddHttpClientInstrumentation()
         .AddOtlpExporter())
     .WithMetrics(meterProviderBuilder => meterProviderBuilder
         .AddAspNetCoreInstrumentation()
+        .AddHttpClientInstrumentation()
         .AddOtlpExporter());
 
 builder.Logging.AddOpenTelemetry(openTelemetryLoggerOptions => openTelemetryLoggerOptions
@@ -47,6 +56,7 @@ builder.Services.AddHealthChecks(builder.Environment.ApplicationName);
 
 var app = builder.Build();
 app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+app.UseCors(corsPolicyBuilder => corsPolicyBuilder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.MapOpenApi();
 app.MapScalarApiReference();
 app.UseHttpsRedirection();
