@@ -22,7 +22,7 @@ public class FakeChat : Chat
         Task.FromResult(GetResponse(systemMessage, message));
 
     public override Task<TResponse> Ask<TResponse>(ConversationId conversationId, string systemMessage, string message, CancellationToken cancellationToken) => 
-        Task.FromResult((GetResponse(systemMessage, message) as TResponse)!);
+        Task.FromResult((GetResponse(systemMessage, message) as TResponse) ?? throw new Exception("Fake chat do not support other responses than string."));
 
     public override async IAsyncEnumerable<string> AskStream(ConversationId conversationId, string systemMessage, string message, [EnumeratorCancellation] CancellationToken cancellationToken)
     {

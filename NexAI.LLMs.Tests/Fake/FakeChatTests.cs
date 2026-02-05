@@ -1,6 +1,5 @@
 ﻿using NexAI.LLMs.Common;
 using NexAI.LLMs.Fake;
-using NexAI.LLMs.Ollama;
 
 namespace NexAI.LLMs.Tests.Fake;
 
@@ -22,16 +21,16 @@ public class FakeChatTests : LLMTestBase
     }
 
     [Fact]
-    public async Task Ask_ThrowsException()
+    public async Task Ask_ReturnStructuredResponse()
     {
         // arrange
         var chat = new FakeChat();
 
         // act
-        var ask = async () => await chat.Ask<TestObject>(ConversationId.New(), "You are random data generator.", "Generate first and last name.", _cancellationTokenSource.Token);
+        var answer = await chat.Ask<string>(ConversationId.New(), "JUST SAY: TEST, nothing else.", "Hi", _cancellationTokenSource.Token);
 
         // assert
-        await ask.Should().ThrowExactlyAsync<NotSupportedException>();
+        answer.Should().Be("TEST");
     }
 
     [Fact]
@@ -56,7 +55,7 @@ public class FakeChatTests : LLMTestBase
     public async Task GetNextResponse_ReturnResponse()
     {
         // arrange
-        var chat = new OllamaChat(GetOptions());
+        var chat = new FakeChat();
         var messages = new[] { new ChatMessage("system", "JUST SAY: TEST, nothing else."), new ChatMessage("user", "Hi") };
 
         // act
@@ -70,7 +69,7 @@ public class FakeChatTests : LLMTestBase
     public async Task StreamNextResponse_ReturnResponse()
     {
         // arrange
-        var chat = new OllamaChat(GetOptions());
+        var chat = new FakeChat();
         var messages = new[] { new ChatMessage("system", "JUST SAY: TEST, nothing else."), new ChatMessage("user", "Hi") };
 
         // act
