@@ -1,4 +1,5 @@
 using NexAI.Agents;
+using NexAI.Api;
 using NexAI.Api.HealthChecks;
 using NexAI.AzureDevOps;
 using NexAI.Config;
@@ -7,42 +8,17 @@ using NexAI.MongoDb;
 using NexAI.Neo4j;
 using NexAI.Qdrant;
 using NexAI.Zendesk;
-using OpenTelemetry.Logs;
-using OpenTelemetry.Metrics;
-using OpenTelemetry.Resources;
-using OpenTelemetry.Trace;
 using Scalar.AspNetCore;
 
 var options = new Options(GetConfiguration());
-
 var builder = WebApplication.CreateBuilder(args);
+var applicationName = builder.Environment.ApplicationName;
 
-builder.Services.AddOpenTelemetry()
-    .ConfigureResource(resource => resource.AddService(builder.Environment.ApplicationName))
-    .WithTracing(tracerProviderBuilder => tracerProviderBuilder
-        .AddAspNetCoreInstrumentation()
-        .AddAspNetCoreInstrumentation(traceInstrumentationOptions =>
-        {
-            traceInstrumentationOptions.Filter = context =>
-            {
-                var path = context.Request.Path.Value;
-                return path is null || !path.StartsWith("/health", StringComparison.OrdinalIgnoreCase);
-            };
-        })
-        .AddHttpClientInstrumentation()
-        .AddOtlpExporter())
-    .WithMetrics(meterProviderBuilder => meterProviderBuilder
-        .AddAspNetCoreInstrumentation()
-        .AddHttpClientInstrumentation()
-        .AddOtlpExporter());
-
-builder.Logging.AddOpenTelemetry(openTelemetryLoggerOptions => openTelemetryLoggerOptions
-    .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(builder.Environment.ApplicationName))
-    .AddOtlpExporter());
+builder.Services.AddObservability(applicationName);
+builder.Logging.AddObservability(applicationName);
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
-builder.Services.AddLogging(loggingBuilder => loggingBuilder.AddConsole());
 builder.Services.AddSingleton(options);
 
 builder.Services.AddAgents(options);
@@ -52,10 +28,9 @@ builder.Services.AddMongoDb();
 builder.Services.AddNeo4j();
 builder.Services.AddQdrant();
 builder.Services.AddLLM(options);
-builder.Services.AddHealthChecks(builder.Environment.ApplicationName);
+builder.Services.AddHealthChecks(applicationName);
 
 var app = builder.Build();
-app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.UseCors(corsPolicyBuilder => corsPolicyBuilder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.MapOpenApi();
 app.MapScalarApiReference();
