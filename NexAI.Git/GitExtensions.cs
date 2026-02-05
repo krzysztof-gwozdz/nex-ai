@@ -7,6 +7,6 @@ public static class GitExtensions
 {
     public static IServiceCollection AddGit(this IServiceCollection services) =>
         services
-            .AddSingleton<UpsertGitCommitCommand>()
-            .AddSingleton<GitRepositoryClient>();
+            .AddScoped<GitRepositoryClient>()
+            .AddScoped<UpsertGitCommitCommand>();
 }

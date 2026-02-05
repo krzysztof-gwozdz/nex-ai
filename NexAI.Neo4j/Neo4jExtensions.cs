@@ -8,5 +8,5 @@ public static class Neo4jExtensions
 {
     public static IServiceCollection AddNeo4j(this IServiceCollection services) =>
         services
-            .AddSingleton<Neo4jDbClient>();
+            .AddScoped<Neo4jDbClient>();
 }

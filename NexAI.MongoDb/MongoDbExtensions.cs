@@ -6,5 +6,5 @@ public static class MongoDbExtensions
 {
     public static IServiceCollection AddMongoDb(this IServiceCollection services) =>
         services
-            .AddSingleton<MongoDbClient>();
+            .AddScoped<MongoDbClient>();
 }

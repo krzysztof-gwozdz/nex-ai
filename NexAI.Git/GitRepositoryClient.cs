@@ -10,15 +10,13 @@ public class GitRepositoryClient
         {
             throw new ArgumentException($"Invalid git repository path: {repositoryPath}", nameof(repositoryPath));
         }
-        using (var repository = new Repository(repositoryPath))
-        {
-            return repository.Commits.Select(commit => GitCommit.Create(
-                commit.Sha,
-                GitAuthor.Create(commit.Author.Name, commit.Author.Email),
-                commit.MessageShort,
-                commit.Message,
-                commit.Author.When.DateTime
-            )).ToList();
-        }
+        using var repository = new Repository(repositoryPath);
+        return repository.Commits.Select(commit => GitCommit.Create(
+            commit.Sha,
+            GitAuthor.Create(commit.Author.Name, commit.Author.Email),
+            commit.MessageShort,
+            commit.Message,
+            commit.Author.When.DateTime
+        )).ToList();
     }
 }

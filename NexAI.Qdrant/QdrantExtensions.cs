@@ -6,5 +6,5 @@ public static class QdrantExtensions
 {
     public static IServiceCollection AddQdrant(this IServiceCollection services) =>
         services
-            .AddSingleton<QdrantDbClient>();
+            .AddScoped<QdrantDbClient>();
 }

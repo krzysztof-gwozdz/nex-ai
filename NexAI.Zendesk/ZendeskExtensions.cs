@@ -22,22 +22,22 @@ public static class ZendeskExtensions
             });
 
         return services
-            .AddSingleton<ZendeskMongoDbStructure>()
-            .AddSingleton<ZendeskQdrantStructure>()
-            .AddSingleton<ZendeskTicketMongoDbCollection>()
-            .AddSingleton<UpsertZendeskGroupCommand>()
-            .AddSingleton<UpsertZendeskMembersOfRelationshipCommand>()
-            .AddSingleton<UpsertZendeskUserCommand>()
-            .AddSingleton<FindSimilarZendeskTicketsByPhraseQuery>()
-            .AddSingleton<FindZendeskTicketsThatContainPhraseQuery>()
-            .AddSingleton<GetInfoAboutZendeskHierarchyQuery>()
-            .AddSingleton<GetZendeskGroupByNameQuery>()
-            .AddSingleton<GetZendeskTicketByExternalIdQuery>()
-            .AddSingleton<GetZendeskTicketsByIdQuery>()
-            .AddSingleton<GetZendeskTicketsByExternalIdsQuery>()
-            .AddSingleton<GetZendeskTicketsByIdsQuery>()
-            .AddSingleton<GetZendeskTicketSummaryQuery>()
-            .AddSingleton<GetZendeskUsersOfGroupQuery>()
-            .AddSingleton<StreamZendeskTicketSummaryQuery>();
+            .AddScoped<ZendeskMongoDbStructure>()
+            .AddScoped<ZendeskQdrantStructure>()
+            .AddScoped<ZendeskTicketMongoDbCollection>()
+            .AddScoped<UpsertZendeskGroupCommand>()
+            .AddScoped<UpsertZendeskMembersOfRelationshipCommand>()
+            .AddScoped<UpsertZendeskUserCommand>()
+            .AddScoped<FindSimilarZendeskTicketsByPhraseQuery>()
+            .AddScoped<FindZendeskTicketsThatContainPhraseQuery>()
+            .AddScoped<GetInfoAboutZendeskHierarchyQuery>()
+            .AddScoped<GetZendeskGroupByNameQuery>()
+            .AddScoped<GetZendeskTicketByExternalIdQuery>()
+            .AddScoped<GetZendeskTicketsByIdQuery>()
+            .AddScoped<GetZendeskTicketsByExternalIdsQuery>()
+            .AddScoped<GetZendeskTicketsByIdsQuery>()
+            .AddScoped<GetZendeskTicketSummaryQuery>()
+            .AddScoped<GetZendeskUsersOfGroupQuery>()
+            .AddScoped<StreamZendeskTicketSummaryQuery>();
     }
 }

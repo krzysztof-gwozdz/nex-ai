@@ -12,25 +12,20 @@ public static class LLMExtensions
 {
     public static IServiceCollection AddLLM(this IServiceCollection services, Options options) =>
         services.AddSingleton<PromptReader>()
-            .AddSingleton<ConversationMongoDbStructure>()
-            .AddSingleton<ConversationMongoDbCollection>()
+            .AddScoped<ConversationMongoDbStructure>()
+            .AddScoped<ConversationMongoDbCollection>()
             .AddLLMSpecificServices(options.Get<LLMsOptions>().Mode);
 
     private static IServiceCollection AddLLMSpecificServices(this IServiceCollection services, string mode) =>
-        mode switch
-        {
-            LLM.OpenAI => services
-                .AddSingleton<TextEmbedder, OpenAITextEmbedder>()
-                .AddSingleton<OpenAIChat>()
-                .AddSingleton<Chat>(sp => new MongoDbConversationChat(sp.GetRequiredService<OpenAIChat>(), sp.GetRequiredService<ConversationMongoDbCollection>())),
-            LLM.Ollama => services
-                .AddSingleton<TextEmbedder, OllamaTextEmbedder>()
-                .AddSingleton<OllamaChat>()
-                .AddSingleton<Chat>(sp => new MongoDbConversationChat(sp.GetRequiredService<OllamaChat>(), sp.GetRequiredService<ConversationMongoDbCollection>())),
-            LLM.Fake => services
-                .AddSingleton<TextEmbedder, FakeTextEmbedder>()
-                .AddSingleton<FakeChat>()
-                .AddSingleton<Chat>(sp => new MongoDbConversationChat(sp.GetRequiredService<FakeChat>(), sp.GetRequiredService<ConversationMongoDbCollection>())),
-            _ => throw new($"Unknown LLM or unsupported mode: {mode}")
-        };
+        LLM.ForAll(mode,
+            () => services.AddScoped<TextEmbedder, OpenAITextEmbedder>()
+                .AddScoped<OpenAIChat>()
+                .AddScoped<Chat>(sp => new MongoDbConversationChat(sp.GetRequiredService<OpenAIChat>(), sp.GetRequiredService<ConversationMongoDbCollection>())),
+            () => services.AddScoped<TextEmbedder, OllamaTextEmbedder>()
+                .AddScoped<OllamaChat>()
+                .AddScoped<Chat>(sp => new MongoDbConversationChat(sp.GetRequiredService<OllamaChat>(), sp.GetRequiredService<ConversationMongoDbCollection>())),
+            () => services.AddScoped<TextEmbedder, FakeTextEmbedder>()
+                .AddScoped<FakeChat>()
+                .AddScoped<Chat>(sp => new MongoDbConversationChat(sp.GetRequiredService<FakeChat>(), sp.GetRequiredService<ConversationMongoDbCollection>()))
+        );
 }

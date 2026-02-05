@@ -32,14 +32,13 @@ try
             services.AddNeo4j();
             services.AddQdrant();
             services.AddLLM(options);
-
-            services.AddSingleton<NexAIAgent>();
-            services.AddSingleton<GetInfoAboutZendeskUserAndGroupsFeature>();
-            services.AddSingleton<SummarizeZendeskTicketFeature>();
-            services.AddSingleton<SearchForZendeskTicketsByPhraseFeature>();
-            services.AddSingleton<SearchForAzureWorkItemsByPhraseFeature>();
-            services.AddSingleton<SearchForInfoAboutTicketFeature>();
-            services.AddSingleton<TalkWithNexAIAgentFeature>();
+            services.AddAgents(options);
+            services.AddScoped<GetInfoAboutZendeskUserAndGroupsFeature>();
+            services.AddScoped<SummarizeZendeskTicketFeature>();
+            services.AddScoped<SearchForZendeskTicketsByPhraseFeature>();
+            services.AddScoped<SearchForAzureWorkItemsByPhraseFeature>();
+            services.AddScoped<SearchForInfoAboutTicketFeature>();
+            services.AddScoped<TalkWithNexAIAgentFeature>();
         })
         .Build();
     await Run(host.Services);

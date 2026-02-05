@@ -7,7 +7,7 @@ public static class AzureDevOpsExtensions
 {
     public static IServiceCollection AddAzureDevOps(this IServiceCollection services) =>
         services
-            .AddSingleton<AzureDevOpsClient>()
-            .AddSingleton<GetAzureDevopsWorkItemsQuery>()
-            .AddSingleton<GetAzureDevopsWorkItemsRelatedToZendeskTicketQuery>();
+            .AddScoped<AzureDevOpsClient>()
+            .AddScoped<GetAzureDevopsWorkItemsQuery>()
+            .AddScoped<GetAzureDevopsWorkItemsRelatedToZendeskTicketQuery>();
 }

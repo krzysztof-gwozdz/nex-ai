@@ -87,17 +87,17 @@ public class NexAIAgent : INexAIAgent
     private static IKernelBuilder GetKernelBuilder(Options options, string mode)
     {
         var builder = Kernel.CreateBuilder();
-        switch (mode)
-        {
-            case LLM.OpenAI:
+        LLM.ForAll(mode,
+            () => {
                 var openAIOptions = options.Get<OpenAIOptions>();
                 builder.AddOpenAIChatCompletion(openAIOptions.ChatModel, openAIOptions.ApiKey, serviceId: mode);
-                break;
-            case LLM.Ollama:
+            },
+            () => {
                 var ollamaOptions = options.Get<OllamaOptions>();
                 builder.AddOllamaChatCompletion(ollamaOptions.ChatModel, ollamaOptions.BaseAddress, serviceId: mode);
-                break;
-        }
+            },
+            () => throw new NotSupportedException($"{mode} is not supported for Semantic Kernel. Use {nameof(FakeNexAIAgent)} instead.")
+        );
         builder.Services.AddHttpClient();
         builder.Services.AddSingleton(options);
         builder.Services.AddAzureDevOps();
