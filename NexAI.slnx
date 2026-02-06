@@ -29,6 +29,7 @@
     <Project Path="NexAI.Zendesk/NexAI.Zendesk.csproj" />
   </Folder>
   <Folder Name="/data/">
+    <Project Path="NexAI.Langfuse/NexAI.Langfuse.csproj" />
     <Project Path="NexAI.MongoDb/NexAI.MongoDb.csproj" />
     <Project Path="NexAI.Neo4j/NexAI.Neo4j.csproj" />
     <Project Path="NexAI.Qdrant/NexAI.Qdrant.csproj" />

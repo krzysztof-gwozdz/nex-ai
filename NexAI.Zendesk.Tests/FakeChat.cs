@@ -5,6 +5,9 @@ namespace NexAI.Zendesk.Tests;
 
 sealed class FakeChat(string fixedResponse, params ChatMessage[] messages) : Chat
 {
+    public override string Provider => "Fake";
+    public override string Model => "Fake";
+    
     public List<ChatMessage> Messages { get; } = messages.ToList();
 
     public override Task<string> Ask(ConversationId conversationId, string systemMessage, string message, CancellationToken cancellationToken)

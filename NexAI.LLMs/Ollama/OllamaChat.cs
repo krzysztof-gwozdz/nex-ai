@@ -9,6 +9,9 @@ namespace NexAI.LLMs.Ollama;
 
 public class OllamaChat(Options options) : NexAI.LLMs.Common.Chat
 {
+    public override string Provider => "Ollama";
+    public override string Model => _apiClient.SelectedModel;
+    
     private readonly OllamaApiClient _apiClient = new(
         options.Get<OllamaOptions>().BaseAddress,
         options.Get<OllamaOptions>().ChatModel

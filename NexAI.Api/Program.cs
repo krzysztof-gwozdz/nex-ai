@@ -9,12 +9,13 @@ using NexAI.Neo4j;
 using NexAI.Qdrant;
 using NexAI.Zendesk;
 using Scalar.AspNetCore;
+using zborek.Langfuse.OpenTelemetry;
 
 var options = new Options(GetConfiguration());
 var builder = WebApplication.CreateBuilder(args);
 var applicationName = builder.Environment.ApplicationName;
 
-builder.Services.AddObservability(applicationName);
+builder.Services.AddObservability(options, applicationName);
 builder.Logging.AddObservability(applicationName);
 
 builder.Services.AddControllers();
@@ -24,6 +25,7 @@ builder.Services.AddSingleton(options);
 builder.Services.AddAgents(options);
 builder.Services.AddAzureDevOps();
 builder.Services.AddZendesk();
+builder.Services.AddLangfuseTracing();
 builder.Services.AddMongoDb();
 builder.Services.AddNeo4j();
 builder.Services.AddQdrant();

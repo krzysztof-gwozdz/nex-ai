@@ -10,6 +10,9 @@ namespace NexAI.LLMs.OpenAI;
 
 public class OpenAIChat(Options options) : Chat
 {
+    public override string Provider => "OpenAI";
+    public override string Model => options.Get<OpenAIOptions>().ChatModel;
+    
     private readonly ChatClient _chatClient = new(
         options.Get<OpenAIOptions>().ChatModel,
         options.Get<OpenAIOptions>().ApiKey

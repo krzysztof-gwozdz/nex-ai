@@ -1,20 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <ItemGroup>
+        <PackageReference Include="OllamaSharp" Version="5.4.16"/>
+        <PackageReference Include="OpenAI" Version="2.8.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
         <ProjectReference Include="..\NexAI.Config\NexAI.Config.csproj"/>
+        <ProjectReference Include="..\NexAI.Langfuse\NexAI.Langfuse.csproj"/>
         <ProjectReference Include="..\NexAI.MongoDb\NexAI.MongoDb.csproj"/>
     </ItemGroup>
-
+    
     <ItemGroup>
-        <PackageReference Include="OllamaSharp" Version="5.4.16" />
-        <PackageReference Include="OpenAI" Version="2.8.0" />
+        <None Remove="Prompts\ZendeskTicketSummary.txt"/>
+        <Content Include="Prompts\ZendeskTicketSummary.txt">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
-
+    
     <ItemGroup>
-      <None Remove="Prompts\ZendeskTicketSummary.txt" />
-      <Content Include="Prompts\ZendeskTicketSummary.txt">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
+      <Reference Include="NexAI.LLMs">
+        <HintPath>..\NexAI.Api.Tests\bin\Debug\net10.0\NexAI.LLMs.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>

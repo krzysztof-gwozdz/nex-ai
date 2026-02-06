@@ -5,11 +5,19 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "conversationId": "A0000000-0000-0000-0000-00000000000A",
+  "conversationId": "{{$random.uuid}}",
   "messages": [
     {
       "role": "user",
       "content": "tell me a joke"
+    },
+    {
+      "role": "assistant",
+      "content": "Why don’t skeletons fight each other?  \nThey don’t have the guts!"
+    },
+    {
+      "role": "user",
+      "content": "another joke"
     }
   ],
   "stream": false
@@ -23,7 +31,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "conversationId": "B0000000-0000-0000-0000-00000000000B",
+  "conversationId": "{{$random.uuid}}",
   "messages": [
     {
       "role": "user",

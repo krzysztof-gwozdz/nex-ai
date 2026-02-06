@@ -1,13 +1,16 @@
-﻿using OpenTelemetry.Logs;
+﻿using NexAI.Config;
+using NexAI.Langfuse;
+using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using zborek.Langfuse.OpenTelemetry;
 
 namespace NexAI.Api;
 
 public static class ObservabilityExtension
 {
-    public static IServiceCollection AddObservability(this IServiceCollection services, string applicationName)
+    public static IServiceCollection AddObservability(this IServiceCollection services, Options options, string applicationName)
     {
         services.AddLogging(loggingBuilder => loggingBuilder.AddConsole());
         services.AddOpenTelemetry()
@@ -23,6 +26,13 @@ public static class ObservabilityExtension
                     };
                 })
                 .AddHttpClientInstrumentation()
+                .AddLangfuseExporter(langfuseOtlpExporterOptions =>
+                {
+                    var langfuseOptions = options.Get<LangfuseOptions>();
+                    langfuseOtlpExporterOptions.PublicKey = langfuseOptions.PublicKey;
+                    langfuseOtlpExporterOptions.SecretKey = langfuseOptions.SecretKey;
+                    langfuseOtlpExporterOptions.Url = langfuseOptions.Url;
+                })
                 .AddOtlpExporter())
             .WithMetrics(meterProviderBuilder => meterProviderBuilder
                 .AddAspNetCoreInstrumentation()

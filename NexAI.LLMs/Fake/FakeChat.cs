@@ -5,6 +5,9 @@ namespace NexAI.LLMs.Fake;
 
 public class FakeChat : Chat
 {
+    public override string Provider => "Fake";
+    public override string Model => "Fake";
+    
     private readonly Random _random = new();
 
     private readonly List<string> _jokes =

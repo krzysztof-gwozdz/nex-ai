@@ -7,7 +7,7 @@ using NexAI.Tests.MongoDb;
 namespace NexAI.LLMs.Tests.MongoDb;
 
 [Collection("MongoDb")]
-public class MongoDbConversationChatTests(MongoDbTestFixture fixture) : MongoDbBasedTest(fixture)
+public class MongoDbChatDecoratorTests(MongoDbTestFixture fixture) : MongoDbBasedTest(fixture)
 {
     private readonly CancellationTokenSource _cancellationTokenSource = new(TimeSpan.FromSeconds(60));
 
@@ -17,7 +17,7 @@ public class MongoDbConversationChatTests(MongoDbTestFixture fixture) : MongoDbB
         // arrange
         var chat = new FakeChat();
         var collection = new ConversationMongoDbCollection(MongoDbClient);
-        var sut = new MongoDbConversationChat(chat, collection);
+        var sut = new MongoDbChatDecorator(chat, collection);
 
         // act
         var conversationId = ConversationId.New();
@@ -33,7 +33,7 @@ public class MongoDbConversationChatTests(MongoDbTestFixture fixture) : MongoDbB
         // arrange
         var chat = new FakeChat();
         var collection = new ConversationMongoDbCollection(MongoDbClient);
-        var sut = new MongoDbConversationChat(chat, collection);
+        var sut = new MongoDbChatDecorator(chat, collection);
         var conversationId = ConversationId.New();
 
         // act
@@ -58,7 +58,7 @@ public class MongoDbConversationChatTests(MongoDbTestFixture fixture) : MongoDbB
         // arrange
         var chat = new FakeChat();
         var collection = new ConversationMongoDbCollection(MongoDbClient);
-        var sut = new MongoDbConversationChat(chat, collection);
+        var sut = new MongoDbChatDecorator(chat, collection);
 
         // act
         var conversationId = ConversationId.New();
@@ -74,7 +74,7 @@ public class MongoDbConversationChatTests(MongoDbTestFixture fixture) : MongoDbB
         // arrange
         var chat = new FakeChat();
         var collection = new ConversationMongoDbCollection(MongoDbClient);
-        var sut = new MongoDbConversationChat(chat, collection);
+        var sut = new MongoDbChatDecorator(chat, collection);
         var conversationId = ConversationId.New();
 
         // act
@@ -99,7 +99,7 @@ public class MongoDbConversationChatTests(MongoDbTestFixture fixture) : MongoDbB
         // arrange
         var chat = new FakeChat();
         var collection = new ConversationMongoDbCollection(MongoDbClient);
-        var sut = new MongoDbConversationChat(chat, collection);
+        var sut = new MongoDbChatDecorator(chat, collection);
         var conversationId = ConversationId.New();
         var existingDocument = new ConversationMongoDbDocument(
             conversationId,
@@ -126,7 +126,7 @@ public class MongoDbConversationChatTests(MongoDbTestFixture fixture) : MongoDbB
         // arrange
         var chat = new FakeChat();
         var collection = new ConversationMongoDbCollection(MongoDbClient);
-        var sut = new MongoDbConversationChat(chat, collection);
+        var sut = new MongoDbChatDecorator(chat, collection);
 
         // act
         var answer = string.Empty;
@@ -146,7 +146,7 @@ public class MongoDbConversationChatTests(MongoDbTestFixture fixture) : MongoDbB
         // arrange
         var chat = new FakeChat();
         var collection = new ConversationMongoDbCollection(MongoDbClient);
-        var sut = new MongoDbConversationChat(chat, collection);
+        var sut = new MongoDbChatDecorator(chat, collection);
         var conversationId = ConversationId.New();
 
         // act
@@ -169,7 +169,7 @@ public class MongoDbConversationChatTests(MongoDbTestFixture fixture) : MongoDbB
         // arrange
         var chat = new FakeChat();
         var collection = new ConversationMongoDbCollection(MongoDbClient);
-        var sut = new MongoDbConversationChat(chat, collection);
+        var sut = new MongoDbChatDecorator(chat, collection);
         var conversationId = ConversationId.New();
         var existingDocument = new ConversationMongoDbDocument(
             conversationId,
@@ -196,7 +196,7 @@ public class MongoDbConversationChatTests(MongoDbTestFixture fixture) : MongoDbB
         // arrange
         var chat = new FakeChat();
         var collection = new ConversationMongoDbCollection(MongoDbClient);
-        var sut = new MongoDbConversationChat(chat, collection);
+        var sut = new MongoDbChatDecorator(chat, collection);
         var messages = new[] { new ChatMessage("system", "JUST SAY: TEST, nothing else."), new ChatMessage("user", "Hi") };
 
         // act
@@ -212,7 +212,7 @@ public class MongoDbConversationChatTests(MongoDbTestFixture fixture) : MongoDbB
         // arrange
         var chat = new FakeChat();
         var collection = new ConversationMongoDbCollection(MongoDbClient);
-        var sut = new MongoDbConversationChat(chat, collection);
+        var sut = new MongoDbChatDecorator(chat, collection);
         var conversationId = ConversationId.New();
         var messages = new[] { new ChatMessage("system", "JUST SAY: TEST, nothing else."), new ChatMessage("user", "Hi") };
 
@@ -233,7 +233,7 @@ public class MongoDbConversationChatTests(MongoDbTestFixture fixture) : MongoDbB
         // arrange
         var chat = new FakeChat();
         var collection = new ConversationMongoDbCollection(MongoDbClient);
-        var sut = new MongoDbConversationChat(chat, collection);
+        var sut = new MongoDbChatDecorator(chat, collection);
         var conversationId = ConversationId.New();
         var messages = new[] { new ChatMessage("system", "JUST SAY: TEST, nothing else."), new ChatMessage("user", "Hi") };
         var existingDocument = new ConversationMongoDbDocument(
@@ -259,7 +259,7 @@ public class MongoDbConversationChatTests(MongoDbTestFixture fixture) : MongoDbB
         // arrange
         var chat = new FakeChat();
         var collection = new ConversationMongoDbCollection(MongoDbClient);
-        var sut = new MongoDbConversationChat(chat, collection);
+        var sut = new MongoDbChatDecorator(chat, collection);
         var messages = new[] { new ChatMessage("system", "JUST SAY: TEST, nothing else."), new ChatMessage("user", "Hi") };
 
         // act
@@ -280,7 +280,7 @@ public class MongoDbConversationChatTests(MongoDbTestFixture fixture) : MongoDbB
         // arrange
         var chat = new FakeChat();
         var collection = new ConversationMongoDbCollection(MongoDbClient);
-        var sut = new MongoDbConversationChat(chat, collection);
+        var sut = new MongoDbChatDecorator(chat, collection);
         var conversationId = ConversationId.New();
         var messages = new[] { new ChatMessage("system", "JUST SAY: TEST, nothing else."), new ChatMessage("user", "Hi") };
 
@@ -303,7 +303,7 @@ public class MongoDbConversationChatTests(MongoDbTestFixture fixture) : MongoDbB
         // arrange
         var chat = new FakeChat();
         var collection = new ConversationMongoDbCollection(MongoDbClient);
-        var sut = new MongoDbConversationChat(chat, collection);
+        var sut = new MongoDbChatDecorator(chat, collection);
         var conversationId = ConversationId.New();
         var messages = new[] { new ChatMessage("system", "JUST SAY: TEST, nothing else."), new ChatMessage("user", "Hi") };
         var existingDocument = new ConversationMongoDbDocument(
