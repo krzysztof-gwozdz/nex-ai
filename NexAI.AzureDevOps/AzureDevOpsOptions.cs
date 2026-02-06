@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿// ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+
+using System.ComponentModel.DataAnnotations;
 using NexAI.Config;
 
 namespace NexAI.AzureDevOps;

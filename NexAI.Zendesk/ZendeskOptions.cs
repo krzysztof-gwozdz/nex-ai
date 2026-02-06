@@ -1,3 +1,6 @@
+// ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using NexAI.Config;

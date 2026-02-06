@@ -1,4 +1,6 @@
 // ReSharper disable InconsistentNaming
+// ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Global
 
 using System.ComponentModel.DataAnnotations;
 using NexAI.Config;

@@ -1,4 +1,7 @@
-﻿using NexAI.Config;
+﻿// ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+
+using NexAI.Config;
 
 namespace NexAI.DataProcessor;
 
